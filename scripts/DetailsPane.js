@@ -13,7 +13,16 @@ this.DetailsPane = (function(){
 		render: function(){
 			if(this.$el.is(':empty')){
 				var intro = $('<div>', { class: 'intro' });
-				intro.append($('<h2>', { text: 'welcome to blue jeans floorplan' }));
+				intro.append($('<h2>', { text: 'Blue Jeans' }));
+				intro.append($('<div>', { class: 'address', text: '516 Clyde Avenue\nMountain View, CA 94043\n408-550-2828' })
+					.click(function(){
+						window.open('https://maps.google.com/maps?expflags=enable_star_based_justifications:true&ie=UTF8&cid=14115605422088510097&q=Blue+Jeans+Network&iwloc=A&gl=US&hl=en');
+					}));
+				this.els.rating = $('<div>', { class: 'rating' })
+					.click(function(){
+						window.open('http://www.yelp.com/biz/bluejeans-mountain-view');
+					});
+				intro.append(this.els.rating);
 
 
 				var content = $('<div>', { class: 'content' });
@@ -55,6 +64,8 @@ this.DetailsPane = (function(){
 				this.$el.append(intro);
 				this.$el.append(content);
 				this.$el.append(correctionsLink);
+
+				this.renderRating();
 			}
 
 			if(this.model){
@@ -84,6 +95,15 @@ this.DetailsPane = (function(){
 		setModel: function(model){
 			this.model = model;
 			this.render();
+		},
+
+		renderRating: function(){
+			yelp.getRating()
+				.then(_.bind(function(rating){
+					this.els.rating
+						.css('background-position', '-2px '+(-3 - 18*2*(rating.stars-.5))+'px')
+						.attr('title', rating.stars + ' stars on Yelp\n('+rating.reviews+' reviews)');
+				}, this))
 		}
 	});
 

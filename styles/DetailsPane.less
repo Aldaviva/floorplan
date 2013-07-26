@@ -34,7 +34,7 @@
 	}
 
 	dl {
-		margin-top: 2px + 4 * @grid_size;
+		margin-top: 2px + 3 * @grid_size;
 
 		dt, dd {
 			line-height: 30px;
@@ -75,6 +75,39 @@
 
 		.content {
 			display: block;
+		}
+	}
+
+	.intro {
+		background: url('../images/building.png') no-repeat 50% 2px;
+		padding-top: 209px;
+
+		h2 {
+			font-family: "Knockout 47";
+			font-size: 116px;
+			line-height: 82px;
+			text-transform: uppercase;
+		}
+
+		.address {
+			font-family: "Architect's Daughter";
+			font-size: 19px;
+			line-height: 3 * @grid_size;
+			margin-top: 18px;
+			white-space: pre;
+			cursor: pointer;
+
+			&:hover {
+				color: @light_line_color;
+			}
+		}
+
+		.rating {
+			background: url('../images/yelp_stars_blue.png') no-repeat -2px 999px;
+			width: 84px;
+			height: 15px;
+			cursor: pointer;
+			margin-top: 11px;
 		}
 	}
 
