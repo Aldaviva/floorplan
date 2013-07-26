@@ -1,0 +1,6 @@
+{
+	"folders": [{
+		"path": "/S/floorplan",
+		"folder_exclude_patterns": [ "node_modules" ]
+	}]
+}

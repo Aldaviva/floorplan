@@ -1,0 +1,9 @@
+{
+	"name": "scrape-photos",
+	"version": "0.0.1-SNAPSHOT",
+	"dependencies": {
+		"xpath"	 : "0.0.5",
+		"xmldom" : "0.1.16",
+		"lodash" : "1.2.1"
+	}
+}

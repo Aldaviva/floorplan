@@ -1,0 +1,104 @@
+#listPane {
+	background : rgba(0, 0, 0, 0.33);
+	bottom     : 0;
+	left       : 0;
+	overflow   : hidden;
+	position   : fixed;
+	top        : 0;
+	width      : @pane_width;
+
+	.people {
+		bottom     : 17 * @grid_size;
+		left       : 0;
+		overflow-x : hidden;
+		overflow-y : auto;
+		position   : absolute;
+		right      : -20px;
+		top        : 8 * @grid_size;
+
+		.person {
+			@img_size: @grid_size * 5 + 1;
+			cursor       : pointer;
+			padding-left : 2 * @grid_size;
+
+			&.filtered_name, &.filtered_tag {
+				display: none;
+			}
+
+			&:hover {
+				background: @hover_background_color;
+			}
+
+			.name, img {
+				display        : inline-block;
+				vertical-align : middle;
+			}
+
+			.name {
+				font-family : "Knockout 31";
+				font-size   : 25px;
+				line-height : @img_size;
+			}
+
+			img {
+				/*border     : 1px solid @light_line_color;*/
+				height       : @img_size;
+				margin-right : 2 * @grid_size;
+				width        : @img_size;
+			}
+
+			+ .person {
+				/*margin-top: @grid_size - 1;*/
+			}
+		}
+	}
+
+	.queryContainer {
+		left     : 2 * @grid_size;
+		position : absolute;
+		right    : 2 * @grid_size - 1px;
+		top      : @grid_size;
+	}
+
+	.query {
+		background : transparent url('../images/magnifier.png') no-repeat @grid_size 1.5*@grid_size;
+		border-width     : 0px;
+		border-bottom    : 1px solid @light_line_color;
+		color            : white;
+		font             : 20px "Knockout 32";
+		height           : 5 * @grid_size;
+		text-indent      : 5 * @grid_size;
+		width            : 100%;
+	}
+
+	.tags {
+		border-top  : 1px solid @light_line_color;
+		bottom      : 1.5 * @grid_size;
+		left        : 2 * @grid_size;
+		padding-top : 0.5 * @grid_size;
+		position    : absolute;
+		right       : 2 * @grid_size - 1px;
+
+		a {
+			color          : white;
+			display        : inline-block;
+			font           : 18px "Knockout 52";
+			line-height    : 4 * @grid_size;
+			text-align     : center;
+			text-transform : uppercase;
+			width          : 83px;
+
+			&:nth-child(4n){
+				width: 82px;
+			}
+
+			&.filtered {
+				color: #3d60a0;
+			}
+
+			&:hover {
+				background-color: @hover_background_color;
+			}
+		}
+	}
+}

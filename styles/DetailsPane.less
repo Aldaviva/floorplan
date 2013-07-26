@@ -1,0 +1,103 @@
+#detailsPane {
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: @pane_width;
+	background: rgba(0, 0, 0, 0.33);
+
+	.box-sizing(border-box);
+	padding: 3 * @grid_size;
+	padding-right: 3 * @grid_size - 1;
+
+	.photo {
+		display: block;
+		width: 100%;
+		.box-sizing(border-box);
+		border: 1px solid @light_line_color;
+	}
+
+	.name {
+		font-family: "Knockout 47";
+		font-size: 88px;
+		line-height: 80px;
+		text-transform: uppercase;
+		margin-top: 17px;
+		margin-left: -2px;
+	}
+
+	.title {
+		font-family: "Architect's Daughter";
+		font-size: 23px;
+		line-height: 3 * @grid_size;
+		margin-top: 20px;
+	}
+
+	dl {
+		margin-top: 2px + 4 * @grid_size;
+
+		dt, dd {
+			line-height: 30px;
+		}
+
+		dt {
+			float          : left;
+			font-family    : "Knockout 52";
+			font-size      : 14px;
+			padding-right  : 3 * @grid_size;
+			text-align     : right;
+			text-transform : uppercase;
+			width          : 8 * @grid_size;
+		}
+
+		dd {
+			border-left    : 1px solid @light_line_color;
+			font-family    : "Architect's Daughter";
+			font-size      : 17px;
+			margin-left    : 11 * @grid_size;
+			padding-bottom : 1 * @grid_size;
+			padding-left   : 2.5 * @grid_size;
+		}
+
+		a:hover {
+			color: @light_line_color;
+		}
+	}
+
+	.content {
+		display: none;
+	}
+
+	&.hasModel {
+		.intro {
+			display: none;
+		}
+
+		.content {
+			display: block;
+		}
+	}
+
+	.corrections {
+		font: 15px "Knockout 32";
+		text-transform: uppercase;
+		background-color: transparent;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		line-height: @grid_size;
+		padding: 3 * @grid_size;
+
+		&::before {
+			content: '›';
+			font-size: 26px;
+			margin-right: @grid_size;
+		}
+
+		&:hover {
+			background-color: @hover_background_color;
+			/*color: @light_line_color;*/
+		}
+	}
+}

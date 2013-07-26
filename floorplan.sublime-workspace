@@ -1,0 +1,2117 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pho",
+				"phoneNumber"
+			],
+			[
+				"text-",
+				"text-transform"
+			],
+			[
+				"SVG",
+				"SVG_NAMESPACE"
+			],
+			[
+				"photo",
+				"photosGroup"
+			],
+			[
+				"filtere",
+				"filteredTags"
+			],
+			[
+				"filterBy",
+				"filterByTag"
+			],
+			[
+				"filter",
+				"filterState"
+			],
+			[
+				"phot",
+				"photosGroup"
+			],
+			[
+				"prof",
+				"profileSource"
+			],
+			[
+				"pr",
+				"profileSource"
+			],
+			[
+				"get",
+				"getSource"
+			],
+			[
+				"mo",
+				"mobilePhone"
+			],
+			[
+				"sear",
+				"searchBox"
+			],
+			[
+				"res",
+				"resultsUrl"
+			],
+			[
+				"getRes",
+				"getResultsSource"
+			],
+			[
+				"getResul",
+				"getResultsPath"
+			],
+			[
+				"denom",
+				"denominatorValue"
+			],
+			[
+				"delt",
+				"deltaNumerator"
+			],
+			[
+				"delta",
+				"deltaDenominator"
+			],
+			[
+				"file",
+				"fileProcessed"
+			],
+			[
+				"quan",
+				"quantizedTimestamp"
+			],
+			[
+				"red",
+				"reduced"
+			],
+			[
+				"analytics",
+				"analyticsManager"
+			],
+			[
+				"q",
+				"quantizedTimestamp"
+			],
+			[
+				"increm",
+				"incrementSize"
+			],
+			[
+				"inc",
+				"incSz"
+			],
+			[
+				"to",
+				"toMidnight"
+			],
+			[
+				"quant",
+				"quantizeTimestamp"
+			],
+			[
+				"quantize",
+				"quantizedTimestamp"
+			],
+			[
+				"now",
+				"nowQuantized"
+			],
+			[
+				"ana",
+				"analyticsDb"
+			],
+			[
+				"reports",
+				"reportsArr"
+			],
+			[
+				"incre",
+				"incrementSize"
+			],
+			[
+				"reduced",
+				"reducedValue"
+			],
+			[
+				"reduc",
+				"reducedValue"
+			],
+			[
+				"anal",
+				"analyticsMapReduce"
+			],
+			[
+				"analyticsM",
+				"analyticsMapReduce"
+			],
+			[
+				"analyt",
+				"analyticsSocket"
+			],
+			[
+				"analy",
+				"analyticsManager"
+			],
+			[
+				"event",
+				"eventsCollection"
+			],
+			[
+				"insert",
+				"insertEventIntoDatabase"
+			],
+			[
+				"even",
+				"eventsCollection"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"binary",
+				"binaryDataHex"
+			],
+			[
+				"new",
+				"newline"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"fileS",
+				"fileSizeBytes"
+			],
+			[
+				"format",
+				"formatModuleName"
+			],
+			[
+				"no",
+				"notifyNewLogFile"
+			],
+			[
+				"phase",
+				"phaseStartMillis"
+			],
+			[
+				"timer",
+				"timerStartMillis"
+			],
+			[
+				"node",
+				"node_modules"
+			],
+			[
+				"co",
+				"columnSeparator"
+			],
+			[
+				"form",
+				"formatted"
+			],
+			[
+				"max",
+				"maxModuleNameLength"
+			],
+			[
+				"mod",
+				"moduleName"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"upl",
+				"uploadNotificationsVersion"
+			],
+			[
+				"uplo",
+				"uploadNotificationsVersion"
+			],
+			[
+				"prot",
+				"prototype"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"prefere",
+				"preferencesDialog"
+			],
+			[
+				"stub",
+				"stubPreferencesManagerGetPreferenceById"
+			],
+			[
+				"prefe",
+				"preferencesManager"
+			],
+			[
+				"prefer",
+				"preferencesManager"
+			],
+			[
+				"getPRe",
+				"getPreferencesById"
+			],
+			[
+				"pre",
+				"prefsObj"
+			],
+			[
+				"def",
+				"defaultPreferences"
+			],
+			[
+				"Prefer",
+				"PreferencesDialog"
+			],
+			[
+				"end",
+				"endpointType"
+			],
+			[
+				"mockS",
+				"mockSmtpc"
+			],
+			[
+				"sendM",
+				"sendMessageToServer"
+			],
+			[
+				"mail",
+				"mailSenderModule"
+			],
+			[
+				"endpo",
+				"endpointPhrase"
+			],
+			[
+				"rollwa",
+				"rollwayBundleLink"
+			],
+			[
+				"roll",
+				"rollwayPreferencesLink"
+			],
+			[
+				"message",
+				"messageSource"
+			],
+			[
+				"filterE",
+				"filterEntry"
+			],
+			[
+				"filt",
+				"filterEntry"
+			],
+			[
+				"endpoint",
+				"endpointGuid"
+			],
+			[
+				"meeting",
+				"meetingGuid"
+			],
+			[
+				"blob",
+				"blobEntries"
+			],
+			[
+				"TESTA",
+				"TESTAMENTJOB"
+			],
+			[
+				"TEST",
+				"TESTAMENT_JOB"
+			],
+			[
+				"TSET",
+				"TESTAMENT_URL"
+			],
+			[
+				"expected",
+				"expectedDateString"
+			],
+			[
+				"exp",
+				"expectedDatestamp"
+			],
+			[
+				"inter",
+				"intervalMillis"
+			],
+			[
+				"visib",
+				"visibleEmailAddresses"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"tim",
+				"timestamp"
+			],
+			[
+				"meet",
+				"meetingLinkFactory"
+			],
+			[
+				"legs",
+				"legsLinkFactory"
+			],
+			[
+				"body",
+				"bodyObj"
+			],
+			[
+				"PACKA",
+				"PACKAGE_VERSION"
+			],
+			[
+				"reque",
+				"requestedSize"
+			],
+			[
+				"catc",
+				"catchmarkLength"
+			],
+			[
+				"catch",
+				"catchmarkBuffer"
+			],
+			[
+				"req",
+				"requestsLeft"
+			],
+			[
+				"re",
+				"recur"
+			],
+			[
+				"requ",
+				"requestsLeft"
+			],
+			[
+				"seec",
+				"selectedItem"
+			],
+			[
+				"bun",
+				"bundleId"
+			],
+			[
+				"date",
+				"dateField"
+			],
+			[
+				"hash",
+				"hashQueryObject"
+			],
+			[
+				"current",
+				"currentGate"
+			],
+			[
+				"liba",
+				"libraryDependencies"
+			],
+			[
+				"Mutat",
+				"MutationObserverImpl"
+			],
+			[
+				"cre",
+				"createTextNode"
+			],
+			[
+				"style",
+				"styleElement"
+			],
+			[
+				"sty",
+				"styleElement"
+			],
+			[
+				"getE",
+				"getElementById"
+			],
+			[
+				"cssC",
+				"cssClassIdx"
+			],
+			[
+				"svg",
+				"svgDocument"
+			],
+			[
+				"nodeList",
+				"nodeListLength"
+			],
+			[
+				"bundle",
+				"bundleRepository"
+			],
+			[
+				"list",
+				"listOrString"
+			],
+			[
+				"selected",
+				"selectedItem"
+			],
+			[
+				"err",
+				"errLogger"
+			],
+			[
+				"parse",
+				"parseBoolean"
+			],
+			[
+				"dr",
+				"dgrid"
+			],
+			[
+				"quer",
+				"queryOptions"
+			],
+			[
+				"scanFile",
+				"scanFileImpl"
+			],
+			[
+				"genera",
+				"generateBundle"
+			],
+			[
+				"generate",
+				"generateGuid"
+			],
+			[
+				"gener",
+				"generateEmail"
+			],
+			[
+				"rand",
+				"randString"
+			],
+			[
+				"ge",
+				"generateTimestamp"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "scripts/ListPane.js",
+			"settings":
+			{
+				"buffer_size": 5315,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "styles/Map.less",
+			"settings":
+			{
+				"buffer_size": 885,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "styles/definitions.less",
+			"settings":
+			{
+				"buffer_size": 129,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "people.json",
+			"settings":
+			{
+				"buffer_size": 16398,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/DetailsPane.js",
+			"settings":
+			{
+				"buffer_size": 2556,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "styles/ListPane.less",
+			"settings":
+			{
+				"buffer_size": 2092,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scripts/Map.js",
+			"settings":
+			{
+				"buffer_size": 4615,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "scrape-photos/workphoes.json",
+			"settings":
+			{
+				"buffer_size": 5668,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrape-photos/email.json",
+			"settings":
+			{
+				"buffer_size": 4708,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrape-photos/mobilephones.json",
+			"settings":
+			{
+				"buffer_size": 5783,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/DetailsPane.less",
+			"settings":
+			{
+				"buffer_size": 1645,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/main.less",
+			"settings":
+			{
+				"buffer_size": 1333,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Makefile/Make.sublime-build",
+	"command_palette":
+	{
+		"height": 58.0,
+		"selected_items":
+		[
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"title",
+				"Convert Case: Title Case"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Discover Packages"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"jas",
+				"Set Syntax: Jasmine"
+			],
+			[
+				"markd",
+				"Set Syntax: Markdown"
+			],
+			[
+				"mark",
+				"Set Syntax: Markdown"
+			],
+			[
+				"Package Control: remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"inde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"ali",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"cam",
+				"Set Syntax: camlp4"
+			],
+			[
+				"c+",
+				"Set Syntax: C++"
+			],
+			[
+				"java",
+				"Set Syntax: Java"
+			],
+			[
+				"syn",
+				"Set Syntax: R"
+			],
+			[
+				"jav",
+				"Set Syntax: Java"
+			],
+			[
+				"synt javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"synt",
+				"Set Syntax: JavaScript (Rails)"
+			],
+			[
+				"syntax",
+				"Set Syntax: Java"
+			],
+			[
+				"c",
+				"Set Syntax: C"
+			]
+		],
+		"width": 528.0
+	},
+	"console":
+	{
+		"height": 415.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": false,
+		"show_minimap": false,
+		"show_open_files": true,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/S/floorplan/scrape-photos/people.json",
+		"/S/floorplan/scrape-photos/merge.js",
+		"/S/floorplan/styles/main.less",
+		"/S/floorplan/styles/fonts.less",
+		"/S/floorplan/index.html",
+		"/S/floorplan/people.json",
+		"/S/floorplan/styles/definitions.less",
+		"/S/floorplan/floorplan.sublime-project",
+		"/W/floorplan/scripts/data.js",
+		"/W/floorplan/scripts/main.js",
+		"/W/floorplan/scripts/DetailsPane.js",
+		"/W/floorplan/scripts/ListPane.js",
+		"/W/floorplan/scrape-photos/numberSeats/labels.xml",
+		"/W/floorplan/scrape-photos/numberSeats/makeLabels.js",
+		"/C/Users/Ben/Desktop/temp.svg",
+		"/W/floorplan/scripts/Map.js",
+		"/W/floorplan/index.html",
+		"/W/floorplan/styles/definitions.less",
+		"/W/floorplan/styles/DetailsPane.less",
+		"/W/floorplan/floorplan.sublime-project",
+		"/W/floorplan/scrape-photos/index.js",
+		"/W/floorplan/scrape-photos/merged.json",
+		"/W/floorplan/styles/ListPane.less",
+		"/W/floorplan/styles/main.less",
+		"/W/floorplan/styles/map.less",
+		"/W/floorplan/styles/fonts.less",
+		"/W/floorplan/styles/helpers.less",
+		"/W/floorplan/skeleton.svg",
+		"/W/floorplan/images/vignette.svg",
+		"/C/Users/Ben/Desktop/vignette.svg",
+		"/W/floorplan/styles/all.less",
+		"/W/floorplan/styles/reset.less",
+		"/W/floorplan/scrape-photos/tags.json",
+		"/W/floorplan/scrape-photos/merge.js",
+		"/W/floorplan/scrape-photos/people.json",
+		"/W/floorplan/scrape-photos/maxNameLen.js",
+		"/W/floorplan/scrape-photos/package.json",
+		"/W/floorplan/scrape-photos/names.js",
+		"/C/Programs/Internet/Opera/styles/image.ben.css",
+		"/D/Video/Metalocalypse/Metalocalypse S01-04/Metalocalypse S03/Metalocalypse s03e08.srt",
+		"/D/Video/Metalocalypse/Metalocalypse S01-04/Metalocalypse S03/Metalocalypse s03e07.srt",
+		"/D/Video/Metalocalypse/Metalocalypse S01-04/Metalocalypse S03/Metalocalypse s03e09.srt",
+		"/D/Video/Metalocalypse/Metalocalypse S01-04/Metalocalypse S03/Metalocalypse s03e06.srt",
+		"/D/Video/Metalocalypse/Metalocalypse S01-04/Metalocalypse S03/Metalocalypse s03e10.srt",
+		"/W/rollway/rollway.sublime-project",
+		"/W/rollway/ui/src/analytics/images/logo.svg",
+		"/W/rollway/ui/src/analytics/styles/all.less",
+		"/W/rollway/ui/src/styles/all.less",
+		"/C/Users/Ben/AppData/Roaming/Sublime Text 2/Packages/User/Default (Windows).sublime-keymap",
+		"/W/rollway/lib/uiServer.js",
+		"/W/rollway/lib/fileManager.js",
+		"/W/rollway/ui/src/scripts/app/DetailsPane.js",
+		"/W/rollway/Makefile",
+		"/C/Users/Ben/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/S/rollway/lib/uiServer.js",
+		"/S/rollway/lib/fileApi.js",
+		"/S/rollway/ui/src/analytics/styles/all.less",
+		"/S/rollway/ui/analytics.profile.js",
+		"/S/rollway/ui/src/analytics/index.html",
+		"/S/rollway/Makefile",
+		"/S/rollway/lib/bundleManager.js",
+		"/S/rollway/ui/src/analytics/index.html.html",
+		"/S/rollway/ui/src/analytics.html",
+		"/S/lumberjack/build/app.build.js",
+		"/S/rollway/ui/src/scripts/analytics/main.js",
+		"/S/rollway/ui/rollway.profile.js",
+		"/S/rollway/package.json",
+		"/S/rollway/ui/src/scripts/app/package.js",
+		"/S/rollway/ui/src/styles/reset.less",
+		"/S/rollway/lib/database.js",
+		"/S/rollway/lib/server.js",
+		"/S/rollway/lib/apiServer.js",
+		"/S/rollway/build/jsl.conf",
+		"/S/rollway/ui/src/index.html",
+		"/S/rollway/node_modules/socket.io/lib/socket.io.js",
+		"/S/rollway/lib/fileManager.js",
+		"/S/rollway/node_modules/socket.io/lib/socket.js",
+		"/S/rollway/node_modules/socket.io/lib/manager.js",
+		"/S/rollway/config.json",
+		"/S/rollway/lib/config.js",
+		"/S/rollway/test/testConfig.json",
+		"/S/rollway/config.json.example",
+		"/S/rollway/doc/index.html",
+		"/C/Users/Ben/Blue Jeans/Rollway/list of CSS files.txt",
+		"/S/rollway/doc/media/css/rollway.css",
+		"/S/rollway/doc/media/css/inkpot.css",
+		"/S/rollway/doc/index.restdown",
+		"/S/rollway/doc/header.html.in",
+		"/S/rollway/lib/bundleApi.js",
+		"/S/rollway/test/server/serverTest.js",
+		"/S/rollway/ui/src/scripts/lib/dojo/dijit/themes/nihilo/nihilo.css",
+		"/S/rollway/ui/src/styles/all.less",
+		"/S/rollway/ui/src/scripts/app/DetailsPane.js",
+		"/S/rollway/test/server/fileApiIntegrationTest.js",
+		"/S/rollway/node_modules/restify/lib/plugins/static.js",
+		"/B/Brad Fausett Ipad/1366388760.438210/call.log",
+		"/B/restdown/bin/restdown",
+		"/B/1366847985.264091/call.log.1",
+		"/S/rollway/node_modules/mocha/lib/reporters/base.js",
+		"/S/rollway/ui/src/scripts/app/FilterPane.js",
+		"/S/rollway/test/server/bundleApiIntegrationTest.js",
+		"/S/rollway/ui/src/scripts/app/GridPane.js",
+		"/S/rollway/test/fixtures/fixtures.js",
+		"/S/rollway/lib/timer.js",
+		"/S/rollway/lib/logger.js",
+		"/S/rollway/test/fixtures/gbjnplugin.1366302839_32715.log",
+		"/S/rollway/node_modules/restify/lib/plugins/query.js",
+		"/S/rollway/node_modules/mocha/lib/reporters/list.js",
+		"/S/rollway/node_modules/restify/lib/index.js",
+		"/S/rollway/node_modules/restify/lib/plugins/index.js",
+		"/S/rollway/ui/src/styles/definitions.less",
+		"/S/rollway/lib/preferencesApi.js",
+		"/S/rollway/lib/mailSender.js",
+		"/S/rollway/ui/src/scripts/app/preferencesDialog.js",
+		"/S/rollway/test/server/mailSenderTest.js",
+		"/S/rollway/test/server/preferencesApiTest.js",
+		"/S/rollway/lib/preferencesManager.js",
+		"/S/rollway/ui/src/images/envelope.svg",
+		"/S/rollway/ui/src/styles/neapolitan.less",
+		"/S/rollway/ui/src/styles/helpers.less",
+		"/S/rollway/ui/src/styles/page.less",
+		"/S/rollway/ui/src/styles/DetailsPane.less",
+		"/S/rollway/ui/src/scripts/lib/dojo/dojox/form/ListInput.js",
+		"/S/rollway/ui/src/scripts/app/index.js",
+		"/S/rollway/ui/src/styles/Stage.less",
+		"/S/rollway/ui/src/styles/FilterPane.less",
+		"/S/rollway/ui/src/styles/fonts.less",
+		"/S/rollway/ui/src/images/happycloud.svg"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+			"<open folders>,-rollway.sublime-workspace",
+			"<open folders,-rollway.sublime-workspace,-\\test\\*.*",
+			"<open folders,-rollway.sublime-workspace",
+			"<open folders>;-rollway.sublime-workspace",
+			"<open folders>;-*.sublime-*",
+			"<open folders>",
+			"",
+			"S:\\rollway,-node_modules\\*.*",
+			"S:\\rollway,-node_modules",
+			"S:\\rollway",
+			"S:\\rollway\\ui,*.less",
+			"S:\\rollway\\ui;*.less",
+			"S:\\rollway\\lib",
+			"S:\\rollway\\node_modules\\restify\\lib",
+			"<open folders>,*.js",
+			"S:\\rollway\\node_modules\\restify",
+			"<open folders>,*.js",
+			"<open folders>",
+			"S:\\rollway",
+			"S:\\rollway\\*",
+			"S:\\rollway\\*.js",
+			"S:/rollway/*.js",
+			"S:/rollway/,-S:/rollway/node_modules/*",
+			"S:\\rollway\\,-S:\\rollway\\node_modules\\*",
+			"S:\\rollway\\,-*node_modules*",
+			"S:\\rollway\\,-S:\\rollway\\node_modules\\*",
+			"S:\\rollway\\,-node_modules\\*",
+			"S:\\rollway\\",
+			"S:\\rollway\\*.js",
+			"S:\\rollway",
+			"S:\\lumberjack\\src",
+			"S:\\lumberjack",
+			"S:\\rivet\\bjn\\media\\browserdev\\src",
+			"S:\\rivet\\bjn\\media\\browserdev",
+			"S:\\skinny\\src",
+			"G:\\Alpha\\src",
+			"*.less",
+			"G:\\Alpha\\src\\*.less",
+			"G:\\Alpha\\src",
+			"<open files>",
+			"",
+			"G:\\Alpha\\src",
+			"",
+			"G:\\Alpha\\src"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"\"(",
+			"(\\d{3}) (\\d{3})",
+			"\"(\\d{3}) (\\d{3})",
+			"\"\\d{5}",
+			"845",
+			"\"1-",
+			"\"'",
+			"\"mobilePhone\":\"+1 ",
+			"\"mobilePhone\":\"'1-",
+			"Phone\":\"1 ",
+			"\"workPhone\":\"'+1 408",
+			"\"workPhone\":\"1408",
+			"\"workPhone\":\"+1 ",
+			"\"workPhone\":\"1-",
+			",",
+			"+1-",
+			"\"mobilePhone\":\"\"",
+			"\"workPhone\":\"\"",
+			"\"\"",
+			"@bluejeans.com",
+			"@bluejeansnet.com",
+			"	",
+			"phone",
+			"	",
+			"@bluejeans.com",
+			"@bluejeansnet.com",
+			"	",
+			"},",
+			", \"title\"",
+			"mediator.publish",
+			"searchBox",
+			"SearchBox",
+			"570.08",
+			"570",
+			"177",
+			", \"tags\"",
+			", \"linkedInId\"",
+			", \"tags\"",
+			":95",
+			"61",
+			"deskPosition",
+			"\"deskPosition\"",
+			"this.model.get('fullname')",
+			"deskPosition",
+			"\"exe",
+			"exe",
+			"},",
+			", \"title\"",
+			", \"tags\":",
+			"},",
+			"                                                             },",
+			"\"linkedInId\"",
+			", \"title\"",
+			"},",
+			",\"title\"",
+			",\"tags\"",
+			"\",\"linkedInId\"",
+			",",
+			"&",
+			"&dsh;",
+			"&",
+			"&amp;amp;",
+			"\\},",
+			"},",
+			"title_highlight",
+			"Sr. Director Customer Success",
+			"Find others with this title",
+			"Director",
+			"&amp;",
+			"\\},",
+			"},",
+			"\"([^\"]+) at Blue Jeans Network",
+			"\"(.+?) at Blue Jeans Network",
+			"\"(.+) at Blue Jeans Network",
+			"(.+) at Blue Jeans Network",
+			"software engineer",
+			"at blue j",
+			"getResultsSource",
+			"url",
+			"Z",
+			"0.75",
+			"25%",
+			"0.75",
+			"import",
+			"class=\"roomName\"",
+			"st1",
+			"xlink",
+			"class=\"innerWall\" ",
+			"class=\"outerWall\" ",
+			"st4",
+			"st2",
+			"st3",
+			"</image>",
+			"scrape-photos/",
+			"this.$el.append",
+			"mobile",
+			"type=\"text/ja",
+			"type=\"te",
+			"type=",
+			"},",
+			"\"sal\"",
+			"\"sup\"",
+			"\"cus\"",
+			"},",
+			",\"ta",
+			",\"li",
+			",",
+			"\"title\": \"\", \"email\": \"\", \"workPhone\": \"\", \"mobilePhone\": \"\"",
+			"\"tags\": [], ",
+			", \"tags\": [\"\"]",
+			"[\"",
+			"	",
+			", \"linkedInId",
+			",",
+			"\\/profile\\/view\\?id=(.+)",
+			"\\/profile\\/view\\?id=(.+)&amp;",
+			"\\/profile\\/view\\?id=(\\d+)&amp;",
+			"\\/profile\\/view\\?id=",
+			"regex",
+			"[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\n[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\n[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\nsdk_info.regex.lightroom.export.flickr2",
+			"[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\n[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\n[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}\\\n[\"sdk_info.regex.lightroom.export.flickr2\"] = \"prefs = {}",
+			"flickr",
+			"<i>",
+			"</i>",
+			"<i>",
+			" \\?$",
+			"^\\? ",
+			"^\\?"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$1-$2",
+			"\"$1-$2",
+			"\"",
+			"\"mobilePhone\":\"",
+			"Phone\":\"",
+			"\"workPhone\":\"408",
+			"\"workPhone\":\"",
+			"",
+			"–",
+			"&",
+			"},\\n",
+			"&",
+			"},\\n",
+			"",
+			"\"tags\": [\"",
+			"\", [\"",
+			"\", [",
+			"",
+			" ♫",
+			"♫ ",
+			" ♫",
+			"♫ ",
+			"♫",
+			":",
+			" ",
+			"",
+			"\"",
+			"8",
+			"9",
+			"\\n",
+			"assert.equal",
+			"\\n'",
+			"\\\\n'+\\n",
+			"\\n'+",
+			"nfcall",
+			"logger",
+			"",
+			"\\n\"+",
+			"\"+\\r\\n\"",
+			"\\\\",
+			"\",",
+			": \"",
+			"this.steps",
+			"if(err) throw err;",
+			"Step",
+			"",
+			"\n",
+			"\n|",
+			"\n",
+			"\n\\n",
+			"\\n",
+			"data.use_attendee_passcode",
+			"function()",
+			"MeetingInfoView.extend",
+			"1.8.23",
+			"SettingsPanel",
+			"big",
+			"",
+			",",
+			": ",
+			"",
+			"startAngle",
+			"endAngle",
+			"foo",
+			"@gradient_white_position",
+			"@gradient_dark_color",
+			"cofa.skinny.flags.installing",
+			"cofa.skinny.flags.",
+			"skinny.coda.flags.",
+			" = ",
+			"intervalHandle",
+			"run msi",
+			"dom",
+			"text = ",
+			"true",
+			"false",
+			"	=",
+			"	",
+			"guestDisplayName",
+			"button",
+			"@participant_padding",
+			"								",
+			"this.$el",
+			"videoHoverArea",
+			".v",
+			"timer",
+			"this",
+			".",
+			"\"client\": \"Technology House\",",
+			"\\t"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "scripts/ListPane.js",
+					"settings":
+					{
+						"buffer_size": 5315,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2763,
+								2763
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1656.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "styles/Map.less",
+					"settings":
+					{
+						"buffer_size": 885,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								437,
+								437
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LessCSS/Syntaxes/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "styles/definitions.less",
+					"settings":
+					{
+						"buffer_size": 129,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								129,
+								129
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LessCSS/Syntaxes/LESS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "people.json",
+					"settings":
+					{
+						"buffer_size": 16398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8204,
+								8204
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 655.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "scripts/DetailsPane.js",
+					"settings":
+					{
+						"buffer_size": 2556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2477,
+								2477
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 529.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "styles/ListPane.less",
+					"settings":
+					{
+						"buffer_size": 2092,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1967,
+								1967
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LessCSS/Syntaxes/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 727.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "scripts/Map.js",
+					"settings":
+					{
+						"buffer_size": 4615,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1374,
+								1374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "scrape-photos/workphoes.json",
+					"settings":
+					{
+						"buffer_size": 5668,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1252,
+								1252
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "scrape-photos/email.json",
+					"settings":
+					{
+						"buffer_size": 4708,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "scrape-photos/mobilephones.json",
+					"settings":
+					{
+						"buffer_size": 5783,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1547,
+								1547
+							],
+							[
+								2222,
+								2222
+							],
+							[
+								2349,
+								2349
+							],
+							[
+								2581,
+								2581
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 565.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "styles/DetailsPane.less",
+					"settings":
+					{
+						"buffer_size": 1645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								639,
+								639
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LessCSS/Syntaxes/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 115.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "styles/main.less",
+					"settings":
+					{
+						"buffer_size": 1333,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								123,
+								123
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LessCSS/Syntaxes/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "scripts/DetailsPane.js",
+					"settings":
+					{
+						"buffer_size": 2556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2454,
+								2454
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 515.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.exec":
+	{
+		"height": 124.0
+	},
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"merge",
+				"scrape-photos/merge.js"
+			],
+			[
+				"detai",
+				"scripts/DetailsPane.js"
+			],
+			[
+				"people",
+				"people.json"
+			],
+			[
+				"def",
+				"styles/definitions.less"
+			],
+			[
+				"main",
+				"styles/main.less"
+			],
+			[
+				"deta",
+				"scripts/DetailsPane.js"
+			],
+			[
+				"detail",
+				"styles/DetailsPane.less"
+			],
+			[
+				"font",
+				"styles/fonts.less"
+			],
+			[
+				"inde",
+				"index.html"
+			],
+			[
+				"map.l",
+				"styles/Map.less"
+			],
+			[
+				"map",
+				"scripts/Map.js"
+			],
+			[
+				"list",
+				"styles/ListPane.less"
+			],
+			[
+				".js",
+				"scripts/ListPane.js"
+			],
+			[
+				"make",
+				"scrape-photos/numberSeats/makeLabels.js"
+			],
+			[
+				"dat",
+				"scripts/data.js"
+			],
+			[
+				"ha",
+				"ui/src/images/happycloud.svg"
+			],
+			[
+				"logo",
+				"ui/src/analytics/images/logo.svg"
+			],
+			[
+				"mke",
+				"Makefile"
+			],
+			[
+				"all",
+				"ui/src/analytics/styles/all.less"
+			],
+			[
+				"uiser",
+				"lib/uiServer.js"
+			],
+			[
+				"filema",
+				"lib/fileManager.js"
+			],
+			[
+				"filea",
+				"lib/fileApi.js"
+			],
+			[
+				"index.ht",
+				"ui/src/analytics/index.html"
+			],
+			[
+				"uis",
+				"lib/uiServer.js"
+			],
+			[
+				"api",
+				"lib/analyticsApi.js"
+			],
+			[
+				"profi",
+				"ui/analytics.profile.js"
+			],
+			[
+				"rol",
+				"ui/rollway.profile.js"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"apck",
+				"ui/src/scripts/app/package.js"
+			],
+			[
+				"reset",
+				"ui/src/styles/reset.less"
+			],
+			[
+				"data",
+				"lib/database.js"
+			],
+			[
+				"server",
+				"lib/server.js"
+			],
+			[
+				"jsl",
+				"build/jsl.conf"
+			],
+			[
+				"files",
+				"lib/fileApi.js"
+			],
+			[
+				"serv",
+				"lib/server.js"
+			],
+			[
+				"uise",
+				"lib/uiServer.js"
+			],
+			[
+				"m",
+				"Makefile"
+			],
+			[
+				"apiser",
+				"lib/apiServer.js"
+			],
+			[
+				"con",
+				"config.json"
+			],
+			[
+				"testc",
+				"test/testConfig.json"
+			],
+			[
+				"inex",
+				"doc/index.html"
+			],
+			[
+				"file",
+				"lib/fileManager.js"
+			],
+			[
+				"bund",
+				"lib/bundleManager.js"
+			],
+			[
+				"config",
+				"lib/config.js"
+			],
+			[
+				"db",
+				"lib/database.js"
+			],
+			[
+				"ink",
+				"doc/media/css/inkpot.css"
+			],
+			[
+				"head",
+				"doc/header.html.in"
+			],
+			[
+				"css",
+				"doc/media/css/rollway.css"
+			],
+			[
+				"inkp",
+				"doc/media/css/inkpot.css"
+			],
+			[
+				"header",
+				"doc/header.html.in"
+			],
+			[
+				"detal",
+				"ui/src/scripts/app/DetailsPane.js"
+			],
+			[
+				"fileap",
+				"test/server/fileApiIntegrationTest.js"
+			],
+			[
+				"fileman",
+				"lib/fileManager.js"
+			],
+			[
+				"bundl",
+				"lib/bundleManager.js"
+			],
+			[
+				"bundlema",
+				"lib/bundleManager.js"
+			],
+			[
+				"doc",
+				"doc/index.restdown"
+			],
+			[
+				"bundle",
+				"lib/bundleApi.js"
+			],
+			[
+				"test",
+				"test/server/fileApiIntegrationTest.js"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"fileapi",
+				"lib/fileApi.js"
+			],
+			[
+				"grid",
+				"ui/src/scripts/app/GridPane.js"
+			],
+			[
+				"filter",
+				"ui/src/scripts/app/FilterPane.js"
+			],
+			[
+				"bjnpl",
+				"test/fixtures/gbjnplugin.1366302839_32715.log"
+			],
+			[
+				"logger",
+				"lib/logger.js"
+			],
+			[
+				"fixt",
+				"test/fixtures/fixtures.js"
+			],
+			[
+				"fix",
+				"test/fixtures/fixtures.js"
+			],
+			[
+				"details",
+				"ui/src/scripts/app/DetailsPane.js"
+			],
+			[
+				"filemana",
+				"lib/fileManager.js"
+			],
+			[
+				"bundlemana",
+				"lib/bundleManager.js"
+			],
+			[
+				"prefere",
+				"lib/preferencesManager.js"
+			],
+			[
+				"prefe",
+				"test/server/preferencesApiTest.js"
+			],
+			[
+				"mail",
+				"test/server/mailSenderTest.js"
+			],
+			[
+				"ser",
+				"lib/server.js"
+			],
+			[
+				"pref",
+				"lib/preferencesApi.js"
+			],
+			[
+				"prefer",
+				"ui/src/scripts/app/preferencesDialog.js"
+			],
+			[
+				"page",
+				"ui/src/styles/page.less"
+			],
+			[
+				"enve",
+				"ui/src/images/envelope.svg"
+			],
+			[
+				"happ",
+				"ui/src/images/happycloud.svg"
+			],
+			[
+				"rset",
+				"ui/src/styles/reset.less"
+			],
+			[
+				"apise",
+				"lib/apiServer.js"
+			],
+			[
+				"confi",
+				"lib/config.js"
+			],
+			[
+				"helpe",
+				"ui/src/styles/helpers.less"
+			],
+			[
+				"stag",
+				"ui/src/styles/Stage.less"
+			],
+			[
+				"sty",
+				"ui/src/styles/all.less"
+			],
+			[
+				"index",
+				"ui/src/scripts/app/index.js"
+			],
+			[
+				"bunl",
+				"lib/bundleManager.js"
+			],
+			[
+				"gridp",
+				"ui/src/scripts/app/GridPane.js"
+			],
+			[
+				"det",
+				"ui/src/scripts/app/DetailsPane.js"
+			],
+			[
+				"buid",
+				"build/buildonwrite.config.json"
+			],
+			[
+				"roll",
+				"ui/rollway.profile.js"
+			],
+			[
+				"logg",
+				"lib/logger.js"
+			],
+			[
+				"bundleapi",
+				"test/server/bundleApiIntegrationTest.js"
+			],
+			[
+				"js",
+				"index.js"
+			],
+			[
+				"less",
+				"ui/src/styles/page.less"
+			],
+			[
+				"build",
+				"build/buildonwrite.config.json"
+			],
+			[
+				"conf",
+				"config.json"
+			],
+			[
+				"bundlem",
+				"lib/bundleManager.js"
+			],
+			[
+				"gri",
+				"ui/src/scripts/app/GridPane.js"
+			],
+			[
+				"testa",
+				"test/testament.config.json"
+			],
+			[
+				"test.js",
+				"test/server/bundleManagerTest.js"
+			],
+			[
+				"keyv",
+				"test/client/lib/keyvent.js"
+			],
+			[
+				"uit",
+				"test/client/uiTest.js"
+			],
+			[
+				"bundleman",
+				"lib/bundleManager.js"
+			],
+			[
+				"rad",
+				"README.md"
+			],
+			[
+				"tes",
+				"test/fileApiIntegrationTest.js"
+			],
+			[
+				"bunde",
+				"lib/bundleManager.js"
+			],
+			[
+				"app",
+				"ui/src/scripts/app/package.js"
+			],
+			[
+				"git",
+				".gitignore"
+			],
+			[
+				"mak",
+				"Makefile"
+			],
+			[
+				"tetsc",
+				"test/testConfig.js"
+			],
+			[
+				"apiserv",
+				"lib/apiServer.js"
+			],
+			[
+				"intr",
+				"test/fileApiIntegrationTest.js"
+			],
+			[
+				"serve",
+				"lib/server.js"
+			],
+			[
+				"bluej",
+				"ui/src/images/bluejeans.svg"
+			],
+			[
+				"clou",
+				"ui/src/images/happycloud.svg"
+			],
+			[
+				"help",
+				"ui/src/styles/helpers.less"
+			],
+			[
+				"manag",
+				"lib/fileManager.js"
+			],
+			[
+				"app/",
+				"ui/src/scripts/app/index.js"
+			],
+			[
+				"rese",
+				"ui/src/styles/reset.less"
+			],
+			[
+				"stage",
+				"ui/src/styles/Stage.less"
+			],
+			[
+				"pak",
+				"package.json"
+			],
+			[
+				"rollw",
+				"ui/rollway.profile.js"
+			],
+			[
+				"util",
+				"lib/util.js"
+			],
+			[
+				"prof",
+				"ui/rollway.profile.js"
+			],
+			[
+				"json",
+				"ui/src/scripts/app/package.json"
+			],
+			[
+				"bundlep",
+				"lib/bundleApi.js"
+			],
+			[
+				"bundlere",
+				"ui/src/scripts/app/bundleRepository.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/S/skinny/sublime-project.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 228.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,406 @@
+/*
+YUI 2: Reset CSS
+Copyright (c) 2011, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.9.0
+*/
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+select,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset, img {
+  border: 0;
+}
+address,
+button,
+caption,
+cite,
+code,
+dfn,
+em,
+input,
+optgroup,
+option,
+select,
+strong,
+textarea,
+th,
+var {
+  font: inherit;
+}
+del, ins {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+caption, th {
+  text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+q:before, q:after {
+  content: '';
+}
+abbr, acronym {
+  border: 0;
+  font-variant: normal;
+}
+sup {
+  vertical-align: baseline;
+}
+sub {
+  vertical-align: baseline;
+}
+legend {
+  color: #000000;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+textarea:focus, input:focus {
+  outline: none;
+}
+/**
+ * DOES NOT WORK WITH LESSCSS 1.3.0 (works on 1.2.1)
+ * Named mixin parameters were added, which has the side effect of varargs mixin definitions with no explicit arguments (like the one below) never matching the mixin invocations.
+ *
+ * arguments are of the form
+ * <property>, <duration> [, <property>, <duration> ...]
+ */
+@font-face {
+  font-family: "Knockout 31";
+  src: url('../fonts/Knockout-31-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 32";
+  src: url('../fonts/Knockout-32-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 47";
+  src: url('../fonts/Knockout-47-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 52";
+  src: url('../fonts/Knockout-52-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Architect's Daughter";
+  src: url('../fonts/ArchitectsDaughter.woff') format('woff');
+}
+body {
+  background: #6b88f0 url('../images/blueprint_3.png');
+  color: white;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+.vignette {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+25,0.75+100;Custom */
+
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(25%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.75)));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* Opera 12+ */
+
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* IE10+ */
+
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* W3C */
+
+}
+#listPane {
+  background: rgba(0, 0, 0, 0.33);
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 370px;
+}
+#listPane .people {
+  bottom: 170px;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  right: -20px;
+  top: 80px;
+}
+#listPane .people .person {
+  cursor: pointer;
+  padding-left: 20px;
+}
+#listPane .people .person.filtered_name, #listPane .people .person.filtered_tag {
+  display: none;
+}
+#listPane .people .person:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+#listPane .people .person .name, #listPane .people .person img {
+  display: inline-block;
+  vertical-align: middle;
+}
+#listPane .people .person .name {
+  font-family: "Knockout 31";
+  font-size: 25px;
+  line-height: 51px;
+}
+#listPane .people .person img {
+  /*border     : 1px solid @light_line_color;*/
+
+  height: 51px;
+  margin-right: 20px;
+  width: 51px;
+}
+#listPane .people .person + .person {
+  /*margin-top: @grid_size - 1;*/
+
+}
+#listPane .queryContainer {
+  left: 20px;
+  position: absolute;
+  right: 19px;
+  top: 10px;
+}
+#listPane .query {
+  background: transparent url('../images/magnifier.png') no-repeat 10px 15px;
+  border-width: 0px;
+  border-bottom: 1px solid #7291e7;
+  color: white;
+  font: 20px "Knockout 32";
+  height: 50px;
+  text-indent: 50px;
+  width: 100%;
+}
+#listPane .tags {
+  border-top: 1px solid #7291e7;
+  bottom: 15px;
+  left: 20px;
+  padding-top: 5px;
+  position: absolute;
+  right: 19px;
+}
+#listPane .tags a {
+  color: white;
+  display: inline-block;
+  font: 18px "Knockout 52";
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 83px;
+}
+#listPane .tags a:nth-child(4n) {
+  width: 82px;
+}
+#listPane .tags a.filtered {
+  color: #3d60a0;
+}
+#listPane .tags a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+#map {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+  right: 430px;
+  bottom: 60px;
+  /*top: 0;
+	left: @pane_width;
+	right: @pane_width;
+	bottom: 0;*/
+
+}
+#map svg {
+  width: 100%;
+  height: 100%;
+}
+#map svg image {
+  image-rendering: optimizeQuality;
+}
+#map svg #roomNames text {
+  font-size: 10px;
+  fill: rgba(255, 255, 255, 0.75);
+  font-family: "Architect's Daughter";
+}
+#map svg #walls line, #map svg #walls polyline, #map svg #walls rect {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+}
+#map svg #walls .innerWalls line, #map svg #walls .innerWalls polyline, #map svg #walls .innerWalls rect {
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1;
+}
+#map svg #photos image {
+  cursor: pointer;
+}
+#map svg #photos image.filtered_tag, #map svg #photos image.filtered_name {
+  opacity: 0.1;
+}
+#map svg #photos image.active {
+  stroke: white;
+  stroke-width: 2;
+}
+#detailsPane {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 370px;
+  background: rgba(0, 0, 0, 0.33);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 30px;
+  padding-right: 29px;
+}
+#detailsPane .photo {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #7291e7;
+}
+#detailsPane .name {
+  font-family: "Knockout 47";
+  font-size: 88px;
+  line-height: 80px;
+  text-transform: uppercase;
+  margin-top: 17px;
+  margin-left: -2px;
+}
+#detailsPane .title {
+  font-family: "Architect's Daughter";
+  font-size: 23px;
+  line-height: 30px;
+  margin-top: 20px;
+}
+#detailsPane dl {
+  margin-top: 42px;
+}
+#detailsPane dl dt, #detailsPane dl dd {
+  line-height: 30px;
+}
+#detailsPane dl dt {
+  float: left;
+  font-family: "Knockout 52";
+  font-size: 14px;
+  padding-right: 30px;
+  text-align: right;
+  text-transform: uppercase;
+  width: 80px;
+}
+#detailsPane dl dd {
+  border-left: 1px solid #7291e7;
+  font-family: "Architect's Daughter";
+  font-size: 17px;
+  margin-left: 110px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+}
+#detailsPane dl a:hover {
+  color: #7291e7;
+}
+#detailsPane .content {
+  display: none;
+}
+#detailsPane.hasModel .intro {
+  display: none;
+}
+#detailsPane.hasModel .content {
+  display: block;
+}
+#detailsPane .corrections {
+  font: 15px "Knockout 32";
+  text-transform: uppercase;
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  line-height: 10px;
+  padding: 30px;
+}
+#detailsPane .corrections::before {
+  content: '›';
+  font-size: 26px;
+  margin-right: 10px;
+}
+#detailsPane .corrections:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  /*color: @light_line_color;*/
+
+}
