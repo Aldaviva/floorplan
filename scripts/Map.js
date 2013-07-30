@@ -45,18 +45,20 @@ this.Map = (function(){
 		filterByTag: function(params){
 			var tagsToShow = params.tagsToShow;
 
-			var peopleToHide = this.collection.filter(function(person){
-				var personTags = person.get('tags');
-				return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0;
-			});
+			var peopleToHide = (tagsToShow != null)
+				? this.collection.filter(function(person){
+						var personTags = person.get('tags');
+						return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0;
+					})
+				: [];
 
 			this.photosGroup.children().each(function(index, photoEl){
-				photoEl.classList.remove('filtered_tag');
+				svgRemoveClass(photoEl, 'filtered_tag');
 			});
 
 			_.each(peopleToHide, function(personToHide){
 				var view = personToHide.views.mapIcon;
-				view.el.classList.add('filtered_tag'); //jquery's *Class() methods don't work on SVG elements
+				svgAddClass(view.el, 'filtered_tag');
 			});
 		},
 
@@ -68,12 +70,12 @@ this.Map = (function(){
 			});
 
 			this.photosGroup.children().each(function(index, photoEl){
-				photoEl.classList.remove('filtered_name');
+				svgRemoveClass(photoEl, 'filtered_name');
 			});
 
 			_.each(peopleToHide, function(personToHide){
 				var view = personToHide.views.mapIcon;
-				view.el.classList.add('filtered_name'); //jquery's *Class() methods don't work on SVG elements
+				svgAddClass(view.el, 'filtered_name');
 			});
 		},
 
@@ -119,6 +121,30 @@ this.Map = (function(){
 			return this.el;
 		}
 	});
+
+	/**
+	 * Would love to use jQuery here, but jQuery's *Class() methods expect el.className to be a String.
+	 * In SVG land, it's an SVGAnimatedString object, with baseVal and animVal children.
+	 * Modern browsers expose el.classList with add() and remove(), but IE 10 does not, so we must reimplement.
+	 *
+	 * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: <image> element)
+	 * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
+	 */
+	function svgAddClass(el, classStr){
+		el.className.baseVal = (el.className.baseVal + ' ' + classStr).trim();
+	}
+
+	/**
+	 * Similar to svgAddClass, we cannot use jQuery or el.classList.
+	 *
+	 * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: some <image> element)
+	 * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
+	 */
+	function svgRemoveClass(el, classStr){
+		var oldClassList = el.className.baseVal.split(/\s/);
+		var newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)));
+		el.className.baseVal = newClassList.join(" ");
+	}
 
 	return Map;
 

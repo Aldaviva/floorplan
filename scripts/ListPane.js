@@ -62,10 +62,12 @@ this.ListPane = (function(){
 		filterByTag: function(params){
 			var tagsToShow = params.tagsToShow;
 
-			var peopleToHide = this.collection.filter(function(person){
-				var personTags = person.get('tags');
-				return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0;
-			});
+			var peopleToHide = (tagsToShow != null)
+				? this.collection.filter(function(person){
+						var personTags = person.get('tags');
+						return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0;
+					})
+				: [];
 
 			this.ol.children().removeClass('filtered_tag');
 			_.each(peopleToHide, function(personToHide){
@@ -127,7 +129,7 @@ this.ListPane = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
-				this.textField = $('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'false' });
+				this.textField = $('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'false', value: '' });
 				this.$el.append(this.textField);
 			}
 			return this.el;
@@ -157,7 +159,7 @@ this.ListPane = (function(){
 			_(this.filterState)
 				// .where({ tagGridEl: null })
 				.filter(function(tagFilterState){
-					return !tagFilterState.tagGridEl && tagFilterState.tagName != 'other';
+					return !tagFilterState.tagGridEl;
 				})
 				.each(function(tagFilterState){
 					var tagEl = $('<a>')
@@ -191,6 +193,9 @@ this.ListPane = (function(){
 		onTagClick: function(event){
 			event.preventDefault();
 
+			/*
+			 * If we were showing all people, then clicking will first hide all people, so the following common logic can show only one tag
+			 */
 			if(!this._isAnyTagFiltered()){ //case c
 				_.each(this.filterState, function(tagFilterState){
 					tagFilterState.isFiltered = true;
@@ -200,6 +205,9 @@ this.ListPane = (function(){
 			var tagFilterState = this.filterState[$(event.currentTarget).data('tagName')];
 			tagFilterState.isFiltered = !tagFilterState.isFiltered;
 
+			/*
+			 * If no people would be shown, then show everybody
+			 */
 			if(this._isEveryTagFiltered()){ //case b
 				_.each(this.filterState, function(tagFilterState){
 					tagFilterState.isFiltered = false;
@@ -208,11 +216,16 @@ this.ListPane = (function(){
 
 			this.render();
 
+			/*
+			 * For this event, tagsToShow = null means show everybody, and tagsToShow = [] means show nobody
+			 */
 			mediator.publish("filterByTag", {
-				tagsToShow: _(this.filterState)
-					.where({ isFiltered: false })
-					.pluck('tagName')
-					.value()
+				tagsToShow: (this._isAnyTagFiltered())
+					? _(this.filterState)
+						.where({ isFiltered: false })
+						.pluck('tagName')
+						.value()
+					: null
 			});
 		},
 

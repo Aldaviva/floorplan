@@ -14,7 +14,7 @@ this.DetailsPane = (function(){
 			if(this.$el.is(':empty')){
 				var intro = $('<div>', { class: 'intro' });
 				intro.append($('<h2>', { text: 'Blue Jeans' }));
-				intro.append($('<div>', { class: 'address', text: '516 Clyde Avenue\nMountain View, CA 94043\n408-550-2828' })
+				intro.append($('<div>', { class: 'address', text: '516 Clyde Avenue\nMountain View, CA 94043'/*\n408-550-2828'*/, title: "View in Google Maps" })
 					.click(function(){
 						window.open('https://maps.google.com/maps?expflags=enable_star_based_justifications:true&ie=UTF8&cid=14115605422088510097&q=Blue+Jeans+Network&iwloc=A&gl=US&hl=en');
 					}));
@@ -72,16 +72,21 @@ this.DetailsPane = (function(){
 				this.els.photo.attr('src', this.model.getPhotoPath());
 				this.els.name.text(this.model.get('fullname'));
 				this.els.title.text(this.model.get('title') || '');
+
+				var email = this.model.get('email');
 				this.els.email
-					.attr('href', 'mailto:'+this.model.get('email')+(this.model.get('email').indexOf('@') == -1 ? '@bluejeans.com' : ''))
-					.text(this.model.get('email'))
-					.closest('dd').prev('dt').addBack().toggle(!!this.model.get('email'));
+					.attr('href', 'mailto:'+email+((email||'').indexOf('@') == -1 ? '@bluejeans.com' : ''))
+					.text(email)
+					.closest('dd').prev('dt').addBack().toggle(!!email);
+
 				this.els.linkedInProfile
 					.attr('href', 'http://www.linkedin.com/profile/view?id='+this.model.get('linkedInId'))
 					.closest('dd').prev('dt').addBack().toggle(!!this.model.get('linkedInId'));
+
 				this.els.mobilePhone
 					.text(formatPhoneNumber(this.model.get('mobilePhone')))
 					.prev('dt').addBack().toggle(!!this.model.get('mobilePhone'));
+
 				this.els.workPhone
 					.text(formatPhoneNumber(this.model.get('workPhone')))
 					.prev('dt').addBack().toggle(!!this.model.get('workPhone'));

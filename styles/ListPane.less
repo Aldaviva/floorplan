@@ -61,14 +61,37 @@
 	}
 
 	.query {
-		background : transparent url('../images/magnifier.png') no-repeat @grid_size 1.5*@grid_size;
-		border-width     : 0px;
-		border-bottom    : 1px solid @light_line_color;
-		color            : white;
-		font             : 20px "Knockout 32";
-		height           : 5 * @grid_size;
-		text-indent      : 5 * @grid_size;
-		width            : 100%;
+		background    : transparent url('../images/magnifier.png') no-repeat @grid_size 1.5*@grid_size;
+		border-width  : 0px;
+		border-bottom : 1px solid @light_line_color;
+		color         : white;
+		font          : 20px "Knockout 32";
+		height        : 5 * @grid_size;
+		text-indent   : 5 * @grid_size;
+		width         : 100%;
+		/*display: block;*/
+		line-height   : 5 * @grid_size; // IE ignores text-indent until first change event
+
+		.placeholder(){
+			color: @inactive_blue;
+			opacity: 1;
+		}
+
+		&::-webkit-input-placeholder {
+			.placeholder();
+		}
+
+		&:-moz-placeholder {
+			.placeholder();
+		}
+
+		&::-moz-placeholder {
+			.placeholder();
+		}
+
+		&:-ms-input-placeholder {
+			.placeholder();
+		}
 	}
 
 	.tags {
@@ -93,7 +116,7 @@
 			}
 
 			&.filtered {
-				color: #3d60a0;
+				color: @inactive_blue;
 			}
 
 			&:hover {

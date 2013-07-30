@@ -4,6 +4,6 @@
 	"dependencies": {
 		"xpath"	 : "0.0.5",
 		"xmldom" : "0.1.16",
-		"lodash" : "1.2.1"
+		"lodash" : "1.3.1"
 	}
 }

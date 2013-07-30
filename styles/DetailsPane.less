@@ -1,36 +1,35 @@
 #detailsPane {
-	position: fixed;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: @pane_width;
-	background: rgba(0, 0, 0, 0.33);
-
 	.box-sizing(border-box);
-	padding: 3 * @grid_size;
-	padding-right: 3 * @grid_size - 1;
+	background    : rgba(0, 0, 0, 0.33);
+	bottom        : 0;
+	padding       : 3 * @grid_size;
+	padding-right : 3 * @grid_size - 1;
+	position      : fixed;
+	right         : 0;
+	top           : 0;
+	width         : @pane_width;
 
 	.photo {
-		display: block;
-		width: 100%;
 		.box-sizing(border-box);
-		border: 1px solid @light_line_color;
+		border  : 1px solid @light_line_color;
+		display : block;
+		width   : 100%;
 	}
 
 	.name {
-		font-family: "Knockout 47";
-		font-size: 88px;
-		line-height: 80px;
-		text-transform: uppercase;
-		margin-top: 17px;
-		margin-left: -2px;
+		font-family    : "Knockout 47";
+		font-size      : 88px;
+		line-height    : 80px;
+		margin-left    : -2px;
+		margin-top     : 17px;
+		text-transform : uppercase;
 	}
 
 	.title {
-		font-family: "Architect's Daughter";
-		font-size: 23px;
-		line-height: 3 * @grid_size;
-		margin-top: 20px;
+		font-family : "Architect's Daughter";
+		font-size   : 23px;
+		line-height : 3 * @grid_size;
+		margin-top  : 20px;
 	}
 
 	dl {
@@ -79,23 +78,24 @@
 	}
 
 	.intro {
-		background: url('../images/building.png') no-repeat 50% 2px;
-		padding-top: 209px;
+		background  : url('../images/building.png') no-repeat 50% 2px;
+		padding-top : 207px;
 
 		h2 {
-			font-family: "Knockout 47";
-			font-size: 116px;
-			line-height: 82px;
-			text-transform: uppercase;
+			font-family    : "Knockout 47";
+			font-size      : 117px;
+			line-height    : 82px;
+			margin-left    : -3px;
+			text-transform : uppercase;
 		}
 
 		.address {
-			font-family: "Architect's Daughter";
-			font-size: 19px;
-			line-height: 3 * @grid_size;
-			margin-top: 18px;
-			white-space: pre;
-			cursor: pointer;
+			cursor      : pointer;
+			font-family : "Architect's Daughter";
+			font-size   : 19px;
+			line-height : 3 * @grid_size;
+			margin-top  : 20px;
+			white-space : pre;
 
 			&:hover {
 				color: @light_line_color;
@@ -103,34 +103,33 @@
 		}
 
 		.rating {
-			background: url('../images/yelp_stars_blue.png') no-repeat -2px 999px;
-			width: 84px;
-			height: 15px;
-			cursor: pointer;
-			margin-top: 11px;
+			background : url('../images/yelp_stars_blue.png') no-repeat -2px 999px;
+			cursor     : pointer;
+			height     : 15px;
+			margin-top : 11px;
+			width      : 84px;
 		}
 	}
 
 	.corrections {
-		font: 15px "Knockout 32";
-		text-transform: uppercase;
-		background-color: transparent;
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		line-height: @grid_size;
-		padding: 3 * @grid_size;
+		background-color : transparent;
+		bottom           : 0;
+		font             : 15px "Knockout 32";
+		left             : 0;
+		line-height      : @grid_size;
+		padding          : 3 * @grid_size;
+		position         : absolute;
+		right            : 0;
+		text-transform   : uppercase;
 
 		&::before {
-			content: '›';
-			font-size: 26px;
-			margin-right: @grid_size;
+			content      : '›';
+			font-size    : 26px;
+			margin-right : @grid_size;
 		}
 
 		&:hover {
 			background-color: @hover_background_color;
-			/*color: @light_line_color;*/
 		}
 	}
 }
