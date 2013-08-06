@@ -1,6 +1,4 @@
-LESSC := lessc
+all:
 
-all: css
-
-css:
-	@$(LESSC) styles/all.less styles/all.css
+run:
+	@node .

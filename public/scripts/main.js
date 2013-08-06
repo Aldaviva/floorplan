@@ -10,6 +10,7 @@
 	detailsPane.render();
 	map.render();
 
-	data.people.fetch({ reset: true });
+	// data.people.fetch({ reset: true });
+	data.people.reset(floorplanParams.people);
 
 })();

@@ -2,5 +2,7 @@
 build/buildonwrite.json
 people.json
 tools/node_modules
-styles/all.css
-images/photos/*.jpg
+public/styles/*.css
+public/images/photos/*.jpg
+node_modules
+config.json

@@ -1,3 +1,6 @@
+/*
+ * TODO: when a person is renamed, update row view
+ */
 this.ListPane = (function(){
 
 	var ListPane = Backbone.View.extend({
@@ -14,7 +17,6 @@ this.ListPane = (function(){
 			this.tagGrid = new TagGrid({ collection: this.collection });
 
 			this.collection.on('reset', this.addMany);
-			// this.searchBox.on('change:query', this.filterByName);
 			mediator.subscribe('change:query', this.filterByName);
 			mediator.subscribe('filterByTag', this.filterByTag);
 		},
@@ -136,7 +138,6 @@ this.ListPane = (function(){
 		},
 
 		changeQuery: _.throttle(function(event){
-			// this.trigger('change:query', event.target.value);
 			mediator.publish('change:query', event.target.value);
 		}, 50)
 	});
@@ -157,7 +158,6 @@ this.ListPane = (function(){
 
 		render: function(){
 			_(this.filterState)
-				// .where({ tagGridEl: null })
 				.filter(function(tagFilterState){
 					return !tagFilterState.tagGridEl;
 				})

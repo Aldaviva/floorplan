@@ -3,7 +3,7 @@ this.data = (function(){
 	var data = {};
 
 	var Person = data.Person = Backbone.Model.extend({
-		idAttribute: "fullname",
+		idAttribute: "_id",
 		getPhotoPath: function(){
 			return 'images/photos/'+this.get('fullname')+'.jpg'
 		}
