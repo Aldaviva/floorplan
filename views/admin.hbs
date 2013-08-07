@@ -10,7 +10,7 @@
 	<body>
 		<div id="topbar">
 			<a href="#" class="addPerson">Add person</a>
-			<a href=".." class="goToFloorplan"></a>
+			<a href=".." class="goToFloorplan">back to Floorplan</a>
 		</div>
 
 		<div id="listPane"></div>
@@ -18,17 +18,17 @@
 		<form id="editor">
 			<div class="basics">
 				<img class="photo" />
-				<a href="#" class="photo">change photo</a>
+				<a href="#" class="photo helper_link">change photo</a>
 				<input name="fullname" type="text" placeholder="full name" />
 				<input name="title" type="text" placeholder="title" />
 			</div>
 
 			<section class="contact">
 				<h1>contact</h1>
-				<label><span>Email</span><input name="email" type="text" placeholder="shacolby@bluejeans.com" /></label>
-				<label><span>LinkedIn</span><input name="linkedInId" type="text" placeholder="220778" /><a href="#">find profile</a></label>
-				<label><span>Mobile phone</span><input name="mobilePhone" type="text" placeholder="510-459-6276" /></label>
-				<label><span>Work phone</span><input name="workPhone" type="text" placeholder="408-550-2846" /></label>
+				<label><span>Email</span><input name="email" type="text" placeholder="" /></label>
+				<label><span>LinkedIn</span><input name="linkedInId" type="text" placeholder="paste profile URL" /><a href="#" class="view helper_link">view</a></label>
+				<label><span>Mobile phone</span><input name="mobilePhone" type="text" placeholder="" /></label>
+				<label><span>Work phone</span><input name="workPhone" type="text" placeholder="" /></label>
 			</section>
 
 			<section class="office">
@@ -37,8 +37,8 @@
 				<label><input name="office" value="oc" type="radio" />Orange County</label>
 				<label><input name="office" value="sf" type="radio" />San Francisco</label>
 				<label><input name="office" value="bl" type="radio" />Bangalore</label>
-				<div class="minimap"></div>
-				<label><span>Desk</span><input name="desk" type="text" /><a href="#">move desk</a></label>
+				<div class="minimap"><a href="#" class="desk helper_link">move desk</a></div>
+				<!--<label><span>Desk</span><input name="desk" type="text" />--></label>
 			</section>
 
 			<section class="tags">
@@ -59,6 +59,7 @@
 
 			<div class="formControls">
 				<input type="submit" value="save" />
+				<div class="validationMessage"></div>
 			</div>
 		</form>
 
@@ -68,7 +69,8 @@
 		<script src="scripts/lib/backbone.js" type="text/javascript"></script>
 
 		<script src="scripts/data.js"   type="text/javascript"></script>
-		<script src="scripts/editor.js" type="text/javascript"></script>
+		<script src="scripts/ListPane.js" type="text/javascript"></script>
+		<script src="scripts/Editor.js" type="text/javascript"></script>
 		<script src="scripts/admin.js"  type="text/javascript"></script>
 	</body>
 </html>

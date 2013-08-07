@@ -6,12 +6,15 @@ this.data = (function(){
 		idAttribute: "_id",
 		getPhotoPath: function(){
 			return 'images/photos/'+this.get('fullname')+'.jpg'
+		},
+		defaults: {
+			tags: []
 		}
 	});
 
 	var people = data.people = new (Backbone.Collection.extend({
 		model: Person,
-		url: 'people.json',
+		url: '/people',
 		comparator: 'fullname'
 	}))();
 
