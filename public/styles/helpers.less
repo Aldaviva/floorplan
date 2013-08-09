@@ -1,4 +1,4 @@
-.border-radius() {
+.border-radius(...) {
 	border-radius: @arguments;
 	-moz-border-radius: @arguments;
 	-webkit-border-radius: @arguments;
@@ -44,6 +44,10 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.gray-text(@brightness){
+	color: hsl(0%, 0, @brightness);
 }
 
 /**

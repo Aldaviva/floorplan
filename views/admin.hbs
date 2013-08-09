@@ -8,25 +8,33 @@
 	</head>
 
 	<body>
+		<div class="vignette"></div>
+
 		<div id="topbar">
-			<a href="#" class="addPerson">Add person</a>
-			<a href=".." class="goToFloorplan">back to Floorplan</a>
+			<!--<a href="#" class="addPerson">Add person</a>-->
+			<a href=".." class="goToFloorplan" target="_blank">floor plan</a>
 		</div>
 
 		<div id="listPane"></div>
 
 		<form id="editor">
 			<div class="basics">
-				<img class="photo" />
-				<a href="#" class="photo helper_link">change photo</a>
-				<input name="fullname" type="text" placeholder="full name" />
-				<input name="title" type="text" placeholder="title" />
+				<div class="photo">
+					<img />
+					<div><a href="#" class="helper_link">select photo</a> (square)</div>
+				</div>
+				<div class="fullname_sizer">
+					<input name="fullname" type="text" placeholder="full name" />
+				</div>
+				<div class="title_sizer">
+					<input name="title" type="text" placeholder="title" />
+				</div>
 			</div>
 
 			<section class="contact">
 				<h1>contact</h1>
-				<label><span>Email</span><input name="email" type="text" placeholder="" /></label>
-				<label><span>LinkedIn</span><input name="linkedInId" type="text" placeholder="paste profile URL" /><a href="#" class="view helper_link">view</a></label>
+				<label><span>Email</span><input name="email" type="email" placeholder="" /></label>
+				<label><span>LinkedIn</span><a href="#" class="view_profile helper_link" target="_blank">view</a><input name="linkedInId" type="text" placeholder="paste profile URL" /></label>
 				<label><span>Mobile phone</span><input name="mobilePhone" type="text" placeholder="" /></label>
 				<label><span>Work phone</span><input name="workPhone" type="text" placeholder="" /></label>
 			</section>
@@ -58,19 +66,20 @@
 			</section>
 
 			<div class="formControls">
-				<input type="submit" value="save" />
+				<!-- <input type="submit" value="save" /> -->
+				<button type="submit">save</button>
 				<div class="validationMessage"></div>
 			</div>
 		</form>
 
-		<script src="scripts/lib/mediator.js" type="text/javascript"></script>
-		<script src="scripts/lib/jquery.js"   type="text/javascript"></script>
-		<script src="scripts/lib/lodash.js"   type="text/javascript"></script>
-		<script src="scripts/lib/backbone.js" type="text/javascript"></script>
+		<script src="scripts/lib/mediator.js"     type="text/javascript"></script>
+		<script src="scripts/lib/jquery.js"       type="text/javascript"></script>
+		<script src="scripts/lib/lodash.js"       type="text/javascript"></script>
+		<script src="scripts/lib/backbone.js"     type="text/javascript"></script>
 
-		<script src="scripts/data.js"   type="text/javascript"></script>
-		<script src="scripts/ListPane.js" type="text/javascript"></script>
-		<script src="scripts/Editor.js" type="text/javascript"></script>
-		<script src="scripts/admin.js"  type="text/javascript"></script>
+		<script src="scripts/data.js"             type="text/javascript"></script>
+		<script src="scripts/ListPane.js"         type="text/javascript"></script>
+		<script src="scripts/Editor.js"           type="text/javascript"></script>
+		<script src="scripts/admin.js"            type="text/javascript"></script>
 	</body>
 </html>
