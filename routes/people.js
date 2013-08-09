@@ -7,7 +7,7 @@ var FIELD_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'tags', '
 
 exports.list = function(req, res, next){
 	personRepository.findAll()
-		.then(res.send.bind(res, next))
+		.then(res.send.bind(res))
 		.fail(next);
 };
 
@@ -26,7 +26,7 @@ exports.show = function(req, res, next){
 exports.create = function(req, res, next){
 	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
 	personRepository.save(sanitizedBody)
-		.then(res.send.bind(res, next))
+		.then(res.send.bind(res))
 		.fail(next);
 };
 
@@ -34,7 +34,7 @@ exports.update = function(req, res, next){
 	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
 	sanitizedBody._id = req.params.id;
 	personRepository.save(sanitizedBody)
-		.then(res.send.bind(res, next))
+		.then(res.send.bind(res))
 		.fail(next);
 };
 
