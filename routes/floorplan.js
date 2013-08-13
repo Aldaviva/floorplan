@@ -15,7 +15,7 @@ fs.readdir(MAPS_PATH, function(err, files){
 	});
 });
 
-exports.index = function(req, res){
+exports.index = function(req, res, next){
 	var officeId = req.params.office || "mv";
 
 	if(_.contains(OFFICE_IDS, officeId)) {
@@ -38,6 +38,7 @@ exports.index = function(req, res){
 		});
 
 	} else {
-		res.status(404).send("No office called "+officeId+", try "+OFFICE_IDS.join(' or ')+'.');
+		// res.status(404).send("No office called "+officeId+", try "+OFFICE_IDS.join(' or ')+'.');
+		next();
 	}
 };

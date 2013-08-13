@@ -2,16 +2,16 @@
 	margin-left: @pane_width + (6 * @grid_size);
 
 	label {
-		display: block;
-		font-size: 17px;
+		display   : block;
+		font-size : 17px;
 	}
 
-	input[type=text], input[type=email] {
-		background: none;
-		border: none;
-		padding: 0;
-		color: black;
-		font-size: inherit;
+	input[type=text], input[type=email], input[type=tel] {
+		background : none;
+		border     : none;
+		color      : black;
+		font-size  : inherit;
+		padding    : 0;
 	}
 
 	.helper_link {
@@ -19,36 +19,55 @@
 	}
 
 	section {
-		margin-left: @editor_photo_size + @editor_magic_size;
-		margin-bottom: @editor_magic_size;
+		margin-bottom : @editor_magic_size;
+		margin-left   : @editor_photo_size + @editor_magic_size;
 
 		h1 {
-			font: 20px "Knockout 52";
-			text-align: right;
 			.gray-text(64%);
-			text-transform: uppercase;
-			width: @editor_photo_size;
-			float: left;
-			margin-left: -1 * (@editor_magic_size + @editor_photo_size);
+			float          : left;
+			font           : 20px "Knockout 52";
+			margin-left    : -1 * (@editor_magic_size + @editor_photo_size);
+			text-align     : right;
+			text-transform : uppercase;
+			width          : @editor_photo_size;
 		}
 	}
 
 	.basics {
-		margin-top: 6 * @grid_size;
-		margin-bottom: 84px;
+		margin-bottom : 84px;
+		margin-top    : 6 * @grid_size;
 
 		.photo { 
-			float        : left;
-			text-align   : right;
 			.gray-text(35%);
+			float      : left;
+			text-align : right;
 
-			img {
+			img, canvas {
 				display : block;
 				height  : @editor_photo_size;
 				width   : @editor_photo_size;
+			}
 
-				+ div {
-					margin-top: 4px;
+			> div {
+				margin-top: 4px;
+
+				.fileChooserLink {
+					display  : inline-block;
+					overflow : hidden;
+					position : relative;
+
+					input[type=file] {
+						cursor    : pointer;
+						opacity   : 0;
+						position  : absolute;
+						right     : 0;
+						top       : 0;
+						transform : translate(-300px, 0) scale(4);
+					}
+				}
+
+				span {
+					vertical-align: bottom;
 				}
 			}
 		}
@@ -57,30 +76,34 @@
 			.inputBox();
 			font-family : "Knockout 51";
 			font-size   : 88px;
-			height: 1.1em;
-			padding-top: 4px;
+			height      : 1.1em;
+			padding-top : 4px;
+
+			&:invalid {
+				border-bottom-color: @invalid_color;
+			}
 		}
 
 		[name=title] {
+			.gray-text(35%);
 			.inputBox();
 			font-family : "Knockout 31";
 			font-size   : 37px;
-			.gray-text(35%);
-			height: 1.1em;
-			margin-top: 10px;
+			height      : 1.1em;
+			margin-top  : 10px;
 		}
 
 		.inputBox(){
 			border-bottom : 1px solid rgba(0,0,0,0.15);
 			display       : block;
-			width: 100%;
+			width         : 100%;
 		}
 
 		.fullname_sizer, .title_sizer {
-			max-width: 888px;
-			min-width: 430px;
-			margin-left: @editor_photo_size + 43px;
-			margin-right: 6 * @grid_size;
+			margin-left  : @editor_photo_size + 43px;
+			margin-right : 6 * @grid_size;
+			max-width    : 888px;
+			min-width    : 430px;
 		}
 	}
 
@@ -89,10 +112,11 @@
 			@label_text_width : 132px;
 			@label_width      : 420px;
 			border-bottom     : 1px solid rgba(0,0,0,.15);
+			position          : relative;
 			width             : @label_width;
-			position: relative;
+			white-space       : nowrap;
 
-			span, input[type=text], input[type=email] {
+			span, input {
 				padding-bottom: 4px;
 			}
 
@@ -104,20 +128,32 @@
 				width          : @label_text_width;
 			}
 
-			input[type=text], input[type=email] {
+			input {
 				cursor      : text; //cursor in padding region
 				width       : @label_width - @label_text_width;
 			}
 
 			.helper_link {
-				position: absolute;
-				right: -35px;
-				bottom: 4px;
+				bottom   : 4px;
+				position : absolute;
+				right    : -35px;
 			}
 
 			+ label {
-				input[type=text], input[type=email] {
+				input {
 					padding-top : 13px;
+				}
+			}
+
+			&.invalid {
+				border-bottom-color: @invalid_color;
+
+				span {
+					color: fade(@invalid_color, 50%);
+				}
+
+				input {
+					color: @invalid_color;
 				}
 			}
 		}
@@ -168,7 +204,8 @@
 			border-style     : solid;
 			border-width     : 0 1px @submit_border_bottom;
 			color            : white;
-			display          : block;
+			cursor           : pointer;
+			display          : inline-block;
 			font             : 17px "Knockout 52";
 			height           : @submit_height + @submit_border_bottom;
 			line-height      : @submit_height;
@@ -199,6 +236,7 @@
 
 		.validationMessage {
 			margin-left: @editor_magic_size;
+			color: @invalid_color;
 		}
 	}
 

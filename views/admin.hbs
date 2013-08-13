@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Admin – Blue Jeans Floorplan</title>
-		<link href="styles/admin.css" rel="stylesheet" type="text/css" />
+		<link href="../styles/admin.css" rel="stylesheet" type="text/css" />
 		<link href="favicon.ico" rel="icon" type="image/x-icon" />
 	</head>
 
@@ -21,10 +21,16 @@
 			<div class="basics">
 				<div class="photo">
 					<img />
-					<div><a href="#" class="helper_link">select photo</a> (square)</div>
+					<div>
+						<span class="fileChooserLink">
+							<a href="#" class="helper_link">select photo</a>
+							<input type="file" name="photo" />
+						</span>
+						<span>(square)</span>
+					</div>
 				</div>
 				<div class="fullname_sizer">
-					<input name="fullname" type="text" placeholder="full name" />
+					<input name="fullname" type="text" placeholder="full name" required data-validation-failed-message="The person's full name is required." />
 				</div>
 				<div class="title_sizer">
 					<input name="title" type="text" placeholder="title" />
@@ -33,10 +39,21 @@
 
 			<section class="contact">
 				<h1>contact</h1>
-				<label><span>Email</span><input name="email" type="email" placeholder="" /></label>
-				<label><span>LinkedIn</span><a href="#" class="view_profile helper_link" target="_blank">view</a><input name="linkedInId" type="text" placeholder="paste profile URL" /></label>
-				<label><span>Mobile phone</span><input name="mobilePhone" type="text" placeholder="" /></label>
-				<label><span>Work phone</span><input name="workPhone" type="text" placeholder="" /></label>
+				<label>
+					<span>Email</span><input name="email" type="email" placeholder="" data-validation-failed-message="Invalid email address." />
+				</label>
+
+				<label>
+					<span>LinkedIn</span><a href="#" class="view_profile helper_link" target="_blank">view</a><input name="linkedInId" type="text" placeholder="paste profile URL" pattern=".*linkedin\.com/profile/view\?id=\d+.*" data-validation-failed-message="LinkedIn field should have a value of the form linkedin.com/profile/view?id=12345678" />
+				</label>
+
+				<label>
+					<span>Mobile phone</span><input name="mobilePhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="\d{3}-\d{3}-\d{4}" data-validation-failed-message="Mobile phone must be of the form 408-555-5555."/>
+				</label>
+
+				<label>
+					<span>Work phone</span><input name="workPhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="\d{3}-\d{3}-\d{4}" data-validation-failed-message="Work phone must be of the form 408-555-5555." />
+				</label>
 			</section>
 
 			<section class="office">
@@ -66,20 +83,24 @@
 			</section>
 
 			<div class="formControls">
-				<!-- <input type="submit" value="save" /> -->
-				<button type="submit">save</button>
-				<div class="validationMessage"></div>
+				<button type="submit">save</button><span class="validationMessage"></span>
 			</div>
 		</form>
 
-		<script src="scripts/lib/mediator.js"     type="text/javascript"></script>
-		<script src="scripts/lib/jquery.js"       type="text/javascript"></script>
-		<script src="scripts/lib/lodash.js"       type="text/javascript"></script>
-		<script src="scripts/lib/backbone.js"     type="text/javascript"></script>
+		<script src="../scripts/lib/mediator.js"                  type="text/javascript"></script>
+		<script src="../scripts/lib/jquery.js"                    type="text/javascript"></script>
+		<script src="../scripts/lib/lodash.js"                    type="text/javascript"></script>
+		<script src="../scripts/lib/backbone.js"                  type="text/javascript"></script>
+		<script src="../scripts/lib/jquery-ui.js"                 type="text/javascript"></script>
+		<script src="../scripts/lib/load-image.js"                type="text/javascript"></script>
+		<script src="../scripts/lib/jquery.iframe-transport.js"   type="text/javascript"></script>
+		<script src="../scripts/lib/jquery.fileupload.js"         type="text/javascript"></script>
+		<script src="../scripts/lib/jquery.fileupload-process.js" type="text/javascript"></script>
+		<script src="../scripts/lib/jquery.fileupload-image.js"   type="text/javascript"></script>
 
-		<script src="scripts/data.js"             type="text/javascript"></script>
-		<script src="scripts/ListPane.js"         type="text/javascript"></script>
-		<script src="scripts/Editor.js"           type="text/javascript"></script>
-		<script src="scripts/admin.js"            type="text/javascript"></script>
+		<script src="../scripts/data.js"                          type="text/javascript"></script>
+		<script src="../scripts/ListPane.js"                      type="text/javascript"></script>
+		<script src="../scripts/Editor.js"                        type="text/javascript"></script>
+		<script src="../scripts/admin.js"                         type="text/javascript"></script>
 	</body>
 </html>

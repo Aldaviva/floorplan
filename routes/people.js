@@ -55,10 +55,7 @@ exports.setPhoto = function(req, res, next){
 	var tempPath     = uploadedFile.path;
 	var personId     = req.params.id;
 
-	personRepository.findOne(personId)
-		.then(function(person){
-			return photoManager.importPhoto(tempPath, personId + '.jpg')
-		})
+	return photoManager.importPhoto(tempPath, personId + '.jpg')
 		.then(function(imgInfo){
 			var basename = path.basename(imgInfo.path);
 
