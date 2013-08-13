@@ -20,6 +20,7 @@
 			@img_size: @grid_size * 5 + 1;
 			cursor       : pointer;
 			padding-left : 2 * @grid_size;
+			width: @pane_width - (2 * @grid_size); //overconstrained, but scrollbars tweak the width otherwise
 
 			&.filtered_name, &.filtered_tag {
 				display: none;
@@ -40,10 +41,11 @@
 				line-height : @img_size;
 			}
 
-			img {
+			img, .icon {
 				height       : @img_size;
 				margin-right : 2 * @grid_size;
 				width        : @img_size;
+				line-height: @img_size - 3px;
 			}
 		}
 	}

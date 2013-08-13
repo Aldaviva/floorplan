@@ -11,6 +11,7 @@ this.Editor = (function(){
 
 		initialize: function(){
 			_.bindAll(this);
+			mediator.subscribe("activatePersonConfirmed", this.onActivatePersonConfirmed);
 			mediator.subscribe("activatePerson", this.onActivatePerson);
 
 			this.photoData = null;
@@ -95,13 +96,32 @@ this.Editor = (function(){
 			}
 		},
 
-		onActivatePerson: function(model){
+		onActivatePerson: function(newModel, opts){
+			//a hack, but i don't want to save more state
+			if(this.$('.formControls [type=submit]').attr('disabled')){
+				//model and photo are saved, nothing to do here
+				mediator.publish('activatePersonConfirmed', newModel, opts);
+
+			//TODO make a real dialog with choices for save, discard, and edit
+			} else if(window.confirm("You have unsaved changes. Are you sure you want to discard these changes?")){
+				this.model.fetch({ success: function(model){
+					model.changed = {}; //model is now synced with server, there are no changes.
+				}});
+				mediator.publish('activatePersonConfirmed', newModel, opts);
+			}
+		},
+
+		onActivatePersonConfirmed: function(model){
 			this.clearPendingUploads();
 
 			this.model = model;
 			this.updatePhotoUploadUrl();
 
 			this.render();
+
+			this.$('.validationMessage').hide();
+			this.$('.invalid').removeClass('invalid');
+
 			window.scrollTo(0,0);
 		},
 
@@ -111,7 +131,10 @@ this.Editor = (function(){
 			console.log("user hit Save, disabling form controls");
 
 			if(this.model.isNew()){
-				this.collection.create(this.model, { success: this.onSave });
+				this.collection.create(this.model, { success: _.bind(function(result){
+					this.onSave();
+					mediator.publish('activatePersonConfirmed', this.model);
+				}, this)});
 			} else {
 				this.model.save({}, { success: this.onSave });
 			}
@@ -155,13 +178,13 @@ this.Editor = (function(){
 				changeSet[attributeName] = attributeValue;
 				this.model.set(changeSet);
 				// console.log(JSON.stringify(this.model.changedAttributes() || "no change (model is identical)"));
-				this.render(); //update coerced values
+				this.render(); //update coerced values. side effect: blows away invalid values
 
 			} else {
 				this.$('.validationMessage').text(currentTarget.data('validation-failed-message')).show();
 			}
 
-			currentTarget.closest('label').toggleClass('invalid', !validity.valid);
+			currentTarget.closest('label').addBack().toggleClass('invalid', !validity.valid);
 		},
 
 		renderFormControls: function(isForceEnabled){
@@ -170,6 +193,8 @@ this.Editor = (function(){
 			var isEnabled = isValid && (_.isBoolean(isForceEnabled))
 				? isForceEnabled
 				: (this.model.hasChanged() || (this.photoData && this.photoData.state() != 'pending'));
+
+			// if(isEnabled) debugger;
 
 			var saveButton = this.$('.formControls [type=submit]');
 

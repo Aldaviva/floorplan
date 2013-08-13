@@ -8,9 +8,17 @@
 	listPane.render();
 	editor.render();
 
-	mediator.subscribe('activatePerson', function(person, opts){
+	listPane.$('.people')
+		.prepend($('<li>', { class: 'person add' })
+			.append($('<span>', { class: 'icon', text: '+' }))
+			.append($('<div>', { class: 'name', text: 'add person' })));
+
+	mediator.subscribe('activatePersonConfirmed', function(person, opts){
 		if(!opts.skipHistory){
-			window.history.pushState({ personId: person.id }, null, '/admin/'+person.id+'#'+person.get('fullname').replace(/\s/g, '_'));
+			var path = person.isNew() 
+				? '/admin/'
+				: '/admin/'+person.id+'#'+person.get('fullname').replace(/\s/g, '_');
+			window.history.pushState({ personId: person.id }, null, path);
 		}
 	});
 

@@ -17,8 +17,11 @@ this.ListPane = (function(){
 			this.tagGrid = new TagGrid({ collection: this.collection });
 
 			this.collection.on('reset', this.addMany);
+			this.collection.on('add', this.addOne);
 			mediator.subscribe('change:query', this.filterByName);
 			mediator.subscribe('filterByTag', this.filterByTag);
+
+			mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed);
 		},
 
 		render: function(){
@@ -36,12 +39,24 @@ this.ListPane = (function(){
 		addMany: function(coll){
 			var insertFragment = document.createDocumentFragment();
 
-			coll.each(function(model){
-				var personView = new PersonRow({ model: model });
+			coll.each(function(person){
+				var personView = new PersonRow({ model: person });
 				insertFragment.appendChild(personView.render());
 			});
 
 			this.ol.append(insertFragment);
+		},
+
+		addOne: function(person){
+			var personView = new PersonRow({ model: person }).render();
+			var indexToInsertAt = this.collection.sortedIndex(person);
+			if(indexToInsertAt === 0){
+				//insert before element 1
+				$(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el);
+			} else {
+				$(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el);
+				//insert after element n-1
+			}
 		},
 
 		filterByName: function(query){
@@ -80,7 +95,16 @@ this.ListPane = (function(){
 
 		onRowClick: function(event){
 			var model = $(event.currentTarget).data('model');
-			mediator.publish("activatePerson", model);
+			if(!model){
+				model = new this.collection.model();
+			}
+			mediator.publish("activatePerson", model, { skipListScroll: true });
+		},
+
+		onActivatePersonConfirmed: function(person, opts){
+			if(!opts.skipListScroll){
+				person.views.listPaneRow.el.scrollIntoView();
+			}
 		}
 	});
 

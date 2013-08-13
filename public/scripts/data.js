@@ -5,7 +5,11 @@ this.data = (function(){
 	var Person = data.Person = Backbone.Model.extend({
 		idAttribute: "_id",
 		getPhotoPath: function(){
-			return '/images/photos/'+this.id+'.jpg'
+			if(this.id){
+				return '/images/photos/'+this.id+'.jpg';
+			} else {
+				return '/images/missing_photo.jpg';
+			}
 		},
 		defaults: {
 			tags: []
