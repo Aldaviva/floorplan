@@ -7,13 +7,21 @@ this.Editor = (function(){
 			"change input": "onDirtyChange",
 			"keyup input": function(){ this.renderFormControls(true); },
 			"click .contact .view_profile": "viewLinkedInProfile",
-			"click .basics .remove": "removePerson"
+			"click .basics .remove": "removePerson",
+			"click .desk.helper_link": "enlargeMap"
 		},
 
 		initialize: function(){
 			_.bindAll(this);
+
+			var officeIds = this.$('.office input[type=radio]').map(function(){ return $(this).attr('value'); });
+			this.maps = _.zipObject(officeIds, _.map(officeIds, function(officeId){
+				return new Map({ el: $('.map.'+officeId)[0], collection: data.people, office: officeId });
+			}));
+
 			mediator.subscribe("activatePersonConfirmed", this.onActivatePersonConfirmed);
 			mediator.subscribe("activatePerson", this.onActivatePerson);
+			mediator.subscribe("map:clickDesk", this.onClickDesk);
 
 			this.photoData = null;
 			this.initPhotoUploadControl();
@@ -75,10 +83,19 @@ this.Editor = (function(){
 				this.$('.basics .remove').toggle(!this.model.isNew());
 
 				this.renderPhoto();
+
+				_.each(this.maps, function(mapView){
+					var isMapOfPersonsOffice = (mapView.options.office == this.model.get('office'));
+					mapView.$el.toggle(isMapOfPersonsOffice);
+				}, this);
+				
+				this.renderFormControls();
 			}
 
 			this.$el.toggle(!!this.model);
-			this.renderFormControls();
+			_.each(this.maps, function(mapView){
+				mapView.render();
+			});
 		},
 
 		/**
@@ -294,6 +311,38 @@ this.Editor = (function(){
 				mediator.publish("activatePersonConfirmed", new (this.collection.model)());
 
 			}
+		},
+
+		enlargeMap: function(event){
+			event.preventDefault();
+
+			var seatChooserLarge = $('.seatChooser.large');
+			var seatChooserSmall = this.$('.seatChooser.small');
+			var mapEl = this.$('.map:visible');
+
+			mapEl
+				.prependTo(seatChooserLarge)
+				.removeClass('small')
+				.addClass('large');
+
+			seatChooserLarge
+				.show();
+
+			$(document.body).css('overflow', 'hidden');
+
+			seatChooserLarge.find('.cancel')
+				.off('click')
+				.on('click', function(event){
+					event.preventDefault();
+					mapEl.prependTo(seatChooserSmall);
+					seatChooserLarge.hide();
+					mapEl.removeClass('large').addClass('small');
+					$(document.body).css('overflow', '');
+				});
+		},
+
+		onClickDesk: function(deskId){
+			// this.model.
 		}
 	});
 

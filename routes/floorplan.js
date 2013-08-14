@@ -35,7 +35,7 @@ exports.index = function(req, res, next){
 				people: JSON.stringify(people)
 			};
 			res.render('floorplan', context);
-		});
+		}).fail(next);
 
 	} else {
 		// res.status(404).send("No office called "+officeId+", try "+OFFICE_IDS.join(' or ')+'.');

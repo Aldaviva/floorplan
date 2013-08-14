@@ -1,18 +1,11 @@
-#map {
-	position: fixed;
-
-	@gutter: 6 * @grid_size;
-	top: @gutter;
-	left: @gutter + @pane_width;
-	right: @gutter + @pane_width;
-	bottom: @gutter;
-
+.map {
 	svg {
-		width: 100%;
-		height: 100%;
+		.background {
+			fill: rgba(0,0,0,0);
+		}
 
 		image {
-			image-rendering : optimizeQuality
+			/*image-rendering : optimizeQuality;*/
 		}
 
 		#roomNames text {
@@ -37,16 +30,99 @@
 			}
 		}
 
-		#photos image {
-			cursor: pointer;
+		#photos {
+			image {
+				cursor: pointer;
 
-			&.filtered_tag, &.filtered_name {
-				opacity: 0.1;
+				&.filtered_tag, &.filtered_name {
+					opacity: 0.1;
+				}
 			}
 
+			.activeRectangle {
+				fill: @hot_blue;
+			}
+		}
+	}
+}
+
+.floorplan .map {
+	position: fixed;
+
+	@gutter: 6 * @grid_size;
+	top: @gutter;
+	left: @gutter + @pane_width;
+	right: @gutter + @pane_width;
+	bottom: @gutter;
+
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.activeRectangle {
+		visibility: hidden;
+	}
+}
+
+.admin .map {
+	svg {
+
+		#roomNames text {
+			visibility: hidden;
+		}
+
+		#walls {
+			line, polyline, rect {
+				stroke : rgba(0, 0, 0, 0.75);
+			}
+
+			.innerWalls {
+				line, polyline, rect {
+					stroke : rgba(0, 0, 0, 0.5);
+				}
+			}
+		}
+
+		#photos image {
+			cursor: default;
+		}
+	}
+
+	&.small {
+		#photos image {
+			visibility: hidden;
+
+			/*&.active {
+				visibility: visible;
+			}*/
+		}
+	}
+
+	&.large {
+		svg {
+			.background {
+				fill: white;
+			}
+		}
+
+		#photos image {
+			opacity: 0.33;
+
 			&.active {
-				stroke: white;
-				stroke-width: 2;
+				opacity: 1;
+			}
+		}
+
+		#walls {
+			line, polyline, rect {
+				stroke : rgba(0, 0, 0, 0.5);
+			}
+
+			.innerWalls {
+				line, polyline, rect {
+					stroke : rgba(0, 0, 0, 0.25);
+				}
 			}
 		}
 	}

@@ -111,7 +111,6 @@ this.ListPane = (function(){
 		onActivatePersonConfirmed: function(person, opts){
 			var rowViewEl;
 
-			debugger;
 			if(person.views){
 				rowViewEl = person.views.listPaneRow.$el;
 			} else {

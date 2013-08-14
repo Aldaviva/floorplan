@@ -3,7 +3,7 @@
 	this.mediator = new Mediator();
 
 	var listPane = new ListPane({ el: $('#listPane')[0], collection: data.people });
-	var editor = new Editor({ el: $('#editor')[0], collection: data.people, model: new data.Person() });
+	var editor = new Editor({ el: $('#editor')[0], collection: data.people });
 
 	listPane.render();
 	editor.render();
@@ -38,7 +38,7 @@
 				var personId = pathnameParts[2];
 				var person = data.people.get(personId);
 				if(person){
-					mediator.publish('activatePerson', person);
+					mediator.publish('activatePersonConfirmed', person);
 				}
 			}
 

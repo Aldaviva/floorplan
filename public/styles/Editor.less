@@ -109,6 +109,10 @@
 		.remove {
 			float: right;
 			margin-top: 4px;
+
+			&:hover {
+				color: #ff003c;
+			}
 		}
 	}
 
@@ -180,6 +184,25 @@
 		}
 	}
 
+	.office {
+		@map_height: 125px;
+
+		position: relative;
+		min-height: @map_height + 22px;
+
+		.seatChooser {
+			position: absolute;
+			top: 0;
+			left: 210px;
+			text-align: right;
+
+			svg {
+				width: @map_height;
+				height: @map_height;
+			}
+		}
+	}
+
 	.tags {
 		@column_count: 3;
 		@column_width: 150px;
@@ -197,7 +220,8 @@
 	.formControls {
 		@save_button_width: 92px;
 		padding-top: 1px; //to avoid collapsing sibling margins
-		padding-left: @editor_photo_size + 0*@editor_magic_size - @save_button_width;
+		/*padding-left: @editor_photo_size + 0*@editor_magic_size - @save_button_width;*/
+		margin-left   : @editor_photo_size + @editor_magic_size;
 
 		[type=submit] {
 			@submit_margin_top: 0;
@@ -232,6 +256,7 @@
 
 			&[disabled] {
 				.submitButtonColors(100%);
+				cursor: default;
 
 				&:active {
 					margin-top: @submit_margin_top;
@@ -242,7 +267,7 @@
 		}
 
 		.validationMessage {
-			margin-left: @editor_magic_size;
+			margin-left: 25px;
 			color: @invalid_color;
 		}
 	}
@@ -261,4 +286,54 @@
 		}
 	}
 
+}
+
+.seatChooser {
+	&.large {
+		position: fixed;
+		background: rgba(255,255,255,0.9);
+		z-index: 1;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+
+		.map {
+			.box-sizing(border-box);
+			height: 100%;
+			padding: 6 * @grid_size;
+			padding-bottom: 3 * @grid_size;
+		}
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.cancel {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 2*@grid_size 2*@grid_size 6*@grid_size 6*@grid_size;
+		color: black;
+		line-height: 0.45em;
+		font-size: 50px;
+		background: white;
+
+		&:hover {
+			color: @hot_blue;
+		}
+	}
+
+	.hint {
+		position: absolute;
+		top: 0;
+		text-align: center;
+		left: 0;
+		right: 0;
+		line-height: 6 * @grid_size;
+		font-size: 17px;
+		.gray-text(50%);
+	}
 }
