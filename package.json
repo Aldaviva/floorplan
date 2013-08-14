@@ -3,6 +3,7 @@
 	"version": "2.0.0-SNAPSHOT",
 	"author": "Ben Hutchison <ben@bluejeans.com>",
 	"dependencies": {
+		"crp"             : "0.0.0",
 		"express"         : "3.3.4",
 		"express-slash"   : "0.2.0",
 		"hbs"             : "2.3.1",

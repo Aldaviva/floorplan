@@ -18,6 +18,7 @@ this.ListPane = (function(){
 
 			this.collection.on('reset', this.addMany);
 			this.collection.on('add', this.addOne);
+			this.collection.on('destroy', this.removePerson);
 			mediator.subscribe('change:query', this.filterByName);
 			mediator.subscribe('filterByTag', this.filterByTag);
 
@@ -59,6 +60,10 @@ this.ListPane = (function(){
 			}
 		},
 
+		removePerson: function(person){
+			person.views.listPaneRow.remove();
+		},
+
 		filterByName: function(query){
 			query = query.toLowerCase().trim();
 
@@ -97,13 +102,29 @@ this.ListPane = (function(){
 			var model = $(event.currentTarget).data('model');
 			if(!model){
 				model = new this.collection.model();
+				// model.views = {};
+				// model.views.listPaneRow = 
 			}
 			mediator.publish("activatePerson", model, { skipListScroll: true });
 		},
 
 		onActivatePersonConfirmed: function(person, opts){
+			var rowViewEl;
+
+			debugger;
+			if(person.views){
+				rowViewEl = person.views.listPaneRow.$el;
+			} else {
+				rowViewEl = this.ol.children().first();
+			}
+
+			rowViewEl
+				.addClass('active')
+				.siblings().removeClass('active');
+			
 			if(!opts.skipListScroll){
-				person.views.listPaneRow.el.scrollIntoView();
+				var twoPeopleUpEl = rowViewEl.prev().prev().add(rowViewEl).get(0);
+				twoPeopleUpEl && twoPeopleUpEl.scrollIntoView();
 			}
 		}
 	});
@@ -155,7 +176,7 @@ this.ListPane = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
-				this.textField = $('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'false', value: '' });
+				this.textField = $('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'off', value: '' });
 				this.$el.append(this.textField);
 			}
 			return this.el;

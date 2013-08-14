@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<title>Admin – Blue Jeans Floorplan</title>
 		<link href="../styles/admin.css" rel="stylesheet" type="text/css" />
-		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<link href="../favicon.ico" rel="icon" type="image/x-icon" />
 	</head>
 
 	<body>
@@ -12,12 +12,12 @@
 
 		<div id="topbar">
 			<!--<a href="#" class="addPerson">Add person</a>-->
-			<a href=".." class="goToFloorplan" target="_blank">floor plan</a>
+			<a href=".." class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
 		</div>
 
 		<div id="listPane"></div>
 
-		<form id="editor">
+		<form id="editor" style="display: none">
 			<div class="basics">
 				<div class="photo">
 					<img />
@@ -26,7 +26,7 @@
 							<a href="#" class="helper_link">select photo</a>
 							<input type="file" name="photo" />
 						</span>
-						<span>(square)</span>
+						<!--<span>(square)</span>-->
 					</div>
 				</div>
 				<div class="fullname_sizer">
@@ -35,6 +35,7 @@
 				<div class="title_sizer">
 					<input name="title" type="text" placeholder="title" />
 				</div>
+				<a href="#" class="helper_link remove">remove person</a>
 			</div>
 
 			<section class="contact">
@@ -44,7 +45,7 @@
 				</label>
 
 				<label>
-					<span>LinkedIn</span><a href="#" class="view_profile helper_link" target="_blank">view</a><input name="linkedInId" type="text" placeholder="paste profile URL" pattern=".*linkedin\.com/profile/view\?id=\d+.*" data-validation-failed-message="LinkedIn field should have a value of the form linkedin.com/profile/view?id=12345678" />
+					<span>LinkedIn</span><a href="#" class="view_profile helper_link" target="_blank">view profile</a><a href="#" class="search helper_link" target="_blank">search for profile</a><input name="linkedInId" type="text" placeholder="paste profile URL" pattern=".*linkedin\.com/profile/view\?id=\d+.*" data-validation-failed-message="LinkedIn field should have a value of the form linkedin.com/profile/view?id=12345678" />
 				</label>
 
 				<label>

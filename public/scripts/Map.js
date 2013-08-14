@@ -22,6 +22,8 @@ this.Map = (function(){
 			mediator.subscribe('change:query', this.filterByName);
 		},
 
+		// subscribe
+
 		render: function(){
 			return this.el;
 		},

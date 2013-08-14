@@ -6,7 +6,8 @@ this.Editor = (function(){
 			"click [type=submit]": "save",
 			"change input": "onDirtyChange",
 			"keyup input": function(){ this.renderFormControls(true); },
-			"click .contact .view_profile": "viewLinkedInProfile"
+			"click .contact .view_profile": "viewLinkedInProfile",
+			"click .basics .remove": "removePerson"
 		},
 
 		initialize: function(){
@@ -63,10 +64,15 @@ this.Editor = (function(){
 				this.$('.contact .view_profile')
 					.attr('href', (linkedInId) ? ('http://www.linkedin.com/profile/view?id='+linkedInId) : '#')
 					.toggle(!!linkedInId);
+				this.$('.contact .search')
+					.attr('href', 'http://www.linkedin.com/vsearch/p?keywords='+encodeURIComponent(this.model.get('fullname'))+'&openAdvancedForm=true&f_CC=1958201')
+					.toggle(!linkedInId && !!this.model.get('fullname'));
 
 				var emailLocalPart = this.model.get('email');
 				var emailComplete = emailLocalPart + ((emailLocalPart||'').indexOf('@') == -1 ? '@bluejeans.com' : '');
 				this.fieldVal('email', (emailLocalPart) ? emailComplete : '');
+
+				this.$('.basics .remove').toggle(!this.model.isNew());
 
 				this.renderPhoto();
 			}
@@ -104,9 +110,11 @@ this.Editor = (function(){
 
 			//TODO make a real dialog with choices for save, discard, and edit
 			} else if(window.confirm("You have unsaved changes. Are you sure you want to discard these changes?")){
-				this.model.fetch({ success: function(model){
-					model.changed = {}; //model is now synced with server, there are no changes.
-				}});
+				if(!this.model.isNew()){
+					this.model.fetch({ success: function(model){
+						model.changed = {}; //model is now synced with server, there are no changes.
+					}});
+				}
 				mediator.publish('activatePersonConfirmed', newModel, opts);
 			}
 		},
@@ -173,6 +181,10 @@ this.Editor = (function(){
 					if(attributeValue === ''){
 						attributeValue = null;
 					}
+				}
+
+				if(attributeName == 'office'){
+					changeSet['desk'] = null;
 				}
 
 				changeSet[attributeName] = attributeValue;
@@ -272,6 +284,15 @@ this.Editor = (function(){
 			} catch (err){
 				//we have loaded a new person with no id
 				//ignore this error, because before we upload their photo, the model will have been saved to the server, it will have an id, and this method will have been run again to get the real value
+			}
+		},
+
+		removePerson: function(event){
+			if(window.confirm("Are you sure you want to permanently delete "+this.model.get('fullname')+'?')){
+				this.model.destroy();
+
+				mediator.publish("activatePersonConfirmed", new (this.collection.model)());
+
 			}
 		}
 	});

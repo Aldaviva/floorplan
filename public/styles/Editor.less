@@ -35,7 +35,10 @@
 
 	.basics {
 		margin-bottom : 84px;
+		margin-right  : 6 * @grid_size;
 		margin-top    : 6 * @grid_size;
+		max-width     : 1093px;
+		min-width     : 635px;
 
 		.photo { 
 			.gray-text(35%);
@@ -101,9 +104,11 @@
 
 		.fullname_sizer, .title_sizer {
 			margin-left  : @editor_photo_size + 43px;
-			margin-right : 6 * @grid_size;
-			max-width    : 888px;
-			min-width    : 430px;
+		}
+
+		.remove {
+			float: right;
+			margin-top: 4px;
 		}
 	}
 
@@ -134,9 +139,11 @@
 			}
 
 			.helper_link {
+				@helper_link_width: 110px;
 				bottom   : 4px;
 				position : absolute;
-				right    : -35px;
+				right    : -5px - @helper_link_width;
+				width    : @helper_link_width;
 			}
 
 			+ label {

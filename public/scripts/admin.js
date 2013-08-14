@@ -9,7 +9,7 @@
 	editor.render();
 
 	listPane.$('.people')
-		.prepend($('<li>', { class: 'person add' })
+		.prepend($('<li>', { class: 'person add active' })
 			.append($('<span>', { class: 'icon', text: '+' }))
 			.append($('<div>', { class: 'name', text: 'add person' })));
 
@@ -41,6 +41,8 @@
 					mediator.publish('activatePerson', person);
 				}
 			}
+
+			editor.$el.show();
 		}
 	});
 
