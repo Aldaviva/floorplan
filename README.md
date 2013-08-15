@@ -5,4 +5,6 @@ Where do people sit in the Mountain View office of Blue Jeans? What's that perso
 
 ![Floorplan](http://aldaviva.com/portfolio/artwork/floorplan.jpg)
 
+![Floorplan Admin](http://aldaviva.com/portfolio/artwork/floorplan-admin.jpg)
+
 *No worries, employee data isn't checked in.*
