@@ -216,6 +216,7 @@ this.Editor = (function(){
 
 			} else {
 				this.$('.validationMessage').text(currentTarget.data('validation-failed-message')).show();
+				this.renderFormControls();
 			}
 
 			currentTarget.closest('label').addBack().toggleClass('invalid', !validity.valid);
@@ -227,8 +228,6 @@ this.Editor = (function(){
 			var isEnabled = isValid && (_.isBoolean(isForceEnabled))
 				? isForceEnabled
 				: (this.model.hasChanged() || (this.photoData && this.photoData.state() != 'pending'));
-
-			// if(isEnabled) debugger;
 
 			var saveButton = this.$('.formControls [type=submit]');
 

@@ -15,9 +15,9 @@
 
 	mediator.subscribe('activatePersonConfirmed', function(person, opts){
 		if(!opts.skipHistory){
-			var path = person.isNew() 
+			var path = config.mountPoint + (person.isNew() 
 				? '/admin/'
-				: '/admin/'+person.id+'#'+person.get('fullname').replace(/\s/g, '_');
+				: '/admin/'+person.id+'#'+person.get('fullname').replace(/\s/g, '_'));
 			window.history.pushState({ personId: person.id }, null, path);
 		}
 	});
@@ -33,15 +33,20 @@
 	data.people.fetch({
 		reset: true,
 		success: function(){
-			var pathnameParts = location.pathname.split('/');
+			var pathnameParts = location.pathname.replace(new RegExp('^'+config.mountPoint), '').split('/');
+			var personToActivate;
+
 			if(pathnameParts.length >= 3){
 				var personId = pathnameParts[2];
 				var person = data.people.get(personId);
 				if(person){
-					mediator.publish('activatePersonConfirmed', person);
+					personToActivate = person;
 				}
 			}
 
+			personToActivate = personToActivate || new data.Person();
+
+			mediator.publish('activatePersonConfirmed', personToActivate);
 			editor.$el.show();
 		}
 	});

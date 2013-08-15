@@ -1,4 +1,5 @@
 var _                = require('lodash');
+var config           = require('../config');
 var fs               = require('fs');
 var path             = require('path');
 var personRepository = require('../lib/personRepository');
@@ -32,7 +33,10 @@ exports.index = function(req, res, next){
 			var context = {
 				officeId: officeId,
 				svg: svg,
-				people: JSON.stringify(people)
+				people: JSON.stringify(people),
+				config: JSON.stringify({
+					mountPoint: config.mountPoint
+				})
 			};
 			res.render('floorplan', context);
 		}).fail(next);

@@ -6,9 +6,9 @@ this.data = (function(){
 		idAttribute: "_id",
 		getPhotoPath: function(){
 			if(this.id){
-				return '/images/photos/'+this.id+'.jpg';
+				return config.mountPoint + '/images/photos/'+this.id+'.jpg';
 			} else {
-				return '/images/missing_photo.jpg';
+				return config.mountPoint + '/images/missing_photo.jpg';
 			}
 		},
 		defaults: {
@@ -18,7 +18,7 @@ this.data = (function(){
 
 	var people = data.people = new (Backbone.Collection.extend({
 		model: Person,
-		url: '/people',
+		url: config.mountPoint + '/people',
 		comparator: 'fullname'
 	}))();
 

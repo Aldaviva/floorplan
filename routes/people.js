@@ -1,4 +1,5 @@
 var _                = require('lodash');
+var config           = require('../config');
 var path             = require('path');
 var personRepository = require('../lib/personRepository');
 var photoManager     = require('../lib/photoManager');
@@ -64,7 +65,7 @@ exports.setPhoto = function(req, res, next){
 			var imageUrl = url.format({
 				protocol : req.protocol,
 				host     : req.get('host'),
-				pathname : '/images/photos/' + basename
+				pathname : config.mountPoint + '/images/photos/' + basename
 			});
 
 			var payload = { files: [{
@@ -94,8 +95,4 @@ exports.setPhoto = function(req, res, next){
 			res.send(400, err.message);
 		})
 		.fail(next);
-};
-
-exports.uploadTest = function(req, res){
-	res.render('upload-test');
 };

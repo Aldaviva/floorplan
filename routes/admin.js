@@ -26,7 +26,10 @@ exports.index = function(req, res, next){
 			var svgMap = _.zipObject(OFFICE_IDS, svgs);
 
 			var context = {
-				svgs: svgMap
+				svgs: svgMap,
+				config: JSON.stringify({
+					mountPoint: config.mountPoint
+				})
 			};
 			res.render('admin', context);
 		}).fail(next);
