@@ -5,7 +5,7 @@
 		}
 
 		image {
-			/*image-rendering : optimizeQuality;*/
+			image-rendering : optimizeSpeed;
 		}
 
 		#roomNames text {
@@ -31,15 +31,21 @@
 		}
 
 		#photos {
+			cursor: pointer;
+
 			image {
-				cursor: pointer;
 
 				&.filtered_tag, &.filtered_name {
 					opacity: 0.1;
 				}
 			}
+		}
 
-			.activeRectangle {
+		#seats {
+			visibility: hidden;
+			cursor: pointer;
+
+			rect {
 				fill: @hot_blue;
 			}
 		}
@@ -59,43 +65,36 @@
 		width: 100%;
 		height: 100%;
 	}
-
-	.activeRectangle {
-		visibility: hidden;
-	}
 }
 
 .admin .map {
-	svg {
+	#roomNames {
+		visibility: hidden;
+	}
 
-		#roomNames text {
-			visibility: hidden;
+	#walls {
+		line, polyline, rect {
+			stroke : rgba(0, 0, 0, 0.75);
 		}
 
-		#walls {
+		.innerWalls {
 			line, polyline, rect {
-				stroke : rgba(0, 0, 0, 0.75);
+				stroke : rgba(0, 0, 0, 0.5);
 			}
-
-			.innerWalls {
-				line, polyline, rect {
-					stroke : rgba(0, 0, 0, 0.5);
-				}
-			}
-		}
-
-		#photos image {
-			cursor: default;
 		}
 	}
 
-	&.small {
-		#photos image {
-			visibility: hidden;
+	#photos {
+		cursor: default;
+	}
 
-			/*&.active {
-				visibility: visible;
-			}*/
+	&.small {
+		#photos {
+			visibility: hidden;
+		}
+
+		#seats .active {
+			visibility: visible;
 		}
 	}
 
@@ -107,7 +106,7 @@
 		}
 
 		#photos image {
-			opacity: 0.33;
+			/*opacity: 0.33;*/ //interferes with photos hiding seat rectangles
 
 			&.active {
 				opacity: 1;
@@ -124,6 +123,10 @@
 					stroke : rgba(0, 0, 0, 0.25);
 				}
 			}
+		}
+
+		#seats {
+			visibility: visible;
 		}
 	}
 }

@@ -4,7 +4,7 @@
 
 	var listPane    = new ListPane({ el: $('#listPane')[0], collection: data.people });
 	var detailsPane = new DetailsPane({ el: $('#detailsPane')[0] });
-	var map         = new Map({ el: $('.map')[0], collection: data.people });
+	var map         = new Map({ el: $('.map')[0], collection: data.people, office: 'mv' });
 
 	listPane.render();
 	detailsPane.render();

@@ -60,9 +60,9 @@
 			<section class="office">
 				<h1>office</h1>
 				<label><input name="office" value="mv" type="radio" />Mountain View</label>
-				<label><input name="office" value="oc" type="radio" />Orange County</label>
-				<label><input name="office" value="sf" type="radio" />San Francisco</label>
-				<label><input name="office" value="bl" type="radio" />Bangalore</label>
+				<label class="disabled" title="The floorplan for the Orange County office has not been implemented yet."><input name="office" value="oc" type="radio" disabled />Orange County</label>
+				<label class="disabled" title="The floorplan for the San Francisco office has not been implemented yet."><input name="office" value="sf" type="radio" disabled />San Francisco</label>
+				<label class="disabled" title="The floorplan for the Bangalore office has not been implemented yet."><input name="office" value="bl" type="radio" disabled />Bangalore</label>
 				<div class="seatChooser small">
 					<div class="map small mv">{{{svgs.mv}}}</div>
 					<div class="map small oc">{{{svgs.oc}}}</div>
@@ -82,7 +82,7 @@
 				<label><input name="tags" value="fin"  type="checkbox" /><span>Finance</span></label>
 				<label><input name="tags" value="hr"   type="checkbox" /><span>HR</span></label>
 				<label><input name="tags" value="mkt"  type="checkbox" /><span>Marketing</span></label>
-				<label><input name="tags" value="ops"  type="checkbox" /><span>Operations</span></label>
+				<label><input name="tags" value="ops"  type="checkbox" /><span>Ops</span></label>
 				<label><input name="tags" value="pm"   type="checkbox" /><span>PM</span></label>
 				<label><input name="tags" value="sale" type="checkbox" /><span>Sales</span></label>
 				<label><input name="tags" value="succ" type="checkbox" /><span>Success</span></label>
@@ -97,7 +97,7 @@
 		<div class="seatChooser large" style="display: none">
 
 			<div class="hint">Click on the desk square where this person sits.</div>
-			<a href="#" class="helper_link cancel" title="Cancel seat change">&times;</a>
+			<a href="#" class="helper_link cancel" title="Cancel desk change">&times;</a>
 		</div>
 
 		<script src="../scripts/lib/mediator.js"                  type="text/javascript"></script>

@@ -16,7 +16,12 @@ this.Editor = (function(){
 
 			var officeIds = this.$('.office input[type=radio]').map(function(){ return $(this).attr('value'); });
 			this.maps = _.zipObject(officeIds, _.map(officeIds, function(officeId){
-				return new Map({ el: $('.map.'+officeId)[0], collection: data.people, office: officeId });
+				return new Map({
+					el: $('.map.'+officeId)[0],
+					collection: data.people,
+					office: officeId,
+					skipFilters: true
+				});
 			}));
 
 			mediator.subscribe("activatePersonConfirmed", this.onActivatePersonConfirmed);
@@ -317,7 +322,6 @@ this.Editor = (function(){
 			event.preventDefault();
 
 			var seatChooserLarge = $('.seatChooser.large');
-			var seatChooserSmall = this.$('.seatChooser.small');
 			var mapEl = this.$('.map:visible');
 
 			mapEl
@@ -325,24 +329,29 @@ this.Editor = (function(){
 				.removeClass('small')
 				.addClass('large');
 
-			seatChooserLarge
-				.show();
+			seatChooserLarge.show();
 
 			$(document.body).css('overflow', 'hidden');
 
 			seatChooserLarge.find('.cancel')
 				.off('click')
-				.on('click', function(event){
-					event.preventDefault();
-					mapEl.prependTo(seatChooserSmall);
-					seatChooserLarge.hide();
-					mapEl.removeClass('large').addClass('small');
-					$(document.body).css('overflow', '');
-				});
+				.on('click', this.shrinkMap);
+		},
+
+		shrinkMap: function(event){
+			event && event.preventDefault();
+			$('.map:visible')
+				.prependTo(this.$('.seatChooser.small'))
+				.removeClass('large')
+				.addClass('small');
+			$('.seatChooser.large').hide();
+			$(document.body).css('overflow', '');
 		},
 
 		onClickDesk: function(deskId){
-			// this.model.
+			this.model.set({ desk: deskId });
+			this.renderFormControls();
+			this.shrinkMap();
 		}
 	});
 
