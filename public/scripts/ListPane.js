@@ -140,23 +140,28 @@ this.ListPane = (function(){
 			this.model.views = this.model.views || {};
 			this.model.views.listPaneRow = this;
 
+			this.model.on('change:fullname', this.render);
+
 			this.$el.data('model', this.model);
 		},
 
 		render: function(){
+			var fullname = this.model.get('fullname');
+
 			if(this.$el.is(':empty')){
-				var fullname = this.model.get('fullname');
 				this.$el.append($('<img>', {
-					src: this.model.getPhotoPath(),
-					alt: fullname
+					src: this.model.getPhotoPath()
 				}));
 
 				this.nameEl = $('<div>', {
-					class: 'name',
-					text: fullname
+					class: 'name'
 				});
 				this.$el.append(this.nameEl);
 			}
+
+			this.$('img').attr('alt', fullname);
+			this.nameEl.text(fullname);
+
 			return this.el;
 		}
 	});

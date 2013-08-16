@@ -60,8 +60,6 @@ exports.setPhoto = function(req, res, next){
 		.then(function(imgInfo){
 			var basename = path.basename(imgInfo.path);
 
-			//TODO this probably won't work through a reverse proxy if the request headers and response paths start getting weird
-			//probably need a configuration option for the user-facing URL mount point of this application
 			var imageUrl = url.format({
 				protocol : req.protocol,
 				host     : req.get('host'),
