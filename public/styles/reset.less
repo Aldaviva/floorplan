@@ -21,6 +21,10 @@ a::-moz-focus-inner {
     padding: 0;
 }
 
+input:-moz-ui-invalid {
+	box-shadow: none; //FF red glow on invalid elements
+}
+
 // Chrome piss-yellow textarea border
 textarea:focus, input:focus {
     outline: none;

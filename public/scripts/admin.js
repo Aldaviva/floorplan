@@ -23,11 +23,16 @@
 	});
 
 	window.addEventListener('popstate', function(event){
-		var person = event.state
-			? data.people.get(event.state.personId)
-			: new data.Person();
+		/*
+		 * Chrome fires popstate on fresh page load as well as intra-page navigation,
+		 * so we ignore popstate if the state is empty.
+		 * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
+		 */
+		if(event.state){
+			var person = data.people.get(event.state.personId);
+			mediator.publish('activatePerson', person, { skipHistory: true });
+		}
 
-		mediator.publish('activatePerson', person, { skipHistory: true });
 	}, false);
 		
 	data.people.fetch({
