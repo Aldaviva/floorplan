@@ -86,6 +86,7 @@ this.Editor = (function(){
 				this.fieldVal('email', (emailLocalPart) ? emailComplete : '');
 
 				this.$('.basics .remove').toggle(!this.model.isNew());
+				this.$('.seatChooser').toggle(!!this.model.get('office'));
 
 				this.renderPhoto();
 
