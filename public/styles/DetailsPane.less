@@ -78,9 +78,6 @@
 	}
 
 	.intro {
-		background  : url('../images/building.png') no-repeat 50% 2px;
-		padding-top : 207px;
-
 		h2 {
 			font-family    : "Knockout 47";
 			font-size      : 117px;
@@ -130,6 +127,13 @@
 
 		&:hover {
 			background-color: @hover_background_color;
+		}
+	}
+
+	&.mv {
+		.intro {
+			background  : url('../images/building.png') no-repeat 50% 2px;
+			padding-top : 207px;
 		}
 	}
 }

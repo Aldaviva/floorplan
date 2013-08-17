@@ -1,7 +1,5 @@
 this.yelp = (function(){
 
-	var BUSINESS_ID = 'bluejeans-mountain-view';
-
 	var ACCESS_PARAMS = {
 		consumerKey    : "wq6N1ApR2G6CvL1d5IhKFQ",
 		consumerSecret : "6_G7aiIJVO4ZugkN4VmE1rkzYN8",
@@ -43,8 +41,8 @@ this.yelp = (function(){
 		});
 	}
 
-	function getRating(){
-		return _sendRequest('business/'+BUSINESS_ID, 'GET')
+	function getRating(yelpId){
+		return _sendRequest('business/'+yelpId, 'GET')
 			.then(function(data){
 				return {
 					stars   : data.rating,

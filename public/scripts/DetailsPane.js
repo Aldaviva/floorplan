@@ -1,5 +1,23 @@
 this.DetailsPane = (function(){
 	
+	var OFFICES = {
+		mv: {
+			address: '516 Clyde Avenue\nMountain View, CA 94043',
+			mapsUrl: 'https://maps.google.com/maps?ie=UTF8&cid=14115605422088510097&q=Blue+Jeans+Network&iwloc=A&gl=US&hl=en',
+			yelpId: 'bluejeans-mountain-view'
+		},
+		sf: {
+			address: '', //TODO I can't believe I can't find this
+			mapsUrl: '',
+			yelpId: null
+		},
+		oc: {
+			address: '3333 Michelson Drive\nSuite 700\nIrvine, CA 92612',
+			mapsUrl: 'https://maps.google.com/maps?q=3333+Michelson+Drive,+Suite+700,+Irvine,+CA+92612&hl=en&sll=33.916327,-118.105384&sspn=1.128228,2.113495&t=m&z=17&iwloc=A',
+			yelpId: null
+		}
+	}
+
 	var DetailsPane = Backbone.View.extend({
 		initialize: function(){
 			_.bindAll(this);
@@ -12,17 +30,23 @@ this.DetailsPane = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
+				this.$el.addClass(floorplanParams.officeId);
+				var office = OFFICES[floorplanParams.officeId];
+
 				var intro = $('<div>', { class: 'intro' });
 				intro.append($('<h2>', { text: 'Blue Jeans' }));
-				intro.append($('<div>', { class: 'address', text: '516 Clyde Avenue\nMountain View, CA 94043'/*\n408-550-2828'*/, title: "View in Google Maps" })
+				intro.append($('<div>', { class: 'address', text: office.address, title: "View in Google Maps" })
 					.click(function(){
-						window.open('https://maps.google.com/maps?expflags=enable_star_based_justifications:true&ie=UTF8&cid=14115605422088510097&q=Blue+Jeans+Network&iwloc=A&gl=US&hl=en');
+						window.open(office.mapsUrl);
 					}));
-				this.els.rating = $('<div>', { class: 'rating' })
-					.click(function(){
-						window.open('http://www.yelp.com/biz/bluejeans-mountain-view');
-					});
-				intro.append(this.els.rating);
+
+				if(office.yelpId){
+					this.els.rating = $('<div>', { class: 'rating' })
+						.click(function(){
+							window.open('http://www.yelp.com/biz/bluejeans-mountain-view');
+						});
+					intro.append(this.els.rating);
+				}
 
 
 				var content = $('<div>', { class: 'content' });
@@ -65,7 +89,7 @@ this.DetailsPane = (function(){
 				this.$el.append(content);
 				this.$el.append(correctionsLink);
 
-				this.renderRating();
+				office.yelpId && this.renderRating(office.yelpId);
 			}
 
 			if(this.model){
@@ -102,8 +126,8 @@ this.DetailsPane = (function(){
 			this.render();
 		},
 
-		renderRating: function(){
-			yelp.getRating()
+		renderRating: function(yelpId){
+			yelp.getRating(yelpId)
 				.then(_.bind(function(rating){
 					this.els.rating
 						.css('background-position', '-2px '+(-3 - 18*2*(rating.stars-.5))+'px')

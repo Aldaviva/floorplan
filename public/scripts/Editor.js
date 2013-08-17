@@ -96,6 +96,9 @@ this.Editor = (function(){
 				}, this);
 				
 				this.renderFormControls();
+
+				var office = this.model.get('office') || '';
+				$('.goToFloorplan').attr('href', '../' + office);
 			}
 
 			this.$el.toggle(!!this.model);
