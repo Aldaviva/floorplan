@@ -60,17 +60,16 @@
 			<section class="office">
 				<h1>office</h1>
 				<label><input name="office" value="mv" type="radio" />Mountain View</label>
-				<label class="disabled" title="The floorplan for the Orange County office has not been implemented yet."><input name="office" value="oc" type="radio" disabled />Orange County</label>
-				<label class="disabled" title="The floorplan for the San Francisco office has not been implemented yet."><input name="office" value="sf" type="radio" disabled />San Francisco</label>
-				<label class="disabled" title="The floorplan for the Bangalore office has not been implemented yet."><input name="office" value="bl" type="radio" disabled />Bangalore</label>
+				<label><input name="office" value="oc" type="radio" />Orange County</label>
+				<label><input name="office" value="sf" type="radio" />San Francisco</label>
+				<!--<label class="disabled" title="The floorplan for the Bangalore office has not been implemented yet."><input name="office" value="bl" type="radio" disabled />Bangalore</label>-->
 				<div class="seatChooser small">
 					<div class="map small mv">{{{svgs.mv}}}</div>
 					<div class="map small oc">{{{svgs.oc}}}</div>
 					<div class="map small sf">{{{svgs.sf}}}</div>
-					<div class="map small bl">{{{svgs.bl}}}</div>
+					<!--<div class="map small bl">{{{svgs.bl}}}</div>-->
 					<a href="#" class="desk helper_link">move desk</a>
 				</div>
-				<!--<label><span>Desk</span><input name="desk" type="text" />--></label>
 			</section>
 
 			<section class="tags">
@@ -95,7 +94,6 @@
 		</form>
 
 		<div class="seatChooser large" style="display: none">
-
 			<div class="hint">Click on the desk square where this person sits.</div>
 			<a href="#" class="helper_link cancel" title="Cancel desk change">&times;</a>
 		</div>

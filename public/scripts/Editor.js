@@ -340,7 +340,7 @@ this.Editor = (function(){
 
 		shrinkMap: function(event){
 			event && event.preventDefault();
-			$('.map:visible')
+			$('.map.large')
 				.prependTo(this.$('.seatChooser.small'))
 				.removeClass('large')
 				.addClass('small');

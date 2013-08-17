@@ -1,0 +1,62 @@
+<svg version="1.1" viewBox="0 0 612 750">
+	<script type="text/javascript">
+		// <![CDATA[
+			this.SEATS = this.SEATS || {};
+			this.SEATS.oc = {
+				iconSize: 74.985,
+				seatPositions: [
+					[266.974, 212.894],
+					[266.974, 293.426],
+					[266.974, 373.959],
+					[266.974, 454.492],
+					[353.055, 212.894],
+					[353.055, 293.426],
+					[353.055, 373.959],
+					[353.055, 454.492],
+					[63.72, 212.894],
+					[63.72, 293.426],
+					[63.72, 373.959],
+					[63.72, 454.492],
+					[149.801, 212.894],
+					[149.801, 293.426],
+					[149.801, 373.959],
+					[149.801, 454.492]
+				]
+			};
+		// ]]>
+	</script>
+	<rect class="background" width="612" height="750"/>
+	<g id="walls">
+		<g class="innerWalls">
+			<polyline points="600.667,592.644 403.167,592.644 403.167,737.144 		"/>
+			<polyline points="600.753,471.644 476.092,471.644 476.092,592.644 		"/>
+			<polyline points="600.753,231.644 476.092,231.644 476.092,471.644 		"/>
+			<path d="M600.667,231.644"/>
+			<line x1="532.667" y1="168.144" x2="532.667" y2="231.644"/>
+			<polyline points="469.667,13.644 469.667,168.144 600.667,168.144 		"/>
+			<polyline points="13.833,168.144 170.333,168.144 170.333,13.644 		"/>
+			<path d="M469.667,13.644"/>
+			<polyline points="361.167,13.644 361.167,168.144 469.667,168.144 		"/>
+			<polyline points="267.811,737.144 267.811,588.644 70.311,588.644 70.311,737.144 		"/>
+			<polyline points="267.811,675.644 141.811,675.644 141.811,737.144 		"/>
+			<line x1="347.507" y1="212.894" x2="347.507" y2="528.894"/>
+			<line x1="144.253" y1="212.894" x2="144.253" y2="528.894"/>
+		</g>
+		<polyline points="319.088,737.144 14.083,737.144 14.083,13.644 600.917,13.644 600.917,737.144 
+					352.177,737.144 		"/>
+	</g>
+	<g id="roomNames">
+		<text x="77.306" y="84.372" text-anchor="middle">Office</text>
+		<text x="400.639" y="84.372" text-anchor="middle">Office</text>
+		<text x="520.389" y="84.372" text-anchor="middle">Office</text>
+		<text x="550.174" y="193.371" text-anchor="middle">Copier</text>
+		<text x="510.180" y="345.121" text-anchor="middle">Boardroom</text>
+		<text x="510.180" y="525.622" text-anchor="middle">Break room</text>
+		<text x="458.537" y="658.372" text-anchor="middle">Conference room</text>
+		<text x="319.835" y="671.122" text-anchor="middle">Lobby</text>
+		<text x="149.693" y="625.284" text-anchor="middle">Storage</text>
+		<text x="186.529" y="699.872" text-anchor="middle">Servers</text>
+	</g>
+	<g id="seats"></g>
+	<g id="photos"></g>
+</svg>
