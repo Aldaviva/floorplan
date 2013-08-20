@@ -8,6 +8,12 @@ var server           = require('../lib/server');
 
 var MAPS_PATH = path.join(server.get('views'), 'maps');
 var OFFICE_IDS;
+var OFFICE_NAMES = {
+	mv: "Mountain View",
+	sf: "San Francisco",
+	oc: "Orange County",
+	bl: "Bangalore"
+};
 
 fs.readdir(MAPS_PATH, function(err, files){
 	if (err) throw err;
@@ -32,6 +38,7 @@ exports.index = function(req, res, next){
 		]).spread(function(svg, people){
 			var context = {
 				officeId: officeId,
+				officeName: OFFICE_NAMES[officeId],
 				svg: svg,
 				people: JSON.stringify(people),
 				config: JSON.stringify({
@@ -42,7 +49,6 @@ exports.index = function(req, res, next){
 		}).fail(next);
 
 	} else {
-		// res.status(404).send("No office called "+officeId+", try "+OFFICE_IDS.join(' or ')+'.');
 		next();
 	}
 };

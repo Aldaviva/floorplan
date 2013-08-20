@@ -3,20 +3,20 @@ this.DetailsPane = (function(){
 	var OFFICES = {
 		mv: {
 			address: '516 Clyde Avenue\nMountain View, CA 94043',
-			mapsUrl: 'https://maps.google.com/maps?ie=UTF8&cid=14115605422088510097&q=Blue+Jeans+Network&iwloc=A&gl=US&hl=en',
+			mapsUrl: 'https://maps.google.com/maps?q=Blue+Jeans+Network&hl=en&ll=37.398528,-122.046776&spn=0.270018,0.528374&cid=14115605422088510097&gl=US&t=m&z=12',
 			yelpId: 'bluejeans-mountain-view'
 		},
 		sf: {
-			address: '', //TODO I can't believe I can't find this
+			address: 'San Francisco, CA', //TODO I can't believe I can't find this
 			mapsUrl: '',
 			yelpId: null
 		},
 		oc: {
 			address: '3333 Michelson Drive\nSuite 700\nIrvine, CA 92612',
-			mapsUrl: 'https://maps.google.com/maps?q=3333+Michelson+Drive,+Suite+700,+Irvine,+CA+92612&hl=en&sll=33.916327,-118.105384&sspn=1.128228,2.113495&t=m&z=17&iwloc=A',
+			mapsUrl: 'https://maps.google.com/maps?q=3333+Michelson+Drive,+Suite+700,+Irvine,+CA+92612&hl=en&ll=33.672926,-117.843475&spn=1.131436,2.113495&sll=33.916327,-118.105384&sspn=1.128228,2.113495&t=m&hnear=3333+Michelson+Dr+%23700,+Irvine,+Orange,+California+92612&z=10',
 			yelpId: null
 		}
-	}
+	};
 
 	var DetailsPane = Backbone.View.extend({
 		initialize: function(){
@@ -35,10 +35,7 @@ this.DetailsPane = (function(){
 
 				var intro = $('<div>', { class: 'intro' });
 				intro.append($('<h2>', { text: 'Blue Jeans' }));
-				intro.append($('<div>', { class: 'address', text: office.address, title: "View in Google Maps" })
-					.click(function(){
-						window.open(office.mapsUrl);
-					}));
+				intro.append($('<h3>', { class: 'address' }).append($('<a>', { text: office.address, title: "View in Google Maps", href: office.mapsUrl || '#', target: '_blank' })));
 
 				if(office.yelpId){
 					this.els.rating = $('<div>', { class: 'rating' })
@@ -52,8 +49,8 @@ this.DetailsPane = (function(){
 				var content = $('<div>', { class: 'content' });
 
 				this.els.photo = $('<img>', { class: 'photo' });
-				this.els.name = $('<div>' , { class: 'name' });
-				this.els.title = $('<div>' , { class: 'title' });
+				this.els.name  = $('<h2>',  { class: 'name' });
+				this.els.title = $('<h3>',  { class: 'title' });
 
 				content.append(this.els.photo);
 				content.append(this.els.name);
