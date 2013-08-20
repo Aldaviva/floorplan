@@ -27,7 +27,7 @@
 	</script>
 
 	<rect class="background" width="612" height="750"/>
-	<g id="walls">
+	<g class="walls">
 		<g class="innerWalls">
 			<polyline points="600.667,592.644 403.167,592.644 403.167,737.144"/>
 			<polyline points="600.753,471.644 476.092,471.644 476.092,592.644"/>
@@ -45,7 +45,7 @@
 		</g>
 		<polyline points="319.088,737.144 14.083,737.144 14.083,13.644 600.917,13.644 600.917,737.144 352.177,737.144"/>
 	</g>
-	<g id="roomNames">
+	<g class="roomNames">
 		<text x="092.083" y="097.416" text-anchor="middle">Office</text>
 		<text x="415.417" y="097.416" text-anchor="middle">Office</text>
 		<text x="535.167" y="097.416" text-anchor="middle">Office</text>
@@ -57,6 +57,6 @@
 		<text x="169.061" y="638.327" text-anchor="middle">Storage</text>
 		<text x="204.811" y="712.915" text-anchor="middle">Servers</text>
 	</g>
-	<g id="seats"></g>
-	<g id="photos"></g>
+	<g class="seats"></g>
+	<g class="photos"></g>
 </svg>

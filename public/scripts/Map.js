@@ -11,16 +11,18 @@ this.Map = (function(){
 	var Map = Backbone.View.extend({
 
 		events: {
-			"click #photos image": 'onIconClick',
-			"click #seats rect": 'onSeatClick'
+			"click .photos image": 'onIconClick',
+			"click .seats rect": 'onSeatClick'
 		},
 
 		initialize: function(){
 			_.bindAll(this);
 
 			this.collection.on('reset', this.addMany);
-			this.photosGroup = this.$('#photos');
-			this.seatsGroup = this.$('#seats');
+			this.collection.on('add', this.addOne);
+
+			this.photosGroup = this.$('.photos');
+			this.seatsGroup = this.$('.seats');
 			this.activeRectangle = null;
 
 			mediator.subscribe('activatePersonConfirmed', this.activatePersonConfirmed);
@@ -29,9 +31,6 @@ this.Map = (function(){
 				mediator.subscribe('change:query', this.filterByName);
 			}
 		},
-
-		// from the floorplan page, subscribe to certain topics
-		// from the admin page, do other stuff
 
 		render: function(){
 			if(this.seatsGroup.is(':empty')){
@@ -55,17 +54,6 @@ this.Map = (function(){
 				}
 				this.seatsGroup.append(seatsFragment);
 			}
-			/*if(!this.activeRectangle){
-				this.activeRectangle = document.createElementNS(SVG_NAMESPACE, 'rect');
-				$(this.activeRectangle).attr({
-					width: ICON_SIZE,
-					height: ICON_SIZE,
-					x: 0,
-					y: 0
-				});
-				svgAddClass(this.activeRectangle, 'activeRectangle');
-				this.photosGroup.append(this.activeRectangle);
-			}*/
 			return this.el;
 		},
 
@@ -74,12 +62,22 @@ this.Map = (function(){
 
 			coll.each(function(model){
 				if(model.get('office') == this.options.office){
-					var personIcon = new PersonIcon({ model: model });
-					iconsFragment.appendChild(personIcon.render());
+					iconsFragment.appendChild(this.createAndRenderPersonIcon(model));
 				}
 			}, this);
 
 			this.photosGroup.append(iconsFragment);
+		},
+
+		addOne: function(person){
+			if(person.get('office') == this.options.office){
+				this.photosGroup.append(this.createAndRenderPersonIcon(person));
+			}
+		},
+
+		createAndRenderPersonIcon: function(person){
+			var personIcon = new PersonIcon({ model: person });
+			return personIcon.render();
 		},
 
 		onIconClick: function(event){
@@ -144,7 +142,6 @@ this.Map = (function(){
 		},
 
 		renderActiveSeat: function(desk){
-			console.log('renderActiveSeat', desk);
 			var activeSeatEl = this.seatsGroup.find('[class~=active]').get(0); //LOL chrome SVG attribute selectors
 			activeSeatEl && svgRemoveClass(activeSeatEl, 'active');
 
@@ -152,14 +149,6 @@ this.Map = (function(){
 				svgAddClass(this.seatsGroup.find('[data-desk='+desk+']')[0], 'active');
 			}
 		}
-
-		/*moveActiveRectangleToDesk: function(deskId){
-			var coords = SEAT_POSITIONS[deskId];
-			$(this.activeRectangle).attr({
-				x: coords[0],
-				y: coords[1]
-			});
-		}*/
 	});
 
 	var PersonIcon = Backbone.View.extend({
@@ -174,6 +163,7 @@ this.Map = (function(){
 
 			this.model.on('change:office', this.onChangeOffice);
 			this.model.on('change:desk', this.onChangeDesk);
+			this.model.on('change:photo', this.renderPhoto);
 
 			this.iconSize = SEATS[this.model.get('office')].iconSize;
 		},
@@ -184,7 +174,7 @@ this.Map = (function(){
 				$(titleEl).text(this.model.get('fullname'));
 				this.$el.append(titleEl);
 
-				this.el.setAttributeNS('http://www.w3.org/1999/xlink', 'href', this.model.getPhotoPath());
+				this.renderPhoto(this.model, this.model.getPhotoPath());
 			}
 
 			var desk = this.model.get('desk');
@@ -211,6 +201,10 @@ this.Map = (function(){
 
 		onChangeDesk: function(person, desk){
 			this.render();
+		},
+
+		renderPhoto: function(person, photoPath){
+			this.el.setAttributeNS('http://www.w3.org/1999/xlink', 'href', photoPath);
 		},
 
 		getSeatPosition: function(deskId){

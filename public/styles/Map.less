@@ -8,12 +8,12 @@
 			image-rendering : optimizeSpeed;
 		}
 
-		#roomNames text {
+		.roomNames text {
 			fill: rgba(255, 255, 255, 0.75);
 			font-family: "Architect's Daughter";
 		}
 
-		#walls {
+		.walls {
 			line, polyline, rect {
 				fill              : none;
 				stroke            : rgba(255, 255, 255, 0.75);
@@ -29,7 +29,7 @@
 			}
 		}
 
-		#photos {
+		.photos {
 			cursor: pointer;
 
 			image {
@@ -40,7 +40,7 @@
 			}
 		}
 
-		#seats {
+		.seats {
 			visibility: hidden;
 			cursor: pointer;
 
@@ -50,19 +50,19 @@
 		}
 
 		&.mv {
-			#roomNames text {
+			.roomNames text {
 				font-size: 10px;
 			}
 		}
 
 		&.oc {
-			#roomNames text {
+			.roomNames text {
 				font-size: 14px;
 			}
 		}
 
 		&.sf {
-			#roomNames text {
+			.roomNames text {
 				font-size: 13px;
 			}
 		}
@@ -85,11 +85,11 @@
 }
 
 .admin .map {
-	#roomNames {
+	.roomNames {
 		visibility: hidden;
 	}
 
-	#walls {
+	.walls {
 		line, polyline, rect {
 			stroke : rgba(0, 0, 0, 0.75);
 		}
@@ -101,16 +101,16 @@
 		}
 	}
 
-	#photos {
+	.photos {
 		cursor: default;
 	}
 
 	&.small {
-		#photos {
+		.photos {
 			visibility: hidden;
 		}
 
-		#seats .active {
+		.seats .active {
 			visibility: visible;
 		}
 	}
@@ -122,7 +122,7 @@
 			}
 		}
 
-		#photos image {
+		.photos image {
 			/*opacity: 0.33;*/ //interferes with photos hiding seat rectangles
 
 			&.active {
@@ -130,7 +130,7 @@
 			}
 		}
 
-		#walls {
+		.walls {
 			line, polyline, rect {
 				stroke : rgba(0, 0, 0, 0.5);
 			}
@@ -142,7 +142,7 @@
 			}
 		}
 
-		#seats {
+		.seats {
 			visibility: visible;
 		}
 	}

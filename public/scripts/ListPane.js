@@ -141,6 +141,7 @@ this.ListPane = (function(){
 			this.model.views.listPaneRow = this;
 
 			this.model.on('change:fullname', this.render);
+			this.model.on('change:photo', this.renderPhoto);
 
 			this.$el.data('model', this.model);
 		},
@@ -149,9 +150,9 @@ this.ListPane = (function(){
 			var fullname = this.model.get('fullname');
 
 			if(this.$el.is(':empty')){
-				this.$el.append($('<img>', {
-					src: this.model.getPhotoPath()
-				}));
+				this.photoImg = $('<img>');
+				this.renderPhoto(this.model, this.model.getPhotoPath());
+				this.$el.append(this.photoImg);
 
 				this.nameEl = $('<div>', {
 					class: 'name'
@@ -163,6 +164,10 @@ this.ListPane = (function(){
 			this.nameEl.text(fullname);
 
 			return this.el;
+		},
+
+		renderPhoto: function(person, photoPath){
+			this.photoImg.attr('src', photoPath);
 		}
 	});
 

@@ -165,12 +165,13 @@ this.Editor = (function(){
 		save: function(event){
 			event.preventDefault();
 			this.renderFormControls(false);
-			console.log("user hit Save, disabling form controls");
 
 			if(this.model.isNew()){
 				this.collection.create(this.model, { success: _.bind(function(result){
-					this.onSave();
-					mediator.publish('activatePersonConfirmed', this.model);
+					this.onSave()
+						.then(_.bind(function(){
+							mediator.publish('activatePersonConfirmed', this.model);
+						}, this));
 				}, this)});
 			} else {
 				this.model.save({}, { success: this.onSave });
@@ -178,11 +179,21 @@ this.Editor = (function(){
 		},
 
 		onSave: function(result){
-			this.updatePhotoUploadUrl();
-			this.photoData && this.photoData.submit();
+			this.model.changed = {}; //model is now synced with server, there are no changes.
+			var deferred = Q.defer();
 
-			console.log("save completed, submitting photo upload and immediately rendering");
-			this.render();
+			this.updatePhotoUploadUrl();
+			if(this.photoData){
+				this.photoData.submit()
+					.complete(_.bind(function(){
+						this.render();
+						deferred.resolve();
+					}, this));
+			} else {
+				deferred.resolve();
+			}
+
+			return deferred.promise;
 		},
 
 		onDirtyChange: function(event){
@@ -218,7 +229,6 @@ this.Editor = (function(){
 
 				changeSet[attributeName] = attributeValue;
 				this.model.set(changeSet);
-				// console.log(JSON.stringify(this.model.changedAttributes() || "no change (model is identical)"));
 				this.render(); //update coerced values. side effect: blows away invalid values
 
 			} else {
@@ -240,6 +250,15 @@ this.Editor = (function(){
 
 			if(isEnabled){
 				saveButton.removeAttr('disabled');
+				if(_.isBoolean(isForceEnabled) && isForceEnabled){
+					console.log('save button enabled because it was forced on');
+				} else if(this.model.hasChanged()){
+					console.log('save button enabled because the model has changed', this.model.changedAttributes());
+				} else if(this.photoData && this.photoData.state() != 'pending'){
+					console.log('save button enabled because a photo was chosen but has yet to start uploading');
+				} else {
+					console.log('no idea why the save button is enabled');
+				}
 			} else {
 				saveButton.attr('disabled', 'disabled');
 			}
@@ -286,15 +305,11 @@ this.Editor = (function(){
 			this.clearPendingUploads();
 			this.renderFormControls();
 
-			console.info("Finished uploading "+data.files[0].name + " to "+data.result.files[0].url);
-
 			var photoPath = this.model.getPhotoPath();
 			$.get(photoPath)
 				.done(_.bind(function(){
 					this.renderPhoto();
-
-					//hax to get all stale photos on the page to apply newly xhr-cached image
-					$('img[src="'+photoPath+'"]').attr('src', photoPath);
+					this.model.trigger('change:photo', this.model, photoPath, {});
 				}, this));
 		},
 
@@ -308,7 +323,9 @@ this.Editor = (function(){
 
 		updatePhotoUploadUrl: function(){
 			try {
-				this.photoUploadControl.fileupload('option', 'url', this.model.url() + '/photo');
+				var photoUploadUrl = this.model.url() + '/photo';
+				this.photoUploadControl.fileupload('option', 'url', photoUploadUrl);
+				console.log("photoUploadUrl = ", photoUploadUrl);
 			} catch (err){
 				//we have loaded a new person with no id
 				//ignore this error, because before we upload their photo, the model will have been saved to the server, it will have an id, and this method will have been run again to get the real value
