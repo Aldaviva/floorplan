@@ -144,6 +144,7 @@ this.Map = (function(){
 		},
 
 		renderActiveSeat: function(desk){
+			console.log('renderActiveSeat', desk);
 			var activeSeatEl = this.seatsGroup.find('[class~=active]').get(0); //LOL chrome SVG attribute selectors
 			activeSeatEl && svgRemoveClass(activeSeatEl, 'active');
 
@@ -187,7 +188,9 @@ this.Map = (function(){
 			}
 
 			var desk = this.model.get('desk');
-			if(_.isNumber(desk)){
+			var hasDesk = _.isNumber(desk);
+			this.$el.toggle(hasDesk);
+			if(hasDesk){
 				var coords = this.getSeatPosition(desk);
 				this.$el.attr({
 					width: this.iconSize,
@@ -196,7 +199,6 @@ this.Map = (function(){
 					y: coords[1],
 					'data-desk': desk
 				});
-
 			}
 
 			return this.el;

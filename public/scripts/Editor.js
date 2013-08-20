@@ -93,6 +93,9 @@ this.Editor = (function(){
 				_.each(this.maps, function(mapView){
 					var isMapOfPersonsOffice = (mapView.options.office == this.model.get('office'));
 					mapView.$el.toggle(isMapOfPersonsOffice);
+					if(isMapOfPersonsOffice){
+						this.map = mapView;
+					}
 				}, this);
 				
 				this.renderFormControls();
@@ -317,7 +320,6 @@ this.Editor = (function(){
 				this.model.destroy();
 
 				mediator.publish("activatePersonConfirmed", new (this.collection.model)());
-
 			}
 		},
 
@@ -331,6 +333,17 @@ this.Editor = (function(){
 				.prependTo(seatChooserLarge)
 				.removeClass('small')
 				.addClass('large');
+
+			seatChooserLarge.find('.unassign')
+				.toggle(this.model.get('desk') !== null)
+				.find('a')
+					.off('click')
+					.on('click', _.bind(function(event){
+						event.preventDefault();
+						debugger;
+						this.map.renderActiveSeat(null);
+						this.onClickDesk(null);
+					}, this));
 
 			seatChooserLarge.show();
 
