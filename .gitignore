@@ -1,8 +1,9 @@
 *.sublime-*
-build/buildonwrite.json
+tools/buildonwrite.json
 people.json
 tools/node_modules
 public/styles/*.css
 public/images/photos/*.jpg
 node_modules
 config.json
+data/photos/*.jpg

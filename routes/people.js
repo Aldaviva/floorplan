@@ -1,5 +1,6 @@
 var _                = require('lodash');
 var config           = require('../config');
+var express          = require('express');
 var path             = require('path');
 var personRepository = require('../lib/personRepository');
 var photoManager     = require('../lib/photoManager');
@@ -52,6 +53,12 @@ server.delete('/people/:id', function(req, res, next){
 		.fail(next);
 });
 
+var photoStaticHandler = express.static('./data', { maxAge: 4*60*60*1000 });
+server.get('/people/:id/photo', function(req, res, next){
+	req.url = '/photos/'+req.params.id+'.jpg';
+	photoStaticHandler(req, res, next);
+});
+
 server.post('/people/:id/photo', function(req, res, next){
 	var uploadedFile = req.files.photo;
 	var tempPath     = uploadedFile.path;
@@ -64,7 +71,7 @@ server.post('/people/:id/photo', function(req, res, next){
 			var imageUrl = url.format({
 				protocol : req.protocol,
 				host     : req.get('host'),
-				pathname : config.mountPoint + '/images/photos/' + basename
+				pathname : config.mountPoint + '/people/' + personId + '/photo'
 			});
 
 			var payload = { files: [{

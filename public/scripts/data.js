@@ -6,7 +6,7 @@ this.data = (function(){
 		idAttribute: "_id",
 		getPhotoPath: function(){
 			if(this.id){
-				return config.mountPoint + '/images/photos/'+this.id+'.jpg';
+				return config.mountPoint + '/people/'+this.id+'/photo';
 			} else {
 				return config.mountPoint + '/images/missing_photo.jpg';
 			}
