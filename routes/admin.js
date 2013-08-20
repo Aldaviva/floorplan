@@ -15,7 +15,7 @@ fs.readdir(MAPS_PATH, function(err, files){
 	});
 });
 
-exports.index = function(req, res, next){
+var renderAdmin = function(req, res, next){
 	var svgReadPromises = OFFICE_IDS.map(function(officeId){
 		var svgPath = path.join(MAPS_PATH, officeId+'.svg');
 		return Q.nfcall(fs.readFile, svgPath);
@@ -34,3 +34,6 @@ exports.index = function(req, res, next){
 			res.render('admin', context);
 		}).fail(next);
 };
+
+server.get('/admin/', renderAdmin);
+server.get('/admin/:id', renderAdmin);

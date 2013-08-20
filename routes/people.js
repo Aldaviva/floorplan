@@ -4,18 +4,19 @@ var path             = require('path');
 var personRepository = require('../lib/personRepository');
 var photoManager     = require('../lib/photoManager');
 var Q                = require('q');
+var server           = require('../lib/server');
 var url              = require('url');
 var verror           = require('verror');
 
 var FIELD_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'tags', 'linkedInId', 'mobilePhone', 'workPhone'];
 
-exports.list = function(req, res, next){
+server.get('/people', function(req, res, next){
 	personRepository.findAll()
 		.then(res.send.bind(res))
 		.fail(next);
-};
+});
 
-exports.show = function(req, res, next){
+server.get('/people/:id', function(req, res, next){
 	personRepository.findOne(req.params.id)
 		.then(function(result){
 			if(!result){
@@ -25,33 +26,33 @@ exports.show = function(req, res, next){
 			}
 		})
 		.fail(next);
-};
+});
 
-exports.create = function(req, res, next){
+server.post('/people', function(req, res, next){
 	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
 	personRepository.save(sanitizedBody)
 		.then(res.send.bind(res))
 		.fail(next);
-};
+});
 
-exports.update = function(req, res, next){
+server.put('/people/:id', function(req, res, next){
 	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
 	sanitizedBody._id = req.params.id;
 	personRepository.save(sanitizedBody)
 		.then(res.send.bind(res))
 		.fail(next);
-};
+});
 
-exports.delete = function(req, res, next){
+server.delete('/people/:id', function(req, res, next){
 	personRepository.remove(req.params.id)
 		.then(function(numRemoved){
 			console.info("Removed %d people.", numRemoved);
 			res.send(204);
 		})
 		.fail(next);
-};
+});
 
-exports.setPhoto = function(req, res, next){
+server.post('/people/:id/photo', function(req, res, next){
 	var uploadedFile = req.files.photo;
 	var tempPath     = uploadedFile.path;
 	var personId     = req.params.id;
@@ -93,4 +94,4 @@ exports.setPhoto = function(req, res, next){
 			res.send(400, err.message);
 		})
 		.fail(next);
-};
+});

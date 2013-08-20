@@ -22,7 +22,7 @@ fs.readdir(MAPS_PATH, function(err, files){
 	});
 });
 
-exports.index = function(req, res, next){
+var renderFloorplan = function(req, res, next){
 	var officeId = req.params.office || "mv";
 
 	if(_.contains(OFFICE_IDS, officeId)) {
@@ -52,3 +52,6 @@ exports.index = function(req, res, next){
 		next();
 	}
 };
+
+server.get('/:office', renderFloorplan);
+server.get('/', renderFloorplan);
