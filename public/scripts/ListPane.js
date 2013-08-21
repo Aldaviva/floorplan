@@ -196,6 +196,21 @@ this.ListPane = (function(){
 		}, 50)
 	});
 
+	var TAG_NAMES = {
+		biz  : "Business Development",
+		des  : "Design",
+		eng  : "Engineering",
+		exe  : "Executive",
+		fin  : "Finance",
+		hr   : "Human Resources",
+		mkt  : "Marketing",
+		ops  : "Operations",
+		pm   : "Product Management",
+		sale : "Sales",
+		succ : "Customer Success",
+		supp : "Customer Support"
+	};
+
 	var TagGrid = Backbone.View.extend({
 		className: 'tags',
 
@@ -217,7 +232,10 @@ this.ListPane = (function(){
 				})
 				.each(function(tagFilterState){
 					var tagEl = $('<a>')
-						.attr('href', '#')
+						.attr({
+							href  : '#',
+							title : 'show/hide '+TAG_NAMES[tagFilterState.tagName] || tagFilterState.tagName
+						})
 						.addClass('tag')
 						.data('tagName', tagFilterState.tagName)
 						.text(tagFilterState.tagName);

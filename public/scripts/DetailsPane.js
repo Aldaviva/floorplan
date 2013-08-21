@@ -7,8 +7,8 @@ this.DetailsPane = (function(){
 			yelpId: 'bluejeans-mountain-view'
 		},
 		sf: {
-			address: 'San Francisco, CA', //TODO I can't believe I can't find this
-			mapsUrl: '',
+			address: '625 2nd Street\nSuite 104\nSan Francisco, CA 94107',
+			mapsUrl: 'https://maps.google.com/maps?q=625+2nd+Street+%23104,+San+Francisco,+CA+94107&hl=en&ll=37.781366,-122.391386&spn=0.066887,0.132093&sll=37.781358,-122.391386&sspn=0.066887,0.132093&hnear=625+2nd+St+%23104,+San+Francisco,+California+94107&t=m&z=14&iwloc=A',
 			yelpId: null
 		},
 		oc: {
@@ -35,7 +35,12 @@ this.DetailsPane = (function(){
 
 				var intro = $('<div>', { class: 'intro' });
 				intro.append($('<h2>', { text: 'Blue Jeans' }));
-				intro.append($('<h3>', { class: 'address' }).append($('<a>', { text: office.address, title: "View in Google Maps", href: office.mapsUrl || '#', target: '_blank' })));
+				intro.append($('<h3>', { class: 'address' }).append($('<a>', {
+					text   : office.address,
+					title  : "View in Google Maps",
+					href   : office.mapsUrl || '#',
+					target : '_blank'
+				})));
 
 				if(office.yelpId){
 					this.els.rating = $('<div>', { class: 'rating' })
