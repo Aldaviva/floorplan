@@ -152,13 +152,18 @@ this.Editor = (function(){
 
 			this.model = model;
 			this.updatePhotoUploadUrl();
+			
+			model.fetch({
+				success: _.bind(function(){
+					model.changed = {}; //model is now synced with server, there are no changes.
+					this.render();
 
-			this.render();
+					this.$('.validationMessage').hide();
+					this.$('.invalid').removeClass('invalid');
 
-			this.$('.validationMessage').hide();
-			this.$('.invalid').removeClass('invalid');
-
-			window.scrollTo(0,0);
+					window.scrollTo(0,0);
+				}, this)
+			});
 		},
 
 		save: function(event){

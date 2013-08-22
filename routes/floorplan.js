@@ -30,17 +30,13 @@ var renderFloorplan = function(req, res, next){
 		var svgPath = path.join(MAPS_PATH, officeId+'.svg');
 		var svgReadPromise = Q.nfcall(fs.readFile, svgPath);
 
-		var peopleFindPromise = personRepository.findByOffice(officeId);
-
 		Q.all([
-			svgReadPromise,
-			peopleFindPromise
-		]).spread(function(svg, people){
+			svgReadPromise
+		]).spread(function(svg){
 			var context = {
 				officeId: officeId,
 				officeName: OFFICE_NAMES[officeId],
 				svg: svg,
-				people: JSON.stringify(people),
 				config: JSON.stringify({
 					mountPoint: config.mountPoint
 				})
