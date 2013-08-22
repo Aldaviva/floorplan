@@ -9,7 +9,9 @@ var server           = require('../lib/server');
 var url              = require('url');
 var verror           = require('verror');
 
-var FIELD_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'tags', 'linkedInId', 'mobilePhone', 'workPhone'];
+var FIELD_WRITE_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'tags', 'linkedInId', 'mobilePhone', 'workPhone'];
+
+var photoStaticHandler = express.static('./data', { maxAge: 4*60*60*1000 });
 
 server.get('/people', function(req, res, next){
 	personRepository.findAll()
@@ -30,14 +32,14 @@ server.get('/people/:id', function(req, res, next){
 });
 
 server.post('/people', function(req, res, next){
-	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
+	var sanitizedBody = _.pick(req.body, FIELD_WRITE_WHITELIST);
 	personRepository.save(sanitizedBody)
 		.then(res.send.bind(res))
 		.fail(next);
 });
 
 server.put('/people/:id', function(req, res, next){
-	var sanitizedBody = _.pick(req.body, FIELD_WHITELIST);
+	var sanitizedBody = _.pick(req.body, FIELD_WRITE_WHITELIST);
 	sanitizedBody._id = req.params.id;
 	personRepository.save(sanitizedBody)
 		.then(res.send.bind(res))
@@ -47,13 +49,11 @@ server.put('/people/:id', function(req, res, next){
 server.delete('/people/:id', function(req, res, next){
 	personRepository.remove(req.params.id)
 		.then(function(numRemoved){
-			console.info("Removed %d people.", numRemoved);
 			res.send(204);
 		})
 		.fail(next);
 });
 
-var photoStaticHandler = express.static('./data', { maxAge: 4*60*60*1000 });
 server.get('/people/:id/photo', function(req, res, next){
 	req.url = '/photos/'+req.params.id+'.jpg';
 	photoStaticHandler(req, res, next);

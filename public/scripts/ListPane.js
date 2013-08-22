@@ -15,6 +15,7 @@ this.ListPane = (function(){
 			this.ol = null;
 			this.searchBox = new SearchBox();
 			this.tagGrid = new TagGrid({ collection: this.collection });
+			this.officeGrid = new OfficeGrid();
 
 			this.collection.on('reset', this.addMany);
 			this.collection.on('add', this.addOne);
@@ -27,6 +28,8 @@ this.ListPane = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
+				this.$el.append(this.officeGrid.render());
+
 				this.$el.append(this.searchBox.render());
 
 				this.ol = $('<ol>', { class: 'people' });
@@ -197,18 +200,20 @@ this.ListPane = (function(){
 	});
 
 	var TAG_NAMES = {
-		biz  : "Business Development",
-		des  : "Design",
-		eng  : "Engineering",
-		exe  : "Executive",
-		fin  : "Finance",
-		hr   : "Human Resources",
-		mkt  : "Marketing",
-		ops  : "Operations",
-		pm   : "Product Management",
-		sale : "Sales",
-		succ : "Customer Success",
-		supp : "Customer Support"
+		'biz'  : "Business Development",
+		'des'  : "Design",
+		'eng'  : "Engineering",
+		'exe'  : "Executive",
+		'fin'  : "Finance",
+		'g&a'  : "General and Administrative Expense",
+		'hr'   : "Human Resources",
+		'it'   : "Information Technology",
+		'mkt'  : "Marketing",
+		'ops'  : "Operations",
+		'pm'   : "Product Management",
+		'sale' : "Sales",
+		'succ' : "Customer Success",
+		'supp' : "Customer Support"
 	};
 
 	var TagGrid = Backbone.View.extend({
@@ -307,6 +312,35 @@ this.ListPane = (function(){
 
 		_isEveryTagFiltered: function(){
 			return _.all(this.filterState, 'isFiltered');
+		}
+	});
+
+	var OfficeGrid = Backbone.View.extend({
+
+		tagName: 'nav',
+
+		initialize: function(){
+			_.bindAll(this);
+		},
+
+		render: function(){
+			if(this.$el.is(':empty')){
+				this.$el.append(
+					$('<a>', { href: 'mv', title: 'view the Mountain View office', text: 'mv' }),
+					$('<a>', { href: 'oc', title: 'view the Orange County office', text: 'oc' }),
+					$('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' })
+				);
+			}
+
+			if(typeof floorplanParams != 'undefined'){
+				this.$('a')
+					.filter(function(){
+						return $(this).text() == floorplanParams.officeId;
+					})
+					.addClass('active');
+			}
+
+			return this.el;
 		}
 	});
 

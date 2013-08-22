@@ -1,12 +1,12 @@
 body {
-	background: white url('../images/blueprint_white.gif') top right;
-	font: 15px "Knockout 31";
-	color: black;
+	background : white url('../images/blueprint_white.gif') top right;
+	color      : black;
+	font       : 15px "Knockout 31";
 }
 
 a { 
-	color: @hot_blue;
-	text-decoration: none;
+	color           : @hot_blue;
+	text-decoration : none;
 }
 
 .vignette {
@@ -51,9 +51,15 @@ a {
 		display: none;
 	}
 
+	.queryContainer {
+		top: @grid_size;
+	}
+
 	.query {
 		.gray-text(0.3);
-		background-image: url('../images/magnifier-gray.png');
+		background-image    : url('../images/magnifier-gray.png');
+		border-bottom-color : @light_line_color;
+		border-top-color    : transparent;
 
 		.placeholder(){
 			.gray-text(0.6);
@@ -78,7 +84,8 @@ a {
 	}
 
 	.people {
-		bottom: 2 * @grid_size;
+		bottom : 2 * @grid_size;
+		top    : 8 * @grid_size;
 
 		.person .name {
 			opacity: 0.7;
@@ -92,13 +99,17 @@ a {
 			}
 
 			.icon {
-				display: inline-block;
-				text-align: center;
-				font-size: 88px;
-				vertical-align: top;
-				color: #9aa7d2;
-				background-color: #2f3d6c;
+				background-color : #2f3d6c;
+				color            : #9aa7d2;
+				display          : inline-block;
+				font-size        : 88px;
+				text-align       : center;
+				vertical-align   : top;
 			}
 		}
+	}
+
+	nav {
+		display: none;
 	}
 }

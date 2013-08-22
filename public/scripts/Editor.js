@@ -250,7 +250,7 @@ this.Editor = (function(){
 
 			if(isEnabled){
 				saveButton.removeAttr('disabled');
-				if(_.isBoolean(isForceEnabled) && isForceEnabled){
+				/*if(_.isBoolean(isForceEnabled) && isForceEnabled){
 					console.log('save button enabled because it was forced on');
 				} else if(this.model.hasChanged()){
 					console.log('save button enabled because the model has changed', this.model.changedAttributes());
@@ -258,7 +258,7 @@ this.Editor = (function(){
 					console.log('save button enabled because a photo was chosen but has yet to start uploading');
 				} else {
 					console.log('no idea why the save button is enabled');
-				}
+				}*/
 			} else {
 				saveButton.attr('disabled', 'disabled');
 			}
@@ -325,7 +325,7 @@ this.Editor = (function(){
 			try {
 				var photoUploadUrl = this.model.url() + '/photo';
 				this.photoUploadControl.fileupload('option', 'url', photoUploadUrl);
-				console.log("photoUploadUrl = ", photoUploadUrl);
+				// console.log("photoUploadUrl = ", photoUploadUrl);
 			} catch (err){
 				//we have loaded a new person with no id
 				//ignore this error, because before we upload their photo, the model will have been saved to the server, it will have an id, and this method will have been run again to get the real value

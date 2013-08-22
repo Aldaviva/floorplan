@@ -7,20 +7,91 @@
 	top        : 0;
 	width      : @pane_width;
 
+	nav {
+		@horiz_padding: 2 * @grid_size;
+		padding: (1 * @grid_size) @horiz_padding (0.5 * @grid_size);
+
+		a {
+			@height        : 4.5 * @grid_size;
+			color          : @inactive_blue;
+			display        : inline-block;
+			font           : 22px "Knockout 52";
+			height         : @height;
+			line-height    : @height;
+			text-align     : center;
+			text-transform : uppercase;
+			width          : (@pane_width - (2 * @horiz_padding)) / 3;
+
+			&:hover {
+				background-color: @hover_background_color;
+			}
+
+			&.active {
+				color: white;
+
+				&:hover {
+					background-color : none;
+					cursor           : default;
+				}
+			}
+		}
+	}
+
+	.queryContainer {
+		left     : 2 * @grid_size;
+		position : absolute;
+		right    : 2 * @grid_size - 1px;
+		top      : 6 * @grid_size;
+	}
+
+	.query {
+		background          : transparent url('../images/magnifier-white.png') no-repeat 13px 1.5*@grid_size;
+		border              : 1px solid @light_line_color;
+		border-bottom-color : fade(@light_line_color, 50%);
+		border-width        : 1px 0;
+		color               : white;
+		font                : 20px "Knockout 32";
+		height              : 5 * @grid_size - 1px;
+		line-height         : 5 * @grid_size - 1px; // IE ignores text-indent until first change event
+		text-indent         : 5 * @grid_size - 1px;
+		width               : 100%;
+
+		.placeholder(){
+			color: @inactive_blue;
+			opacity: 1;
+		}
+
+		&::-webkit-input-placeholder {
+			.placeholder();
+		}
+
+		&:-moz-placeholder {
+			.placeholder();
+		}
+
+		&::-moz-placeholder {
+			.placeholder();
+		}
+
+		&:-ms-input-placeholder {
+			.placeholder();
+		}
+	}
+
 	.people {
-		bottom     : 17 * @grid_size;
+		bottom     : 16 * @grid_size;
 		left       : 0;
 		overflow-x : hidden;
 		overflow-y : auto;
 		position   : absolute;
 		right      : -20px;
-		top        : 8 * @grid_size;
+		top        : 13 * @grid_size;
 
 		.person {
-			@img_size: @grid_size * 5 + 1;
+			@img_size    : @grid_size * 5 + 1px;
 			cursor       : pointer;
 			padding-left : 2 * @grid_size;
-			width: @pane_width - (2 * @grid_size); //overconstrained, but scrollbars tweak the width otherwise
+			width        : @pane_width - (2 * @grid_size); //overconstrained, but scrollbars tweak the width otherwise
 
 			&.filtered_name, &.filtered_tag {
 				display: none;
@@ -43,50 +114,10 @@
 
 			img, .icon {
 				height       : @img_size;
+				line-height  : @img_size - 3px;
 				margin-right : 2 * @grid_size;
 				width        : @img_size;
-				line-height: @img_size - 3px;
 			}
-		}
-	}
-
-	.queryContainer {
-		left     : 2 * @grid_size;
-		position : absolute;
-		right    : 2 * @grid_size - 1px;
-		top      : @grid_size;
-	}
-
-	.query {
-		background    : transparent url('../images/magnifier-white.png') no-repeat 13px 1.5*@grid_size;
-		border-width  : 0px;
-		border-bottom : 1px solid @light_line_color;
-		color         : white;
-		font          : 20px "Knockout 32";
-		height        : 5 * @grid_size;
-		text-indent   : 5 * @grid_size;
-		width         : 100%;
-		line-height   : 5 * @grid_size; // IE ignores text-indent until first change event
-
-		.placeholder(){
-			color: @inactive_blue;
-			opacity: 1;
-		}
-
-		&::-webkit-input-placeholder {
-			.placeholder();
-		}
-
-		&:-moz-placeholder {
-			.placeholder();
-		}
-
-		&::-moz-placeholder {
-			.placeholder();
-		}
-
-		&:-ms-input-placeholder {
-			.placeholder();
 		}
 	}
 
@@ -120,4 +151,5 @@
 			}
 		}
 	}
+
 }
