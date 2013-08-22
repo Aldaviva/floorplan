@@ -107,7 +107,7 @@ this.Map = (function(){
 
 			_.each(peopleToHide, function(personToHide){
 				var view = personToHide.views.mapIcon;
-				svgAddClass(view.el, 'filtered_tag');
+				view && svgAddClass(view.el, 'filtered_tag');
 			});
 		},
 
@@ -124,7 +124,7 @@ this.Map = (function(){
 
 			_.each(peopleToHide, function(personToHide){
 				var view = personToHide.views.mapIcon;
-				svgAddClass(view.el, 'filtered_name');
+				view && svgAddClass(view.el, 'filtered_name');
 			});
 		},
 

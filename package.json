@@ -1,6 +1,6 @@
 {
 	"name": "floorplan",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"author": "Ben Hutchison <ben@bluejeans.com>",
 	"dependencies": {
 		"crp"             : "0.0.0",
