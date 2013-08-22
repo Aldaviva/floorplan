@@ -22,7 +22,12 @@ this.DetailsPane = (function(){
 		initialize: function(){
 			_.bindAll(this);
 
-			mediator.subscribe("activatePerson", _.partial(this.trigger, 'change:model'));			
+			mediator.subscribe("activatePersonConfirmed", function(person, opts){
+				this.els.intro.hide();
+				this.els.content.show();
+				this.trigger('change:model', person, opts);
+			}, {}, this);
+
 			this.on('change:model', this.setModel);
 
 			this.els = {};
@@ -33,7 +38,7 @@ this.DetailsPane = (function(){
 				this.$el.addClass(floorplanParams.officeId);
 				var office = OFFICES[floorplanParams.officeId];
 
-				var intro = $('<div>', { class: 'intro' });
+				var intro = this.els.intro = $('<div>', { class: 'intro' });
 				intro.append($('<h2>', { text: 'Blue Jeans' }));
 				intro.append($('<h3>', { class: 'address' }).append($('<a>', {
 					text   : office.address,
@@ -51,7 +56,7 @@ this.DetailsPane = (function(){
 				}
 
 
-				var content = $('<div>', { class: 'content' });
+				var content = this.els.content = $('<div>', { class: 'content' });
 
 				this.els.photo = $('<img>', { class: 'photo' });
 				this.els.name  = $('<h2>',  { class: 'name' });
@@ -83,7 +88,7 @@ this.DetailsPane = (function(){
 
 				var correctionsLink = $('<a>', {
 					class: 'corrections',
-					href: 'mailto:ben@bluejeans.com?subject='+encodeURIComponent("I have a suggestion for the floorplan"),
+					href: 'mailto:floorplan@bluejeans.com',
 					text: 'Suggest a correction'
 				});
 
@@ -118,8 +123,6 @@ this.DetailsPane = (function(){
 					.prev('dt').addBack().toggle(!!this.model.get('workPhone'));
 			}
 
-			this.$el.toggleClass('hasModel', !!this.model);
-
 			return this.el;
 		},
 
@@ -135,6 +138,11 @@ this.DetailsPane = (function(){
 						.css('background-position', '-2px '+(-3 - 18*2*(rating.stars-.5))+'px')
 						.attr('title', rating.stars + ' stars on Yelp\n('+rating.reviews+' reviews)');
 				}, this))
+		},
+
+		toggleIntro: function(shouldShow){
+			this.els.intro.toggle(!!shouldShow);
+			this.els.content.toggle(!shouldShow);
 		}
 	});
 

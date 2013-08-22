@@ -2,22 +2,83 @@
 
 	this.mediator = new Mediator();
 
-	var listPane    = new ListPane({ el: $('#listPane')[0], collection: data.people });
-	var detailsPane = new DetailsPane({ el: $('#detailsPane')[0] });
-	var map         = new Map({ el: $('.map')[0], collection: data.people, office: floorplanParams.officeId });
+	var listPane;
+	var detailsPane;
+	var map;
 
-	listPane.render();
-	detailsPane.render();
-	map.render();
+	render();
+	bindEvents();
 
-	data.people.reset(floorplanParams.people);
+	data.people.fetch({ reset: true, success: initDeepLinking });
 
-	mediator.subscribe('activatePerson', function(person, opts){
-		mediator.publish('activatePersonConfirmed', person, opts);
-	});
 
-	mediator.subscribe('map:clickPerson', function(person, opts){
-		mediator.publish('activatePerson', person, opts);
-	});
+	function render(){
+		listPane    = new ListPane({ el: $('#listPane')[0], collection: data.people });
+		detailsPane = new DetailsPane({ el: $('#detailsPane')[0] });
+		map         = new Map({ el: $('.map')[0], collection: data.people, office: floorplanParams.officeId });
+
+		listPane.render();
+		detailsPane.render();
+		map.render();
+	}
+
+	function bindEvents(){
+		mediator.subscribe('activatePerson', function(person, opts){
+			if(person.get('office') == floorplanParams.officeId){
+				mediator.publish('activatePersonConfirmed', person, opts);
+			} else {
+				window.location.pathname = getDeepLink(person);
+			}
+		});
+
+		mediator.subscribe('map:clickPerson', function(person, opts){
+			mediator.publish('activatePerson', person, opts);
+		});
+	}
+
+	function initDeepLinking(){
+		mediator.subscribe('activatePersonConfirmed', function(person, opts){
+			if(!opts.skipHistory){
+				var path = getDeepLink(person);
+				window.history.pushState({ personId: person.id }, null, path);
+			}
+		});
+
+		window.addEventListener('popstate', function(event){
+			/*
+			 * Chrome fires popstate on fresh page load as well as intra-page navigation,
+			 * so we ignore popstate if the state is empty.
+			 * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
+			 */
+			if(event.state){
+				var person = data.people.get(event.state.personId);
+				mediator.publish('activatePerson', person, { skipHistory: true });
+			} else {
+				detailsPane.toggleIntro(true);
+			}
+
+		}, false);
+
+		var hashParts = window.location.hash.replace(/^#/, '').split('/');
+		var personToActivate;
+
+		if(hashParts[0]){
+			var personId = hashParts[0];
+			var person = data.people.get(personId);
+			if(person){
+				personToActivate = person;
+			}
+		}
+
+		if(personToActivate){
+			mediator.publish('activatePerson', personToActivate); //TODO should we skip history here?
+		} else {
+			detailsPane.toggleIntro(true);
+		}
+	}
+
+	function getDeepLink(person){
+		return config.mountPoint+'/'+person.get('office')+'#'+person.id+'/'+person.get('fullname').replace(/\s/g, '_');
+	}
 
 })();

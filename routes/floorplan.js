@@ -54,4 +54,7 @@ var renderFloorplan = function(req, res, next){
 };
 
 server.get('/:office', renderFloorplan);
-server.get('/', renderFloorplan);
+
+server.get('/', function(req, res){
+	res.redirect('mv');
+});
