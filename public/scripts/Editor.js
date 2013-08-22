@@ -137,7 +137,6 @@ this.Editor = (function(){
 				//model and photo are saved, nothing to do here
 				mediator.publish('activatePersonConfirmed', newModel, opts);
 
-			//TODO make a real dialog with choices for save, discard, and edit
 			} else if(window.confirm("You have unsaved changes. Are you sure you want to discard these changes?")){
 				if(!this.model.isNew()){
 					this.model.fetch({ success: function(model){

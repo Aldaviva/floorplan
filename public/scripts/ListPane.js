@@ -1,6 +1,3 @@
-/*
- * TODO: when a person is renamed, update row view
- */
 this.ListPane = (function(){
 
 	var ListPane = Backbone.View.extend({

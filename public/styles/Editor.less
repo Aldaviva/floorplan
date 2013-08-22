@@ -192,7 +192,7 @@
 		@map_height: 125px;
 
 		position: relative;
-		min-height: @map_height + 22px;
+		min-height: @map_height;
 
 		.seatChooser {
 			position: absolute;
@@ -208,17 +208,20 @@
 	}
 
 	.tags {
-		@column_count: 3;
-		@column_width: 150px;
-		-webkit-column-count: @column_count;
-		-moz-column-count: @column_count;
-		column-count: @column_count;
+		.columns {
+			@column_count: 4;
+			@column_width: 150px;
+			-webkit-column-count: @column_count;
+			-moz-column-count: @column_count;
+			column-count: @column_count;
 
-		width: @column_count * @column_width;
+			width: @column_count * @column_width;
 
-		label {
-			width: @column_width;
+			label {
+				width: @column_width;
+			}
 		}
+
 	}
 
 	.formControls {

@@ -64,7 +64,15 @@
 	}
 
 	.content {
-		display: none;
+		bottom        : 5 * @grid_size;
+		display       : none;
+		left          : 0;
+		overflow      : auto;
+		padding       : 3 * @grid_size;
+		padding-right : 3 * @grid_size - 1;
+		position      : absolute;
+		right         : 0;
+		top           : 0;
 	}
 
 	&.hasModel {
@@ -78,14 +86,6 @@
 	}
 
 	.intro {
-		/*h2 {
-			font-family    : "Knockout 47";
-			font-size      : 117px;
-			line-height    : 82px;
-			margin-left    : -3px;
-			text-transform : uppercase;
-		}*/
-
 		h3 {
 			white-space : pre;
 
@@ -108,8 +108,9 @@
 		bottom           : 0;
 		font             : 15px "Knockout 32";
 		left             : 0;
-		line-height      : @grid_size;
-		padding          : 3 * @grid_size;
+		line-height      : 0.85 * 5 * @grid_size;
+		height           : 5 * @grid_size;
+		padding          : 0 (3 * @grid_size);
 		position         : absolute;
 		right            : 0;
 		text-transform   : uppercase;
