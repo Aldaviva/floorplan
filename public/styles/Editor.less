@@ -209,16 +209,17 @@
 
 	.tags {
 		.columns {
-			@column_count: 4;
 			@column_width: 150px;
-			-webkit-column-count: @column_count;
+			@column_count: 4;
+			/*-webkit-column-count: @column_count;
 			-moz-column-count: @column_count;
-			column-count: @column_count;
+			column-count: @column_count;*/
 
 			width: @column_count * @column_width;
 
 			label {
 				width: @column_width;
+				display: inline-block;
 			}
 		}
 
