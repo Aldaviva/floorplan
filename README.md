@@ -1,7 +1,7 @@
-Blue Jeans Floorplan
-====================
+Floorplan
+=========
 
-Where do people sit in the Mountain View office of Blue Jeans? What's that person's name, whose face I remember but never really met? I've heard of this person, but I don't know their face. Where are the different teams grouped? What is A2's email address?
+Where do people sit in the offices of Blue Jeans Network? What's that person's name, whose face I remember but never really met? I've heard of this person, but I don't know their face. Where are the different teams grouped? What is A2's email address?
 
 ### Floorplan view
 ![Floorplan](http://aldaviva.com/portfolio/artwork/floorplan.jpg)
@@ -11,10 +11,10 @@ Where do people sit in the Mountain View office of Blue Jeans? What's that perso
 
 ## Buzzwords Used
 
-* Node
 * Express
-* Mongo
-* SVG
-* libcairo2
-* LESS
+* GraphicsMagick
 * Handlebars
+* LESS
+* Mongo
+* Node
+* SVG
