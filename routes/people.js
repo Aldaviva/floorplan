@@ -78,7 +78,7 @@ server.post('/people/:id/photo', function(req, res, next){
 				name         : basename,
 				url          : imageUrl,
 				thumbnailUrl : imageUrl,
-				size         : imgInfo.size
+				// size         : imgInfo.size
 			}]};
 
 			/**
