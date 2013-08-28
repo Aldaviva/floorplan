@@ -9,12 +9,15 @@ Where do people sit in the offices of Blue Jeans Network? What's that person's n
 ### Administrative view
 ![Floorplan Admin](http://aldaviva.com/portfolio/artwork/floorplan-admin.jpg)
 
-## Buzzwords Used
+## Buzzwords
 
+* Backbone
 * Express
 * GraphicsMagick
 * Handlebars
+* jQuery
 * LESS
 * Mongo
 * Node
+* Q
 * SVG
