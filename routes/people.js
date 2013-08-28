@@ -86,7 +86,7 @@ server.post('/people/:id/photo', function(req, res, next){
 			 * because application/json will create a download dialog.
 			 * 
 			 * @see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup#content-type-negotiation
-			*/
+			 */
 			res.format({
 				json: function(){
 					res.send(payload);
