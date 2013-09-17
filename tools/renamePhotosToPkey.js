@@ -1,7 +1,7 @@
 var fs = require('fs');
 var mongo = require('mongodb');
 
-var PHOTO_DIR = '../public/images/photos/'
+var PHOTO_DIR = './photos/'
 
 process.chdir(__dirname);
 

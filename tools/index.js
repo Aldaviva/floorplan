@@ -4,15 +4,14 @@ var xpath		= require('xpath');
 var DomParser	= require('xmldom').DOMParser;
 
 var names = require('./names');
-var merged = require('./merged');
 
 // http.globalAgent.maxSockets = 65535;
 
 
-var linkedInCookies = 'visit="v=1&M"; X-LI-IDC=C1; JSESSIONID="ajax:7590970351728811367"; L1e=495eba97; L1c=3fde14c3; L1l=6896d72d; leo_auth_token="LIM:139463329:a:21600:1369420544:9934bc2e0d892e4d5c715d6e7855bb4b8efcd159"; srchId=fc029ada-ffb9-4494-bc7f-832d20bfbf07-1; NSC_MC_QH_MFP=ffffffffaf100bb645525d5f4f58455e445a4a4219d9; bcookie="v=2&63f1da8d-993b-4aae-95f5-7b3c34f20351"; __qca=P0-1000170917-1320732942736; _mobile=1340074652524; _leo_profile="u=139463329"; __utma=23068709.1701420679.1320732942.1358494264.1369367907.7; __utmc=23068709; __utmz=23068709.1340058883.4.2.utmcsr=Profile_inmail|utmccn=Subs|utmcmd=onsite; __utmv=23068709.guest; sdsc=1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D; RT=s=1369420562469&r=http%3A%2F%2Fwww.linkedin.com%2Fsearch%2Ffpsearch%3Fkeywords%3DAkshay%2520Kumar%2520Sridharan%26companyId%3D1958201; _lipt="0_f5plwBwf_EGvIAKGcevMRXjOj8nYOVTSSIll0bIRdBWcCCqQhhTOF-fiHwuGHboxNzDhFXP-O4Z5V3yc3IXul1kMm9SGOmCGf8lg6OGKgePF1BuXE0CpmiId1ttOtmJh1IFlFQUsRxhOgZnnMJwjdQsqo15Vn450XQzg-Ku_FlOdyzgA8rEYOkkB-WcbwbcLukEndTzbbquYNUwdtepHwGRlyEOy9Cak-d9BpRPTpfS"; lang="v=2&lang=en-us&c="';
+var linkedInCookies = 'visit="v=1&M"; JSESSIONID="ajax:0954010542991720294"; X-LI-IDC=C1; L1c=3bdd29c3; leo_auth_token="LIM:139463329:i:1379388797:e69c52dd2f8e07c8ae205da405a31b443764922a"; bcookie="v=2&63f1da8d-993b-4aae-95f5-7b3c34f20351"; __qca=P0-1000170917-1320732942736; _mobile=1340074652524; __utma=23068709.1347353848.1374797981.1374797981.1374816151.2; __utmz=23068709.1374797981.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utmv=23068709.user; _leo_profile="u=139463329"; _lipt="0_PyLNzwYMM5yDx5njl3S1lCy2gvaUa7EJlPLlse-U6JglUFcRRy_DGNh8ME_6gbq3KLXj_0SQAYQXJFaRiIFHw9bL4I-rSolO_rrSkV2y722iZ7H7afKZwhp5piYDsf84F6JLFBjD2YHt2kj-7xF5pBhhTwn__rkS9Tr5DlnCclgsqo15Vn450XQzg-Ku_FlOdyzgA8rEYOkkB-WcbwbcLukEndTzbbquYNUwdtepHwGRlyEOy9Cak-d9BpRPTpfS"; sdsc=1%3A1SZM1shxDNbLt36wZwCgPgvN58iw%3D; lang="v=2&lang=en-us"';
 
 function getResultsPath(fullname){
-	return "/search/fpsearch?keywords="+encodeURIComponent(fullname)+"&companyId=1958201";
+	return "/vsearch/p?keywords="+encodeURIComponent(fullname)+"&f_CC=1958201";
 }
 
 function getProfilePath(profileId){
@@ -38,11 +37,12 @@ function getSource(path, callback){
 }
 
 function getFirstResultPhotoSrc(source){
-	var matches = source.match(/<img src="(.+?)" class="photo"/);
+	var matches = source.match(/,"imageUrl":"(.+?)",/);
 
 	if(matches){
 		var thumbnailSrc = matches[1];
-		var fullSizeSrc = thumbnailSrc.replace(/media\.licdn\.com\/mpr\/mpr\/shrink_60_60/, 'm.c.lnkd.licdn.com/media');
+		//var fullSizeSrc = thumbnailSrc.replace(/media\.licdn\.com\/mpr\/mpr\/shrink_60_60/, 'm.c.lnkd.licdn.com/media');
+		var fullSizeSrc = "http://m.c.lnkd.licdn.com/media"+thumbnailSrc;
 		return fullSizeSrc;
 	} else {
 		return null;
@@ -53,6 +53,7 @@ function saveUrlToDisk(url, filePath){
 	if(!fs.existsSync(filePath)){
 		var fileStream = fs.createWriteStream(filePath);
 		http.get(url, function(res){
+			console.log("GET "+url+": "+res.statusCode);
 			res.on('data', function(chunk){
 				fileStream.write(chunk);
 			});
@@ -84,7 +85,37 @@ function findTitleInSource(source){
 	}
 }
 
+function logPerson(person){
+	console.log([person.fullname, person.linkedInId, person.title].join('\t'));
+}
+
 function main(){
+	names.forEach(function(fullname){
+		var resultsUrl = getResultsPath(fullname);
+		getSource(resultsUrl, function(resultsSource){
+			var person = {};
+			person.fullname = fullname;
+			person.linkedInId = findProfileIdinSource(resultsSource);
+			
+			var photoPath = "photos/"+fullname+".jpg";
+			if(!fs.existsSync(photoPath)){
+				var photoUrl = getFirstResultPhotoSrc(resultsSource);
+				photoUrl && saveUrlToDisk(photoUrl, photoPath);
+			}
+
+			if(person.linkedInId){
+				var profileUrl = getProfilePath(person.linkedInId);
+				getSource(profileUrl, function(profileSource){
+					person.title = findTitleInSource(profileSource);
+					logPerson(person);
+				});
+			} else {
+				logPerson(person);
+			}
+		});
+	});
+
+	//save profile picture to disk
 	/*names.forEach(function(fullname){
 		var filePath = "photos/"+fullname+'.jpg';
 		if(!fs.existsSync(filePath)){
@@ -96,6 +127,7 @@ function main(){
 		}
 	});*/
 
+	//get profile id
 	/*names.forEach(function(fullname){
 		var resultsUrl = getResultsPath(fullname);
 		getSource(resultsUrl, function(source){
@@ -104,7 +136,7 @@ function main(){
 		});
 	});*/
 
-	var remaining = merged.length;
+	/*var remaining = merged.length;
 
 	merged.forEach(function(person){
 		if(person.linkedInId){
@@ -122,7 +154,7 @@ function main(){
 		} else {
 			--remaining;
 		}
-	});
+	});*/
 	
 }
 
