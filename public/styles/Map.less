@@ -8,9 +8,15 @@
 			image-rendering : optimizeSpeed;
 		}
 
-		.roomNames text {
-			fill: rgba(255, 255, 255, 0.75);
-			font-family: "Architect's Daughter";
+		.roomNames {
+			text {
+				fill: rgba(255, 255, 255, 0.75);
+				font-family: "Architect's Daughter";
+			}
+
+			text.small, .small text {
+				font-size: 0.7em;
+			}
 		}
 
 		.walls {
@@ -50,20 +56,26 @@
 		}
 
 		&.mv {
-			.roomNames text {
+			.roomNames {
 				font-size: 10px;
 			}
 		}
 
 		&.oc {
-			.roomNames text {
+			.roomNames {
 				font-size: 14px;
 			}
 		}
 
 		&.sf {
-			.roomNames text {
-				font-size: 13px;
+			.roomNames {
+				font-size: 14px;
+			}
+		}
+
+		&.blr {
+			.roomNames {
+				font-size: 14px;
 			}
 		}
 	}

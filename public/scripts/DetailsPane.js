@@ -15,6 +15,11 @@ this.DetailsPane = (function(){
 			address: '3333 Michelson Drive\nSuite 700\nIrvine, CA 92612',
 			mapsUrl: 'https://maps.google.com/maps?q=3333+Michelson+Drive,+Suite+700,+Irvine,+CA+92612&hl=en&ll=33.672926,-117.843475&spn=1.131436,2.113495&sll=33.916327,-118.105384&sspn=1.128228,2.113495&t=m&hnear=3333+Michelson+Dr+%23700,+Irvine,+Orange,+California+92612&z=10',
 			yelpId: null
+		},
+		blr: {
+			address: '', //TODO fill this in once we know what the street address of the bangalore office is
+			mapsUrl: null, //TODO fill in according to street address
+			yelpId: null
 		}
 	};
 
@@ -148,7 +153,7 @@ this.DetailsPane = (function(){
 
 	function formatPhoneNumber(phoneNumber){
 		if(phoneNumber){
-			return phoneNumber.replace(/[\(\)]/g, '').replace(/[ \.]/g, '-');
+			return phoneNumber.replace(/[\(\)]/g, '').replace(/[\.]/g, '-');
 		} else {
 			return phoneNumber;
 		}

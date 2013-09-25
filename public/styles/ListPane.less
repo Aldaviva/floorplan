@@ -20,7 +20,7 @@
 			line-height    : @height;
 			text-align     : center;
 			text-transform : uppercase;
-			width          : (@pane_width - (2 * @horiz_padding)) / 3;
+			width          : (@pane_width - (2 * @horiz_padding)) / @office_count;
 
 			&:hover {
 				background-color: @hover_background_color;

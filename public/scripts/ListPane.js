@@ -325,7 +325,8 @@ this.ListPane = (function(){
 				this.$el.append(
 					$('<a>', { href: 'mv', title: 'view the Mountain View office', text: 'mv' }),
 					$('<a>', { href: 'oc', title: 'view the Orange County office', text: 'oc' }),
-					$('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' })
+					$('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' }),
+					$('<a>', { href: 'blr', title: 'view the Bangalore office', text: 'blr' })
 				);
 			}
 

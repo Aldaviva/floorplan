@@ -12,7 +12,7 @@ var OFFICE_NAMES = {
 	mv: "Mountain View",
 	sf: "San Francisco",
 	oc: "Orange County",
-	bl: "Bangalore"
+	blr: "Bangalore"
 };
 
 fs.readdir(MAPS_PATH, function(err, files){

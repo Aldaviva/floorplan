@@ -62,8 +62,8 @@
 					><input name="mobilePhone" type="tel"
 						placeholder="" 
 						title="example: 408-555-5555" 
-						pattern="\d{3}-\d{3}-\d{4}" 
-						data-validation-failed-message="Mobile phone must be of the form 408-555-5555."/>
+						pattern="(\d{3}-\d{3}-\d{4})|(\+91 \d{10})" 
+						data-validation-failed-message="Mobile phone must be of the form 123-456-7890 or +91 1234567890."/>
 				</label>
 
 				<label>
@@ -71,8 +71,8 @@
 					><input name="workPhone" type="tel" 
 						placeholder="" 
 						title="example: 408-555-5555" 
-						pattern="\d{3}-\d{3}-\d{4}" 
-						data-validation-failed-message="Work phone must be of the form 408-555-5555." />
+						pattern="(\d{3}-\d{3}-\d{4})|(\+91 \d{10})" 
+						data-validation-failed-message="Work phone must be of the form 123-456-7890 or +91 1234567890." />
 				</label>
 			</section>
 
@@ -81,12 +81,12 @@
 				<label><input name="office" value="mv" type="radio" />Mountain View</label>
 				<label><input name="office" value="oc" type="radio" />Orange County</label>
 				<label><input name="office" value="sf" type="radio" />San Francisco</label>
-				<!--<label class="disabled" title="The floorplan for the Bangalore office has not been implemented yet."><input name="office" value="bl" type="radio" disabled />Bangalore</label>-->
+				<label><input name="office" value="blr" type="radio" />Bangalore</label>
 				<div class="seatChooser small">
 					<div class="map small mv">{{{svgs.mv}}}</div>
 					<div class="map small oc">{{{svgs.oc}}}</div>
 					<div class="map small sf">{{{svgs.sf}}}</div>
-					<!--<div class="map small bl">{{{svgs.bl}}}</div>-->
+					<div class="map small blr">{{{svgs.blr}}}</div>
 					<a href="#" class="desk helper_link">move desk</a>
 				</div>
 			</section>
