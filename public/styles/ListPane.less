@@ -101,22 +101,24 @@
 				background: @hover_background_color;
 			}
 
-			.name, img {
+			/*.name, img {
 				display        : inline-block;
 				vertical-align : middle;
-			}
+			}*/
 
 			.name {
 				font-family : "Knockout 31";
 				font-size   : 25px;
 				line-height : @img_size;
+				margin: 0 @grid_size 0 (7 * @grid_size);
+				.ellipsis();
 			}
 
 			img, .icon {
 				height       : @img_size;
-				line-height  : @img_size - 3px;
-				margin-right : 2 * @grid_size;
+				line-height  : @img_size - 3px; //for the + icon in "Add a person"
 				width        : @img_size;
+				position: absolute;
 			}
 		}
 	}
