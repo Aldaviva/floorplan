@@ -208,6 +208,7 @@ this.ListPane = (function(){
 		'mkt'  : "Marketing",
 		'ops'  : "Operations",
 		'pm'   : "Product Management",
+		'qa'   : "Quality Assurance",
 		'sale' : "Sales",
 		'succ' : "Customer Success",
 		'supp' : "Customer Support"

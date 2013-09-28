@@ -17,8 +17,8 @@ this.DetailsPane = (function(){
 			yelpId: null
 		},
 		blr: {
-			address: '', //TODO fill this in once we know what the street address of the bangalore office is
-			mapsUrl: null, //TODO fill in according to street address
+			address: 'Xylem Tech Park\n5th Floor\nUnit 501 and 502\nWhite Field Road\nDevasandra Extension\nMahadevapura\nBangalore\nKarnataka\n560048',
+			mapsUrl: 'https://www.google.com/maps?source=embed&near=International+Technology+Park+Bangalore,+1st+Floor,+Innovator+Building,+Whitefield+Road,+Bangalore,+Karnataka+560066,+India&geocode=CZMgqS6v0udsFW4mxgAd5SeiBCkzTpso5RGuOzFPgVFRu2mhtA&q=xylem&f=l&dq=Xylem+Tech+Park,+Bangalore&sll=12.985966,77.735909&sspn=0.295278,0.286308&ie=UTF8&hq=xylem&hnear=&ll=12.994438,77.701664&spn=0.015974,0.032787&z=14&iwloc=A&vpsrc=0&oi=map_misc&ct=api_logo',
 			yelpId: null
 		}
 	};
