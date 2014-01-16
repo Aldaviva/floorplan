@@ -27,7 +27,7 @@
 			if((!person.get('office')) || (person.get('office') == floorplanParams.officeId)){
 				mediator.publish('activatePersonConfirmed', person, opts);
 			} else {
-				window.location.pathname = getDeepLink(person);
+				window.location.replace(getDeepLink(person));
 			}
 		});
 
@@ -77,7 +77,6 @@
 		}
 	}
 
-	//TODO chrome encodes # as %23
 	function getDeepLink(person){
 		return config.mountPoint+'/'+(person.get('office')||'')+'#'+person.id+'/'+person.get('fullname').replace(/\s/g, '_');
 	}
