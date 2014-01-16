@@ -53,8 +53,6 @@
 			if(event.state){
 				var person = data.people.get(event.state.personId);
 				mediator.publish('activatePerson', person, { skipHistory: true });
-			} else {
-				detailsPane.toggleIntro(true);
 			}
 
 		}, false);
