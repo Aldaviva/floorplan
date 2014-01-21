@@ -20,7 +20,8 @@ this.Editor = (function(){
 					el: $('.map.'+officeId)[0],
 					collection: data.people,
 					office: officeId,
-					skipFilters: true
+					skipFilters: true,
+					skipEndpoints: true
 				});
 			}));
 

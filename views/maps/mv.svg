@@ -182,8 +182,19 @@
 		<line x1="285.25" y1="579.207" x2="490.771" y2="579.207"/>
 		<polyline points="148.241,260.644 148.241,579.207 272.954,579.207"/>
 	</g>
+	<g class="endpointBadges">
+		<rect endpoint:id="4fb18e00e4b0378e4f2e5858" x="578" y="80" width="6" height="6" />
+		<rect endpoint:id="52594bf403a06a5062934fa7" x="355" y="80" width="6" height="6" />
+		<rect endpoint:id="52594bdc03a06a5062934fa6" x="302" y="80" width="6" height="6" />
+		<rect endpoint:id="52d496b9e4b0fc8d80784d0a" x="196" y="163" width="6" height="6" />
+		<rect endpoint:id="52594bc403a06a5062934fa5" x="196" y="272" width="6" height="6" />
+		<rect endpoint:id="507cda1ad213cb192dcb0d58" x="196" y="324" width="6" height="6" />
+		<rect endpoint:id="52594ba203a06a5062934fa4" x="196" y="419" width="6" height="6" />
+		<rect endpoint:id="52594b8a03a06a5062934fa3" x="683" y="350" width="6" height="6" />
+		<rect endpoint:id="52594b6503a06a5062934fa2" x="683" y="410" width="6" height="6" />
+	</g>
 	<g class="roomNames">
-		<text x="535" y="125" text-anchor="middle">Boardroom</text>
+		<text x="535" y="125" text-anchor="middle" endpoint:id="4fb18e00e4b0378e4f2e5858">Boardroom</text>
 		<text x="423" y="140" text-anchor="middle">Lobby</text>
 		<text x="418" y="248" text-anchor="middle">Break room</text>
 		<text x="409.161" y="356" text-anchor="middle">Restrooms</text>

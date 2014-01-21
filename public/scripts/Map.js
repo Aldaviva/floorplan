@@ -1,11 +1,13 @@
 this.Map = (function(){
 
 	var SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+	var STORM_API_ROOT = 'http://54.212.42.221/api/';
 
 	/*
 	 * options:	{
 	 *     office: 'mv',
-	 *     skipFilters: false
+	 *     skipFilters: false,
+	 *     skipEndpoints: false
 	 * }
 	 */
 	var Map = Backbone.View.extend({
@@ -53,6 +55,11 @@ this.Map = (function(){
 					seatsFragment.appendChild(deskEl);
 				}
 				this.seatsGroup.append(seatsFragment);
+
+				if(!this.options.skipEndpoints){
+					this.renderEndpointBadges();
+					setInterval(this.renderEndpointBadges, 5*1000);
+				}
 			}
 			return this.el;
 		},
@@ -148,6 +155,30 @@ this.Map = (function(){
 			if(_.isNumber(desk)){
 				svgAddClass(this.seatsGroup.find('[data-desk='+desk+']')[0], 'active');
 			}
+		},
+
+		renderEndpointBadges: function(){
+			var badgeEls = this.$('.endpointBadges rect');
+			badgeEls.each(function(index, badgeEl){
+				var endpointId = $(badgeEl).attr("endpoint:id");
+				$.getJSON(STORM_API_ROOT+"endpoints/"+endpointId+"/status")
+					.done(function(endpointStatus){
+						var isAvailable = !endpointStatus.isCallActive && !endpointStatus.isReserved;
+						var titleText;
+						if(isAvailable){
+							svgAddClass(badgeEl, 'available');
+							svgRemoveClass(badgeEl, 'busy');
+							titleText = "probably available";
+						} else {
+							svgAddClass(badgeEl, 'busy');
+							svgRemoveClass(badgeEl, 'available');
+							titleText = endpointStatus.isCallActive
+								? "busy\n(call active)"
+								: "busy\n(calendar reservation)";
+						}
+						setTitle(badgeEl, titleText);
+					});
+			});
 		}
 	});
 
@@ -170,9 +201,7 @@ this.Map = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
-				var titleEl = document.createElementNS(SVG_NAMESPACE, 'title');
-				$(titleEl).text(this.model.get('fullname'));
-				this.$el.append(titleEl);
+				setTitle(this.$el, this.model.get('fullname'));
 
 				this.renderPhoto(this.model, this.model.getPhotoPath());
 			}
@@ -236,6 +265,15 @@ this.Map = (function(){
 		var oldClassList = el.className.baseVal.split(/\s/);
 		var newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)));
 		el.className.baseVal = newClassList.join(" ");
+	}
+
+	function setTitle(el, titleText){
+		var titleEl = $(el).children("title");
+		if(!titleEl.length){
+			titleEl = document.createElementNS(SVG_NAMESPACE, 'title');
+			$(el).append(titleEl);
+		}
+		$(titleEl).text(titleText);
 	}
 
 	return Map;
