@@ -10,6 +10,7 @@
 	bindEvents();
 
 	data.people.fetch({ reset: true, success: initDeepLinking });
+	data.endpoints.fetch({ reset: true, success: initEndpointStatusPoll });
 
 
 	function render(){
@@ -33,6 +34,11 @@
 
 		mediator.subscribe('map:clickPerson', function(person, opts){
 			mediator.publish('activatePerson', person, opts);
+		});
+
+		mediator.subscribe('map:clickRoom', function(endpointId, opts){
+			var endpoint = data.endpoints.get(endpointId);
+			mediator.publish('activateRoom', endpoint, opts);
 		});
 	}
 
@@ -77,6 +83,18 @@
 
 	function getDeepLink(person){
 		return config.mountPoint+'/'+(person.get('office')||'')+'#'+person.id+'/'+person.get('fullname').replace(/\s/g, '_');
+	}
+
+	function initEndpointStatusPoll(){
+		function pollEndpointStatus(){
+			data.endpoints.each(function(endpoint){
+				endpoint.fetchStatus().done(function(status){
+					endpoint.trigger('status', endpoint, status);
+				});
+			});
+		}
+		setInterval(pollEndpointStatus, 10*1000);
+		pollEndpointStatus();
 	}
 
 })();

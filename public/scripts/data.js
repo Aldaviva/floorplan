@@ -22,5 +22,19 @@ this.data = (function(){
 		comparator: 'fullname'
 	}))();
 
+	var Endpoint = data.Endpoint = Backbone.Model.extend({
+		fetchStatus: function(){
+			return $.getJSON(this.url()+'/status')
+				.done(_.bind(function(status){
+					this.status = status;
+				}, this));
+		}
+	});
+
+	var endpoints = data.endpoints = new (Backbone.Collection.extend({
+		model: Endpoint,
+		url: config.stormApiRoot+'endpoints'
+	}))();
+
 	return data;
 })();

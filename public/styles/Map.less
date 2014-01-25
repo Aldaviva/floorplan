@@ -17,6 +17,26 @@
 			text.small, .small text {
 				font-size: 0.7em;
 			}
+
+			.roomArea {
+				cursor: pointer;
+				fill: rgba(255, 255, 255, 0);
+
+				&:hover {
+					fill: rgba(255, 255, 255, 0.05);
+				}
+			}
+
+			.statusBadge {
+				fill: none;
+
+				&.loaded {
+					fill: @available_green;
+					&.busy {
+						fill: @unavailable_red;
+					}
+				}
+			}
 		}
 
 		.walls {
@@ -52,18 +72,6 @@
 
 			rect {
 				fill: @hot_blue;
-			}
-		}
-
-		.endpointBadges {
-			fill: none;
-
-			.busy {
-				fill: @unavailable_red;
-			}
-
-			.available {
-				fill: @available_green;
 			}
 		}
 

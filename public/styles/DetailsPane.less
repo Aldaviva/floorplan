@@ -26,14 +26,15 @@
 	}
 
 	h3 {
-		font-family : "Architect's Daughter";
-		font-size   : 23px;
-		line-height : 3 * @grid_size;
-		margin-top  : 20px;
+		font-family    : "Architect's Daughter";
+		font-size      : 23px;
+		line-height    : 3 * @grid_size;
+		margin-top     : 20px;
+		padding-bottom : @grid_size;
 	}
 
 	dl {
-		margin-top: 2px + 3 * @grid_size;
+		margin-top: 3px + 2 * @grid_size;
 
 		dt, dd {
 			line-height: 30px;
@@ -46,7 +47,7 @@
 			padding-right  : 3 * @grid_size;
 			text-align     : right;
 			text-transform : uppercase;
-			width          : 8 * @grid_size;
+			width          : 9 * @grid_size + 1px;
 		}
 
 		dd {
@@ -55,7 +56,7 @@
 			font-size      : 17px;
 			margin-left    : 11 * @grid_size;
 			padding-bottom : 1 * @grid_size;
-			padding-left   : 2.5 * @grid_size;
+			padding-left   : 1.9 * @grid_size;
 		}
 
 		a:hover {
@@ -63,7 +64,7 @@
 		}
 	}
 
-	.content {
+	.detailsView{
 		bottom        : 5 * @grid_size;
 		display       : none;
 		left          : 0;
@@ -75,11 +76,27 @@
 		top           : 0;
 	}
 
-	.intro {
-		display: none;
+	.personDetailsView {
+		
+	}
 
+	.roomDetailsView {
+		.statusBadge {
+			background-color : @available_green;
+			display          : inline-block;
+			height           : 11px;
+			margin-right     : 9px;
+			width            : 11px;
+
+			&.busy {
+				background-color: @unavailable_red;
+			}
+		}
+	}
+
+	.intro {
 		h3 {
-			white-space : pre;
+			white-space: pre;
 
 			a:hover {
 				color: @light_line_color;

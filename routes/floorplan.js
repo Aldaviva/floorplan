@@ -37,9 +37,7 @@ var renderFloorplan = function(req, res, next){
 				officeId: officeId,
 				officeName: OFFICE_NAMES[officeId],
 				svg: svg,
-				config: JSON.stringify({
-					mountPoint: config.mountPoint
-				})
+				config: JSON.stringify(_.pick(config, ['mountPoint', 'stormApiRoot']))
 			};
 			res.render('floorplan', context);
 		}).fail(next);

@@ -3,5 +3,6 @@
 	"dbHost": "127.0.0.1",
 	"dbPort": 27017,
 	"dbName": "floorplan",
-	"mountPoint": "/"
+	"mountPoint": "/",
+	"stormApiRoot": "http://54.212.42.221/api/"
 }

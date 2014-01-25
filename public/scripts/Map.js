@@ -1,7 +1,6 @@
 this.Map = (function(){
 
 	var SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
-	var STORM_API_ROOT = 'http://54.212.42.221/api/';
 
 	/*
 	 * options:	{
@@ -14,7 +13,8 @@ this.Map = (function(){
 
 		events: {
 			"click .photos image": 'onIconClick',
-			"click .seats rect": 'onSeatClick'
+			"click .seats rect": 'onSeatClick',
+			"click .roomNames .roomArea": 'onRoomClick'
 		},
 
 		initialize: function(){
@@ -31,6 +31,10 @@ this.Map = (function(){
 			if(!this.options.skipFilters){
 				mediator.subscribe('filterByTag', this.filterByTag);
 				mediator.subscribe('change:query', this.filterByName);
+			}
+
+			if(!this.options.skipEndpoints){
+				data.endpoints.on('status', this.renderEndpointBadge);
 			}
 		},
 
@@ -55,11 +59,6 @@ this.Map = (function(){
 					seatsFragment.appendChild(deskEl);
 				}
 				this.seatsGroup.append(seatsFragment);
-
-				if(!this.options.skipEndpoints){
-					this.renderEndpointBadges();
-					setInterval(this.renderEndpointBadges, 5*1000);
-				}
 			}
 			return this.el;
 		},
@@ -96,6 +95,14 @@ this.Map = (function(){
 			var deskId = $(event.currentTarget).data('desk');
 			this.renderActiveSeat(deskId);
 			mediator.publish("map:clickDesk", deskId);
+		},
+
+		onRoomClick: function(event){
+			if(!this.options.skipEndpoints){
+				var roomEl = $(event.currentTarget).closest(".room");
+				var endpointId = roomEl.attr("endpoint:id");
+				mediator.publish("map:clickRoom", endpointId);
+			}
 		},
 
 		filterByTag: function(params){
@@ -157,28 +164,23 @@ this.Map = (function(){
 			}
 		},
 
-		renderEndpointBadges: function(){
-			var badgeEls = this.$('.endpointBadges rect');
-			badgeEls.each(function(index, badgeEl){
-				var endpointId = $(badgeEl).attr("endpoint:id");
-				$.getJSON(STORM_API_ROOT+"endpoints/"+endpointId+"/status")
-					.done(function(endpointStatus){
-						var isAvailable = !endpointStatus.isCallActive && !endpointStatus.isReserved;
-						var titleText;
-						if(isAvailable){
-							svgAddClass(badgeEl, 'available');
-							svgRemoveClass(badgeEl, 'busy');
-							titleText = "probably available";
-						} else {
-							svgAddClass(badgeEl, 'busy');
-							svgRemoveClass(badgeEl, 'available');
-							titleText = endpointStatus.isCallActive
-								? "busy\n(call active)"
-								: "busy\n(calendar reservation)";
-						}
-						setTitle(badgeEl, titleText);
-					});
-			});
+		renderEndpointBadge: function(endpoint, status){
+			var badgeEl = this.$(".roomNames .room[endpoint\\:id='"+endpoint.id+"'] .statusBadge").get(0);
+			if(badgeEl){
+				var isAvailable = !status.callActive && !status.reserved;
+				var titleText;
+				svgAddClass(badgeEl, "loaded");
+				if(isAvailable){
+					svgRemoveClass(badgeEl, 'busy');
+					titleText = "available";
+				} else {
+					svgAddClass(badgeEl, 'busy');
+					titleText = status.callActive
+						? "in a call"
+						: "reserved";
+				}
+				setTitle(badgeEl, titleText);
+			}
 		}
 	});
 

@@ -182,49 +182,75 @@
 		<line x1="285.25" y1="579.207" x2="490.771" y2="579.207"/>
 		<polyline points="148.241,260.644 148.241,579.207 272.954,579.207"/>
 	</g>
-	<g class="endpointBadges">
-		<rect endpoint:id="4fb18e00e4b0378e4f2e5858" x="578" y="80" width="6" height="6" />
-		<rect endpoint:id="52594bf403a06a5062934fa7" x="355" y="80" width="6" height="6" />
-		<rect endpoint:id="52594bdc03a06a5062934fa6" x="302" y="80" width="6" height="6" />
-		<rect endpoint:id="52d496b9e4b0fc8d80784d0a" x="196" y="163" width="6" height="6" />
-		<rect endpoint:id="52594bc403a06a5062934fa5" x="196" y="272" width="6" height="6" />
-		<rect endpoint:id="507cda1ad213cb192dcb0d58" x="196" y="324" width="6" height="6" />
-		<rect endpoint:id="52594ba203a06a5062934fa4" x="196" y="419" width="6" height="6" />
-		<rect endpoint:id="52594b8a03a06a5062934fa3" x="683" y="350" width="6" height="6" />
-		<rect endpoint:id="52594b6503a06a5062934fa2" x="683" y="410" width="6" height="6" />
-	</g>
 	<g class="roomNames">
-		<text x="535" y="125" text-anchor="middle" endpoint:id="4fb18e00e4b0378e4f2e5858">Boardroom</text>
+		<g class="room" endpoint:id="52594bf403a06a5062934fa7">
+			<text transform="matrix(1 0 0 1 340 101.25)" text-anchor="middle">
+				<tspan x="0" y="0">Boot</tspan>
+				<tspan x="0" y="14.4">Cut</tspan>
+			</text>
+			<rect x="311.17" y="75.76" class="roomArea" width="53.16" height="55.17"/>
+			<rect class="statusBadge" x="356.33" y="77.76" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="4fb18e00e4b0378e4f2e5858">
+			<text x="535" y="125" text-anchor="middle">Boardroom</text>
+			<polygon class="roomArea" points="588.47,153.92 588.47,163.69 482.72,163.69 482.72,75.76 588.47,75.76"/>
+			<rect class="statusBadge" x="580.47" y="77.76" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52594bdc03a06a5062934fa6">
+			<text transform="matrix(1 0 0 1 288 101.25)" text-anchor="middle">
+				<tspan x="0" y="0">Button</tspan>
+				<tspan x="0" y="14.4">Fly</tspan>
+			</text>
+			<rect x="258.01" y="75.76" class="roomArea" width="53.16" height="55.17"/>
+			<rect class="statusBadge" x="303.17" y="77.76" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52d496b9e4b0fc8d80784d0a">
+			<text transform="matrix(1 0 0 1 178.5 195)" text-anchor="middle">
+				<tspan x="0" y="0">Bell</tspan>
+				<tspan x="0" y="14.4">Bottom</tspan>
+			</text>
+			<rect x="148.24" y="158.52" class="roomArea" width="57.47" height="79.88"/>
+			<rect class="statusBadge" x="197.71" y="160.52" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52594bc403a06a5062934fa5">
+			<text transform="matrix(1 0 0 1 178.5 290.25)" text-anchor="middle">
+				<tspan x="0" y="0">Acid</tspan>
+				<tspan x="0" y="14.4">Washed</tspan>
+			</text>
+			<rect x="148.24" y="267.71" class="roomArea" width="57.47" height="51.73"/>
+			<rect class="statusBadge" x="197.71" y="269.71" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="507cda1ad213cb192dcb0d58">
+			<text transform="matrix(1 0 0 1 178.5 341.25)" text-anchor="middle">
+				<tspan x="0" y="0">Stone</tspan>
+				<tspan x="0" y="14.4">Washed</tspan>
+			</text>
+			<rect x="148.24" y="319.44" class="roomArea" width="57.47" height="50"/>
+			<rect class="statusBadge" x="197.71" y="321.44" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52594ba203a06a5062934fa4">
+			<text x="178.5" y="442" text-anchor="middle">Vintage</text>
+			<rect x="148.24" y="414.26" class="roomArea" width="57.47" height="45.98"/>
+			<rect class="statusBadge" x="197.71" y="416.26" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52594b8a03a06a5062934fa3">
+			<text x="640" y="380" text-anchor="middle">Lagoon Washed</text>
+			<rect x="588.47" y="345.87" class="roomArea" width="105.17" height="59.2"/>
+			<rect class="statusBadge" x="685.64" y="347.87" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="52594b6503a06a5062934fa2">
+			<text x="640" y="439" text-anchor="middle">Carpenter</text>
+			<rect x="588.47" y="405.07" class="roomArea" width="105.17" height="59.77"/>
+			<rect class="statusBadge" x="685.64" y="407.07" width="6" height="6" />
+		</g>
+						
 		<text x="423" y="140" text-anchor="middle">Lobby</text>
 		<text x="418" y="248" text-anchor="middle">Break room</text>
 		<text x="409.161" y="356" text-anchor="middle">Restrooms</text>
 		<text x="640" y="186.5" text-anchor="middle">Servers</text>
 		<text x="640" y="553" text-anchor="middle">Storage</text>
 		<text x="640" y="497" text-anchor="middle">Ping-pong</text>
-		<text x="640" y="380" text-anchor="middle">Lagoon Washed</text>
-		<text x="640" y="439" text-anchor="middle">Carpenter</text>
-		<text transform="matrix(1 0 0 1 340 101.25)" text-anchor="middle">
-			<tspan x="0" y="0">Boot</tspan>
-			<tspan x="0" y="14.4">Cut</tspan>
-		</text>
-		<text transform="matrix(1 0 0 1 288 101.25)" text-anchor="middle">
-			<tspan x="0" y="0">Button</tspan>
-			<tspan x="0" y="14.4">Fly</tspan>
-		</text>
-		<text transform="matrix(1 0 0 1 178.5 195)" text-anchor="middle">
-			<tspan x="0" y="0">Bell</tspan>
-			<tspan x="0" y="14.4">Bottom</tspan>
-		</text>
-		<text transform="matrix(1 0 0 1 178.5 290.25)" text-anchor="middle">
-			<tspan x="0" y="0">Acid</tspan>
-			<tspan x="0" y="14.4">Washed</tspan>
-		</text>
-		<text transform="matrix(1 0 0 1 178.5 341.25)" text-anchor="middle">
-			<tspan x="0" y="0">Stone</tspan>
-			<tspan x="0" y="14.4">Washed</tspan>
-		</text>
 		<text x="178.5" y="396" text-anchor="middle">Audio</text>
-		<text x="178.5" y="442" text-anchor="middle">Vintage</text>
 	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
