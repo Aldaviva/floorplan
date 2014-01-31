@@ -11,10 +11,6 @@ this.RoomDetailsView = (function(){
 
 		className: "roomDetailsView detailsView",
 
-		STATIC: {
-			
-		},
-
 		initialize: function(){
 			_.bindAll(this);
 
@@ -53,7 +49,7 @@ this.RoomDetailsView = (function(){
 			}
 
 			if(this.model){
-				this.els.photo.attr('src', config.mountPoint + '/endpoints/'+this.model.id+'/photo');
+				this.els.photo.attr('src', config.mountPoint + '/endpoints/'+this.model.id+'/photo'); //causes flickering in Opera
 
 				this.els.name.text(this.model.get('name'));
 
@@ -61,13 +57,8 @@ this.RoomDetailsView = (function(){
 
 				this.els.endpointIpAddress.text(this.model.get('ipAddress'));
 
-				if(this.model.status){
-					this.els.availabilityStatus.find('.statusLabel').text(this.getStatusLabel());
-					this.els.availabilityStatus.find('.statusBadge').toggleClass('busy', this.isBusy());
-					this.els.availabilityStatus.show();
-				} else {
-					this.els.availabilityStatus.hide();
-				}
+				this.renderStatus();
+
 				this.$el.show();
 			} else {
 				this.$el.hide();
@@ -76,9 +67,19 @@ this.RoomDetailsView = (function(){
 			return this.el;
 		},
 
+		renderStatus: function(){
+			if(this.model.status){
+				this.els.availabilityStatus.find('.statusLabel').text(this.getStatusLabel());
+				this.els.availabilityStatus.find('.statusBadge').toggleClass('busy', this.isBusy());
+				this.els.availabilityStatus.show();
+			} else {
+				this.els.availabilityStatus.hide();
+			}
+		},
+
 		onStatusUpdate: function(endpoint, status){
 			if(this.model && (endpoint.id == this.model.id)){
-				this.render();
+				this.renderStatus();
 			}
 		},
 
