@@ -269,6 +269,8 @@
 		<text x="640" y="553" text-anchor="middle">Storage</text>
 		<text x="640" y="497" text-anchor="middle">Ping-pong</text>
 		<text x="178.5" y="396" text-anchor="middle">Audio</text>
+		<text x="178.5" y="85.5" text-anchor="middle">Capri</text>
+		<text x="178.5" y="137" text-anchor="middle">Cargo</text>
 	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
