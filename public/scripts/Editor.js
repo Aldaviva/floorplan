@@ -79,7 +79,7 @@ this.Editor = (function(){
 					.attr('href', (linkedInId) ? ('http://www.linkedin.com/profile/view?id='+linkedInId) : '#')
 					.toggle(!!linkedInId);
 				this.$('.contact .search')
-					.attr('href', 'http://www.linkedin.com/vsearch/p?keywords='+encodeURIComponent(this.model.get('fullname'))+'&openAdvancedForm=true&f_CC=1958201')
+					.attr('href', 'http://www.linkedin.com/vsearch/p?keywords='+encodeURIComponent(this.model.get('fullname'))+'&openAdvancedForm=true')
 					.toggle(!linkedInId && !!this.model.get('fullname'));
 
 				var emailLocalPart = this.model.get('email');
