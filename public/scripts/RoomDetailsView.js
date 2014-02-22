@@ -1,10 +1,12 @@
 this.RoomDetailsView = (function(){
 
 	var CONTROL_PROTOCOL_TO_MANUFACTURER = {
-		'TANDBERG_SSH'   : 'Cisco',
-		'TANDBERG_HTTP'  : 'Cisco',
-		'POLYCOM_TELNET' : 'Polycom',
-		'LIFESIZE_SSH'   : 'LifeSize'
+		'TANDBERG_SSH'              : 'Cisco',
+		'TANDBERG_HTTP'             : 'Cisco',
+		'POLYCOM_TELNET'            : 'Polycom',
+		'POLYCOM_HTTP_HDX'          : 'Polycom',
+		'POLYCOM_HTTP_REALPRESENCE' : 'Polycom',
+		'LIFESIZE_SSH'              : 'LifeSize'
 	};
 
 	var RoomDetailsView = Backbone.View.extend({
