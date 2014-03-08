@@ -40,17 +40,18 @@
 		}
 
 		.walls {
-			line, polyline, rect {
+			line, polyline, rect, polygon, path {
 				fill              : none;
 				stroke            : rgba(255, 255, 255, 0.75);
 				stroke-width      : 2;
-				stroke-miterlimit : 10;
+				stroke-miterlimit : 0;
 			}
 
 			.innerWalls {
-				line, polyline, rect {
+				line, polyline, rect, polygon, path {
 					stroke       : rgba(255, 255, 255, 0.5);
 					stroke-width : 1;
+					fill: none;
 				}
 			}
 		}
@@ -122,12 +123,12 @@
 	}
 
 	.walls {
-		line, polyline, rect {
+		line, polyline, rect, polygon, path {
 			stroke : rgba(0, 0, 0, 0.75);
 		}
 
 		.innerWalls {
-			line, polyline, rect {
+			line, polyline, rect, polygon, path {
 				stroke : rgba(0, 0, 0, 0.5);
 			}
 		}

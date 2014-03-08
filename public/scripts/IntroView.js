@@ -20,6 +20,11 @@ this.IntroView = (function(){
 			address: 'Xylem Tech Park\n5th Floor\nUnit 501 and 502\nWhite Field Road\nDevasandra Extension\nMahadevapura\nBangalore\nKarnataka\n560048',
 			mapsUrl: 'https://www.google.com/maps?source=embed&near=International+Technology+Park+Bangalore,+1st+Floor,+Innovator+Building,+Whitefield+Road,+Bangalore,+Karnataka+560066,+India&geocode=CZMgqS6v0udsFW4mxgAd5SeiBCkzTpso5RGuOzFPgVFRu2mhtA&q=xylem&f=l&dq=Xylem+Tech+Park,+Bangalore&sll=12.985966,77.735909&sspn=0.295278,0.286308&ie=UTF8&hq=xylem&hnear=&ll=12.994438,77.701664&spn=0.015974,0.032787&z=14&iwloc=A&vpsrc=0&oi=map_misc&ct=api_logo',
 			yelpId: null
+		},
+		remote: {
+			address: null,
+			mapsUrl: null,
+			yelpId: null
 		}
 	};
 
@@ -37,12 +42,14 @@ this.IntroView = (function(){
 				var office = OFFICES[floorplanParams.officeId];
 
 				this.$el.append($('<h2>', { text: 'Blue Jeans' }));
-				this.$el.append($('<h3>', { class: 'address' }).append($('<a>', {
-					text   : office.address,
-					title  : "View in Google Maps",
-					href   : office.mapsUrl || '#',
-					target : '_blank'
-				})));
+				if(office.address){
+					this.$el.append($('<h3>', { class: 'address' }).append($('<a>', {
+						text   : office.address,
+						title  : "View in Google Maps",
+						href   : office.mapsUrl || '#',
+						target : '_blank'
+					})));
+				}
 
 				if(office.yelpId){
 					var ratingEl = $('<div>', { class: 'rating' })
