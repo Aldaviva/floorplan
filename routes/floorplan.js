@@ -12,7 +12,8 @@ var OFFICE_NAMES = {
 	mv: "Mountain View",
 	sf: "San Francisco",
 	oc: "Orange County",
-	blr: "Bangalore"
+	blr: "Bangalore",
+	remote: "Remote Workers"
 };
 
 fs.readdir(MAPS_PATH, function(err, files){
