@@ -173,13 +173,10 @@
 	.office, .tags {
 		label {
 			width: 150px;
+			margin-bottom: 14px;
 
 			input[type=radio], input[type=checkbox] {
 				margin-right: 10px;
-			}
-
-			+ label {
-				margin-top: 14px;
 			}
 
 			&.disabled {
@@ -216,6 +213,7 @@
 			column-count: @column_count;*/
 
 			width: @column_count * @column_width;
+			margin-bottom: -14px;
 
 			label {
 				width: @column_width;

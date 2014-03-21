@@ -215,6 +215,10 @@ this.Editor = (function(){
 			var attributeName = currentTarget.attr('name');
 			var attributeValue;
 
+			if(attributeName == 'email' && currentTarget.val().trim() !== '' && currentTarget.val().indexOf('@') === -1){
+				currentTarget.val(currentTarget.val() + '@bluejeans.com');
+			}
+
 			var validity = currentTarget[0].validity;
 			if(validity.valid){
 				this.$('.validationMessage').hide();

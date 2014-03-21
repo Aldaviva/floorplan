@@ -30,7 +30,8 @@
 				<div class="fullname_sizer">
 					<input name="fullname" type="text" 
 						placeholder="full name"
-						required data-validation-failed-message="The person's full name is required." />
+						required data-validation-failed-message="The person's full name is required."
+						autocomplete="off" />
 				</div>
 				<div class="title_sizer">
 					<input name="title" type="text" placeholder="title" />
@@ -42,9 +43,10 @@
 				<h1>contact</h1>
 				<label>
 					<span>Email</span
-					><input name="email"type="email"
+					><input name="email" type="email"
 						placeholder=""
-						data-validation-failed-message="Invalid email address." />
+						data-validation-failed-message="Invalid email address."
+						autocomplete="off" />
 				</label>
 
 				<label>
@@ -89,7 +91,7 @@
 					<div class="map small sf">{{{svgs.sf}}}</div>
 					<div class="map small blr">{{{svgs.blr}}}</div>
 					<div class="map small remote">{{{svgs.remote}}}</div>
-					<a href="#" class="desk helper_link">move desk</a>
+					<a href="#" class="desk helper_link">assign desk</a>
 				</div>
 			</section>
 
