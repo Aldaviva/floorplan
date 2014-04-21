@@ -22,7 +22,7 @@ this.IntroView = (function(){
 			yelpId: null
 		},
 		remote: {
-			address: null,
+			address: "Remote workers",
 			mapsUrl: null,
 			yelpId: null
 		}
@@ -42,13 +42,20 @@ this.IntroView = (function(){
 				var office = OFFICES[floorplanParams.officeId];
 
 				this.$el.append($('<h2>', { text: 'Blue Jeans' }));
+				
 				if(office.address){
-					this.$el.append($('<h3>', { class: 'address' }).append($('<a>', {
-						text   : office.address,
-						title  : "View in Google Maps",
-						href   : office.mapsUrl || '#',
-						target : '_blank'
-					})));
+					var addressEl = $('<h3>', { class: 'address' });
+					if(office.mapsUrl){
+						addressEl.append($('<a>', {
+							text   : office.address,
+							title  : "View in Google Maps",
+							href   : office.mapsUrl,
+							target : '_blank'
+						}));
+					} else {
+						addressEl.text(office.address);
+					}
+					this.$el.append(addressEl);
 				}
 
 				if(office.yelpId){
