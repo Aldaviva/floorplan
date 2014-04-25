@@ -262,11 +262,11 @@
 			<rect x="588.47" y="345.87" class="roomArea" width="105.17" height="59.2"/>
 			<rect class="statusBadge" x="685.64" y="347.87" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="52594b6503a06a5062934fa2">
+		<!--<g class="room" endpoint:id="52594b6503a06a5062934fa2">
 			<text x="640" y="439" text-anchor="middle">Carpenter</text>
 			<rect x="588.47" y="405.07" class="roomArea" width="105.17" height="59.77"/>
 			<rect class="statusBadge" x="685.64" y="407.07" width="6" height="6" />
-		</g>
+		</g>-->
 						
 		<text x="423" y="140" text-anchor="middle">Lobby</text>
 		<text x="418" y="248" text-anchor="middle">Break room</text>
