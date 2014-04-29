@@ -14,7 +14,7 @@ var FIELD_WRITE_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'ta
 var photoStaticHandler = express.static('./data', { maxAge: 4*60*60*1000 });
 
 server.get('/people', function(req, res, next){
-	personRepository.findAll()
+	personRepository.find(req.query)
 		.then(res.send.bind(res))
 		.fail(next);
 });
