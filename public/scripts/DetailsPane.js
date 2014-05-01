@@ -50,6 +50,7 @@ this.DetailsPane = (function(){
 
 		setPersonModel: function(model){
 			this.personDetailsView.model = model;
+			this.personDetailsView.accoladesMode(false);
 			this.roomDetailsView.model = null;
 			this.render();
 		},

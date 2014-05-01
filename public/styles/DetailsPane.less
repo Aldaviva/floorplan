@@ -9,6 +9,19 @@
 	top           : 0;
 	width         : @pane_width;
 
+	.fullWidthLink(){
+		background-color : transparent;
+		font             : 15px "Knockout 32";
+		line-height      : 0.86 * 5 * @grid_size;
+		height           : 5 * @grid_size;
+		padding          : 0 (3 * @grid_size);
+		text-transform   : uppercase;
+
+		&:hover {
+			background-color: @hover_background_color;
+		}
+	}
+
 	.photo {
 		.box-sizing(border-box);
 		border  : 1px solid @light_line_color;
@@ -113,25 +126,16 @@
 	}
 
 	.corrections {
-		background-color : transparent;
+		.fullWidthLink();
 		bottom           : 0;
-		font             : 15px "Knockout 32";
 		left             : 0;
-		line-height      : 0.85 * 5 * @grid_size;
-		height           : 5 * @grid_size;
-		padding          : 0 (3 * @grid_size);
 		position         : absolute;
 		right            : 0;
-		text-transform   : uppercase;
 
 		&::before {
 			content      : '›';
 			font-size    : 26px;
 			margin-right : @grid_size;
-		}
-
-		&:hover {
-			background-color: @hover_background_color;
 		}
 	}
 
@@ -139,6 +143,135 @@
 		.intro {
 			background  : url('../images/building.png') no-repeat 50% 2px;
 			padding-top : 192px;
+		}
+	}
+
+	.accolades {
+		margin-top: @grid_size;
+
+		.closeLink, input[type=text], textarea, .submit {
+			display: none;
+		}
+
+		h4 {
+			.fullWidthLink();
+			cursor       : pointer;
+			margin-left  : -3 * @grid_size;
+			margin-right : -3 * @grid_size + 1px;
+			position     : relative;
+			line-height: 48px;
+
+			&::before {
+				content: "★";
+				margin-right: 8px;
+			}
+		}
+
+		.closeLink {
+			cursor     : pointer;
+			font-size  : 31px;
+			line-height: 28px;
+			position   : absolute;
+			right      : 3 * @grid_size - 1px;
+			text-align : center;
+			top        : @grid_size - 1px;
+			height     : 3 * @grid_size + 1;
+			width      : 3 * @grid_size + 1;
+
+			&:hover {
+				background-color: @hover_background_color;
+			}
+		}
+
+		input[type=text], textarea {
+			.box-sizing(border-box);
+			background  : fade(@light_line_color, 16%);
+			border      : 1px solid @light_line_color;
+			color       : white;
+			font        : 17px/25px "Architect's Daughter";
+			margin-left : @grid_size;
+			margin-top  : @grid_size - 1px;
+			padding     : 0 (1.5 * @grid_size);
+			width       : 29 * @grid_size + 1px;
+
+			.placeholder(){
+				color   : @inactive_blue;
+				opacity : 1;
+			}
+
+			&::-webkit-input-placeholder {
+				.placeholder();
+			}
+
+			&:-moz-placeholder {
+				.placeholder();
+			}
+
+			&::-moz-placeholder {
+				.placeholder();
+			}
+
+			&:-ms-input-placeholder {
+				.placeholder();
+			}
+		}
+
+		.message {
+			height      : 12 * @grid_size + 1px;
+			padding-top : @grid_size;
+			resize      : none;
+			overflow-y: hidden;
+		}
+
+		.fromName {
+			height : 5 * @grid_size + 1px;
+		}
+
+		.submit {
+			.fullWidthLink();
+			margin-left  : -3 * @grid_size;
+			margin-right : -3 * @grid_size + 1px;
+			margin-top   : @grid_size - 1px;
+			padding      : 0 (4 * @grid_size);
+			position     : relative;
+
+			&::before {
+				content      : '›';
+				font-size    : 26px;
+				margin-right : @grid_size;
+			}
+		}
+
+		.charsRemaining {
+			color    : @light_line_color;
+			font     : 11px "Knockout 31";
+			position : absolute;
+			right    : 4 * @grid_size - 2px;
+			top      : 2 * @grid_size - 1px;
+
+			&.negative {
+				color: @unavailable_red;
+			}
+		}
+	}
+
+	.personDetailsView.accoladesMode {
+		h2, h3, dl {
+			display: none;
+		}
+
+		.accolades {
+			h4 {
+				cursor: default;
+
+				&:hover {
+					background-color: transparent;
+				}
+			}
+
+			.closeLink, input[type=text], textarea, .submit {
+				display: block;
+			}
 		}
 	}
 }
