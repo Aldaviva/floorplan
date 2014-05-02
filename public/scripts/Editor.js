@@ -316,6 +316,7 @@ this.Editor = (function(){
 		onPhotoUploadFailure: function(event, data){
 			console.error(data.errorThrown);
 			console.error(data.jqXHR.responseText);
+			window.alert("Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n"+data.jqXHR.responseText);
 		},
 
 		onPhotoUploadSuccess: function(event, data){
