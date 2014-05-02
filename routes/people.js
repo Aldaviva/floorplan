@@ -98,7 +98,7 @@ server.post('/people/:id/photo', function(req, res, next){
 		})
 		.fail(function(err){
 			res.type('text');
-			res.send(400, err.message);
+			res.send(400, err.stack || err.message || err);
 		})
 		.fail(next);
 });
