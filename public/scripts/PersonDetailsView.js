@@ -149,16 +149,17 @@ this.PersonDetailsView = (function(){
 			} else if(!isFromNameValid){
 				this.onInvalidAccolade("Your name is required.");
 			} else {
+				store.set('accolades.fromName.mru', accolade.fromName);
 				$.ajax({
-					url: ACCOLADES_BASE_URL+"/api/accolades",
-					type: 'POST',
-					data: JSON.stringify(accolade),
-					contentType: 'application/json',
-					success: _.bind(function(){
+					url         : ACCOLADES_BASE_URL+"/api/accolades",
+					type        : 'POST',
+					data        : JSON.stringify(accolade),
+					contentType : 'application/json',
+					success     : _.bind(function(){
 						this.accoladesMode(false);
 						window.alert("Your recognition has been successfully sent, and is now waiting for approval from HR.");
 					}, this),
-					error: function(jqXhr, textStatus, error){
+					error       : function(jqXhr, textStatus, error){
 						console.error("Failed to send recognition", {
 							error: error,
 							textStatus: textStatus,
@@ -179,7 +180,9 @@ this.PersonDetailsView = (function(){
 				return this.$el.hasClass('accoladesMode');
 			} else {
 				this.els.accoladesForm.find('.message').val('');
-				this.els.accoladesForm.find('.fromName').val('');
+				var fromName = store.get('accolades.fromName.mru') || "";
+				this.els.accoladesForm.find('.fromName').val(fromName);
+				
 				this.$el.toggleClass('accoladesMode', !!shouldEnable);
 				this.render();
 			}
