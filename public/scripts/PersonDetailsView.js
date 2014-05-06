@@ -61,7 +61,7 @@ this.PersonDetailsView = (function(){
 						$("<a>", { text: "×", class: 'closeLink', title: 'Close recognition and go back to person details' })
 					),
 					$('<textarea>', { class: 'message', placeholder: 'Type praise here', autocomplete: "off" }),
-					$('<input>', { type: 'text', class: 'fromName', placeholder: 'Your name', autoComplete: "off" }),
+					$('<input>', { type: 'text', class: 'fromName', placeholder: 'Your full name', autoComplete: "off" }),
 					$('<a>', { href: '#', class: 'submit', text: 'Send' }).append(
 						$('<span>', { class: 'charsRemaining', title: 'Your message can be at most '+MAX_ACCOLADE_MESSAGE_LENGTH+' characters long.' })
 					)
@@ -135,19 +135,19 @@ this.PersonDetailsView = (function(){
 			var form = this.els.accoladesForm;
 
 			var accolade = {
-				fromName: $('.fromName', form).val(),
-				message: $('.message', form).val(),
+				fromName: $.trim($('.fromName', form).val()),
+				message: $.trim($('.message', form).val()),
 				recipientId: this.model.id,
 				recipientName: this.model.get('fullname')
 			};
 
 			var isMessageValid = (accolade.message.length > 0) && (accolade.message.length <= MAX_ACCOLADE_MESSAGE_LENGTH);
-			var isFromNameValid = accolade.fromName.length > 0;
+			var isFromNameValid = /(?:\w+(?:$|\W)){2,}/.test(accolade.fromName);
 
 			if(!isMessageValid){
 				this.onInvalidAccolade("Message must be "+MAX_ACCOLADE_MESSAGE_LENGTH+" characters or less.");
 			} else if(!isFromNameValid){
-				this.onInvalidAccolade("Your name is required.");
+				this.onInvalidAccolade("Your full name is required (first and last).");
 			} else {
 				store.set('accolades.fromName.mru', accolade.fromName);
 				$.ajax({
