@@ -1,7 +1,7 @@
 this.PersonDetailsView = (function(){
 
 	var MAX_ACCOLADE_MESSAGE_LENGTH = 70;
-	var ACCOLADES_BASE_URL = "http://skadi.bluejeansnet.com:8087/accolades";
+	var ACCOLADES_BASE_URL = "http://floorplan.bluejeansnet.com:8087/accolades";
 
 	var PersonDetailsView = Backbone.View.extend({
 
