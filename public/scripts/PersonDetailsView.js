@@ -1,8 +1,20 @@
 this.PersonDetailsView = (function(){
 
+	var MAX_ACCOLADE_MESSAGE_LENGTH = 70;
+	var ACCOLADES_BASE_URL = "http://floorplan.bluejeansnet.com:8087/accolades";
+
 	var PersonDetailsView = Backbone.View.extend({
 
 		className: "personDetailsView detailsView",
+
+		events: function(){
+			return {
+				"click .accolades": "onAccoladesLinkClick",
+				"keyup .accolades .message": "updateAccoladesMessageCharsRemaning",
+				"click .accolades .closeLink": "closeAccolades",
+				"click .accolades .submit": _.debounce(this.submitAccolades, 500, { leading: true, trailing: false })
+			};
+		},
 
 		initialize: function(){
 			_.bindAll(this);
@@ -40,6 +52,22 @@ this.PersonDetailsView = (function(){
 				dl.append(this.els.workPhone);
 
 				this.$el.append(dl);
+
+				this.els.accoladesForm = $('<form>', { class: 'accolades' }).append(
+					$('<h4>', { 
+						title: "Great job on that thing you did. Really super.",
+						text: "Give recognition"
+					}).append(
+						$("<a>", { text: "×", class: 'closeLink', title: 'Close recognition and go back to person details' })
+					),
+					$('<textarea>', { class: 'message', placeholder: 'Type praise here', autocomplete: "off" }),
+					$('<input>', { type: 'text', class: 'fromName', placeholder: 'Your full name', autoComplete: "off" }),
+					$('<a>', { href: '#', class: 'submit', text: 'Send' }).append(
+						$('<span>', { class: 'charsRemaining', title: 'Your message can be at most '+MAX_ACCOLADE_MESSAGE_LENGTH+' characters long.' })
+					)
+				);
+
+				this.$el.append(this.els.accoladesForm);
 			}
 
 			if(this.model){
@@ -65,14 +93,100 @@ this.PersonDetailsView = (function(){
 					.text(formatPhoneNumber(this.model.get('workPhone')))
 					.prev('dt').addBack().toggle(!!this.model.get('workPhone'));
 
+				this.updateAccoladesMessageCharsRemaning();
+
 				this.$el.show();
 			} else {
 				this.$el.hide();
 			}
 
 			return this.el;
-		}
+		},
 
+		updateAccoladesMessageCharsRemaning: function(event){
+			var charsRemaining = this.getAccoladesCharsRemaining();
+			var charsRemainingEl = this.els.accoladesForm.find('.charsRemaining');
+			charsRemainingEl
+				.text(charsRemaining)
+				.toggleClass('negative', charsRemaining < 0);
+		},
+
+		getAccoladesCharsRemaining: function(){
+			var messageEl = this.els.accoladesForm.find('.message');
+			var charsRemaining = MAX_ACCOLADE_MESSAGE_LENGTH - messageEl.val().length;
+			return charsRemaining;
+		},
+
+		onAccoladesLinkClick: function(event){
+			event.preventDefault();
+			if(!this.accoladesMode()){
+				this.accoladesMode(true);
+			}
+		},
+
+		closeAccolades: function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			this.accoladesMode(false);
+		},
+
+		submitAccolades: function(event){
+			event.preventDefault();
+			var form = this.els.accoladesForm;
+
+			var accolade = {
+				fromName: $.trim($('.fromName', form).val()),
+				message: $.trim($('.message', form).val()),
+				recipientId: this.model.id,
+				recipientName: this.model.get('fullname')
+			};
+
+			var isMessageValid = (accolade.message.length > 0) && (accolade.message.length <= MAX_ACCOLADE_MESSAGE_LENGTH);
+			var isFromNameValid = /(?:\w+(?:$|\W)){2,}/.test(accolade.fromName);
+
+			if(!isMessageValid){
+				this.onInvalidAccolade("Message must be "+MAX_ACCOLADE_MESSAGE_LENGTH+" characters or less.");
+			} else if(!isFromNameValid){
+				this.onInvalidAccolade("Your full name is required (first and last).");
+			} else {
+				store.set('accolades.fromName.mru', accolade.fromName);
+				$.ajax({
+					url         : ACCOLADES_BASE_URL+"/api/accolades",
+					type        : 'POST',
+					data        : JSON.stringify(accolade),
+					contentType : 'application/json',
+					success     : _.bind(function(){
+						this.accoladesMode(false);
+						window.alert("Your recognition has been successfully sent, and is now waiting for approval from HR.");
+					}, this),
+					error       : function(jqXhr, textStatus, error){
+						console.error("Failed to send recognition", {
+							error: error,
+							textStatus: textStatus,
+							jqXhr: jqXhr
+						});
+						window.alert("Failed to send recognition:\n"+textStatus+"\n\nPlease yell at ben@bluejeans.com");
+					}
+				});
+			}
+		},
+
+		onInvalidAccolade: function(reason){
+			window.alert(reason);
+		},
+
+		accoladesMode: function(shouldEnable){
+			if(shouldEnable === undefined){
+				return this.$el.hasClass('accoladesMode');
+			} else {
+				this.els.accoladesForm.find('.message').val('');
+				var fromName = store.get('accolades.fromName.mru') || "";
+				this.els.accoladesForm.find('.fromName').val(fromName);
+				
+				this.$el.toggleClass('accoladesMode', !!shouldEnable);
+				this.render();
+			}
+		}
 	});
 
 	function formatPhoneNumber(phoneNumber){
