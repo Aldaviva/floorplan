@@ -21,6 +21,11 @@ this.IntroView = (function(){
 			mapsUrl: 'https://www.google.com/maps?source=embed&near=International+Technology+Park+Bangalore,+1st+Floor,+Innovator+Building,+Whitefield+Road,+Bangalore,+Karnataka+560066,+India&geocode=CZMgqS6v0udsFW4mxgAd5SeiBCkzTpso5RGuOzFPgVFRu2mhtA&q=xylem&f=l&dq=Xylem+Tech+Park,+Bangalore&sll=12.985966,77.735909&sspn=0.295278,0.286308&ie=UTF8&hq=xylem&hnear=&ll=12.994438,77.701664&spn=0.015974,0.032787&z=14&iwloc=A&vpsrc=0&oi=map_misc&ct=api_logo',
 			yelpId: null
 		},
+		ln: {
+			address: 'Liberty House\n222 Regent Street\nLondon\nW1B 5TR',
+			mapsUrl: 'https://maps.google.com/maps?q=Liberty+House+222+regent+St.+London+W1B+5TR&hl=en&ll=51.513817,-0.140119&spn=0.028951,0.066047&hnear=W+S+M+B+C+Liberty+House,+222+Regent+St,+London+W1B+5TR,+United+Kingdom&t=m&z=15',
+			yelpId: null
+		},
 		remote: {
 			address: "Remote workers",
 			mapsUrl: null,
