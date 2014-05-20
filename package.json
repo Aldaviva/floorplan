@@ -1,6 +1,6 @@
 {
 	"name": "floorplan",
-	"version": "2.4.0",
+	"version": "2.5.0-SNAPSHOT",
 	"author": "Ben Hutchison <ben@bluejeans.com>",
 	"dependencies": {
 		"cors"            : "1.0.1",
