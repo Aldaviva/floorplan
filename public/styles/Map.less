@@ -57,6 +57,18 @@
 			}
 		}
 
+		.symbols {
+			rect, path, polygon, ellipse, circle {
+				fill: white;
+			}
+			.clockHand {
+				stroke: white;
+				stroke-linecap: round;
+				stroke-width: 1;
+				visibility: hidden;
+			}
+		}
+
 		.photos {
 			cursor: pointer;
 
@@ -132,6 +144,12 @@
 			line, polyline, rect, polygon, path {
 				stroke : rgba(0, 0, 0, 0.5);
 			}
+		}
+	}
+
+	.symbols {
+		rect, path, polygon, ellipse, circle {
+			fill: rgba(0, 0, 0, 0.5);
 		}
 	}
 

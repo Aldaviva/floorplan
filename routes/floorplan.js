@@ -13,6 +13,7 @@ var OFFICE_NAMES = {
 	sf: "San Francisco",
 	oc: "Orange County",
 	blr: "Bangalore",
+	ln: "London",
 	remote: "Remote Workers"
 };
 
