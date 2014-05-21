@@ -27,6 +27,8 @@ this.Map = (function(){
 			this.seatsGroup = this.$('.seats');
 			this.activeRectangle = null;
 
+			this.clockUpdateInterval = null;
+
 			mediator.subscribe('activatePersonConfirmed', this.activatePersonConfirmed);
 			if(!this.options.skipFilters){
 				mediator.subscribe('filterByTag', this.filterByTag);
@@ -59,6 +61,10 @@ this.Map = (function(){
 					seatsFragment.appendChild(deskEl);
 				}
 				this.seatsGroup.append(seatsFragment);
+
+				if(this.$(".clockHand").length > 0){
+					this.initClockUpdate();
+				}
 			}
 			return this.el;
 		},
@@ -181,6 +187,38 @@ this.Map = (function(){
 				}
 				setTitle(badgeEl, titleText);
 			}
+		},
+
+		initClockUpdate: function(){
+			this.clockUpdateInterval && window.clearInterval(this.clockUpdateInterval);
+			this.clockUpdateInterval = window.setInterval(this.renderClock, 60*1000);
+			this.renderClock();
+		},
+
+		renderClock: function(){
+			var hourHand = this.$('.clockHand.hours');
+			var minuteHand = this.$('.clockHand.minutes');
+
+			$.getJSON("http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London")
+				.done(function(londonTime){
+					var hourDegrees = ((londonTime.hours%12/12) + (londonTime.minutes/60/60)) * 360;
+					var minuteDegrees = ((londonTime.minutes/60) + (londonTime.seconds/60/60)) * 360;
+
+					var center = [hourHand.attr('x1'), hourHand.attr('y1')];
+					hourHand
+						.attr('transform', 'rotate('+hourDegrees+' '+center[0]+' '+center[1]+')')
+						.css('visibility', 'visible');
+					minuteHand
+						.attr('transform', 'rotate('+minuteDegrees+' '+center[0]+' '+center[1]+')')
+						.css('visibility', 'visible');
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					console.warn("failed to fetch current london time: "+textStatus);
+					console.warn(errorThrown);
+
+					hourHand.css('visibility', 'hidden');
+					minuteHand.css('visibility', 'hidden');
+				});
 		}
 	});
 
