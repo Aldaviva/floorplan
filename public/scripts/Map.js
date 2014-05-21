@@ -85,9 +85,8 @@ this.Map = (function(){
 		addOne: function(person){
 			if(person.get('office') == this.options.office){
 				this.photosGroup.append(this.createAndRenderPersonIcon(person));
-			} else {
-				this.renderActiveSeat(null); //remove blue active seat marker when leaving an office
 			}
+			this.renderActiveSeat(null); //remove blue active seat marker when leaving an office
 		},
 
 		createAndRenderPersonIcon: function(person){
