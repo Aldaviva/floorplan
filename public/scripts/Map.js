@@ -22,6 +22,7 @@ this.Map = (function(){
 
 			this.collection.on('reset', this.addMany);
 			this.collection.on('add', this.addOne);
+			this.collection.on('change:office', this.addOne);
 
 			this.photosGroup = this.$('.photos');
 			this.seatsGroup = this.$('.seats');
@@ -84,6 +85,8 @@ this.Map = (function(){
 		addOne: function(person){
 			if(person.get('office') == this.options.office){
 				this.photosGroup.append(this.createAndRenderPersonIcon(person));
+			} else {
+				this.renderActiveSeat(null); //remove blue active seat marker when leaving an office
 			}
 		},
 
@@ -264,8 +267,7 @@ this.Map = (function(){
 		},
 
 		onChangeOffice: function(person, office){
-			//probably just destroy this view
-			//TODO the other map needs to be told to add a corresponding view
+			this.remove();
 		},
 
 		onChangeDesk: function(person, desk){
