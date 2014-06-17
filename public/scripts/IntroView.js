@@ -32,6 +32,7 @@ this.IntroView = (function(){
 			yelpId: null
 		}
 	};
+	OFFICES.mv2 = OFFICES.mv;
 
 	var IntroView = Backbone.View.extend({
 
@@ -66,12 +67,12 @@ this.IntroView = (function(){
 				if(office.yelpId){
 					var ratingEl = $('<div>', { class: 'rating' })
 						.click(function(){
-							window.open('http://www.yelp.com/biz/bluejeans-mountain-view');
+							window.open('http://www.yelp.com/biz/'+office.yelpId);
 						});
 					this.$el.append(ratingEl);
-				}
 
-				office.yelpId && this.renderRating(office.yelpId);
+					this.renderRating(office.yelpId);
+				}
 			}
 
 			return this.el;

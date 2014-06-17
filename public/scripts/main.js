@@ -37,8 +37,12 @@
 		});
 
 		mediator.subscribe('map:clickRoom', function(endpointId, opts){
-			var endpoint = data.endpoints.get(endpointId);
-			mediator.publish('activateRoom', endpoint, opts);
+			if(endpointId){
+				var endpoint = data.endpoints.get(endpointId);
+				if(endpoint){
+					mediator.publish('activateRoom', endpoint, opts);
+				}
+			}
 		});
 	}
 
@@ -87,11 +91,12 @@
 
 	function initEndpointStatusPoll(){
 		function pollEndpointStatus(){
-			data.endpoints.each(function(endpoint){
-				endpoint.fetchStatus().done(function(status){
-					endpoint.trigger('status', endpoint, status);
-				});
-			});
+			// data.endpoints.each(function(endpoint){
+			// 	endpoint.fetchStatus().done(function(status){
+			// 		endpoint.trigger('status', endpoint, status);
+			// 	});
+			// });
+			data.endpoints.fetchStatuses();
 		}
 		setInterval(pollEndpointStatus, 10*1000);
 		pollEndpointStatus();

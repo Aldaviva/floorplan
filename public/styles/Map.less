@@ -19,8 +19,11 @@
 			}
 
 			.roomArea {
-				cursor: pointer;
 				fill: rgba(255, 255, 255, 0);
+			}
+
+			.room[endpoint\:id] .roomArea {
+				cursor: pointer;
 
 				&:hover {
 					fill: rgba(255, 255, 255, 0.05);
@@ -89,7 +92,7 @@
 			}
 		}
 
-		&.mv {
+		&.mv, &.mv2 {
 			.roomNames {
 				font-size: 10px;
 			}
@@ -111,6 +114,16 @@
 			.roomNames {
 				font-size: 14px;
 			}
+		}
+	}
+
+	.arrow {
+		fill: white;
+		cursor: pointer;
+		opacity: 0.9;
+
+		&:hover {
+			opacity: 1;
 		}
 	}
 }
@@ -201,5 +214,9 @@
 		.seats {
 			visibility: visible;
 		}
+	}
+
+	.arrow {
+		display: none;
 	}
 }

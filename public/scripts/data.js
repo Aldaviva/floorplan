@@ -23,17 +23,29 @@ this.data = (function(){
 	}))();
 
 	var Endpoint = data.Endpoint = Backbone.Model.extend({
-		fetchStatus: function(){
-			return $.getJSON(this.url()+'/status')
-				.done(_.bind(function(status){
-					this.status = status;
-				}, this));
-		}
+		// fetchStatus: function(){
+		// 	return $.getJSON(this.url()+'/status')
+		// 		.done(_.bind(function(status){
+		// 			this.status = status;
+		// 		}, this));
+		// }
 	});
 
 	var endpoints = data.endpoints = new (Backbone.Collection.extend({
 		model: Endpoint,
-		url: config.stormApiRoot+'endpoints'
+		url: config.mountPoint+'/endpoints',
+		initialize: function(){
+			_.bindAll(this);
+		},
+		fetchStatuses: function(){
+			return $.getJSON(this.url+'/status')
+				.done(_.bind(function(statuses){
+					_.forEach(statuses, function(status){
+						var endpoint = this.get(status.endpointId);
+						endpoint.set({ status: _.omit(status, "id") });
+					}, this);
+				}, this));
+		}
 	}))();
 
 	return data;

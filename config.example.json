@@ -4,5 +4,7 @@
 	"dbPort": 27017,
 	"dbName": "floorplan",
 	"mountPoint": "/",
-	"stormApiRoot": "http://54.212.42.221/api/"
+	"stormApiRoot": "https://c.bjn.mobi/api/",
+	"stormUsername": "",
+	"stormPassword": ""
 }

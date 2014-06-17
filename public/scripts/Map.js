@@ -14,7 +14,8 @@ this.Map = (function(){
 		events: {
 			"click .photos image": 'onIconClick',
 			"click .seats rect": 'onSeatClick',
-			"click .roomNames .roomArea": 'onRoomClick'
+			"click .roomNames .roomArea": 'onRoomClick',
+			"click .arrow": 'onArrowClick'
 		},
 
 		initialize: function(){
@@ -37,7 +38,7 @@ this.Map = (function(){
 			}
 
 			if(!this.options.skipEndpoints){
-				data.endpoints.on('status', this.renderEndpointBadge);
+				data.endpoints.on('change:status', this.renderEndpointBadge);
 			}
 		},
 
@@ -110,6 +111,19 @@ this.Map = (function(){
 				var roomEl = $(event.currentTarget).closest(".room");
 				var endpointId = roomEl.attr("endpoint:id");
 				mediator.publish("map:clickRoom", endpointId);
+			}
+		},
+
+		onArrowClick: function(event){
+			switch(this.options.office){
+				case 'mv':
+					window.location = 'mv2';
+					break;
+				case 'mv2':
+					window.location = 'mv';
+					break;
+				default:
+					break;
 			}
 		},
 
@@ -253,13 +267,17 @@ this.Map = (function(){
 			this.$el.toggle(hasDesk);
 			if(hasDesk){
 				var coords = this.getSeatPosition(desk);
-				this.$el.attr({
-					width: this.iconSize,
-					height: this.iconSize,
-					x: coords[0],
-					y: coords[1],
-					'data-desk': desk
-				});
+				if(coords){
+					this.$el.attr({
+						width: this.iconSize,
+						height: this.iconSize,
+						x: coords[0],
+						y: coords[1],
+						'data-desk': desk
+					});
+				} else {
+					console.warn("office "+this.model.get('office')+" has no desk at index "+desk);
+				}
 			}
 
 			return this.el;
