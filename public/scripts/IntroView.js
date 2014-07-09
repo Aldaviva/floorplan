@@ -17,8 +17,8 @@ this.IntroView = (function(){
 			yelpId: null
 		},
 		blr: {
-			address: 'Xylem Tech Park\n5th Floor\nUnit 501 and 502\nWhite Field Road\nDevasandra Extension\nMahadevapura\nBangalore\nKarnataka\n560048',
-			mapsUrl: 'https://www.google.com/maps?source=embed&near=International+Technology+Park+Bangalore,+1st+Floor,+Innovator+Building,+Whitefield+Road,+Bangalore,+Karnataka+560066,+India&geocode=CZMgqS6v0udsFW4mxgAd5SeiBCkzTpso5RGuOzFPgVFRu2mhtA&q=xylem&f=l&dq=Xylem+Tech+Park,+Bangalore&sll=12.985966,77.735909&sspn=0.295278,0.286308&ie=UTF8&hq=xylem&hnear=&ll=12.994438,77.701664&spn=0.015974,0.032787&z=14&iwloc=A&vpsrc=0&oi=map_misc&ct=api_logo',
+			address: '8th Floor, Vector\nPrestige Tech Park\nOuter Ring Road\nMarathahalli\nBangalore, Karnataka\n560037',
+			mapsUrl: 'https://maps.google.com/maps?q=Prestige+Tech+Park&hl=en&ll=12.943334,77.691879&spn=0.353671,0.528374&cid=827535592612612169&gl=US&t=m&z=12&iwloc=A',
 			yelpId: null
 		},
 		ln: {
