@@ -248,19 +248,49 @@
 		<line x1="209.12" y1="109" x2="176.12" y2="109"/>
 	</g>
 	<g class="roomNames">
-		<!--<text x="253.5" y="546" text-anchor="middle">Cafeteria</text>
-		<text x="67.5" y="455" text-anchor="middle">Servers</text>
-		<text x="67.5" y="320" text-anchor="middle">Jamtha</text>
-		<text x="456" y="654" text-anchor="middle">Reception</text>
-		<text x="490" y="476" text-anchor="middle">Lobby</text>
-		<text x="415" y="504" text-anchor="middle" class="small">Brebourne</text>
-		<text x="490" y="383" text-anchor="middle">Kotla</text>
-		<text x="490" y="316" text-anchor="middle">Chepauk</text>
-		<text transform="matrix(1 0 0 1 490 216)" text-anchor="middle">
-			<tspan x="0" y="0">Eden</tspan>
-			<tspan x="0" y="20.16">Gardens</tspan>
+		<text x="60" y="144" text-anchor="middle">Big House</text>
+		<text transform="matrix(1 0 0 1 134 138)" text-anchor="middle">
+			<tspan x="0" y="0">Ladies'</tspan>
+			<tspan x="0" y="18">Club</tspan>
 		</text>
-		<text x="490" y="90" text-anchor="middle" class="small">Chinnaswamy</text>-->
+		<text transform="matrix(0.707 -0.707 0.707 0.707 187 138)" text-anchor="middle" class="small">
+			<tspan x="0" y="0">Gentleman's</tspan>
+			<tspan x="0" y="14">Club</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 389 145)" text-anchor="middle" class="small">
+			<tspan x="0" y="0">The</tspan>
+			<tspan x="0" y="14">Garage</tspan>
+		</text>
+		<text x="469" y="154" text-anchor="middle">Magic Place</text>
+		<text x="757" y="154" text-anchor="middle">Area 51</text>
+		<text transform="matrix(1 0 0 1 43 200)" text-anchor="middle">
+			<tspan x="0" y="0">Phone</tspan>
+			<tspan x="0" y="18">Booth</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 97 200)" text-anchor="middle">
+			<tspan x="0" y="0">Sand</tspan>
+			<tspan x="0" y="18">Box</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 156 200)" text-anchor="middle">
+			<tspan x="0" y="0">Think</tspan>
+			<tspan x="0" y="18">Tank</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 609 245)" text-anchor="middle">
+			<tspan x="0" y="0">Situation</tspan>
+			<tspan x="0" y="18">Room</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 731 245)" text-anchor="middle">
+			<tspan x="0" y="0">The</tspan>
+			<tspan x="0" y="18">Pub</tspan>
+		</text>
+		<text transform="matrix(1 0 0 1 597 446)" text-anchor="middle">
+			<tspan x="0" y="0">Field of</tspan>
+			<tspan x="0" y="18">Dreams</tspan>
+		</text>
+		<text x="597" y="508" text-anchor="middle" class="small">Interrogation</text>
+		<text x="688" y="556" text-anchor="middle">Cafeteria</text>
+		<text x="678" y="330" text-anchor="middle">Servers</text>
+		<text x="284" y="151" text-anchor="middle">Reception</text>
 	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
