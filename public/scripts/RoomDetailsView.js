@@ -70,7 +70,7 @@ this.RoomDetailsView = (function(){
 		},
 
 		renderStatus: function(){
-			if(this.model.status){
+			if(this.model.get('status')){
 				this.els.availabilityStatus.find('.statusLabel').text(this.getStatusLabel());
 				this.els.availabilityStatus.find('.statusBadge').toggleClass('busy', this.isBusy());
 				this.els.availabilityStatus.show();
@@ -90,9 +90,9 @@ this.RoomDetailsView = (function(){
 		},
 
 		getStatusLabel: function(){
-			if(this.model.status.callActive){
+			if(this.model.get('status').callActive){
 				return "in a call";
-			} else if(this.model.status.reserved){
+			} else if(this.model.get('status').reserved){
 				return "reserved";
 			} else {
 				return "available";
@@ -100,7 +100,7 @@ this.RoomDetailsView = (function(){
 		},
 
 		isBusy: function(){
-			var endpointStatus = this.model.status;
+			var endpointStatus = this.model.get('status');
 			return endpointStatus.callActive || endpointStatus.reserved;
 		}
 

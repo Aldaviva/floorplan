@@ -23,12 +23,7 @@ this.data = (function(){
 	}))();
 
 	var Endpoint = data.Endpoint = Backbone.Model.extend({
-		// fetchStatus: function(){
-		// 	return $.getJSON(this.url()+'/status')
-		// 		.done(_.bind(function(status){
-		// 			this.status = status;
-		// 		}, this));
-		// }
+		
 	});
 
 	var endpoints = data.endpoints = new (Backbone.Collection.extend({
@@ -42,7 +37,7 @@ this.data = (function(){
 				.done(_.bind(function(statuses){
 					_.forEach(statuses, function(status){
 						var endpoint = this.get(status.endpointId);
-						endpoint.set({ status: _.omit(status, "id") });
+						endpoint.set({ status: _.omit(status, "endpointId") });
 					}, this);
 				}, this));
 		}
