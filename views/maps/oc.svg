@@ -53,12 +53,9 @@
 		<polyline points="319.088,737.144 14.083,737.144 14.083,13.644 600.917,13.644 600.917,737.144 352.177,737.144"/>
 	</g>
 	<g class="roomNames">
-		<text x="092.083" y="097.416" text-anchor="middle">Belt Loop</text>
-		<text transform="matrix(1 0 0 1 415.417 089)" text-anchor="middle">
-			<tspan x="0" y="0">Back</tspan>
-			<tspan x="0" y="20.16">Pocket</tspan>
-		</text>
-		<text x="535.167" y="097.416" text-anchor="middle">Jean Jacket</text>
+		<text x="092.083" y="097.416" text-anchor="middle">Laguna</text>
+		<text x="415.417" y="097.416" text-anchor="middle">Newport</text>
+		<text x="535.167" y="097.416" text-anchor="middle">Huntington</text>
 		<text x="566.667" y="206.415" text-anchor="middle">Copier</text>
 		<text x="538.422" y="358.165" text-anchor="middle">Boardroom</text>
 		<text x="538.422" y="538.665" text-anchor="middle">Break room</text>
