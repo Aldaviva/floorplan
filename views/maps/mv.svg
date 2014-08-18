@@ -239,14 +239,14 @@
 				<tspan x="0" y="14.4">Washed</tspan>
 			</text>
 			<rect class="roomArea" x="149.241" y="317.437" width="55.47" height="51" />
-			<rect class="statusBadge" x="196.712" y="321.44" width="6" height="6" />
+			<rect class="statusBadge" x="196.712" y="319.437" width="6" height="6" />
 		</g>
 		<g class="room" endpoint:id="52594ba203a06a5062934fa4">
 			<text x="177.5" y="440" text-anchor="middle">Vintage</text>
 			<rect x="149.241" y="413.264" class="roomArea" width="55.47" height="45.978" />
 			<rect class="statusBadge" x="196.712" y="415.264" width="6" height="6" />
 		</g>
-		<g class="room">
+		<g class="room" endpoint:id="53e31701e4b008d825c8af47">
 			<text transform="matrix(1 0 0 1 614 480)" text-anchor="middle">
 				<tspan x="0" y="0">Mos</tspan>
 				<tspan x="0" y="14.4">Eisley</tspan>
@@ -255,7 +255,7 @@
 			<rect class="roomArea" x="587.472" y="460.839" width="52.586" height="59.598" />
 			<rect class="statusBadge" x="632.058" y="462.839" width="6" height="6" />
 		</g>
-		<g class="room">
+		<g class="room" endpoint:id="53e99b4de4b0214754b6ca40">
 			<text x="614" y="437" text-anchor="middle">Cargo</text>
 			<rect class="roomArea" x="587.472" y="403.068" width="52.586" height="57.771" />
 			<rect class="statusBadge" x="632.058" y="405.068" width="6" height="6" />
