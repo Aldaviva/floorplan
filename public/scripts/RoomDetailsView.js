@@ -6,7 +6,8 @@ this.RoomDetailsView = (function(){
 		'POLYCOM_TELNET'            : 'Polycom',
 		'POLYCOM_HTTP_HDX'          : 'Polycom',
 		'POLYCOM_HTTP_REALPRESENCE' : 'Polycom',
-		'LIFESIZE_SSH'              : 'LifeSize'
+		'LIFESIZE_SSH'              : 'LifeSize',
+		'LIFESIZE_HTTP_ICON'        : 'LifeSize'
 	};
 
 	var RoomDetailsView = Backbone.View.extend({
