@@ -20,10 +20,10 @@
 					[145.96, 201.729],
 					[145.96, 285.507],
 					[145.96, 369.287],
-					[135.473, 21.784],
-					[135.473, 107.315],
-					[311.036, 21.784],
-					[311.036, 107.315],
+					[135.473, 16.783],
+					[135.473, 115.315],
+					[311.036, 16.783],
+					[311.036, 115.315],
 					[145.96, 453.066],
 					[671.96, 198.797],
 					[671.96, 306.365],
@@ -38,7 +38,9 @@
 					[848.991, 559.623],
 					[848.991, 616.613],
 					[706.752, 376.48],
-					[706.752, 433.47]
+					[706.752, 433.47],
+					[135.473, 66.049],
+					[311.036, 66.049]
 				]
 			};
 		// ]]>
@@ -72,10 +74,26 @@
 		<line x1="813.831" y1="691.394" x2="417.859" y2="691.394"/>
 	</g>
 	<g class="roomNames">
-		<text x="72" y="94" text-anchor="middle">Laguna</text>
-		<text x="422.417" y="94" text-anchor="middle">Newport</text>
-		<text x="549.167" y="94" text-anchor="middle">Huntington</text>
-		<text x="538.422" y="338.165" text-anchor="middle">Boardroom</text>
+		<g class="room" endpoint:id="5445a968e4b0b24893100aa5">
+			<text x="72" y="94" text-anchor="middle">Laguna</text>
+			<rect class="roomArea" x="13.833" y="13.644" width="115.5" height="142.5"/>
+			<rect class="statusBadge" x="121.33" y="15.64" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="5445a959e4b0b24893100a92">
+			<text x="422.417" y="94" text-anchor="middle">Newport</text>
+			<rect class="roomArea" x="366" y="13.644" width="114" height="142.5"/>
+			<rect class="statusBadge" x="472" y="15.64" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="5445a93fe4b0b24893100a60">
+			<text x="549.167" y="94" text-anchor="middle">Huntington</text>
+			<rect class="roomArea" x="480" y="13.644" width="135" height="142.5"/>
+			<rect class="statusBadge" x="607" y="15.64" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="5445a915e4b0b24893100a4b">
+			<text x="538.422" y="338.165" text-anchor="middle">Boardroom</text>
+			<rect class="roomArea" x="476.092" y="216.644" width="124.661" height="221.388"/>
+			<rect class="statusBadge" x="592.75" y="218.64" width="6" height="6" />
+ 		</g>
 		<text x="538.422" y="502.665" text-anchor="middle">Break room</text>
 		<text x="512.917" y="628.415" text-anchor="middle">Relaxed Fit</text>
 		<text x="369.489" y="627.415" text-anchor="middle">Lobby</text>
