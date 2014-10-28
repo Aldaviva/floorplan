@@ -25,10 +25,10 @@
 					[311.036, 16.783],
 					[311.036, 115.315],
 					[145.96, 453.066],
-					[671.96, 198.797],
-					[671.96, 306.365],
-					[725.807, 252.581],
-					[619.531, 252.581],
+					[676.96, 216.644],
+					[619.531, 275.427],
+					[676.96, 275.427],
+					[619.531, 216.644],
 					[822.237, 376.48],
 					[822.236, 433.47],
 					[764.494, 376.48],
@@ -94,8 +94,41 @@
 			<rect class="roomArea" x="476.092" y="216.644" width="124.661" height="221.388"/>
 			<rect class="statusBadge" x="592.75" y="218.64" width="6" height="6" />
  		</g>
+ 		<g class="room" endpoint:id="5445a9a4e4b0b24893100ab5">
+ 			<text x="697" y="94" text-anchor="middle">Manhattan</text>
+ 			<polygon class="roomArea" points="769,13.644 831.62,75.784 744,156.144 615,156.144 615,13.644"/>
+			<rect class="statusBadge" x="761" y="15.64" width="6" height="6" />
+ 		</g>
+ 		<g class="room" endpoint:id="5445a9bce4b0b24893100ac7">
+ 			<text x="817" y="169" text-anchor="middle">Venice</text>
+ 			<polygon class="roomArea" points="892,147.064 905.28,160.444 812.77,252.954 760,199.394 744,156.144 831.62,75.784 897.68,141.344"/>
+ 			<rect class="statusBadge" x="0" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 886 141.5)" width="6" height="6" />
+ 		</g>
+ 		<g class="room" endpoint:id="5445a9cae4b0b24893100aca">
+ 			<text x="899" y="245" text-anchor="middle">Santa Monica</text>
+ 			<polygon class="roomArea" points="996.73,239.624 990.33,245.794 985.33,241.064 892.51,333.884 812.77,252.954 905.28,160.444 892,147.064 897.68,141.344"/>
+ 			<rect class="statusBadge" x="0" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 979.5 235)" width="6" height="6" />
+ 		</g>
+ 		<g class="room" endpoint:id="5445a9d8e4b0b24893100af2">
+ 			<text x="973" y="319" text-anchor="middle">Malibu</text>
+ 			<polygon class="roomArea" points="1062,304.394 960.51,402.894 892.51,333.884 985.33,241.064 990.33,245.794 996.73,239.624"/>
+ 			<rect class="statusBadge" x="0" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 1050 304.39)" width="6" height="6" />
+ 		</g>
 		<text x="538.422" y="502.665" text-anchor="middle">Break room</text>
-		<text x="512.917" y="628.415" text-anchor="middle">Relaxed Fit</text>
+		<text transform="matrix(1 0 0 1 652 443)" text-anchor="middle">
+			<tspan x="0" y="0">Break</tspan>
+			<tspan x="0" y="20.16">room</tspan>
+		</text>
+		<g class="room" endpoint:id="5445a984e4b0b24893100aac">
+			<text x="512.917" y="628.415" text-anchor="middle">Redondo</text>
+			<rect class="roomArea" x="428.167" y="553.644" width="172.753" height="137.75"/>
+			<rect class="statusBadge" x="592.92" y="555.64" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="5446d227e4b0b24893111daa">
+			<text x="665" y="617" text-anchor="middle">Hermosa</text>
+			<polygon class="roomArea" points="728.67,533.724 728.67,691.394 600.92,691.394 600.92,533.724 688.67,533.724"/>
+			<rect class="statusBadge" x="720.67" y="535.72" width="6" height="6" />
+		</g>
 		<text x="369.489" y="627.415" text-anchor="middle">Lobby</text>
 		<text x="169.061" y="596.327" text-anchor="middle">Ping-pong</text>
 		<text x="225.811" y="664.915" text-anchor="middle">Servers</text>

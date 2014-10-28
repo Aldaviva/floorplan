@@ -1,6 +1,6 @@
 {
 	"name": "floorplan",
-	"version": "2.7.7",
+	"version": "2.7.8",
 	"author": "Ben Hutchison <ben@bluejeans.com>",
 	"dependencies": {
 		"cache-manager"   : "0.7.1",
