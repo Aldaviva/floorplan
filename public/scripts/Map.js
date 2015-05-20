@@ -117,9 +117,10 @@ this.Map = (function(){
 		onArrowClick: function(event){
 			switch(this.options.office){
 				case 'mv':
-					window.location = 'mv2';
+					window.location = (svgHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3';
 					break;
 				case 'mv2':
+				case 'mv3':
 					window.location = 'mv';
 					break;
 				default:
@@ -324,6 +325,11 @@ this.Map = (function(){
 		var oldClassList = el.className.baseVal.split(/\s/);
 		var newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)));
 		el.className.baseVal = newClassList.join(" ");
+	}
+
+	function svgHasClass(el, classStr){
+		var classList = el.className.baseVal.split(/\s/);
+		return _.contains(classList, classStr);
 	}
 
 	function setTitle(el, titleText){

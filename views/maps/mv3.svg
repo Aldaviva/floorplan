@@ -1,0 +1,106 @@
+<svg version="1.1" viewBox="0 0 386.466 282.41" class="mv3">
+	<script type="text/javascript">
+		// <![CDATA[
+			this.SEATS = this.SEATS || {};
+			this.SEATS.mv3 = {
+				iconSize: 17.779,
+				seatPositions: [
+					[133.441, 126.295],
+					[191.108, 126.295],
+					[171.886, 126.295],
+					[152.664, 126.295],
+					[133.441, 148.002],
+					[191.108, 148.002],
+					[171.886, 148.002],
+					[152.664, 148.002],
+					[227.108, 126.295],
+					[284.775, 126.295],
+					[265.553, 126.295],
+					[246.331, 126.295],
+					[227.108, 148.002],
+					[284.775, 148.002],
+					[265.553, 148.002],
+					[246.331, 148.002],
+					[227.108, 182.33],
+					[284.775, 182.33],
+					[265.553, 182.33],
+					[246.331, 182.33],
+					[227.108, 204.037],
+					[284.775, 204.037],
+					[265.553, 204.037],
+					[246.331, 204.037],
+					[133.441, 182.33],
+					[83.168, 181.601],
+					[83.168, 215.428],
+					[56.642, 181.601],
+					[56.642, 215.428],
+					[191.108, 182.33],
+					[171.886, 182.33],
+					[152.664, 182.33],
+					[133.441, 204.037],
+					[191.108, 204.037],
+					[171.886, 204.037],
+					[152.664, 204.037]
+				]
+			};
+		// ]]>
+	</script>
+	<polygon class="background" points="355.887,55.882 355.887,10.355 10.737,10.355 10.737,236.122 374.805,236.122 
+		374.805,55.882 	" />
+	<g class="walls">
+		<g class="innerWalls">
+			<polyline points="355.887,55.882 325.221,55.882 325.221,236.122 		"/>
+			<polyline points="287.09,10.355 287.09,55.882 10.737,55.882 10.737,10.355 		"/>
+			<rect x="10.737" y="77.642" width="90.211" height="101.306"/>
+			<line x1="190.938" y1="10.355" x2="190.938" y2="55.882"/>
+			<line x1="48.35" y1="10.355" x2="48.35" y2="55.882"/>
+			<line x1="146.711" y1="55.882" x2="146.711" y2="10.355"/>
+			<line x1="133.441" y1="146.002" x2="208.887" y2="146.002"/>
+			<line x1="227.108" y1="146.002" x2="302.554" y2="146.002"/>
+			<line x1="133.441" y1="202.073" x2="208.887" y2="202.073"/>
+			<line x1="227.108" y1="202.073" x2="302.554" y2="202.073"/>
+			<line x1="189.554" y1="77.642" x2="287.09" y2="77.642"/>
+			<line x1="325.221" y1="97.406" x2="374.805" y2="97.406"/>
+			<line x1="325.221" y1="143.739" x2="374.805" y2="143.739"/>
+			<line x1="325.221" y1="189.739" x2="374.805" y2="189.739"/>
+		</g>
+		<polyline points="355.887,46.206 355.887,55.882 374.805,55.882 374.805,236.122 10.737,236.122 10.737,76.544 	"/>
+		<polyline points="10.737,66.391 10.737,10.355 355.887,10.355 355.887,34.7 	"/>
+	</g>
+	<g class="roomNames">
+		<g class="room" endpoint:id="555bc777e4b034a670ea0f2b">
+			<text x="29.543" y="36.119" text-anchor="middle">Shredder</text>
+			<rect class="roomArea" x="10.737" y="10.355" width="37.613" height="45.526" />
+			<rect class="statusBadge" x="40.365" y="12.335" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="555bc1bfe4b06961ca6f34b1">
+			<text x="350.013" y="79.644" text-anchor="middle">Leonardo</text>
+			<rect class="roomArea" x="325.221" y="55.882" width="49.584" height="41.524" />
+			<rect class="statusBadge" x="366.805" y="57.882" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="555bc237e4b034a670ea0893">
+			<text x="350.013" y="123.573 " text-anchor="middle">Donatello</text>
+			<rect class="roomArea" x="325.221" y="97.406" width="49.584" height="46.333" />
+			<rect class="statusBadge" x="366.805" y="99.406" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="555bc25ce4b0b05d8e204427">
+			<text x="350.013" y="169.739" text-anchor="middle">Raphael</text>
+			<rect class="roomArea" x="325.221" y="143.739" width="49.584" height="46" />
+			<rect class="statusBadge" x="366.805" y="145.739" width="6" height="6" />
+		</g>
+		<g class="room" endpoint:id="555bc293e4b0b05d8e20444c">
+			<text x="350.013" y="215.931" text-anchor="middle">Michelangelo</text>
+			<rect class="roomArea" x="325.221" y="189.739" width="49.584" height="46.383" />
+			<rect class="statusBadge" x="366.805" y="191.739" width="6" height="6" />
+		</g>
+						
+		<text x="55.842" y="131.294" text-anchor="middle">Servers</text>
+		<text x="239.014" y="36.119" text-anchor="middle">Restrooms</text>
+		<text x="97.53" y="36.119" text-anchor="middle">Break room</text>
+	</g>
+	<g class="seats"></g>
+	<g class="photos"></g>
+	<polygon class="arrow downright" points="374.804,272.861 374.805,249.931 369.504,255.233 359.528,245.257 347.202,257.584 357.177,267.562 351.876,272.861 	">
+		<title>go southwest</title>
+	</polygon>
+</svg>

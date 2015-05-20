@@ -1,4 +1,4 @@
-<svg version="1.1" viewBox="146 52 549 530" class="mv">
+<svg version="1.1" viewBox="146 26 549 556" class="mv">
 	<script type="text/javascript">
 		// <![CDATA[
 			this.SEATS = this.SEATS || {};
@@ -276,5 +276,8 @@
 	<g class="photos"></g>
 	<polygon class="arrow right" points="665.188,107.865 643.479,86.155 643.479,96.193 624.587,96.193 624.587,119.538 643.479,119.538 643.479,129.575">
 		<title>go south</title>
+	</polygon>
+	<polygon class="arrow upleft" points="361.821,26.511 361.82,57.214 368.918,50.115 382.276,63.475 398.784,46.967 385.425,33.607 392.522,26.51">
+		<title>go northeast</title>
 	</polygon>
 </svg>
