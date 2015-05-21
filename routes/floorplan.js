@@ -16,6 +16,8 @@ var OFFICE_NAMES = {
 	ln: "London",
 	remote: "Remote Workers"
 };
+OFFICE_NAMES.mv2 = OFFICE_NAMES.mv;
+OFFICE_NAMES.mv3 = OFFICE_NAMES.mv;
 
 fs.readdir(MAPS_PATH, function(err, files){
 	if (err) throw err;
