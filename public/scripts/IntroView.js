@@ -33,7 +33,7 @@ this.IntroView = (function(){
 		}
 	};
 	OFFICES.mv2 = OFFICES.mv;
-	OFFICES.mv3 = OFFICES.mv;
+	OFFICES.mv3 = _.extend({}, OFFICES.mv, { address: '520 Clyde Avenue\nMountain View, CA 94043' });
 
 	var IntroView = Backbone.View.extend({
 
