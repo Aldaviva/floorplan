@@ -54,8 +54,9 @@ server.delete('/people/:id', function(req, res, next){
 		.fail(next);
 });
 
-server.get('/people/:id/photo', function(req, res, next){
-	req.url = '/photos/'+req.params.id+'.jpg';
+server.get(/^\/people\/(\w+)\/photo(?:\.jpg)?$/, function(req, res, next){
+	var id = req.params[0];
+	req.url = '/photos/'+id+'.jpg';
 	photoStaticHandler(req, res, next);
 });
 
