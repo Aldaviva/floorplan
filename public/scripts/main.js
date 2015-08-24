@@ -34,7 +34,7 @@
 
 		mediator.subscribe('activatePersonConfirmed', function(person, opts){
 			if(_paq){
-				_paq.push(['trackEvent', 'person', 'view', person.fullname]);
+				_paq.push(['trackEvent', 'person', 'view', person.get('fullname')]);
 			}
 		});
 
