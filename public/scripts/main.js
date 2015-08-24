@@ -32,6 +32,12 @@
 			}
 		});
 
+		mediator.subscribe('activatePersonConfirmed', function(person, opts){
+			if(_paq){
+				_paq.push(['trackEvent', 'person', 'view', person.fullname]);
+			}
+		});
+
 		mediator.subscribe('map:clickPerson', function(person, opts){
 			mediator.publish('activatePerson', person, opts);
 		});
