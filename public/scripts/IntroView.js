@@ -22,8 +22,8 @@ this.IntroView = (function(){
 			yelpId: null
 		},
 		ln: {
-			address: 'Liberty House\n222 Regent Street\nLondon\nW1B 5TR',
-			mapsUrl: 'https://maps.google.com/maps?q=Liberty+House+222+regent+St.+London+W1B+5TR&hl=en&ll=51.513817,-0.140119&spn=0.028951,0.066047&hnear=W+S+M+B+C+Liberty+House,+222+Regent+St,+London+W1B+5TR,+United+Kingdom&t=m&z=15',
+			address: 'Capital House, 16th Floor\n25 Chapel Street\nLondon, NW1 5DH',
+			mapsUrl: 'https://www.google.com/maps/place/Capital+House,+25+Chapel+St,+Marylebone,+London+NW1+5DT,+UK/@51.5197109,-0.1685118,13z/data=!4m2!3m1!1s0x48761ab422d7edfd:0x3c6ea06442d1f88c',
 			yelpId: null
 		},
 		remote: {
