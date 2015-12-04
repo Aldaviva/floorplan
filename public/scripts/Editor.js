@@ -224,7 +224,7 @@ this.Editor = (function(){
 				this.$('.validationMessage').hide();
 
 				if(attributeName == 'linkedInId'){
-					var matches = currentTarget.val().match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9]+)/);
+					var matches = currentTarget.val().match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/);
 					attributeValue = (matches) ? matches[1] : null;
 				} else if(attributeName == 'email'){
 					attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '');
