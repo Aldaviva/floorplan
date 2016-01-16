@@ -3,11 +3,14 @@ this.RoomDetailsView = (function(){
 	var CONTROL_PROTOCOL_TO_MANUFACTURER = {
 		'TANDBERG_SSH'              : 'Cisco',
 		'TANDBERG_HTTP'             : 'Cisco',
+		'CISCO_IX_SSH_SOAP'         : 'Cisco',
 		'POLYCOM_TELNET'            : 'Polycom',
 		'POLYCOM_HTTP_HDX'          : 'Polycom',
 		'POLYCOM_HTTP_REALPRESENCE' : 'Polycom',
-		'LIFESIZE_SSH'              : 'LifeSize',
-		'LIFESIZE_HTTP_ICON'        : 'LifeSize'
+		'LIFESIZE_SSH'              : 'Lifesize',
+		'LIFESIZE_HTTP_ICON'        : 'Lifesize',
+		'STARLEAF_HTTP'             : 'StarLeaf',
+		'TELY_HTTP'                 : 'Tely'
 	};
 
 	var RoomDetailsView = Backbone.View.extend({
