@@ -59,8 +59,8 @@
 					><a href="#" class="search helper_link" target="linkedin">search for profile</a
 					><input name="linkedInId"type="text"
 						placeholder="paste profile URL" 
-						pattern=".*linkedin\.com/profile/view\?id=[A-Za-z0-9]+.*" 
-						data-validation-failed-message="LinkedIn field should have a value of the form linkedin.com/profile/view?id=12345678ABCdef" />
+						pattern=".*linkedin\.com/(?:profile/view\?id=|in/)[A-Za-z0-9]+.*" 
+						data-validation-failed-message="LinkedIn URL should look like linkedin.com/profile/view?id=123 or linkedin.com/in/alice" />
 				</label>
 
 				<label>
