@@ -14,7 +14,7 @@ this.data = (function(){
 		getLinkedInProfileUrl: function(){
 			var profileId = this.get('linkedInId');
 			return (profileId) ? Person.linkedInIdToUrl(profileId) : null;
-		}
+		},
 		defaults: {
 			tags: []
 		}
