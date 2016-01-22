@@ -11,8 +11,36 @@ this.data = (function(){
 				return config.mountPoint + '/images/missing_photo.jpg';
 			}
 		},
+		getLinkedInProfileUrl: function(){
+			var profileId = this.get('linkedInId');
+			return (profileId) ? Person.linkedInIdToUrl(profileId) : null;
+		}
 		defaults: {
 			tags: []
+		}
+	},{
+		linkedInUrlToId: function(profileUrl){
+			var profileId = null;
+
+			var matches = profileUrl.match(/linkedin\.com\/(in\/[A-Za-z0-9\-_]+)/);
+			if(matches){
+				profileId = matches[1];
+
+			} else {
+				matches = profileUrl.match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/);
+				if(matches){
+					profileId = matches[1];
+				}
+			}
+
+			return profileId;
+		},
+		linkedInIdToUrl: function(profileId){
+			if(/^in\//.test(profileId)){
+				return "https://www.linkedin.com/" + profileId;
+			} else {
+				return "https://www.linkedin.com/profile/view?id=" + profileId;
+			}
 		}
 	});
 

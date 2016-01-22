@@ -82,7 +82,7 @@ this.PersonDetailsView = (function(){
 					.closest('dd').prev('dt').addBack().toggle(!!email);
 
 				this.els.linkedInProfile
-					.attr('href', 'http://www.linkedin.com/profile/view?id='+this.model.get('linkedInId'))
+					.attr('href', this.model.getLinkedInProfileUrl())
 					.closest('dd').prev('dt').addBack().toggle(!!this.model.get('linkedInId'));
 
 				this.els.mobilePhone

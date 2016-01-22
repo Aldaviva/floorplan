@@ -73,13 +73,13 @@ this.Editor = (function(){
 				}, this);
 
 				var linkedInId = this.model.get('linkedInId');
-				var linkedInComplete = 'linkedin.com/profile/view?id='+linkedInId;
-				this.fieldVal('linkedInId', (linkedInId) ? linkedInComplete : '');
+				var linkedInComplete = this.model.getLinkedInProfileUrl();
+				this.fieldVal('linkedInId', (linkedInId) ? linkedInComplete.replace(/^https?:\/\/(?:www\.)?/, '') : '');
 				this.$('.contact .view_profile')
-					.attr('href', (linkedInId) ? ('http://www.linkedin.com/profile/view?id='+linkedInId) : '#')
+					.attr('href', (linkedInId) ? linkedInComplete : '#')
 					.toggle(!!linkedInId);
 				this.$('.contact .search')
-					.attr('href', 'http://www.linkedin.com/vsearch/p?keywords='+encodeURIComponent(this.model.get('fullname'))+'&openAdvancedForm=true')
+					.attr('href', 'https://www.linkedin.com/vsearch/p?keywords='+encodeURIComponent(this.model.get('fullname'))+'&openAdvancedForm=true')
 					.toggle(!linkedInId && !!this.model.get('fullname'));
 
 				var emailLocalPart = this.model.get('email');
@@ -224,8 +224,7 @@ this.Editor = (function(){
 				this.$('.validationMessage').hide();
 
 				if(attributeName == 'linkedInId'){
-					var matches = currentTarget.val().match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/);
-					attributeValue = (matches) ? matches[1] : null;
+					attributeValue = data.Person.linkedInUrlToId(currentTarget.val());
 				} else if(attributeName == 'email'){
 					attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '');
 				} else if(currentTarget.is(':checkbox')){
