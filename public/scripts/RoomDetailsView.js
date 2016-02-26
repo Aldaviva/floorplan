@@ -61,7 +61,11 @@ this.RoomDetailsView = (function(){
 
 				this.els.endpointManufacturer.text(this.getManufacturerLabel(this.model.get('controlProtocol')));
 
-				this.els.endpointIpAddress.text(this.model.get('ipAddress'));
+				this.els.endpointIpAddress.empty().append($("<a>", {
+					text: this.model.get('ipAddress'),
+					href: "http://"+this.model.get('ipAddress'),
+					target: '_blank'
+				}));
 
 				this.renderStatus();
 
