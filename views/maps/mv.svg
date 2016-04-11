@@ -271,7 +271,7 @@
 			<tspan x="0" y="0">Audio</tspan>
 			<tspan x="0" y="14.4">lab</tspan>
 		</text>
-		<text transform="matrix(1 0 0 1 177.5 396)" text-anchor="middle">
+		<text transform="matrix(1 0 0 1 177.5 388)" text-anchor="middle">
 			<tspan x="0" y="0">Video</tspan>
 			<tspan x="0" y="14.4">lab</tspan>
 		</text>
