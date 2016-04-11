@@ -267,12 +267,14 @@
 		<text x="418" y="248" text-anchor="middle">Break room</text>
 		<text x="409.161" y="356" text-anchor="middle">Restrooms</text>
 		<text x="638" y="191" text-anchor="middle">Servers</text>
-		<text transform="matrix(1 0 0 1 614 541)" text-anchor="middle">
-			<tspan x="0" y="0">Toaster</tspan>
-			<tspan x="0" y="14.4">oven</tspan>
-			<tspan x="0" y="28.8">&#x1f35e;</tspan>
+		<text transform="matrix(1 0 0 1 614 545)" text-anchor="middle">
+			<tspan x="0" y="0">Audio</tspan>
+			<tspan x="0" y="14.4">lab</tspan>
 		</text>
-		<text x="177.5" y="396" text-anchor="middle">Audio</text>
+		<text transform="matrix(1 0 0 1 177.5 396)" text-anchor="middle">
+			<tspan x="0" y="0">Video</tspan>
+			<tspan x="0" y="14.4">lab</tspan>
+		</text>
 	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
