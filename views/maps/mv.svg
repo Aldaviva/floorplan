@@ -184,7 +184,7 @@
 		<polyline points="149.241,261.644 149.241,579.207 266.954,579.207"/>
 	</g>
 	<g class="roomNames">
-		<g class="room" endpoint:id="52594bf403a06a5062934fa7">
+		<g class="room" endpoint:id="52594bf403a06a5062934fa7" endpoint:seatingCapacity="6">
 			<text transform="matrix(1 0 0 1 334 101.25)" text-anchor="middle">
 				<tspan x="0" y="0">Boot</tspan>
 				<tspan x="0" y="14.4">Cut</tspan>
@@ -192,12 +192,12 @@
 			<rect class="roomArea" x="307.172" y="75.759" width="51.161" height="55.172" />
 			<rect class="statusBadge" x="350.333" y="77.759" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="4fb18e00e4b0378e4f2e5858">
+		<g class="room" endpoint:id="4fb18e00e4b0378e4f2e5858" endpoint:seatingCapacity="16">
 			<text x="533" y="124" text-anchor="middle">Boardroom</text>
 			<rect class="roomArea" x="480.724" y="75.759" width="105.748" height="84.931"/>
 			<rect class="statusBadge" x="578.472" y="77.759" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="52594bdc03a06a5062934fa6">
+		<g class="room" endpoint:id="52594bdc03a06a5062934fa6" endpoint:seatingCapacity="6">
 			<text transform="matrix(1 0 0 1 283 101.25)" text-anchor="middle">
 				<tspan x="0" y="0">Button</tspan>
 				<tspan x="0" y="14.4">Fly</tspan>
@@ -205,7 +205,7 @@
 			<rect class="roomArea" x="254.011" y="75.759" width="53.161" height="55.172" />
 			<rect class="statusBadge" x="299.172" y="77.759" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="52d496b9e4b0fc8d80784d0a">
+		<g class="room" endpoint:id="52d496b9e4b0fc8d80784d0a" endpoint:seatingCapacity="8">
 			<text transform="matrix(1 0 0 1 177.5 195)" text-anchor="middle">
 				<tspan x="0" y="0">Bell</tspan>
 				<tspan x="0" y="14.4">Bottom</tspan>
@@ -226,7 +226,7 @@
 			<rect class="roomArea" x="149.241" y="110.368" width="55.47" height="52.149" />
 			<rect class="statusBadge" x="196.712" y="112.368" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="52594bc403a06a5062934fa5">
+		<g class="room" endpoint:id="52594bc403a06a5062934fa5" endpoint:seatingCapacity="4">
 			<text transform="matrix(1 0 0 1 177.5 290.25)" text-anchor="middle">
 				<tspan x="0" y="0">Acid</tspan>
 				<tspan x="0" y="14.4">Washed</tspan>
@@ -234,7 +234,7 @@
 			<rect class="roomArea" x="149.241" y="267.713" width="55.47" height="49.724" />
 			<rect class="statusBadge" x="196.712" y="269.713" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="507cda1ad213cb192dcb0d58">
+		<g class="room" endpoint:id="507cda1ad213cb192dcb0d58" endpoint:seatingCapacity="4">
 			<text transform="matrix(1 0 0 1 177.5 341.25)" text-anchor="middle">
 				<tspan x="0" y="0">Stone</tspan>
 				<tspan x="0" y="14.4">Washed</tspan>
@@ -242,12 +242,12 @@
 			<rect class="roomArea" x="149.241" y="317.437" width="55.47" height="51" />
 			<rect class="statusBadge" x="196.712" y="319.437" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="52594ba203a06a5062934fa4">
+		<g class="room" endpoint:id="52594ba203a06a5062934fa4" endpoint:seatingCapacity="4">
 			<text x="177.5" y="440" text-anchor="middle">Vintage</text>
 			<rect x="149.241" y="413.264" class="roomArea" width="55.47" height="45.978" />
 			<rect class="statusBadge" x="196.712" y="415.264" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e31701e4b008d825c8af47">
+		<g class="room" endpoint:id="53e31701e4b008d825c8af47" endpoint:seatingCapacity="4">
 			<text transform="matrix(1 0 0 1 614 480)" text-anchor="middle">
 				<tspan x="0" y="0">Mos</tspan>
 				<tspan x="0" y="14.4">Eisley</tspan>
@@ -256,7 +256,7 @@
 			<rect class="roomArea" x="587.472" y="460.839" width="52.586" height="59.598" />
 			<rect class="statusBadge" x="632.058" y="462.839" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e99b4de4b0214754b6ca40">
+		<g class="room" endpoint:id="53e99b4de4b0214754b6ca40" endpoint:seatingCapacity="4">
 			<text x="614" y="437" text-anchor="middle">Cargo</text>
 			<rect class="roomArea" x="587.472" y="403.068" width="52.586" height="57.771" />
 			<rect class="statusBadge" x="632.058" y="405.068" width="6" height="6" />

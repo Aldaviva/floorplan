@@ -131,52 +131,52 @@
 		<line x1="10.737" y1="385.379" x2="10.737" y2="273.645"/>
 	</g>
 	<g class="roomNames">
-		<g class="room" endpoint:id="555bc777e4b034a670ea0f2b">
+		<g class="room" endpoint:id="555bc777e4b034a670ea0f2b" endpoint:seatingCapacity="4">
 			<text x="29.543" y="352" text-anchor="middle">Shredder</text>
 			<rect class="roomArea" x="10.737" y="329.344" width="37.613" height="45.526" />
 			<rect class="statusBadge" x="40.35" y="331.344" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="555bc1bfe4b06961ca6f34b1">
+		<g class="room" endpoint:id="555bc1bfe4b06961ca6f34b1" endpoint:seatingCapacity="4">
 			<text x="350.013" y="395.6" text-anchor="middle">Leonardo</text>
 			<rect class="roomArea" x="325.221" y="374.871" width="49.584" height="41.524" />
 			<rect class="statusBadge" x="366.805" y="376.871" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="555bc237e4b034a670ea0893">
+		<g class="room" endpoint:id="555bc237e4b034a670ea0893" endpoint:seatingCapacity="4">
 			<text x="350.013" y="439.5" text-anchor="middle">Donatello</text>
 			<rect class="roomArea" x="325.221" y="416.395" width="49.584" height="46.333" />
 			<rect class="statusBadge" x="366.805" y="418.395" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="555bc25ce4b0b05d8e204427">
+		<g class="room" endpoint:id="555bc25ce4b0b05d8e204427" endpoint:seatingCapacity="4">
 			<text x="350.013" y="485.7" text-anchor="middle">Raphael</text>
 			<rect class="roomArea" x="325.221" y="462.728" width="49.584" height="46" />
 			<rect class="statusBadge" x="366.805" y="464.728" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="555bc293e4b0b05d8e20444c">
+		<g class="room" endpoint:id="555bc293e4b0b05d8e20444c" endpoint:seatingCapacity="4">
 			<text x="350.013" y="531.9" text-anchor="middle">Michelangelo</text>
 			<rect class="roomArea" x="325.221" y="508.728" width="49.584" height="46.383" />
 			<rect class="statusBadge" x="366.805" y="510.728" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="55c1337fe4b0225e45e7f306">
+		<g class="room" endpoint:id="55c1337fe4b0225e45e7f306" endpoint:seatingCapacity="12">
 			<text x="350.013" y="239" text-anchor="middle">Top Gun</text>
 			<rect class="roomArea" x="325.088" y="194.576" width="49.717" height="88.819"/>
 			<rect class="statusBadge" x="366.805" y="196.576" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="55c13360e4b0225e45e7f25d">
+		<g class="room" endpoint:id="55c13360e4b0225e45e7f25d" endpoint:seatingCapacity="4">
 			<text x="350.013" y="175" text-anchor="middle">Maverick</text>
 			<rect class="roomArea" x="325.221" y="154.601" width="49.584" height="39.975"/>
 			<rect class="statusBadge" x="366.805" y="156.601" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="55c13316e4b0225e45e7f1d0">
+		<g class="room" endpoint:id="55c13316e4b0225e45e7f1d0" endpoint:seatingCapacity="4">
 			<text x="350.013" y="129" text-anchor="middle">Goose</text>
 			<rect class="roomArea" x="325.221" y="103.169" width="49.584" height="51.432"/>
 			<rect class="statusBadge" x="366.805" y="105.169" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="55c13344e4b009fd41c7f7a1">
+		<g class="room" endpoint:id="55c13344e4b009fd41c7f7a1" endpoint:seatingCapacity="4">
 			<text x="350.013" y="76" text-anchor="middle">Iceman</text>
 			<rect class="roomArea" x="325.221" y="49.446" width="49.584" height="53.724"/>
 			<rect class="statusBadge" x="366.805" y="51.446" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="564d3002e4b0bbd9221bcf57">
+		<g class="room" endpoint:id="564d3002e4b0bbd9221bcf57" endpoint:seatingCapacity="4">
 			<text x="350.013" y="31" text-anchor="middle">Viper</text>
 			<rect class="roomArea" x="325.221" y="12.527" width="49.584" height="36.919"/>
 			<rect class="statusBadge" x="366.805" y="14.527" width="6" height="6" />

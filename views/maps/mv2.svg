@@ -122,36 +122,36 @@
 		<line x1="11.785" y1="38.788" x2="19.262" y2="38.788"/>
 	</g>
 	<g class="roomNames">
-		<g class="room" endpoint:id="53e31fd3e4b008d825c8af4d">
+		<g class="room" endpoint:id="53e31fd3e4b008d825c8af4d" endpoint:seatingCapacity="4">
 			<text x="42" y="102" text-anchor="middle">Baggy</text>
 			<rect class="roomArea" x="19.262" y="76.745" width="46.436" height="45.93" />
 			<rect class="statusBadge" x="57.697" y="78.756" width="6" height="6" />
 		</g>
-		<text transform="matrix(1 0 0 1 96 33)" text-anchor="middle">
+		<text transform="matrix(1 0 0 1 96 33)" text-anchor="middle" endpoint:seatingCapacity="4">
 			<tspan x="0" y="0">Cloud</tspan>
 			<tspan x="0" y="14.4">City</tspan>
 		</text>
-		<g class="room" endpoint:id="53e316c1e4b008d825c8af34">
+		<g class="room" endpoint:id="53e316c1e4b008d825c8af34" endpoint:seatingCapacity="4">
 			<text x="150" y="49" text-anchor="middle" class="small">Embroider</text>
 			<rect class="roomArea" x="124.434" y="16.31" width="51.148" height="60.436" />
 			<rect class="statusBadge" x="167.582" y="18.31" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316d3e4b008d825c8af35">
+		<g class="room" endpoint:id="53e316d3e4b008d825c8af35" endpoint:seatingCapacity="4">
 			<text x="201" y="50" text-anchor="middle">Flare</text>
 			<rect class="roomArea" x="175.582" y="16.31" width="51.208" height="60.436" />
 			<rect class="statusBadge" x="218.79" y="18.31" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316d8e4b008d825c8af36">
+		<g class="room" endpoint:id="53e316d8e4b008d825c8af36" endpoint:seatingCapacity="4">
 			<text x="253" y="50" text-anchor="middle">Golf</text>
 			<rect class="roomArea" x="226.79" y="16.31" width="52.667" height="60.436" />
 			<rect class="statusBadge" x="271.457" y="18.31" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316e0e4b008d825c8af39">
+		<g class="room" endpoint:id="53e316e0e4b008d825c8af39" endpoint:seatingCapacity="4">
 			<text x="305" y="50" text-anchor="middle">Hipster</text>
 			<rect class="roomArea" x="279.457" y="16.31" width="51.356" height="60.436" />
 			<rect class="statusBadge" x="322.813" y="18.31" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316e6e4b008d825c8af3c">
+		<g class="room" endpoint:id="53e316e6e4b008d825c8af3c" endpoint:seatingCapacity="16">
 			<text transform="matrix(1 0 0 1 383 50)" text-anchor="middle">
 				<tspan x="0" y="0">Imperial</tspan>
 				<tspan x="0" y="14.4">Senate</tspan>
@@ -167,12 +167,12 @@
 			<tspan x="0" y="10">Room</tspan>
 		</text>
 		<text x="182" y="325" text-anchor="middle">Game room</text>
-		<g class="room" endpoint:id="53e316ede4b008d825c8af42">
+		<g class="room" endpoint:id="53e316ede4b008d825c8af42" endpoint:seatingCapacity="4">
 			<text x="98" y="396" text-anchor="middle">Leisure</text>
 			<rect class="roomArea" x="71.848" y="363.955" width="52.586" height="58.86" />
 			<rect class="statusBadge" x="116.434" y="365.955" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316f4e4b008d825c8af45">
+		<g class="room" endpoint:id="53e316f4e4b008d825c8af45" endpoint:seatingCapacity="4">
 			<text transform="matrix(1 0 0 1 100 451)" text-anchor="middle">
 				<tspan x="0" y="0">Relaxed</tspan>
 				<tspan x="0" y="14.4">Fit</tspan>
@@ -180,7 +180,7 @@
 			<rect class="roomArea" x="71.848" y="422.815" width="52.586" height="60" />
 			<rect class="statusBadge" x="116.434" y="424.815" width="6" height="6" />
 		</g>
-		<g class="room" endpoint:id="53e316fae4b008d825c8af46">
+		<g class="room" endpoint:id="53e316fae4b008d825c8af46" endpoint:seatingCapacity="4">
 			<text x="98" y="514" text-anchor="middle">Slim Fit</text>
 			<rect class="roomArea" x="71.848" y="482.815" width="52.586" height="58.207" />
 			<rect class="statusBadge" x="116.434" y="484.815" width="6" height="6" />

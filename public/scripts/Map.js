@@ -110,7 +110,7 @@ this.Map = (function(){
 			if(!this.options.skipEndpoints){
 				var roomEl = $(event.currentTarget).closest(".room");
 				var endpointId = roomEl.attr("endpoint:id");
-				mediator.publish("map:clickRoom", endpointId);
+				mediator.publish("map:clickRoom", endpointId, { seatingCapacity: roomEl.attr('endpoint:seatingCapacity') });
 			}
 		},
 

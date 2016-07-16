@@ -35,6 +35,7 @@ this.RoomDetailsView = (function(){
 
 				this.els.endpointManufacturer = $('<dd>');
 				this.els.endpointIpAddress = $('<dd>');
+				this.els.seatingCapacity = $('<dd>');
 				this.els.availabilityStatus = $('<dd>').append([
 					$('<span>', { "class": "statusBadge" }),
 					$('<span>', { "class": "statusLabel" })
@@ -44,6 +45,9 @@ this.RoomDetailsView = (function(){
 
 				dl.append($('<dt>', { text: 'Status' }));
 				dl.append(this.els.availabilityStatus);
+
+				dl.append($('<dt>', { text: 'Capacity'} ));
+				dl.append(this.els.seatingCapacity);
 
 				dl.append($('<dt>', { text: 'Endpoint' }));
 				dl.append(this.els.endpointManufacturer);
@@ -66,6 +70,10 @@ this.RoomDetailsView = (function(){
 					href: "http://"+this.model.get('ipAddress'),
 					target: '_blank'
 				}));
+
+				var seatingCapacity = this.model.get('seatingCapacity');
+				this.els.seatingCapacity.text(seatingCapacity);
+				this.els.seatingCapacity.prev().addBack().toggle(!!seatingCapacity);
 
 				this.renderStatus();
 
