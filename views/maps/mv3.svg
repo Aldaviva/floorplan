@@ -180,12 +180,17 @@
 			<rect class="roomArea" x="325.221" y="12.527" width="49.584" height="36.919"/>
 			<rect class="statusBadge" x="366.805" y="14.527" width="6" height="6" />
 		</g>
-						
+
 		<text x="55.842" y="447.283" text-anchor="middle">Servers</text>
 		<text x="216.273" y="306.666" text-anchor="middle">Restrooms</text>
 		<text x="97.531" y="329.345" text-anchor="middle">Break room</text>
-		<text x="169" y="352" text-anchor="middle">PS4</text>
+		<text x="169" y="352" text-anchor="middle">Storage</text>
+		<text x="39" y="160" text-anchor="middle">Storage</text>
 		<text x="321.489" y="329.134" text-anchor="middle">Lobby</text>
+		<text transform="matrix(1 0 0 1 31.5 303)" text-anchor="middle">
+			<tspan x="0" y="0">Mothers'</tspan>
+			<tspan x="0" y="10">PS4</tspan>
+		</text>
 	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
