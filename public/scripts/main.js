@@ -45,8 +45,8 @@
 		mediator.subscribe('map:clickRoom', function(endpointId, opts){
 			if(endpointId){
 				var endpoint = data.endpoints.get(endpointId);
-				endpoint.set({ seatingCapacity: opts.seatingCapacity });
 				if(endpoint){
+					endpoint.set({ seatingCapacity: opts.seatingCapacity });
 					mediator.publish('activateRoom', endpoint, opts);
 				}
 			}

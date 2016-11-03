@@ -14,7 +14,9 @@ var OFFICE_NAMES = {
 	oc: "Orange County",
 	blr: "Bangalore",
 	ln: "London",
-	remote: "Remote Workers"
+	chi: "Chicago",
+	aus: "Australia",
+	remote: "remote workers"
 };
 OFFICE_NAMES.mv2 = OFFICE_NAMES.mv;
 OFFICE_NAMES.mv3 = OFFICE_NAMES.mv;

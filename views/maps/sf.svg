@@ -77,38 +77,36 @@
 		<text x="513.462" y="337.000" text-anchor="middle">Utilities</text>
 		<g class="room" endpoint:id="52ddda0fe4b0edef601e6ccc" endpoint:seatingCapacity="8">
 			<text transform="matrix(1 0 0 1 244 596)" text-anchor="middle">
-				<tspan x="0" y="0">Cable</tspan>
-				<tspan x="0" y="20.16">Car</tspan>
+				<tspan x="0" y="0">Karl the</tspan>
+				<tspan x="0" y="20.16">Fog</tspan>
 			</text>
 			<rect class="roomArea" x="193.85" y="544.85" width="97.15" height="114.53"/>
 			<rect class="statusBadge" x="283" y="546.85" width="6" height="6" />
 		</g>
 		<g class="room" endpoint:id="54404ecae4b0b248930d31c7" endpoint:seatingCapacity="8">
 			<text transform="matrix(1 0 0 1 346 596)" text-anchor="middle">
-				<tspan x="0" y="0">Clint</tspan>
-				<tspan x="0" y="20.16">Eastwood</tspan>
+				<tspan x="0" y="0">Muir</tspan>
+				<tspan x="0" y="20.16">Woods</tspan>
 			</text>
 			<rect class="roomArea" x="291" y="544.85" width="108.23" height="114.53"/>
 			<rect class="statusBadge" x="391.23" y="546.85" width="6" height="6" />
 		</g>
 		<g class="room" endpoint:id="54404f1fe4b0b248930d31e0" endpoint:seatingCapacity="4">
-			<text transform="matrix(1 0 0 1 517 425)" text-anchor="middle">
-				<tspan x="0" y="0">Full</tspan>
-				<tspan x="0" y="20.16">House</tspan>
-			</text>
+			<text x="525" y="438" class="small" text-anchor="middle">Candlestick</text>
 			<polygon class="roomArea" points="567.69,409.22 567.69,464 546.92,464 546.92,483.2 481.54,483.2 481.54,377.08 545.38,377.08 545.38,409.22"/>
 			<rect class="statusBadge" x="537.38" y="379.08" width="6" height="6" />
 		</g>
 		<g class="room" endpoint:id="54404ee9e4b0b248930d31ce" endpoint:seatingCapacity="4">
-			<text x="501" y="254" text-anchor="middle">Levi's</text>
+			<text transform="matrix(1 0 0 1 501 232)" text-anchor="middle">
+				<tspan x="0" y="0">Golden</tspan>
+				<tspan x="0" y="20.16">Gate</tspan>
+				<tspan x="0" y="40.32">Bridge</tspan>
+			</text>
 			<polygon class="roomArea" points="545.38,201.88 545.38,283.39 481.54,283.39 455.38,283.39 455.38,217.08"/>
 			<rect class="statusBadge" x="537.38" y="205.88" width="6" height="6" />
 		</g>
 		<g class="room" endpoint:id="54404f07e4b0b248930d31d4" endpoint:seatingCapacity="10">
-			<text transform="matrix(1 0 0 1 514 071)" text-anchor="middle">
-				<tspan x="0" y="0">Fisherman's</tspan>
-				<tspan x="0" y="20.16">Wharf</tspan>
-			</text>
+			<text x="514" y="78" text-anchor="middle">The Rock</text>
 			<rect class="roomArea" x="455.38" y="8.62" width="112.311" height="128.34"/>
 			<rect class="statusBadge" x="559.69" y="10.62" width="6" height="6" />
 		</g>

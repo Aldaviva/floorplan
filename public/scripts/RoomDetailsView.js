@@ -27,7 +27,11 @@ this.RoomDetailsView = (function(){
 
 		render: function(){
 			if(this.$el.is(':empty')){
-				this.els.photo = $('<img>', { class: 'photo' });
+				this.els.photo = $('<img>', { class: 'photo' }).on({
+					load: this.onImageLoadSuccess,
+					error: this.onImageLoadFailure
+				});
+
 				this.els.name  = $('<h2>',  { class: 'name' });
 
 				this.$el.append(this.els.photo);
@@ -118,6 +122,14 @@ this.RoomDetailsView = (function(){
 		isBusy: function(){
 			var endpointStatus = this.model.get('status');
 			return endpointStatus.callActive || endpointStatus.reserved;
+		},
+
+		onImageLoadSuccess: function(event){
+			this.els.photo.show();
+		},
+
+		onImageLoadFailure: function(event){
+			this.els.photo.hide();
 		}
 
 	});

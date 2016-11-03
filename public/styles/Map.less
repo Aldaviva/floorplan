@@ -43,18 +43,20 @@
 		}
 
 		.walls {
+			opacity: 0.75;
+
 			line, polyline, rect, polygon, path {
-				fill              : none;
-				stroke            : rgba(255, 255, 255, 0.75);
-				stroke-width      : 2;
-				stroke-linejoin   : miter;
+				fill            : none;
+				stroke          : white;
+				stroke-width    : 2;
+				stroke-linejoin : miter;
 			}
 
 			.innerWalls {
+				opacity: 0.667;
+
 				line, polyline, rect, polygon, path {
-					stroke       : rgba(255, 255, 255, 0.5);
 					stroke-width : 1;
-					fill         : none;
 				}
 			}
 		}
@@ -64,10 +66,10 @@
 				fill: white;
 			}
 			.clockHand {
-				stroke: white;
-				stroke-linecap: round;
-				stroke-width: 1;
-				visibility: hidden;
+				stroke         : white;
+				stroke-linecap : round;
+				stroke-width   : 1;
+				visibility     : hidden;
 			}
 		}
 
