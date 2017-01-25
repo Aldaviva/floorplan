@@ -51,7 +51,22 @@ this.data = (function(){
 	}))();
 
 	var Endpoint = data.Endpoint = Backbone.Model.extend({
-		
+		/**
+		 * @return one of "offline", "in a call", "reserved", or "available"
+		 */
+		getAvailability: function(){
+			var status = this.get('status');
+
+			if((new Date() - (5 * 60 * 1000)) > status.timestamp){
+				return "offline";
+			} else if(status.callActive){
+				return "in a call";
+			} else if(status.reserved){
+				return "reserved";
+			} else {
+				return "available";
+			}
+		}
 	});
 
 	var endpoints = data.endpoints = new (Backbone.Collection.extend({

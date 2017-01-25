@@ -190,19 +190,13 @@ this.Map = (function(){
 		renderEndpointBadge: function(endpoint, status){
 			var badgeEl = this.$(".roomNames .room[endpoint\\:id='"+endpoint.id+"'] .statusBadge").get(0);
 			if(badgeEl){
-				var isAvailable = !status.callActive && !status.reserved;
-				var titleText;
-				svgAddClass(badgeEl, "loaded");
-				if(isAvailable){
-					svgRemoveClass(badgeEl, 'busy');
-					titleText = "available";
-				} else {
-					svgAddClass(badgeEl, 'busy');
-					titleText = status.callActive
-						? "in a call"
-						: "reserved";
-				}
+				var titleText = endpoint.getAvailability();
+				var isAvailable = ("available" === titleText);
+
 				setTitle(badgeEl, titleText);
+				svgAddClass(badgeEl, "loaded");
+				svgRemoveClass(badgeEl, "offline in-a-call reserved available");
+				svgAddClass(badgeEl, endpoint.getAvailability().replace(/\s/g, "-"));
 			}
 		},
 

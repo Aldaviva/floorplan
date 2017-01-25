@@ -35,8 +35,11 @@
 
 				&.loaded {
 					fill: @available_green;
-					&.busy {
+					&.in-a-call, &.reserved {
 						fill: @unavailable_red;
+					}
+					&.offline {
+						fill: @offline_orange;
 					}
 				}
 			}

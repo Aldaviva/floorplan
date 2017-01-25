@@ -90,12 +90,16 @@ this.RoomDetailsView = (function(){
 		},
 
 		renderStatus: function(){
+			var statusBadgeEl = this.els.availabilityStatus.find('.statusBadge');
+			
 			if(this.model.get('status')){
 				this.els.availabilityStatus.find('.statusLabel').text(this.getStatusLabel());
-				this.els.availabilityStatus.find('.statusBadge').toggleClass('busy', this.isBusy());
-				this.els.availabilityStatus.show();
+
+				statusBadgeEl.removeClass("offline in-a-call reserved available");
+				statusBadgeEl.addClass(this.getStatusLabel().replace(/\s/g, "-"));
+				statusBadgeEl.show();
 			} else {
-				this.els.availabilityStatus.hide();
+				statusBadgeEl.hide();
 			}
 		},
 
@@ -110,18 +114,11 @@ this.RoomDetailsView = (function(){
 		},
 
 		getStatusLabel: function(){
-			if(this.model.get('status').callActive){
-				return "in a call";
-			} else if(this.model.get('status').reserved){
-				return "reserved";
-			} else {
-				return "available";
-			}
+			return this.model.getAvailability();
 		},
-
+		
 		isBusy: function(){
-			var endpointStatus = this.model.get('status');
-			return endpointStatus.callActive || endpointStatus.reserved;
+			return "available" !== this.model.getAvailability();
 		},
 
 		onImageLoadSuccess: function(event){
