@@ -87,7 +87,7 @@ this.IntroView = (function(){
 				.then(_.bind(function(rating){
 					this.$('.rating')
 						.css('background-position', '-2px '+(-3 - 18*2*(rating.stars-.5))+'px')
-						.attr('title', rating.stars + ' stars on Yelp\n('+rating.reviews+' reviews)');
+						.attr('title', rating.stars + ' stars on Yelp\n('+rating.reviews+' '+(rating.reviews===1 ? 'review' : 'reviews') + ')');
 				}, this));
 		}
 	});
