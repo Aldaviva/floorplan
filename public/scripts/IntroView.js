@@ -22,10 +22,6 @@ this.IntroView = (function(){
 			address: 'Capital House, 16th Floor\n25 Chapel Street\nLondon, NW1 5DH',
 			mapsUrl: 'https://www.google.com/maps/place/Capital+House,+25+Chapel+St,+Marylebone,+London+NW1+5DT,+UK/@51.5197109,-0.1685118,13z/data=!4m2!3m1!1s0x48761ab422d7edfd:0x3c6ea06442d1f88c'
 		},
-		chi: {
-			address: '8700 W. Bryn Mawr Ave.\nSuite 1010S\nChicago, IL 60631',
-			mapsUrl: 'https://www.google.com/maps/place/8700+W+Bryn+Mawr+Ave,+Chicago,+IL+60631/@41.9828972,-87.9833831,11z/data=!4m5!3m4!1s0x880fc9f72461e3f1:0x9877e1363946375c!8m2!3d41.9828932!4d-87.8433074'
-		},
 		aus: {
 			address: 'Level 21, Tower 2\nDarling Park\n201 Sussex Street\nSydney, NSW 2000\nAustralia',
 			mapsUrl: 'https://www.google.com/maps/place/Darling+Park,+201+Sussex+St,+Sydney+NSW+2000,+Australia/@-33.8722552,151.1684283,13z/data=!4m5!3m4!1s0x6b12ae3941cd3af3:0xfa03a95a382386a5!8m2!3d-33.8722597!4d151.2034472'

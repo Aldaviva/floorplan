@@ -327,7 +327,6 @@ this.ListPane = (function(){
 					$('<a>', { href: 'mv', title: 'view the Mountain View office', text: 'mv' }),
 					$('<a>', { href: 'oc', title: 'view the Orange County office', text: 'oc' }),
 					$('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' }),
-					$('<a>', { href: 'chi', title: 'view the Chicago office', text: 'chi' }),
 					$('<a>', { href: 'ln', title: 'view the London office', text: 'ln' }),
 					$('<a>', { href: 'blr', title: 'view the Bangalore office', text: 'blr' }),
 					$('<a>', { href: 'aus', title: 'view Australia', text: 'aus' }),

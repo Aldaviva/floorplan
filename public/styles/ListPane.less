@@ -1,3 +1,6 @@
+@nav_office_rows: 2;
+@nav_office_cols: ceil(@office_count/2);
+
 .ListPane() {
 	background : @listpane_background;
 	bottom     : 0;
@@ -20,7 +23,7 @@
 			line-height    : @height;
 			text-align     : center;
 			text-transform : uppercase;
-			width          : (@pane_width - (2 * @horiz_padding)) / (@office_count/2);
+			width          : (@pane_width - (2 * @horiz_padding)) / @nav_office_cols;
 
 			&:hover {
 				background-color: @hover_background_color;
