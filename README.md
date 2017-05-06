@@ -21,3 +21,14 @@ Where do people sit in the offices of Blue Jeans Network? What's that person's n
 * Node
 * Q
 * SVG
+
+Installation Instructions (Ubuntu)
+=========================
+
+* cd floorplan-master
+* sudo apt-get install mongodb-server
+* npm install
+* cp config.example.json config.json
+* npm install config.json
+* node index.js
+
