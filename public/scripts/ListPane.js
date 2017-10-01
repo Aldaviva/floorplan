@@ -51,7 +51,10 @@ this.ListPane = (function(){
 		addOne: function(person){
 			var personView = new PersonRow({ model: person }).render();
 			var indexToInsertAt = this.collection.sortedIndex(person);
-			if(indexToInsertAt === 0){
+			if(this.collection.length === 1){
+				//insert as only element
+				$(personView).appendTo(this.ol);
+			} else if(indexToInsertAt === 0){
 				//insert before element 1
 				$(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el);
 			} else {
