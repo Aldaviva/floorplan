@@ -27,34 +27,46 @@ var stormRequestOptions = {
 server.get('/endpoints', function(req, res, next){
 	var url = config.stormApiRoot+'endpoints';
 	// console.log("request to storm ("+url+")...");
-	request(url, stormRequestOptions, function(err, stormResponse, body){
-		// console.log("response from storm", stormResponse);
-		if(err != null){
-			console.warn("failed to get endpoints from Storm", err);
-			res.json(500, err);
-		} else {
-			res.json(body);
-		}
-	});
+	if(isStormIntegrationEnabled){
+		request(url, stormRequestOptions, function(err, stormResponse, body){
+			// console.log("response from storm", stormResponse);
+			if(err != null){
+				console.warn("failed to get endpoints from Storm", err);
+				res.json(500, err);
+			} else {
+				res.json(body);
+			}
+		});
+	} else {
+		res.json([]);
+	}
 });
 
 server.get('/endpoints/status', function(req, res, next){
-	memory_cache.wrap('bjn-endpoints', function(cacheResult){
-		console.log("Requesting endpoint status from Storm...");
-		request(config.stormApiRoot+'endpoints/status', stormRequestOptions, function(err, res, body){
-			cacheResult(err, body);
+	if(isStormIntegrationEnabled()){
+		memory_cache.wrap('bjn-endpoints', function(cacheResult){
+			console.log("Requesting endpoint status from Storm...");
+			request(config.stormApiRoot+'endpoints/status', stormRequestOptions, function(err, res, body){
+				cacheResult(err, body);
+			});
+		}, function(err, result){
+			if(err != null){
+				console.warn("failed to get endpoint status from Storm", err);
+				res.json(500, err);
+			} else {
+				res.json(result);
+			}
 		});
-	}, function(err, result){
-		if(err != null){
-			console.warn("failed to get endpoint status from Storm", err);
-			res.json(500, err);
-		} else {
-			res.json(result);
-		}
-	});
+	} else {
+		res.json([]);
+	}
 });
 
 server.get('/endpoints/:id/photo', function(req, res, next){
 	req.url = '/photos/'+req.params.id+'.jpg';
 	photoStaticHandler(req, res, next);
 });
+
+function isStormIntegrationEnabled(){
+	return config.stormUsername && config.stormUsername.length && config.stormPassword && config.stormPassword.length;
+}
