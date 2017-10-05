@@ -40,6 +40,10 @@ Where do people sit in the offices of Blue Jeans Network? What's that person's n
         make install-deps
     
     This installs [Graphicsmagick](http://www.graphicsmagick.org/) and several NPM modules.
+    
+1. Set permissions so the server can write to the directories where CSS stylesheets and people's photos are saved
+
+        chmod +rwx public/styles data/photos
         
 1. Create a configuration file based on the example
 
