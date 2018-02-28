@@ -1,349 +1,300 @@
 #editor {
-	margin-left: @pane_width + (6 * @grid_size);
-
-	label {
-		display   : block;
-		font-size : 17px;
-	}
-
-	input[type=text], input[type=email], input[type=tel] {
-		background : none;
-		border     : none;
-		color      : black;
-		font-size  : inherit;
-		padding    : 0;
-	}
-
-	.helper_link {
-		font-size: 15px;
-	}
-
-	section {
-		margin-bottom : @editor_magic_size;
-		margin-left   : @editor_photo_size + @editor_magic_size;
-
-		h1 {
-			.gray-text(64%);
-			float          : left;
-			font           : 20px "Knockout 52";
-			margin-left    : -1 * (@editor_magic_size + @editor_photo_size);
-			text-align     : right;
-			text-transform : uppercase;
-			width          : @editor_photo_size;
-		}
-	}
-
-	.basics {
-		margin-bottom : 40px;
-		margin-right  : 6 * @grid_size;
-		margin-top    : 6 * @grid_size;
-		max-width     : 1093px;
-		min-width     : 635px;
-
-		.photo { 
-			.gray-text(35%);
-			float      : left;
-			text-align : right;
-
-			img, canvas {
-				display : block;
-				height  : @editor_photo_size;
-				width   : @editor_photo_size;
-			}
-
-			> div {
-				margin-top: 4px;
-
-				.fileChooserLink {
-					display  : inline-block;
-					overflow : hidden;
-					position : relative;
-
-					input[type=file] {
-						cursor    : pointer;
-						opacity   : 0;
-						position  : absolute;
-						right     : 0;
-						top       : 0;
-						transform : translate(-300px, 0) scale(4);
-					}
-				}
-
-				span {
-					vertical-align: bottom;
-				}
-			}
-		}
-
-		[name=fullname] {
-			.inputBox();
-			font-family : "Knockout 51";
-			font-size   : 88px;
-			height      : 1.1em;
-			padding-top : 4px;
-
-			&.invalid {
-				border-bottom-color: @invalid_color;
-			}
-		}
-
-		[name=title] {
-			.gray-text(35%);
-			.inputBox();
-			font-family : "Knockout 31";
-			font-size   : 37px;
-			height      : 1.1em;
-			margin-top  : 10px;
-		}
-
-		.inputBox(){
-			border-bottom : 1px solid rgba(0,0,0,0.15);
-			display       : block;
-			width         : 100%;
-		}
-
-		.fullname_sizer, .title_sizer {
-			margin-left  : @editor_photo_size + 43px;
-		}
-
-		.remove {
-			float: right;
-			margin-top: 4px;
-
-			&:hover {
-				color: #ff003c;
-			}
-		}
-	}
-
-	.contact {
-		label {
-			@label_text_width : 132px;
-			@label_width      : 420px;
-			border-bottom     : 1px solid rgba(0,0,0,.15);
-			position          : relative;
-			width             : @label_width;
-			white-space       : nowrap;
-
-			span, input {
-				padding-bottom: 4px;
-			}
-
-			span {
-				.gray-text(50%);
-				display        : inline-block;
-				font-family    : "Knockout 32";
-				vertical-align : bottom;
-				width          : @label_text_width;
-			}
-
-			input {
-				cursor      : text; //cursor in padding region
-				width       : @label_width - @label_text_width;
-			}
-
-			.helper_link {
-				@helper_link_width: 110px;
-				bottom   : 4px;
-				position : absolute;
-				right    : -5px - @helper_link_width;
-				width    : @helper_link_width;
-			}
-
-			+ label {
-				input {
-					padding-top : 13px;
-				}
-			}
-
-			&.invalid {
-				border-bottom-color: @invalid_color;
-
-				span {
-					color: fade(@invalid_color, 50%);
-				}
-
-				input {
-					color: @invalid_color;
-				}
-			}
-		}
-	}
-
-	.office, .tags {
-		label {
-			margin-bottom: 14px;
-
-			input[type=radio], input[type=checkbox] {
-				margin-right: 10px;
-			}
-
-			&.disabled {
-				.gray-text(75%);
-			}
-		}
-	}
-
-	.office {
-		@map_height: 125px;
-
-		position: relative;
-		min-height: @map_height;
-
-		.seatChooser {
-			position: absolute;
-			top: 0;
-			left: 220px;
-			text-align: right;
-
-			svg {
-				width: @map_height;
-				height: @map_height;
-			}
-		}
-
-		label {
-			width: 160px;
-		}
-	}
-
-	.tags {
-		.columns {
-			@column_width: 150px;
-			@column_count: 4;
-			/*-webkit-column-count: @column_count;
+    margin-left: @pane_width + (6 * @grid_size);
+    label {
+        display: block;
+        font-size: 17px;
+    }
+    input[type=text],
+    input[type=email],
+    input[type=tel] {
+        background: none;
+        border: none;
+        color: black;
+        font-size: inherit;
+        padding: 0;
+    }
+    .helper_link {
+        font-size: 15px;
+    }
+    section {
+        margin-bottom: @editor_magic_size;
+        margin-left: @editor_photo_size + @editor_magic_size;
+        h1 {
+            .gray-text(64%);
+            float: left;
+            font: 20px "Knockout 52";
+            margin-left: -1 * (@editor_magic_size + @editor_photo_size);
+            text-align: right;
+            text-transform: uppercase;
+            width: @editor_photo_size;
+        }
+    }
+    .basics {
+        margin-bottom: 40px;
+        margin-right: 6 * @grid_size;
+        margin-top: 6 * @grid_size;
+        max-width: 1093px;
+        min-width: 635px;
+        .photo {
+            .gray-text(35%);
+            float: left;
+            text-align: right;
+            img,
+            canvas {
+                display: block;
+                height: @editor_photo_size;
+                width: @editor_photo_size;
+            }
+            >div {
+                margin-top: 4px;
+                .fileChooserLink {
+                    display: inline-block;
+                    overflow: hidden;
+                    position: relative;
+                    input[type=file] {
+                        cursor: pointer;
+                        opacity: 0;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        transform: translate(-300px, 0) scale(4);
+                    }
+                }
+                span {
+                    vertical-align: bottom;
+                }
+            }
+        }
+        [name=fullname] {
+            .inputBox();
+            font-family: "Knockout 51";
+            font-size: 88px;
+            height: 1.1em;
+            padding-top: 4px;
+            &.invalid {
+                border-bottom-color: @invalid_color;
+            }
+        }
+        [name=title] {
+            .gray-text(35%);
+            .inputBox();
+            font-family: "Knockout 31";
+            font-size: 37px;
+            height: 1.1em;
+            margin-top: 10px;
+        }
+        .inputBox() {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            display: block;
+            width: 100%;
+        }
+        .fullname_sizer,
+        .title_sizer {
+            margin-left: @editor_photo_size + 43px;
+        }
+        .remove {
+            float: right;
+            margin-top: 4px;
+            &:hover {
+                color: #ff003c;
+            }
+        }
+    }
+    .contact {
+        label {
+            @label_text_width : 132px;
+            @label_width : 420px;
+            border-bottom: 1px solid rgba(0, 0, 0, .15);
+            position: relative;
+            width: @label_width;
+            white-space: nowrap;
+            span,
+            input {
+                padding-bottom: 4px;
+            }
+            span {
+                .gray-text(50%);
+                display: inline-block;
+                font-family: "Knockout 32";
+                vertical-align: bottom;
+                width: @label_text_width;
+            }
+            input {
+                cursor: text; //cursor in padding region
+                width: @label_width - @label_text_width;
+            }
+            .helper_link {
+                @helper_link_width: 110px;
+                bottom: 4px;
+                position: absolute;
+                right: -5px - @helper_link_width;
+                width: @helper_link_width;
+            }
+            +label {
+                input {
+                    padding-top: 13px;
+                }
+            }
+            &.invalid {
+                border-bottom-color: @invalid_color;
+                span {
+                    color: fade(@invalid_color, 50%);
+                }
+                input {
+                    color: @invalid_color;
+                }
+            }
+        }
+    }
+    .office,
+    .tags {
+        label {
+            margin-bottom: 14px;
+            input[type=radio],
+            input[type=checkbox] {
+                margin-right: 10px;
+            }
+            &.disabled {
+                .gray-text(75%);
+            }
+        }
+    }
+    .office {
+        @map_height: 125px;
+        position: relative;
+        min-height: @map_height;
+        .seatChooser {
+            position: absolute;
+            top: 0;
+            left: 220px;
+            text-align: right;
+            svg {
+                width: @map_height;
+                height: @map_height;
+            }
+        }
+        label {
+            width: 160px;
+        }
+    }
+    .tags {
+        .columns {
+            @column_width: 150px;
+            @column_count: 4;
+            /*-webkit-column-count: @column_count;
 			-moz-column-count: @column_count;
 			column-count: @column_count;*/
-
-			width: @column_count * @column_width;
-			margin-bottom: -14px;
-
-			label {
-				width: @column_width;
-				display: inline-block;
-			}
-		}
-
-	}
-
-	.formControls {
-		@save_button_width: 92px;
-		padding-top: 1px; /*to avoid collapsing sibling margins*/
-		margin-left: @editor_photo_size + @editor_magic_size;
-		margin-bottom: 35px;
-
-		[type=submit] {
-			@submit_margin_top: 0;
-			@submit_border_bottom: 3px;
-			@submit_height: 41px;
-
-			.border-radius(4px);
-			.box-sizing(border-box);
-			
-			.submitButtonColors();
-			border-style     : solid;
-			border-width     : 0 1px @submit_border_bottom;
-			color            : white;
-			cursor           : pointer;
-			display          : inline-block;
-			font             : 17px "Knockout 52";
-			height           : @submit_height + @submit_border_bottom;
-			line-height      : @submit_height;
-			margin-bottom    : 9px;
-			margin-top       : @submit_margin_top;
-			text-align       : center;
-			text-decoration  : none;
-			text-shadow      : 0 1px 0 rgba(0, 0, 0, 0.3);
-			text-transform   : uppercase;
-			width            : @save_button_width;
-
-			&:active {
-				margin-top: @submit_margin_top + @submit_border_bottom;
-				border-bottom-width: 0;
-				height: @submit_height;
-			}
-
-			&[disabled] {
-				.submitButtonColors(100%);
-				cursor: default;
-				opacity: 0.75;
-
-				&:active {
-					margin-top: @submit_margin_top;
-					border-bottom-width: @submit_border_bottom;
-					height: @submit_height + @submit_border_bottom;
-				}
-			}
-		}
-
-		.validationMessage {
-			margin-left: 25px;
-			color: @invalid_color;
-		}
-	}
-
-	.submitButtonColors(@desaturation: 0%){
-		@color: @hot_blue;
-		background-color: desaturate(@color, @desaturation);
-		border-color: desaturate(@color, @desaturation) desaturate(#1562ee, @desaturation) desaturate(#004fe1, @desaturation);
-
-		&:hover {
-			background-color: darken(desaturate(@color, @desaturation), 4%);
-		}
-
-		&[disabled]:hover {
-			background-color: desaturate(@color, @desaturation);
-		}
-	}
-
+            width: @column_count * @column_width;
+            margin-bottom: -14px;
+            label {
+                width: @column_width;
+                display: inline-block;
+            }
+        }
+    }
+    .formControls {
+        @save_button_width: 92px;
+        padding-top: 1px;
+        /*to avoid collapsing sibling margins*/
+        margin-left: @editor_photo_size + @editor_magic_size;
+        margin-bottom: 35px;
+        [type=submit] {
+            @submit_margin_top: 0;
+            @submit_border_bottom: 3px;
+            @submit_height: 41px;
+            .border-radius(4px);
+            .box-sizing(border-box);
+            .submitButtonColors();
+            border-style: solid;
+            border-width: 0 1px @submit_border_bottom;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            font: 17px "Knockout 52";
+            height: @submit_height + @submit_border_bottom;
+            line-height: @submit_height;
+            margin-bottom: 9px;
+            margin-top: @submit_margin_top;
+            text-align: center;
+            text-decoration: none;
+            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            width: @save_button_width;
+            &:active {
+                margin-top: @submit_margin_top + @submit_border_bottom;
+                border-bottom-width: 0;
+                height: @submit_height;
+            }
+            &[disabled] {
+                .submitButtonColors(100%);
+                cursor: default;
+                opacity: 0.75;
+                &:active {
+                    margin-top: @submit_margin_top;
+                    border-bottom-width: @submit_border_bottom;
+                    height: @submit_height + @submit_border_bottom;
+                }
+            }
+        }
+        .validationMessage {
+            margin-left: 25px;
+            color: @invalid_color;
+        }
+    }
+    .submitButtonColors(@desaturation: 0%) {
+        @color: @hot_blue;
+        background-color: desaturate(@color, @desaturation);
+        border-color: desaturate(@color, @desaturation) desaturate(#1562ee, @desaturation) desaturate(#004fe1, @desaturation);
+        &:hover {
+            background-color: darken(desaturate(@color, @desaturation), 4%);
+        }
+        &[disabled]:hover {
+            background-color: desaturate(@color, @desaturation);
+        }
+    }
 }
 
 .seatChooser {
-	&.large {
-		position: fixed;
-		background: rgba(255,255,255,0.95);
-		z-index: 1;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-
-		.map {
-			.box-sizing(border-box);
-			height: 100%;
-			padding: 6 * @grid_size;
-			padding-bottom: 3 * @grid_size;
-		}
-
-		svg {
-			width: 100%;
-			height: 100%;
-		}
-	}
-
-	.cancel {
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: 2*@grid_size 2*@grid_size 6*@grid_size 6*@grid_size;
-		color: black;
-		line-height: 0.45em;
-		font-size: 50px;
-		background: white;
-
-		&:hover {
-			color: @hot_blue;
-		}
-	}
-
-	.hint {
-		position: absolute;
-		top: 0;
-		text-align: center;
-		left: 0;
-		right: 0;
-		line-height: 6 * @grid_size;
-		font-size: 17px;
-		.gray-text(50%);
-	}
+    &.large {
+        position: fixed;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        .map {
+            .box-sizing(border-box);
+            height: 100%;
+            padding: 6 * @grid_size;
+            padding-bottom: 3 * @grid_size;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .cancel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 2*@grid_size 2*@grid_size 6*@grid_size 6*@grid_size;
+        color: black;
+        line-height: 0.45em;
+        font-size: 50px;
+        background: white;
+        &:hover {
+            color: @hot_blue;
+        }
+    }
+    .hint {
+        position: absolute;
+        top: 0;
+        text-align: center;
+        left: 0;
+        right: 0;
+        line-height: 6 * @grid_size;
+        font-size: 17px;
+        .gray-text(50%);
+    }
 }

@@ -1,4 +1,4 @@
-require('./admin');
-require('./people');
-require('./endpoints');
-require('./floorplan');
+require('./admin')
+require('./people')
+require('./endpoints')
+require('./floorplan')

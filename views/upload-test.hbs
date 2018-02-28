@@ -1,110 +1,112 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Upload Test</title>
-	</head>
 
-	<body>
+<head>
+	<meta charset="utf-8" />
+	<title>Upload Test</title>
+</head>
 
-		<span id="upload-control">
-			<a href="#">change photo</a>
-			<input id="upload-file" type="file" name="photo" />
+<body>
 
-			<div class="preview">
-				<img src="/images/photos/5201db41f5f4be9ae57e37a9.jpg" width="162" height="162" />
-			</div>
-		</span>
+	<span id="upload-control">
+		<a href="#">change photo</a>
+		<input id="upload-file" type="file" name="photo" />
 
-		<button type="submit">Save</button>
-		<button class="clear">Clear</button>
+		<div class="preview">
+			<img src="/images/photos/5201db41f5f4be9ae57e37a9.jpg" width="162" height="162" />
+		</div>
+	</span>
 
-		<script src="scripts/lib/jquery.js"></script>
-		<script src="scripts/lib/jquery-ui.js"></script>
-		<script src="scripts/lib/load-image.js"></script>
-		<script src="scripts/lib/jquery.iframe-transport.js"></script>
-		<script src="scripts/lib/jquery.fileupload.js"></script>
-		<script src="scripts/lib/jquery.fileupload-process.js"></script>
-		<script src="scripts/lib/jquery.fileupload-image.js"></script>
+	<button type="submit">Save</button>
+	<button class="clear">Clear</button>
 
-		<script>
-			(function(){
-				var dataToUpload;
+	<script src="scripts/lib/jquery.js"></script>
+	<script src="scripts/lib/jquery-ui.js"></script>
+	<script src="scripts/lib/load-image.js"></script>
+	<script src="scripts/lib/jquery.iframe-transport.js"></script>
+	<script src="scripts/lib/jquery.fileupload.js"></script>
+	<script src="scripts/lib/jquery.fileupload-process.js"></script>
+	<script src="scripts/lib/jquery.fileupload-image.js"></script>
 
-				var uploadControl = $('#upload-control').fileupload({
-					url: '/people/5201db41f5f4be9ae57e37a9/photo',
-					dataType: 'json',
-					autoUpload: false,
-					paramName: 'photo',
-					previewMaxWidth: 162,
-					previewMaxHeight: 162,
-					previewCrop: true
-				});
+	<script>
+		(function () {
+			var dataToUpload;
 
-				uploadControl.on('fileuploadadd', function(event, data){
-					console.info("user chose a file to upload");
-					clearPendingUploads();
-					dataToUpload = data;
-				});
+			var uploadControl = $('#upload-control').fileupload({
+				url: '/people/5201db41f5f4be9ae57e37a9/photo',
+				dataType: 'json',
+				autoUpload: false,
+				paramName: 'photo',
+				previewMaxWidth: 162,
+				previewMaxHeight: 162,
+				previewCrop: true
+			});
 
-				uploadControl.on('fileuploadsend', function(event, data){
-					console.info("uploading file", data.files[0].name);
-				});
+			uploadControl.on('fileuploadadd', function (event, data) {
+				console.info("user chose a file to upload");
+				clearPendingUploads();
+				dataToUpload = data;
+			});
 
-				uploadControl.on('fileuploadfail', function(event, data){
-				    console.error(data.errorThrown);
-				    console.error(data.jqXHR.responseText);
-				});
+			uploadControl.on('fileuploadsend', function (event, data) {
+				console.info("uploading file", data.files[0].name);
+			});
 
-				uploadControl.on('fileuploaddone', function(event, data){
-					var uploadedFile = data.result.files[0];
-					console.info("Finished uploading "+data.files[0].name + " to "+uploadedFile.url);
+			uploadControl.on('fileuploadfail', function (event, data) {
+				console.error(data.errorThrown);
+				console.error(data.jqXHR.responseText);
+			});
+
+			uploadControl.on('fileuploaddone', function (event, data) {
+				var uploadedFile = data.result.files[0];
+				console.info("Finished uploading " + data.files[0].name + " to " + uploadedFile.url);
+				uploadControl.find('.preview')
+					.empty()
+					.append($('<img>')
+						.attr({
+							src: '/images/photos/5201db41f5f4be9ae57e37a9.jpg?' + (+new Date()),
+							width: 162,
+							height: 162
+						}));
+
+			});
+
+			uploadControl.on('fileuploadprocessdone', function (event, data) {
+				var file = data.files[data.index];
+				if (file.preview) {
+					// console.info("preview image", file.preview);
 					uploadControl.find('.preview')
 						.empty()
-						.append($('<img>')
-							.attr({
-								src: '/images/photos/5201db41f5f4be9ae57e37a9.jpg?'+(+new Date()),
-								width: 162,
-								height: 162
-							}));
-
-				});
-
-				uploadControl.on('fileuploadprocessdone', function(event, data){
-					var file = data.files[data.index];
-					if(file.preview){
-						// console.info("preview image", file.preview);
-						uploadControl.find('.preview')
-							.empty()
-							.append(file.preview);
-					}
-				});
-
-				$('#upload-control a').click(function(event){
-					event.preventDefault();
-					//user will click on the invisible file input instead, after some considerable CSS fiddling
-				});
-
-				$('[type=submit]').click(function(event){
-					event.preventDefault();
-
-					if(dataToUpload){
-						dataToUpload.submit();
-					} else {
-						console.warn("Choose a file to upload.");
-					}
-				});
-
-				$('.clear').click(function(event){
-					event.preventDefault();
-					clearPendingUploads();
-				});
-
-				function clearPendingUploads(){
-					dataToUpload && dataToUpload.abort();
-					dataToUpload = null;
+						.append(file.preview);
 				}
-			})();
-		</script>
-	</body>
+			});
+
+			$('#upload-control a').click(function (event) {
+				event.preventDefault();
+				//user will click on the invisible file input instead, after some considerable CSS fiddling
+			});
+
+			$('[type=submit]').click(function (event) {
+				event.preventDefault();
+
+				if (dataToUpload) {
+					dataToUpload.submit();
+				} else {
+					console.warn("Choose a file to upload.");
+				}
+			});
+
+			$('.clear').click(function (event) {
+				event.preventDefault();
+				clearPendingUploads();
+			});
+
+			function clearPendingUploads() {
+				dataToUpload && dataToUpload.abort();
+				dataToUpload = null;
+			}
+		})();
+	</script>
+</body>
+
 </html>

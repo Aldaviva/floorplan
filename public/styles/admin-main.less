@@ -1,115 +1,106 @@
 body {
-	background : white url('../images/blueprint_white.gif') top right;
-	color      : black;
-	font       : 15px "Knockout 31";
+    background: white url('../images/blueprint_white.gif') top right;
+    color: black;
+    font: 15px "Knockout 31";
 }
 
-a { 
-	color           : @hot_blue;
-	text-decoration : none;
+a {
+    color: @hot_blue;
+    text-decoration: none;
 }
 
 .vignette {
-	position : fixed;
-	top      : 0;
-	bottom   : 0;
-	left     : 0;
-	right    : 0;
-	z-index  : -1;
-
-	/* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+25,0.75+100;Custom */
-	@edge_opacity: 0.3;
-	@transparent_stop: 32%;
-	background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,1) @transparent_stop, rgba(255,255,255,@edge_opacity) 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(@transparent_stop,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,@edge_opacity))); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) @transparent_stop,rgba(255,255,255,@edge_opacity) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) @transparent_stop,rgba(255,255,255,@edge_opacity) 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) @transparent_stop,rgba(255,255,255,@edge_opacity) 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,1) @transparent_stop,rgba(255,255,255,@edge_opacity) 100%); /* W3C */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    /* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+25,0.75+100;Custom */
+    @edge_opacity: 0.3;
+    @transparent_stop: 32%;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) @transparent_stop, rgba(255, 255, 255, @edge_opacity) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(@transparent_stop, rgba(255, 255, 255, 1)), color-stop(100%, rgba(255, 255, 255, @edge_opacity)));
+    /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) @transparent_stop, rgba(255, 255, 255, @edge_opacity) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) @transparent_stop, rgba(255, 255, 255, @edge_opacity) 100%);
+    /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) @transparent_stop, rgba(255, 255, 255, @edge_opacity) 100%);
+    /* IE10+ */
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) @transparent_stop, rgba(255, 255, 255, @edge_opacity) 100%);
+    /* W3C */
 }
 
 .goToFloorplan {
-	background  : url('../images/admin_page_corner.png') no-repeat top right;
-	height      : 113px;
-	position    : absolute;
-	right       : 0;
-	text-indent : -9999px;
-	top         : 0;
-	width       : 113px;
-
-	&:hover {
-		background-image: url('../images/admin_page_corner_hover.png');
-	}
+    background: url('../images/admin_page_corner.png') no-repeat top right;
+    height: 113px;
+    position: absolute;
+    right: 0;
+    text-indent: -9999px;
+    top: 0;
+    width: 113px;
+    &:hover {
+        background-image: url('../images/admin_page_corner_hover.png');
+    }
 }
 
 #listPane {
-	@listpane_background: none;
-	.ListPane();
-	border-right: 1px solid @light_line_color;
-
-	.tags {
-		display: none;
-	}
-
-	.queryContainer {
-		top: @grid_size;
-	}
-
-	.query {
-		.gray-text(0.3);
-		background-image    : url('../images/magnifier-gray.png');
-		border-bottom-color : @light_line_color;
-		border-top-color    : transparent;
-
-		.placeholder(){
-			.gray-text(0.6);
-			opacity: 1;
-		}
-
-		&::-webkit-input-placeholder {
-			.placeholder();
-		}
-
-		&:-moz-placeholder {
-			.placeholder();
-		}
-
-		&::-moz-placeholder {
-			.placeholder();
-		}
-
-		&:-ms-input-placeholder {
-			.placeholder();
-		}
-	}
-
-	.people {
-		bottom : 2 * @grid_size;
-		top    : 8 * @grid_size;
-
-		.person .name {
-			opacity: 0.7;
-		}
-
-		.person.add {
-			.name {
-				/*display: block;*/
-				/*text-align: center;*/
-				/*opacity: 0.5;*/
-			}
-
-			.icon {
-				background-color : #2f3d6c;
-				color            : #9aa7d2;
-				display          : inline-block;
-				font-size        : 88px;
-				text-align       : center;
-				vertical-align   : top;
-			}
-		}
-	}
-
-	nav {
-		display: none;
-	}
+    @listpane_background: none;
+    .ListPane();
+    border-right: 1px solid @light_line_color;
+    .tags {
+        display: none;
+    }
+    .queryContainer {
+        top: @grid_size;
+    }
+    .query {
+        .gray-text(0.3);
+        background-image: url('../images/magnifier-gray.png');
+        border-bottom-color: @light_line_color;
+        border-top-color: transparent;
+        .placeholder() {
+            .gray-text(0.6);
+            opacity: 1;
+        }
+        &::-webkit-input-placeholder {
+            .placeholder();
+        }
+        &:-moz-placeholder {
+            .placeholder();
+        }
+        &::-moz-placeholder {
+            .placeholder();
+        }
+        &:-ms-input-placeholder {
+            .placeholder();
+        }
+    }
+    .people {
+        bottom: 2 * @grid_size;
+        top: 8 * @grid_size;
+        .person .name {
+            opacity: 0.7;
+        }
+        .person.add {
+            .name {
+                /*display: block;*/
+                /*text-align: center;*/
+                /*opacity: 0.5;*/
+            }
+            .icon {
+                background-color: #2f3d6c;
+                color: #9aa7d2;
+                display: inline-block;
+                font-size: 88px;
+                text-align: center;
+                vertical-align: top;
+            }
+        }
+    }
+    nav {
+        display: none;
+    }
 }
