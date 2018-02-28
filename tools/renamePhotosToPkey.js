@@ -1,8 +1,6 @@
 var fs = require('fs')
 var mongo = require('mongodb')
 
-var PHOTO_DIR = './photos/'
-
 process.chdir(__dirname)
 
 mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, db) {
@@ -27,10 +25,10 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
 
 function onPerson (person) {
   // console.log("%s -> %s", person._id, person.fullname);
-  var oldPhotoPath = PHOTO_DIR + person.fullname + '.jpg'
+  var oldPhotoPath = global.dirPhotos + person.fullname + '.jpg'
   fs.exists(oldPhotoPath, function (isExtant) {
     if (isExtant) {
-      var newPhotoPath = PHOTO_DIR + person._id + '.jpg'
+      var newPhotoPath = global.dirPhotos + person._id + '.jpg'
       console.log('mv %s %s', oldPhotoPath, newPhotoPath)
       fs.rename(oldPhotoPath, newPhotoPath)
     }

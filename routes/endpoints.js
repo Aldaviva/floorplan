@@ -1,10 +1,10 @@
-var cacheManager = require('cache-manager')
-var config = require('node-config')
-var express = require('express')
-var request = require('request')
 require('../lib/server')
+var cacheManager = require('cache-manager')
+var express = require('express')
+var path = require('path')
+var request = require('request')
 
-var photoStaticHandler = express.static('./data', { maxAge: 4 * 60 * 60 * 1000 })
+var photoStaticHandler = express.static(path.join(global.dirRoot, 'data'), { maxAge: 4 * 60 * 60 * 1000 })
 
 var memoryCache = cacheManager.caching({
   store: 'memory',
@@ -14,8 +14,8 @@ var memoryCache = cacheManager.caching({
 
 var stormRequestOptions = {
   auth: {
-    'username': config.stormUsername,
-    'password': config.stormPassword,
+    'username': global.stormUsername,
+    'password': global.stormPassword,
     'sendImmediately': true
   },
   json: true,
@@ -25,7 +25,7 @@ var stormRequestOptions = {
 }
 
 global.router.get('/endpoints', function (req, res, next) {
-  var url = config.stormApiRoot + 'endpoints'
+  var url = global.config.stormApiRoot + 'endpoints'
   // console.log("request to storm ("+url+")...");
   if (isStormIntegrationEnabled) {
     request(url, stormRequestOptions, function (err, stormResponse, body) {
@@ -46,7 +46,7 @@ global.router.get('/endpoints/status', function (req, res, next) {
   if (isStormIntegrationEnabled()) {
     memoryCache.wrap('bjn-endpoints', function (cacheResult) {
       console.log('Requesting endpoint status from Storm...')
-      request(config.stormApiRoot + 'endpoints/status', stormRequestOptions, function (err, res, body) {
+      request(global.config.stormApiRoot + 'endpoints/status', stormRequestOptions, function (err, res, body) {
         cacheResult(err, body)
       })
     }, function (err, result) {
@@ -68,5 +68,5 @@ global.router.get('/endpoints/:id/photo', function (req, res, next) {
 })
 
 function isStormIntegrationEnabled () {
-  return config.stormUsername && config.stormUsername.length && config.stormPassword && config.stormPassword.length
+  return global.stormUsername && global.stormUsername.length && global.stormPassword && global.stormPassword.length
 }

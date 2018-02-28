@@ -1,2 +1,2 @@
-process.chdir(__dirname);
-require('./lib/server');
+process.chdir(__dirname)
+require('./lib/server')

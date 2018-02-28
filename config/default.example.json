@@ -1,7 +1,12 @@
 {
-	"wwwPort": 3001,
+	"companyName": "The Company",
 	"dbHost": "localhost",
-	"dbPort": 27017,
 	"dbName": "floorplan",
-	"mountPoint": "/"
+	"dbPort": 27017,
+	"dirData": "/opt/floorplan/data",
+	"dirPublic": "/opt/floorplan/public",
+	"dirRoot": "/opt/floorplan",
+	"logFile": "/var/log/floorplan.log",
+	"mountPoint": "/",
+	"wwwPort": 3001
 }

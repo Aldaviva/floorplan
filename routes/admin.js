@@ -1,13 +1,12 @@
+require('../lib/server')
 var _ = require('lodash')
-var config = require('node-config')
 var fs = require('fs')
 var path = require('path')
 var Q = require('q')
-require('../lib/server')
 
 var OFFICE_IDS
 
-fs.readdir(global.mapsDir, function (err, files) {
+fs.readdir(global.dirMaps, function (err, files) {
   if (err) throw err
   OFFICE_IDS = files.map(function (filename) {
     return path.basename(filename, '.svg')
@@ -16,7 +15,7 @@ fs.readdir(global.mapsDir, function (err, files) {
 
 var renderAdmin = function (req, res, next) {
   var svgReadPromises = OFFICE_IDS.map(function (officeId) {
-    var svgPath = path.join(global.mapsDir, officeId + '.svg')
+    var svgPath = path.join(global.dirMaps, officeId + '.svg')
     return Q.nfcall(fs.readFile, svgPath)
   })
 
@@ -27,7 +26,7 @@ var renderAdmin = function (req, res, next) {
       var context = {
         svgs: svgMap,
         config: JSON.stringify({
-          mountPoint: config.mountPoint
+          mountPoint: global.config.mountPoint
         })
       }
       res.render('admin', context)

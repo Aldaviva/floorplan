@@ -1,9 +1,8 @@
+require('../lib/server')
 var _ = require('lodash')
-var config = require('node-config')
 var fs = require('fs')
 var path = require('path')
 var Q = require('q')
-require('../lib/server')
 
 var OFFICE_IDS
 var OFFICE_NAMES = {
@@ -19,7 +18,7 @@ var OFFICE_NAMES = {
 OFFICE_NAMES.mv2 = OFFICE_NAMES.mv
 OFFICE_NAMES.mv3 = OFFICE_NAMES.mv
 
-fs.readdir(global.mapsDir, function (err, files) {
+fs.readdir(global.dirMaps, function (err, files) {
   if (err) throw err
   OFFICE_IDS = files.map(function (filename) {
     return path.basename(filename, '.svg')
@@ -30,7 +29,7 @@ var renderFloorplan = function (req, res, next) {
   var officeId = req.params.office || 'mv'
 
   if (_.contains(OFFICE_IDS, officeId)) {
-    var svgPath = path.join(global.mapsDir, officeId + '.svg')
+    var svgPath = path.join(global.dirMaps, officeId + '.svg')
     var svgReadPromise = Q.nfcall(fs.readFile, svgPath)
 
     Q.all([
@@ -40,7 +39,7 @@ var renderFloorplan = function (req, res, next) {
         officeId: officeId,
         officeName: OFFICE_NAMES[officeId],
         svg: svg,
-        config: JSON.stringify(_.pick(config, ['mountPoint', 'stormApiRoot']))
+        config: JSON.stringify(_.pick(global.config, ['mountPoint', 'stormApiRoot']))
       }
       res.render('floorplan', context)
     }).fail(next)

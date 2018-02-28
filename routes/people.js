@@ -1,15 +1,14 @@
+require('../lib/server')
 var _ = require('lodash')
-var config = require('node-config')
 var express = require('express')
 var path = require('path')
 var personRepository = require('../lib/personRepository')
 var photoManager = require('../lib/photoManager')
 var url = require('url')
-require('../lib/server')
 
 var FIELD_WRITE_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'tags', 'linkedInId', 'mobilePhone', 'workPhone']
 
-var photoStaticHandler = express.static('./data', { maxAge: 4 * 60 * 60 * 1000 })
+var photoStaticHandler = express.static(path.join(global.dirRoot, 'data'), { maxAge: 4 * 60 * 60 * 1000 })
 
 global.router.get('/people', function (req, res, next) {
   personRepository.find(req.query)
@@ -70,7 +69,7 @@ global.router.post('/people/:id/photo', function (req, res, next) {
       var imageUrl = url.format({
         protocol: req.protocol,
         host: req.get('host'),
-        pathname: config.mountPoint + '/people/' + personId + '/photo'
+        pathname: global.mountPoint + '/people/' + personId + '/photo'
       })
 
       var payload = { files: [{
