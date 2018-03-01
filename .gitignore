@@ -9,3 +9,4 @@ data/photos/*.jpg
 tools/*.json
 config/default.json
 config/config.json
+.eslintrc.json

@@ -1,4 +1,5 @@
-require('../lib/server')
+// Routing: lib/server.js <- routes/index.js <- this file
+
 var _ = require('lodash')
 var express = require('express')
 var path = require('path')
@@ -10,13 +11,13 @@ var FIELD_WRITE_WHITELIST = ['fullname', 'desk', 'office', 'email', 'title', 'ta
 
 var photoStaticHandler = express.static(path.join(global.dirRoot, 'data'), { maxAge: 4 * 60 * 60 * 1000 })
 
-global.router.get('/people', function (req, res, next) {
+global.app.get('/people', function (req, res, next) {
   personRepository.find(req.query)
     .then(res.send.bind(res))
     .fail(next)
 })
 
-global.router.get('/people/:id', function (req, res, next) {
+global.app.get('/people/:id', function (req, res, next) {
   personRepository.findOne(req.params.id)
     .then(function (result) {
       if (!result) {
@@ -28,14 +29,14 @@ global.router.get('/people/:id', function (req, res, next) {
     .fail(next)
 })
 
-global.router.post('/people', function (req, res, next) {
+global.app.post('/people', function (req, res, next) {
   var sanitizedBody = _.pick(req.body, FIELD_WRITE_WHITELIST)
   personRepository.save(sanitizedBody)
     .then(res.send.bind(res))
     .fail(next)
 })
 
-global.router.put('/people/:id', function (req, res, next) {
+global.app.put('/people/:id', function (req, res, next) {
   var sanitizedBody = _.pick(req.body, FIELD_WRITE_WHITELIST)
   sanitizedBody._id = req.params.id
   personRepository.save(sanitizedBody)
@@ -43,7 +44,7 @@ global.router.put('/people/:id', function (req, res, next) {
     .fail(next)
 })
 
-global.router.delete('/people/:id', function (req, res, next) {
+global.app.delete('/people/:id', function (req, res, next) {
   personRepository.remove(req.params.id)
     .then(function (numRemoved) {
       res.send(204)
@@ -51,13 +52,13 @@ global.router.delete('/people/:id', function (req, res, next) {
     .fail(next)
 })
 
-global.router.get(/^\/people\/(\w+)\/photo(?:\.jpg)?$/, function (req, res, next) {
+global.app.get(/^\/people\/(\w+)\/photo(?:\.jpg)?$/, function (req, res, next) {
   var id = req.params[0]
   req.url = '/photos/' + id + '.jpg'
   photoStaticHandler(req, res, next)
 })
 
-global.router.post('/people/:id/photo', function (req, res, next) {
+global.app.post('/people/:id/photo', function (req, res, next) {
   var uploadedFile = req.files.photo
   var tempPath = uploadedFile.path
   var personId = req.params.id

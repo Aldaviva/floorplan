@@ -1,4 +1,5 @@
-require('../lib/server')
+// Routing: lib/server.js <- routes/index.js <- this file
+
 var _ = require('lodash')
 var fs = require('fs')
 var path = require('path')
@@ -48,8 +49,7 @@ var renderFloorplan = function (req, res, next) {
   }
 }
 
-global.router.get('/:office', renderFloorplan)
-
-global.router.get('/', function (req, res) {
+global.app.get('/:office', renderFloorplan)
+global.app.get('/', function (req, res) {
   res.redirect('mv')
 })

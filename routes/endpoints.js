@@ -1,4 +1,5 @@
-require('../lib/server')
+// Routing: lib/server.js <- routes/index.js <- this file
+
 var cacheManager = require('cache-manager')
 var express = require('express')
 var path = require('path')
@@ -24,14 +25,14 @@ var stormRequestOptions = {
   timeout: 3000
 }
 
-global.router.get('/endpoints', function (req, res, next) {
+global.app.get('/endpoints', function (req, res) {
   var url = global.config.stormApiRoot + 'endpoints'
   // console.log("request to storm ("+url+")...");
   if (isStormIntegrationEnabled) {
     request(url, stormRequestOptions, function (err, stormResponse, body) {
       // console.log("response from storm", stormResponse);
       if (err != null) {
-        console.warn('failed to get endpoints from Storm', err)
+        global.logging.log('warn', 'failed to get endpoints from Storm', err)
         res.json(500, err)
       } else {
         res.json(body)
@@ -42,16 +43,16 @@ global.router.get('/endpoints', function (req, res, next) {
   }
 })
 
-global.router.get('/endpoints/status', function (req, res, next) {
+global.app.get('/endpoints/status', function (req, res) {
   if (isStormIntegrationEnabled()) {
     memoryCache.wrap('bjn-endpoints', function (cacheResult) {
-      console.log('Requesting endpoint status from Storm...')
+      global.logging.log('info', 'Requesting endpoint status from Storm...')
       request(global.config.stormApiRoot + 'endpoints/status', stormRequestOptions, function (err, res, body) {
         cacheResult(err, body)
       })
     }, function (err, result) {
       if (err != null) {
-        console.warn('failed to get endpoint status from Storm', err)
+        global.logging.log('warn', 'failed to get endpoint status from Storm', err)
         res.json(500, err)
       } else {
         res.json(result)
@@ -62,9 +63,9 @@ global.router.get('/endpoints/status', function (req, res, next) {
   }
 })
 
-global.router.get('/endpoints/:id/photo', function (req, res, next) {
+global.app.get('/endpoints/:id/photo', function (req, res) {
   req.url = '/photos/' + req.params.id + '.jpg'
-  photoStaticHandler(req, res, next)
+  photoStaticHandler(req, res)
 })
 
 function isStormIntegrationEnabled () {

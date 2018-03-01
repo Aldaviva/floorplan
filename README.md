@@ -1,7 +1,7 @@
 Floorplan
 =========
 
-Where do people sit in the offices of Blue Jeans Network? What's that person's name, whose face I remember but never really met? I've heard of this person, but I don't know their face. Where are the different teams grouped? What is A2's email address?
+Where do people sit in what offices? What's that person's name, whose face I remember but never really met? I've heard of this person, but I don't know their face. Where are the different teams grouped? What is A2's email address? Originally designed for use at [Blue Jeans](https://www.bluejeans.com/), but modified by others as well.
 
 ### Floorplan view
 ![Floorplan](https://aldaviva.com/portfolio/artwork/floorplan.jpg)
@@ -130,7 +130,7 @@ I find that the easiest way to generate the SVG files is to
 ## Work-in-Progress
 
 * Finish transitioning to Express 4.0.
-* Finish upgrading MongoDB code.
+* Validate updated MongoDB code.
 * Account for old JS libraries on the front-end.
 * Verify that an Imagemagick install can work in place of a Graphicsmagick one.
 * Actually make use of "companyName" on the front-end.

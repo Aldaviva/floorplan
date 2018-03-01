@@ -1,3 +1,4 @@
+// Routing: lib/server.js <- routes/index.js <- this file
 
 /*
  * GET users listing.

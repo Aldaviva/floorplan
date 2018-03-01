@@ -1,4 +1,5 @@
-require('../lib/server')
+// Routing: lib/server.js <- routes/index.js <- this file
+
 var _ = require('lodash')
 var fs = require('fs')
 var path = require('path')
@@ -33,5 +34,5 @@ var renderAdmin = function (req, res, next) {
     }).fail(next)
 }
 
-global.router.get('/admin/', renderAdmin)
-global.router.get('/admin/:id', renderAdmin)
+global.app.get('/admin/', renderAdmin)
+global.app.get('/admin/:id', renderAdmin)
