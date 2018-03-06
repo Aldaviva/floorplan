@@ -1,5 +1,8 @@
 // Starting directory should match root directory in config file
 process.chdir(__dirname)
 
-// Chain: index <- server <- database <- config
+// Seed global configuration
+require('./lib/config')
+
+// Start server
 require('./lib/server')

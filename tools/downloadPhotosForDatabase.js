@@ -21,7 +21,7 @@ function getSource (path, callback) {
       cookie: linkedInCookies
     }
   }, function (res) {
-    console.log(res.statusCode, path)
+    global.logger.log('info', res.statusCode, path)
     var body = ''
     res.on('data', function (chunk) {
       body += chunk
@@ -36,7 +36,7 @@ function saveUrlToDisk (url, filePath, callback) {
   if (!fs.existsSync(filePath)) {
     var fileStream = fs.createWriteStream(filePath)
     http.get(url, function (res) {
-      console.log('GET ' + url + ': ' + res.statusCode)
+      global.logger.log('info', 'GET ' + url + ': ' + res.statusCode)
       res.on('data', function (chunk) {
         fileStream.write(chunk)
       })
@@ -49,15 +49,13 @@ function saveUrlToDisk (url, filePath, callback) {
 }
 
 mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, db) {
-  if (err) throw err
-
+  if (err) global.logger.log('error', err)
   db.collection('people', function (err, coll) {
-    if (err) throw err
+    if (err) global.logger.log('error', err)
     coll.find({ office: 'blr', linkedInId: { $exists: true }}, function (err, cursor) {
-      if (err) throw err
+      if (err) global.logger.log('error', err)
       cursor.each(function (err, person) {
-        if (err) throw err
-
+        if (err) global.logger.log('error', err)
         if (person == null) {
           db.close()
           return
@@ -71,11 +69,11 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
             if (photoUrl) {
               saveUrlToDisk(photoUrl[1], photoFilename)
             } else {
-              console.log(person.fullname + " doesn't have a LinkedIn photo.")
+              global.logger.log('info', person.fullname + " doesn't have a LinkedIn photo.")
             }
           })
         } else {
-          console.log(person.fullname + ' already has a photo, skipping.')
+          global.logger.log('info', person.fullname + ' already has a photo, skipping.')
         }
       })
     })

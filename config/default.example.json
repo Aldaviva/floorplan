@@ -1,12 +1,22 @@
 {
-	"companyName": "The Company",
-	"dbHost": "localhost",
-	"dbName": "floorplan",
-	"dbPort": 27017,
-	"dirData": "/opt/floorplan/data",
-	"dirPublic": "/opt/floorplan/public",
-	"dirRoot": "/opt/floorplan",
-	"logFile": "/var/log/floorplan.log",
-	"mountPoint": "/",
-	"wwwPort": 3001
+  "companyName": "The Company",
+  "dbHost": "localhost",
+  "dbName": "floorplan",
+  "dbPort": 27017,
+  "dirData": "/opt/floorplan/data",
+  "dirPublic": "/opt/floorplan/public",
+  "dirRoot": "/opt/floorplan",
+  "logFile": "/var/log/floorplan.log",
+  "mountPoint": "/",
+  "wwwPort": 3001,
+  "officeNames": {
+    "mv": "Mountain View",
+    "sf": "San Francisco",
+    "oc": "Orange County",
+    "blr": "Bangalore",
+    "ln": "London",
+    "chi": "Chicago",
+    "aus": "Australia",
+    "remote": "remote workers"
+  }
 }
