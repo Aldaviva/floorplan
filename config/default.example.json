@@ -7,6 +7,7 @@
   "dirPublic": "/opt/floorplan/public",
   "dirRoot": "/opt/floorplan",
   "logFile": "/var/log/floorplan.log",
+  "logLevel": "info",
   "mountPoint": "/",
   "wwwPort": 3001,
   "officeNames": {

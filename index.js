@@ -4,5 +4,5 @@ process.chdir(__dirname)
 // Seed global configuration
 require('./lib/config')
 
-// Start server
-require('./lib/server')
+// Start app
+require('./lib/app')
