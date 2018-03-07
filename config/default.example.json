@@ -10,14 +10,14 @@
   "logLevel": "info",
   "mountPoint": "/",
   "wwwPort": 3001,
-  "officeNames": {
-    "mv": "Mountain View",
-    "sf": "San Francisco",
-    "oc": "Orange County",
-    "blr": "Bangalore",
-    "ln": "London",
-    "chi": "Chicago",
-    "aus": "Australia",
-    "remote": "remote workers"
-  }
+	"offices": [
+		{"officeId":"mv", "name": "Mountain View", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"sf", "name": "San Francisco", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"oc", "name": "Orange County", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"blr", "name": "Bangalore", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"ln", "name": "London", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"chi", "name": "Chicago", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"aus", "name": "Australia", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeId":"remote", "name": "remote workers", "address": "", "phone": "", "fax": "", "email": ""}
+	]
 }
