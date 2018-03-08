@@ -5,7 +5,7 @@ process.chdir(__dirname)
 require('./lib/config')
 
 // Start database
-var database = require('./lib/database')
+const database = require('./lib/database')
 database.connect()
 
 // Start app

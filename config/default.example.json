@@ -6,6 +6,7 @@
   "dirData": "/opt/floorplan/data",
   "dirPublic": "/opt/floorplan/public",
   "dirRoot": "/opt/floorplan",
+  "dirViews": "/opt/floorplan/views",
   "logFile": "/var/log/floorplan.log",
   "logLevel": "info",
   "mountPoint": "/",

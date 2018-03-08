@@ -1,0 +1,20 @@
+===== General =====
+* https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
+* https://www.sitepoint.com/preparing-ecmascript-6-let-const/
+* https://github.com/lorenwest/node-config/
+* https://github.com/winstonjs/winston/tree/2.4.0
+
+===== Express routing & operation =====
+* https://github.com/senchalabs/connect
+* https://expressjs.com/en/guide/migrating-4.html
+* https://blog.risingstack.com/your-first-node-js-http-server/
+* https://www.terlici.com/2014/09/29/express-router.html
+
+===== MongoDB =====
+* http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/
+* https://stackoverflow.com/questions/47662220/db-collection-is-not-a-function-when-using-mongoclient-v3-0?rq=1
+* https://www.terlici.com/2015/04/03/mongodb-node-express.html
+
+===== Handlebars ====
+* http://derpturkey.com/handlebars-templates-with-express-4/
+* https://github.com/barc/express-hbs
