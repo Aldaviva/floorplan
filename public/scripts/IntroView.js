@@ -88,5 +88,4 @@ this.IntroView = (function () {
   })
 
   return IntroView
-
 })()

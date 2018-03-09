@@ -66,5 +66,4 @@ this.DetailsPane = (function () {
   })
 
   return DetailsPane
-
 })()

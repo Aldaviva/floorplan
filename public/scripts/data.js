@@ -24,7 +24,6 @@ this.data = (function () {
       var matches = profileUrl.match(/linkedin\.com\/(in\/[A-Za-z0-9\-_]+)/)
       if (matches) {
         profileId = matches[1]
-
       } else {
         matches = profileUrl.match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/)
         if (matches) {
@@ -57,13 +56,13 @@ this.data = (function () {
       var status = this.get('status')
 
       if ((new Date() - (5 * 60 * 1000)) > status.timestamp) {
-        return 'offline';
+        return 'offline'
       } else if (status.callActive) {
-        return 'in a call';
+        return 'in a call'
       } else if (status.reserved) {
-        return 'reserved';
+        return 'reserved'
       } else {
-        return 'available';
+        return 'available'
       }
     }
   })

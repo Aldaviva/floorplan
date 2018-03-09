@@ -82,5 +82,4 @@ this.PersonDetailsView = (function () {
   }
 
   return PersonDetailsView
-
 })()

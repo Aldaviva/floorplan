@@ -11,7 +11,6 @@
   data.people.fetch({ reset: true, success: initDeepLinking })
   data.endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
 
-
   function render () {
     listPane = new ListPane({ el: $('#listPane')[0], collection: data.people })
     detailsPane = new DetailsPane({ el: $('#detailsPane')[0] })
@@ -84,7 +83,7 @@
     }
 
     if (personToActivate) {
-      mediator.publish('activatePerson', personToActivate) //TODO should we skip history here?
+      mediator.publish('activatePerson', personToActivate) // TODO should we skip history here?
     } else {
       detailsPane.toggleIntro(true)
     }

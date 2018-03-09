@@ -10,4 +10,4 @@ _(people).filter(function (person) {
   .sortBy()
   .forEach(function (name) {
     console.log(name)
-})
+  })

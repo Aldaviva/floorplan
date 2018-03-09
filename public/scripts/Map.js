@@ -86,7 +86,7 @@ this.Map = (function () {
       if (person.get('office') == this.options.office) {
         this.photosGroup.append(this.createAndRenderPersonIcon(person))
       }
-      this.renderActiveSeat(null) //remove blue active seat marker when leaving an office
+      this.renderActiveSeat(null) // remove blue active seat marker when leaving an office
     },
 
     createAndRenderPersonIcon: function (person) {
@@ -117,11 +117,11 @@ this.Map = (function () {
       switch (this.options.office) {
         case 'mv':
           window.location = (svgHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
-          break;
+          break
         case 'mv2':
         case 'mv3':
           window.location = 'mv'
-          break;
+          break
         default:
           break
       }
@@ -133,8 +133,8 @@ this.Map = (function () {
       var peopleToHide = (tagsToShow != null)
         ? this.collection.filter(function (person) {
           var personTags = person.get('tags')
-            return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
-          })
+          return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
+        })
         : []
 
       this.photosGroup.children().each(function (index, photoEl) {
@@ -178,7 +178,7 @@ this.Map = (function () {
     },
 
     renderActiveSeat: function (desk) {
-      var activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) //LOL chrome SVG attribute selectors
+      var activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) // LOL chrome SVG attribute selectors
       activeSeatEl && svgRemoveClass(activeSeatEl, 'active')
 
       if (_.isNumber(desk)) {
@@ -190,7 +190,7 @@ this.Map = (function () {
       var badgeEl = this.$(".roomNames .room[endpoint\\:id='" + endpoint.id + "'] .statusBadge").get(0)
       if (badgeEl) {
         var titleText = endpoint.getAvailability()
-        var isAvailable = ('available' === titleText)
+        var isAvailable = (titleText === 'available')
 
         setTitle(badgeEl, titleText)
         svgAddClass(badgeEl, 'loaded')
@@ -335,5 +335,4 @@ this.Map = (function () {
   }
 
   return Map
-
 })()

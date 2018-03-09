@@ -3,6 +3,7 @@
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
 * https://github.com/lorenwest/node-config/
 * https://github.com/winstonjs/winston/tree/2.4.0
+* http://exploringjs.com/es6/ch_promises.html
 
 ===== Express routing & operation =====
 * https://github.com/senchalabs/connect

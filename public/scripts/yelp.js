@@ -54,5 +54,4 @@ this.yelp = (function () {
   return {
     getRating: getRating
   }
-
 })()

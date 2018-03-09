@@ -121,7 +121,6 @@ this.Editor = (function () {
         }
 
         imgEl.attr('src', this.model.getPhotoPath())
-
       } else if (_.isElement(canvas) && canvas.nodeName == 'CANVAS') {
         this.photoUploadControl.find('canvas, img').remove()
         this.photoUploadControl.prepend(canvas)
@@ -133,11 +132,10 @@ this.Editor = (function () {
       if (this.$('.formControls [type=submit]').attr('disabled')) {
         // model and photo are saved, nothing to do here
         mediator.publish('activatePersonConfirmed', newModel, opts)
-
       } else if (window.confirm('You have unsaved changes. Are you sure you want to discard these changes?')) {
         if (!this.model.isNew()) {
           this.model.fetch({ success: function (model) {
-            model.changed = {} //model is now synced with server, there are no changes.
+            model.changed = {} // model is now synced with server, there are no changes.
           }})
         }
         mediator.publish('activatePersonConfirmed', newModel, opts)
@@ -151,7 +149,7 @@ this.Editor = (function () {
       this.updatePhotoUploadUrl()
 
       var renderPerson = _.bind(function () {
-        model.changed = {} //model is now synced with server, there are no changes.
+        model.changed = {} // model is now synced with server, there are no changes.
         this.render()
 
         this.$('.validationMessage').hide()
@@ -188,7 +186,7 @@ this.Editor = (function () {
     },
 
     onSave: function (result) {
-      this.model.changed = {} //model is now synced with server, there are no changes.
+      this.model.changed = {} // model is now synced with server, there are no changes.
       var deferred = Q.defer()
 
       this.updatePhotoUploadUrl()
@@ -241,8 +239,7 @@ this.Editor = (function () {
 
         changeSet[attributeName] = attributeValue
         this.model.set(changeSet)
-        this.render() //update coerced values. side effect: blows away invalid values
-
+        this.render() // update coerced values. side effect: blows away invalid values
       } else {
         this.$('.validationMessage').text(currentTarget.data('validation-failed-message')).show()
         this.renderFormControls()
@@ -262,7 +259,7 @@ this.Editor = (function () {
 
       if (isEnabled) {
         saveButton.removeAttr('disabled')
-        /*if(_.isBoolean(isForceEnabled) && isForceEnabled){
+        /* if(_.isBoolean(isForceEnabled) && isForceEnabled){
           console.log('save button enabled because it was forced on');
         } else if(this.model.hasChanged()){
           console.log('save button enabled because the model has changed', this.model.changedAttributes());
@@ -270,7 +267,7 @@ this.Editor = (function () {
           console.log('save button enabled because a photo was chosen but has yet to start uploading');
         } else {
           console.log('no idea why the save button is enabled');
-        }*/
+        } */
       } else {
         saveButton.attr('disabled', 'disabled')
       }
@@ -370,10 +367,10 @@ this.Editor = (function () {
         .off('click')
         .on('click', _.bind(function (event) {
           event.preventDefault()
-            debugger;
+
           this.map.renderActiveSeat(null)
-            this.onClickDesk(null)
-          }, this))
+          this.onClickDesk(null)
+        }, this))
 
       seatChooserLarge.show()
 
@@ -402,5 +399,4 @@ this.Editor = (function () {
   })
 
   return Editor
-
 })()

@@ -58,7 +58,7 @@ this.ListPane = (function () {
         $(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el)
       } else {
         $(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el)
-        //insert after element n-1
+        // insert after element n-1
       }
     },
 
@@ -89,8 +89,8 @@ this.ListPane = (function () {
       var peopleToHide = (tagsToShow != null)
         ? this.collection.filter(function (person) {
           var personTags = person.get('tags')
-            return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
-          })
+          return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
+        })
         : []
 
       this.ol.children().removeClass('filtered_tag')
@@ -350,5 +350,4 @@ this.ListPane = (function () {
   })
 
   return ListPane
-
 })()

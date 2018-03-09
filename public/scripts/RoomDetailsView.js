@@ -62,7 +62,7 @@ this.RoomDetailsView = (function () {
       }
 
       if (this.model) {
-        this.els.photo.attr('src', config.mountPoint + '/endpoints/' + this.model.id + '/photo') //causes flickering in Opera
+        this.els.photo.attr('src', config.mountPoint + '/endpoints/' + this.model.id + '/photo') // causes flickering in Opera
 
         this.els.name.text(this.model.get('name'))
 
@@ -109,7 +109,7 @@ this.RoomDetailsView = (function () {
     },
 
     getManufacturerLabel: function () {
-      return CONTROL_PROTOCOL_TO_MANUFACTURER[this.model.get('controlProtocol')] || 'other';
+      return CONTROL_PROTOCOL_TO_MANUFACTURER[this.model.get('controlProtocol')] || 'other'
     },
 
     getStatusLabel: function () {
@@ -117,7 +117,7 @@ this.RoomDetailsView = (function () {
     },
 
     isBusy: function () {
-      return 'available' !== this.model.getAvailability()
+      return this.model.getAvailability() !== 'available'
     },
 
     onImageLoadSuccess: function (event) {
@@ -131,5 +131,4 @@ this.RoomDetailsView = (function () {
   })
 
   return RoomDetailsView
-
 })()
