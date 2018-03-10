@@ -4,13 +4,6 @@ process.chdir(__dirname)
 // Load configuration globally
 require('./lib/config')
 
-// Define struct to monitor app
-let instance = {
-  'db': null,
-  'app': null,
-  'server': null
-}
-
 // Load database
 const database = require('./lib/database')
 database.connect.then((value) => {
@@ -20,12 +13,5 @@ database.connect.then((value) => {
 })
 
 // Start app
-instance.db = database.get()
-instance.app = require('./lib/app').app
-instance.server = require('./lib/server').goLive()
-
-// Report on status
-if (!instance.db) global.logger.log('error', 'Where is the database???')
-else if (!instance.app) global.logger.log('error', 'Where is the Express app???')
-else if (!instance.server)global.logger.log('error', 'Where is the HTTP server???')
-else global.logger.log('info', '===== DB / App / Server stack is now active. =====')
+require('./lib/app')
+global.logger.log('info', '===== DB / App stack is now active. =====')

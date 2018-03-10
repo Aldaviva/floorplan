@@ -13,10 +13,11 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 
 * Backbone
 * Express
+* Feathers
 * Handlebars
 * jQuery
 * LESS
-* Mongo
+* MongoDB
 * Node
 * Q
 * StandardJS

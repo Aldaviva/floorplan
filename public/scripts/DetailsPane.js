@@ -22,7 +22,7 @@ this.DetailsPane = (function () {
       if (this.$el.is(':empty')) {
         var correctionsLink = $('<a>', {
           class: 'corrections',
-          href: 'mailto:floorplan@bluejeans.com',
+          href: 'mailto:' + supportContact,
           text: 'Suggest a correction'
         })
 

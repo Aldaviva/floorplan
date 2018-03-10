@@ -5,11 +5,14 @@
 * https://github.com/winstonjs/winston/tree/2.4.0
 * http://exploringjs.com/es6/ch_promises.html
 
-===== Express routing & operation =====
+===== Express & Feathers =====
 * https://github.com/senchalabs/connect
 * https://expressjs.com/en/guide/migrating-4.html
+* http://expressjs.com/en/guide/writing-middleware.html
 * https://blog.risingstack.com/your-first-node-js-http-server/
 * https://www.terlici.com/2014/09/29/express-router.html
+* https://docs.feathersjs.com/api/express.html
+* https://gorrion.io/blog/use-feathersjs-to-build-rest-and-socket-io-api/
 
 ===== MongoDB =====
 * http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/
