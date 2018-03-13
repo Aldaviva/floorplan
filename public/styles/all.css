@@ -1,0 +1,795 @@
+/*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0;
+}
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent;
+}
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none;
+}
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline;
+}
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto;
+}
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block;
+}
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none;
+}
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none;
+}
+@font-face {
+  font-family: "Knockout 31";
+  src: url('../fonts/Knockout-31-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 32";
+  src: url('../fonts/Knockout-32-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 47";
+  src: url('../fonts/Knockout-47-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 52";
+  src: url('../fonts/Knockout-52-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Knockout 51";
+  src: url('../fonts/Knockout-51-1.woff') format('woff');
+}
+@font-face {
+  font-family: "Architect's Daughter";
+  src: url('../fonts/ArchitectsDaughter.woff') format('woff');
+}
+body {
+  background: #416bff url('../images/blueprint_3.png');
+  color: white;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+.vignette {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+25,0.75+100;Custom */
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(25%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.75)));
+  /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* IE10+ */
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  /* W3C */
+}
+#listPane {
+  background: rgba(0, 0, 0, 0.33);
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 370px;
+}
+#listPane nav {
+  padding: 10px 20px 5px;
+}
+#listPane nav a {
+  color: #3d60a0;
+  display: inline-block;
+  font: 22px "Knockout 52";
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 82.5px;
+}
+#listPane nav a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+#listPane nav a.active {
+  color: white;
+}
+#listPane nav a.active:hover {
+  background-color: transparent;
+  cursor: default;
+}
+#listPane .queryContainer {
+  left: 20px;
+  position: absolute;
+  right: 19px;
+  top: 100px;
+}
+#listPane .query {
+  background: transparent url('../images/magnifier-white.png') no-repeat 13px 15px;
+  border: 1px solid #7291e7;
+  border-bottom-color: rgba(114, 145, 231, 0.5);
+  border-width: 1px 0;
+  color: white;
+  font: 20px "Knockout 32";
+  height: 49px;
+  line-height: 49px;
+  text-indent: 49px;
+  width: 100%;
+}
+#listPane .query::-webkit-input-placeholder {
+  color: #3d60a0;
+  opacity: 1;
+}
+#listPane .query:-moz-placeholder {
+  color: #3d60a0;
+  opacity: 1;
+}
+#listPane .query::-moz-placeholder {
+  color: #3d60a0;
+  opacity: 1;
+}
+#listPane .query:-ms-input-placeholder {
+  color: #3d60a0;
+  opacity: 1;
+}
+#listPane .people {
+  bottom: 200px;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  right: -20px;
+  top: 160px;
+}
+#listPane .people .person {
+  cursor: pointer;
+  padding-left: 20px;
+  width: 350px;
+  /*.name, img {
+				display        : inline-block;
+				vertical-align : middle;
+			}*/
+}
+#listPane .people .person.filtered_name,
+#listPane .people .person.filtered_tag {
+  display: none;
+}
+#listPane .people .person:hover,
+#listPane .people .person.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+#listPane .people .person .name {
+  font-family: "Knockout 31";
+  font-size: 25px;
+  line-height: 51px;
+  margin: 0 10px 0 70px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#listPane .people .person img,
+#listPane .people .person .icon {
+  height: 51px;
+  line-height: 48px;
+  width: 51px;
+  position: absolute;
+}
+#listPane .tags {
+  border-top: 1px solid #7291e7;
+  bottom: 15px;
+  left: 20px;
+  padding-top: 5px;
+  position: absolute;
+  right: 19px;
+}
+#listPane .tags a {
+  color: white;
+  display: inline-block;
+  font: 18px "Knockout 52";
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 83px;
+}
+#listPane .tags a:nth-child(4n) {
+  width: 82px;
+}
+#listPane .tags a.filtered {
+  color: #3d60a0;
+}
+#listPane .tags a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.map svg .background {
+  fill: rgba(0, 0, 0, 0);
+}
+.map svg image {
+  image-rendering: optimizeSpeed;
+}
+.map svg .roomNames text {
+  fill: rgba(255, 255, 255, 0.75);
+  font-family: "Architect's Daughter";
+}
+.map svg .roomNames text.small,
+.map svg .roomNames .small text {
+  font-size: 0.7em;
+}
+.map svg .roomNames .roomArea {
+  fill: rgba(255, 255, 255, 0);
+}
+.map svg .roomNames .room[endpoint\:id] .roomArea {
+  cursor: pointer;
+}
+.map svg .roomNames .room[endpoint\:id] .roomArea:hover {
+  fill: rgba(255, 255, 255, 0.05);
+}
+.map svg .roomNames .statusBadge {
+  fill: none;
+}
+.map svg .roomNames .statusBadge.loaded {
+  fill: #72f468;
+}
+.map svg .roomNames .statusBadge.loaded.in-a-call,
+.map svg .roomNames .statusBadge.loaded.reserved {
+  fill: #ff7d67;
+}
+.map svg .roomNames .statusBadge.loaded.offline {
+  fill: #e0b42d;
+}
+.map svg .walls {
+  opacity: 0.75;
+}
+.map svg .walls line,
+.map svg .walls polyline,
+.map svg .walls rect,
+.map svg .walls polygon,
+.map svg .walls path {
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+  stroke-linejoin: miter;
+}
+.map svg .walls .innerWalls {
+  opacity: 0.667;
+}
+.map svg .walls .innerWalls line,
+.map svg .walls .innerWalls polyline,
+.map svg .walls .innerWalls rect,
+.map svg .walls .innerWalls polygon,
+.map svg .walls .innerWalls path {
+  stroke-width: 1;
+}
+.map svg .symbols rect,
+.map svg .symbols path,
+.map svg .symbols polygon,
+.map svg .symbols ellipse,
+.map svg .symbols circle {
+  fill: white;
+}
+.map svg .symbols .clockHand {
+  stroke: white;
+  stroke-linecap: round;
+  stroke-width: 1;
+  visibility: hidden;
+}
+.map svg .photos {
+  cursor: pointer;
+}
+.map svg .photos image.filtered_tag,
+.map svg .photos image.filtered_name {
+  opacity: 0.1;
+}
+.map svg .seats {
+  visibility: hidden;
+  cursor: pointer;
+}
+.map svg .seats rect {
+  fill: #3079ff;
+  opacity: 0.75;
+}
+.map svg.mv .roomNames,
+.map svg.mv2 .roomNames {
+  font-size: 10px;
+}
+.map svg.mv3 .roomNames {
+  font-size: 6.5px;
+}
+.map svg.oc .roomNames {
+  font-size: 14px;
+}
+.map svg.sf .roomNames {
+  font-size: 14px;
+}
+.map svg.blr .roomNames {
+  font-size: 12px;
+}
+.map .arrow {
+  fill: white;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.map .arrow:hover {
+  opacity: 1;
+}
+.floorplan .map {
+  position: fixed;
+  top: 60px;
+  left: 430px;
+  right: 430px;
+  bottom: 60px;
+}
+.floorplan .map svg {
+  width: 100%;
+  height: 100%;
+}
+.admin .map .roomNames {
+  visibility: hidden;
+}
+.admin .map .walls line,
+.admin .map .walls polyline,
+.admin .map .walls rect,
+.admin .map .walls polygon,
+.admin .map .walls path {
+  stroke: rgba(0, 0, 0, 0.75);
+}
+.admin .map .walls .innerWalls line,
+.admin .map .walls .innerWalls polyline,
+.admin .map .walls .innerWalls rect,
+.admin .map .walls .innerWalls polygon,
+.admin .map .walls .innerWalls path {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+.admin .map .symbols rect,
+.admin .map .symbols path,
+.admin .map .symbols polygon,
+.admin .map .symbols ellipse,
+.admin .map .symbols circle {
+  fill: rgba(0, 0, 0, 0.5);
+}
+.admin .map .photos {
+  cursor: default;
+}
+.admin .map.small .photos {
+  visibility: hidden;
+}
+.admin .map.small .seats {
+  cursor: default;
+}
+.admin .map.small .seats .active {
+  visibility: visible;
+}
+.admin .map.large svg .background {
+  fill: white;
+}
+.admin .map.large .photos image {
+  /*opacity: 0.33;*/
+}
+.admin .map.large .photos image.active {
+  opacity: 1;
+}
+.admin .map.large .walls line,
+.admin .map.large .walls polyline,
+.admin .map.large .walls rect {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+.admin .map.large .walls .innerWalls line,
+.admin .map.large .walls .innerWalls polyline,
+.admin .map.large .walls .innerWalls rect {
+  stroke: rgba(0, 0, 0, 0.25);
+}
+.admin .map.large .seats {
+  visibility: visible;
+}
+.admin .map .arrow {
+  display: none;
+}
+#detailsPane {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.33);
+  bottom: 0;
+  padding: 30px;
+  padding-right: 29px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 370px;
+}
+#detailsPane .photo {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #7291e7;
+  display: block;
+  width: 100%;
+}
+#detailsPane h2 {
+  font-family: "Knockout 47";
+  font-size: 90px;
+  line-height: 80px;
+  margin-left: -3px;
+  margin-top: 17px;
+  text-transform: uppercase;
+}
+#detailsPane h3 {
+  font-family: "Architect's Daughter";
+  font-size: 23px;
+  line-height: 30px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+#detailsPane dl {
+  margin-top: 23px;
+}
+#detailsPane dl dt,
+#detailsPane dl dd {
+  line-height: 30px;
+}
+#detailsPane dl dt {
+  float: left;
+  font-family: "Knockout 52";
+  font-size: 14px;
+  padding-right: 30px;
+  text-align: right;
+  text-transform: uppercase;
+  width: 91px;
+}
+#detailsPane dl dd {
+  border-left: 1px solid #7291e7;
+  font-family: "Architect's Daughter";
+  font-size: 17px;
+  margin-left: 110px;
+  padding-bottom: 10px;
+  padding-left: 19px;
+}
+#detailsPane dl a:hover {
+  color: #7291e7;
+}
+#detailsPane .detailsView {
+  bottom: 50px;
+  display: none;
+  left: 0;
+  overflow: auto;
+  padding: 30px;
+  padding-right: 29px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+#detailsPane .roomDetailsView .statusBadge {
+  background-color: #72f468;
+  display: inline-block;
+  height: 11px;
+  margin-right: 9px;
+  width: 11px;
+}
+#detailsPane .roomDetailsView .statusBadge.in-a-call,
+#detailsPane .roomDetailsView .statusBadge.reserved {
+  background-color: #ff7d67;
+}
+#detailsPane .roomDetailsView .statusBadge.offline {
+  background-color: #e0b42d;
+}
+#detailsPane .intro h3 {
+  white-space: pre;
+}
+#detailsPane .intro h3 a:hover {
+  color: #7291e7;
+}
+#detailsPane .intro .rating {
+  background: url('../images/yelp_stars_blue.png') no-repeat -2px 999px;
+  cursor: pointer;
+  height: 15px;
+  margin-top: 11px;
+  width: 84px;
+}
+#detailsPane .corrections {
+  background-color: transparent;
+  font: 15px "Knockout 32";
+  line-height: 43px;
+  height: 50px;
+  padding: 0 30px;
+  text-transform: uppercase;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+#detailsPane .corrections:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+#detailsPane .corrections::before {
+  content: '›';
+  font-size: 26px;
+  margin-right: 10px;
+}
+#detailsPane.mv .intro,
+#detailsPane.mv2 .intro,
+#detailsPane.mv3 .intro {
+  background: url('../images/building.png') no-repeat 50% 2px;
+  padding-top: 192px;
+}

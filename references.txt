@@ -1,3 +1,6 @@
+Non-exhaustive list of references for refactoring the software...
+Winter/Spring 2018
+
 ===== General =====
 * https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
@@ -22,3 +25,9 @@
 ===== Handlebars ====
 * http://derpturkey.com/handlebars-templates-with-express-4/
 * https://github.com/barc/express-hbs
+
+===== SVG =====
+* https://css-tricks.com/using-svg/
+* http://svgjs.com/
+* https://github.com/svgdotjs/svgdom
+* https://github.com/cure53/DOMPurify

@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Admin – {{companyName}} Floorplan</title>
-    <link href="../styles/admin.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/admin.css" rel="stylesheet" type="text/css">
+    <script data-main="scripts/app" src="../scripts/require.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -92,7 +93,7 @@
                 <input name="office" value="aus" type="radio" />Australia</label>
             <label>
                 <input name="office" value="remote" type="radio" />remote</label>
-            <div class="seatChooser small">
+            <div class="seatChooser small">                
                 <div class="map small mv">{{{svgs.mv}}}</div>
                 <div class="map small mv2">{{{svgs.mv2}}}</div>
                 <div class="map small mv3">{{{svgs.mv3}}}</div>
@@ -181,27 +182,6 @@
         <a href="#" class="helper_link cancel" title="Cancel desk change">&times;</a>
     </div>
 
-    <script type="text/javascript">
-        var config = {{{ config }}};
-    </script>
-
-    <script src="../scripts/lib/mediator.js" type="text/javascript"></script>
-    <script src="../scripts/lib/q.min.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery.js" type="text/javascript"></script>
-    <script src="../scripts/lib/lodash.js" type="text/javascript"></script>
-    <script src="../scripts/lib/backbone.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery-ui.js" type="text/javascript"></script>
-    <script src="../scripts/lib/load-image.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery.iframe-transport.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery.fileupload.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery.fileupload-process.js" type="text/javascript"></script>
-    <script src="../scripts/lib/jquery.fileupload-image.js" type="text/javascript"></script>
-
-    <script src="../scripts/data.js" type="text/javascript"></script>
-    <script src="../scripts/ListPane.js" type="text/javascript"></script>
-    <script src="../scripts/Map.js" type="text/javascript"></script>
-    <script src="../scripts/Editor.js" type="text/javascript"></script>
-    <script src="../scripts/admin.js" type="text/javascript"></script>
 </body>
 
 </html>

@@ -11,7 +11,6 @@
 	<span id="upload-control">
 		<a href="#">change photo</a>
 		<input id="upload-file" type="file" name="photo" />
-
 		<div class="preview">
 			<img src="/images/photos/5201db41f5f4be9ae57e37a9.jpg" width="162" height="162" />
 		</div>
@@ -20,14 +19,7 @@
 	<button type="submit">Save</button>
 	<button class="clear">Clear</button>
 
-	<script src="scripts/lib/jquery.js"></script>
-	<script src="scripts/lib/jquery-ui.js"></script>
-	<script src="scripts/lib/load-image.js"></script>
-	<script src="scripts/lib/jquery.iframe-transport.js"></script>
-	<script src="scripts/lib/jquery.fileupload.js"></script>
-	<script src="scripts/lib/jquery.fileupload-process.js"></script>
-	<script src="scripts/lib/jquery.fileupload-image.js"></script>
-
+	<script data-main="scripts/app" src="../scripts/require.js" type="text/javascript"></script>
 	<script>
 		(function () {
 			var dataToUpload;
