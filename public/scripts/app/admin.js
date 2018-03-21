@@ -14,9 +14,9 @@
 
   mediator.subscribe('activatePersonConfirmed', function (person, opts) {
     if (!opts.skipHistory) {
-      var path = config.mountPoint + (person.isNew()
+      var path = urljoin(global.baseURL, (person.isNew()
         ? '/admin/'
-        : '/admin/' + person.id + '#' + person.get('fullname').replace(/\s/g, '_'))
+        : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_')))
       window.history.pushState({ personId: person.id }, null, path)
     }
   })
@@ -36,7 +36,7 @@
   data.people.fetch({
     reset: true,
     success: function () {
-      var pathnameParts = location.pathname.replace(new RegExp('^' + config.mountPoint), '').split('/')
+      var pathnameParts = location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
       var personToActivate
 
       if (pathnameParts.length >= 3) {

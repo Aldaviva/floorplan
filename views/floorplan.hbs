@@ -4,13 +4,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>{{companyName}} {{officeName}}</title>
-	<base href="{{baseURL}}"></base>
+	<base href="{{baseURL}}">
 	<!-- Internal variables -->
 	<script>
 		var floorplanParams = {
 			officeID: '{{officeID}}'
 		};
 	</script>
+	<script data-main="scripts/main" src="scripts/require.js" async></script>
 	<meta name="viewport" content="width=90%, user-scalable=no" />
 	<link href="styles/all.css" rel="stylesheet">
 </head>
@@ -44,5 +45,4 @@
 
 	End Piwik Code -->
 </body>
-<script data-main="scripts/app" src="scripts/require.js"></script>
 </html>

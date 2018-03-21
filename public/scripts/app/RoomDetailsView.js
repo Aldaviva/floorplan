@@ -62,7 +62,7 @@ this.RoomDetailsView = (function () {
       }
 
       if (this.model) {
-        this.els.photo.attr('src', config.mountPoint + '/endpoints/' + this.model.id + '/photo') // causes flickering in Opera
+        this.els.photo.attr('src', urljoin(global.baseURL, '/endpoints/', this.model.id, '/photo')) // causes flickering in Opera
 
         this.els.name.text(this.model.get('name'))
 

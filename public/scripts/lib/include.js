@@ -1,0 +1,6 @@
+requirejs(['app/data'])
+requirejs(['app/DetailsPane'])
+requirejs(['app/ListPane'])
+requirejs(['app/Map'])
+requirejs(['app/Editor'])
+requirejs(['app/yelp'])

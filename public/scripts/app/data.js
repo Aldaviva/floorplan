@@ -5,9 +5,9 @@ this.data = (function () {
     idAttribute: '_id',
     getPhotoPath: function () {
       if (this.id) {
-        return config.mountPoint + '/people/' + this.id + '/photo'
+        return urljoin(global.baseURL, '/people', this.id + '/photo')
       } else {
-        return config.mountPoint + '/images/missing_photo.jpg'
+        return urljoin(global.baseURL, '/images/missing_photo.jpg')
       }
     },
     getLinkedInProfileUrl: function () {
@@ -44,7 +44,7 @@ this.data = (function () {
 
   var people = data.people = new (Backbone.Collection.extend({
     model: Person,
-    url: config.mountPoint + '/people',
+    url: urljoin(global.baseURL, '/people'),
     comparator: 'fullname'
   }))()
 
@@ -69,7 +69,7 @@ this.data = (function () {
 
   var endpoints = data.endpoints = new (Backbone.Collection.extend({
     model: Endpoint,
-    url: config.mountPoint + '/endpoints',
+    url: urljoin(global.baseURL, '/endpoints'),
     initialize: function () {
       _.bindAll(this)
     },

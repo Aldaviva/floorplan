@@ -90,7 +90,7 @@
   }
 
   function getDeepLink (person) {
-    return config.mountPoint + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
+    return global.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
   }
 
   function initEndpointStatusPoll () {

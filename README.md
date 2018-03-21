@@ -19,7 +19,6 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 * LESS
 * MongoDB
 * Node
-* Q
 * StandardJS
 * SVG
 
@@ -33,12 +32,13 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 
 1. Use the appropriate shell (On Windows, use the Node.JS command prompt), to chdir to where you want to run this software. Clone the GitHub repository, and install the dependencies.
 
->    // git clone https://github.com/Aldaviva/floorplan.git (Original)
->    git clone https://github.com/unquietwiki/floorplan.git (This fork)
->    cd floorplan
->    npm install -g node-make
->    make install-deps
->    node node_modules\nodemon\bin\nodemon.js index.js
+```bash
+// git clone https://github.com/Aldaviva/floorplan.git (Original)
+git clone https://github.com/unquietwiki/floorplan.git (This fork)
+cd floorplan
+npm install -g node-make
+make install-deps
+```
 
 1. Copy the example configuration file to your own version for modification.
 
@@ -72,7 +72,7 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 
 ## Run
 
-    node index.js
+    node node_modules/nodemon/bin/nodemon.js index.js
 
 Use `Ctrl+C` to stop.
 
