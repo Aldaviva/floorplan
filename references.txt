@@ -2,19 +2,23 @@ Non-exhaustive list of references for refactoring the software...
 Winter/Spring 2018
 
 ===== General =====
-* https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
 * https://github.com/lorenwest/node-config/
 * https://github.com/winstonjs/winston/tree/2.4.0
 * http://exploringjs.com/es6/ch_promises.html
+* https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
+* https://lodash.com/docs
+* https://www.w3schools.com/
+* "Learning NodeJS Development" by Andrew Mead; 2018 edition
 
 ===== Express & Feathers =====
-* https://github.com/senchalabs/connect
+* https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 * https://expressjs.com/en/guide/migrating-4.html
 * http://expressjs.com/en/guide/writing-middleware.html
+* https://docs.feathersjs.com/api/express.html
+* https://github.com/senchalabs/connect
 * https://blog.risingstack.com/your-first-node-js-http-server/
 * https://www.terlici.com/2014/09/29/express-router.html
-* https://docs.feathersjs.com/api/express.html
 * https://gorrion.io/blog/use-feathersjs-to-build-rest-and-socket-io-api/
 
 ===== MongoDB =====
@@ -25,6 +29,7 @@ Winter/Spring 2018
 ===== Handlebars ====
 * http://derpturkey.com/handlebars-templates-with-express-4/
 * https://github.com/barc/express-hbs
+* http://handlebarsjs.com/
 
 ===== SVG =====
 * https://css-tricks.com/using-svg/

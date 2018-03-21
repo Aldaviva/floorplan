@@ -1,17 +1,17 @@
 <!doctype html>
-<html class="floorplan {{officeId}}">
+<html class="floorplan {{officeID}}">
 
 <head>
 	<meta charset="utf-8" />
 	<title>{{companyName}} {{officeName}}</title>
-	<meta name="viewport" content="width=1600, user-scalable=no" />
-	<link href="styles/all.css" rel="stylesheet" type="text/css">
-	<script data-main="scripts/app" src="scripts/require.js" type="text/javascript"></script>
+	<meta name="viewport" content="width=90%, user-scalable=no" />
+	<link href="styles/all.css" rel="stylesheet">
+	<script data-main="scripts/app" src="scripts/require.js" type="text/javascript"/>
 
 	<!-- Internal variables -->
 	<script type="text/javascript">
 		var floorplanParams = {
-			officeId: '{{officeId}}'
+			officeID: '{{officeID}}'
 		};
 	</script>
 </head>
@@ -22,7 +22,7 @@
 	<div class="map">
 		{{{svg}}}
 	</div>
-	<div id="detailsPane" class="{{officeId}}"></div>
+	<div id="detailsPane" class="{{officeID}}"></div>
 	<!-- Piwik
 	
 	<script type="text/javascript">

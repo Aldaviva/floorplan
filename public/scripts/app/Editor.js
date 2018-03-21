@@ -13,12 +13,12 @@ this.Editor = (function () {
     initialize: function () {
       _.bindAll(this)
 
-      var officeIds = this.$('.office input[type=radio]').map(function () { return $(this).attr('value') })
-      this.maps = _.zipObject(officeIds, _.map(officeIds, function (officeId) {
+      var officeIDs = this.$('.office input[type=radio]').map(function () { return $(this).attr('value') })
+      this.maps = _.zipObject(officeIDs, _.map(officeIDs, function (officeID) {
         return new Map({
-          el: $('.map.' + officeId)[0],
+          el: $('.map.' + officeID)[0],
           collection: data.people,
-          office: officeId,
+          office: officeID,
           skipFilters: true,
           skipEndpoints: true
         })

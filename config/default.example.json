@@ -1,4 +1,5 @@
 {
+  "baseURL": "",
   "companyName": "The Company",
   "dbHost": "localhost",
   "dbName": "floorplan",
@@ -9,16 +10,32 @@
   "dirViews": "/opt/floorplan/views",
   "logFile": "/var/log/floorplan.log",
   "logLevel": "info",
-  "mountPoint": "/",
   "wwwPort": 3001,
   "supportContact": "admin@example.org",
+  "depTeams": [
+    {"ID":"biz", "name":"Business"},
+    {"ID":"des", "name":"Design"},
+    {"ID":"eng", "name":"Engineering"},
+    {"ID":"exe", "name":"Executive"},
+    {"ID":"fin", "name":"Finance"},
+    {"ID":"g&a", "name":"G&A"},
+    {"ID":"hr", "name":"HR"},
+    {"ID":"it", "name":"IT"},
+    {"ID":"mkt", "name":"Marketing"},
+    {"ID":"ops", "name":"Ops"},
+    {"ID":"pm", "name":"PM"},
+    {"ID":"qa", "name":"QA"},
+    {"ID":"sale", "name":"Sales"},
+    {"ID":"succ", "name":"Success"},
+    {"ID":"supp", "name":"Support"}
+  ],
 	"offices": [
-		{"officeId":"mv", "name": "Mountain View", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"sf", "name": "San Francisco", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"oc", "name": "Orange County", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"blr", "name": "Bangalore", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"ln", "name": "London", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"aus", "name": "Australia", "address": "", "phone": "", "fax": "", "email": ""},
-		{"officeId":"remote", "name": "remote workers", "address": "", "phone": "", "fax": "", "email": ""}
+		{"officeID":"mv", "name": "Mountain View", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"sf", "name": "San Francisco", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"oc", "name": "Orange County", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"blr", "name": "Bangalore", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"ln", "name": "London", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"aus", "name": "Australia", "address": "", "phone": "", "fax": "", "email": ""},
+		{"officeID":"remote", "name": "remote workers", "address": "", "phone": "", "fax": "", "email": ""}
 	]
 }

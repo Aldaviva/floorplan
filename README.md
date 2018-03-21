@@ -25,24 +25,27 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 
 ## Prerequisites
 
-* [Node &ge; 8.9.4](https://nodejs.org/)
+* [Node &ge; 8.10](https://nodejs.org/)
 * [MongoDB &ge; 3.6](https://www.mongodb.com/download-center?jmp=nav#community)
 * [Graphicsmagick](http://www.graphicsmagick.org/) or [Imagemagick](https://www.imagemagick.org/)
 
 ## Install
 
-1. Use the appropriate shell to chdir to where you want to run this software. Clone the GitHub repository, and install the dependencies.
+1. Use the appropriate shell (On Windows, use the Node.JS command prompt), to chdir to where you want to run this software. Clone the GitHub repository, and install the dependencies.
 
-    git clone https://github.com/Aldaviva/floorplan.git
+    // git clone https://github.com/Aldaviva/floorplan.git (Original)
+    git clone https://github.com/unquietwiki/floorplan.git (This fork)
     cd floorplan
+    npm install -g node-make
     make install-deps
 
-1. Create a configuration file based on the example
+1. Copy the example configuration file to your own version for modification.
 
     cp config/default.example.json config/default.json
 
 1. You may edit the configuration file and change any settings you want, although the server will run with the default settings.
 
+    * **`baseURL`** is the expected location to be displaying this content. It's passed along to the HTML template files as a "base" value.
     * **`companyName`** is the company / organization for the map software user.
     * **`dbHost`** is the host on which the MongoDB server runs. Useful if you have a MongoDB server on a different computer. With the default value of `"localhost"`, the MongoDB server is on the same computer as Floorplan.
     * **`dbName`** is the name of the MongoDB database that will be used to store people added to Floorplan. Useful if you want to run multiple different Floorplan instances on the same MongoDB server. With the default value of `"floorplan"`, people documents will be stored in the `people` collection of the `floorplan` database in your MongoDB server.
@@ -50,9 +53,13 @@ Where do people sit in what offices? What's that person's name, whose face I rem
     * **`dirData `** is the directory you keep photos and such in. It defaults to `"/opt/floorplan/data"`.
     * **`dirPublic`** is the directory you keep styles and front-end files in. It defaults to `"/opt/floorplan/public"`.
     * **`dirRoot`** is the directory you're going to be running Floorplan in. It defaults to `"/opt/floorplan"`.
+    * **`"dirViews"`** is the directory for keeping the HBS and SVG files. It defaults to `"/opt/floorplan/views"`.
     * **`logFile`** is the location of the logfile for the server. It defaults to `"/var/log/floorplan.log"`.
-    * **`mountPoint`** is the HTTP path under which the Floorplan web interface will be served. Useful if you want to reverse-proxy the Floorplan server through another HTTP server like Apache or Nginx due to TLS or a desire to serve multiple services on port 80. With the default value of `"/"`, you can access the Floorplan web interface by going to `http://localhost:3001/`, but if you changed `mountPoint` to `/floorplan`, you would have to go to `http://localhost:3001/floorplan`.
-    * **`wwwPort`** is the TCP port on which the Floorplan HTTP server listens. Useful if you want the server to listen on a different port, like `80` or `8080`. With the default value of `3001`, you can access the Floorplan web interface by going to `http://localhost:3001/`.
+    * **`logLevel`** is set per https://github.com/winstonjs/winston/tree/2.4.0#logging-levels
+    * **`wwwPort`** is the TCP port you wish to run the NodeJS instance on. It defaults to `"3001"`.
+    * **`supportContact`** is an email/phone number of someone you'd like to respond to problems with the application / map content.
+    * **`depTeams`** is an array of department / team `ID`s, with additional `name` parameters.
+    * **`offices`** is an array of `officeID` locations, with additional parameters for `name`, `address`, `phone`, `fax`, and `email`.
 
 1. Set permissions so the server can write to the directories where CSS stylesheets and people's photos are saved. Adjust this per your configuration needs.
 
@@ -71,9 +78,11 @@ Use `Ctrl+C` to stop.
 ## Usage
 
 ### Viewing the Floorplan
+
 Go to [`http://localhost:3001`](http://localhost:3001) in your web browser. You should see a blue page that says "MV" in the top left.
 
 ### Adding people
+
 Go to [`http://localhost:3001/admin/`](http://localhost:3001/admin/) in your web browser. You should see a white page that says "add person" in the top left.
 
 Fill in the person's full name and any other details you want to set, then click the blue Save button.
@@ -81,6 +90,7 @@ Fill in the person's full name and any other details you want to set, then click
 Now when you view the Floorplan, the new person should appear in the list to the left and, if you assigned an office and seat, their photo will appear in their seating position.
 
 ### Adding offices
+
 1. Go to the `views/maps` directory.
 2. Copy or edit the SVG files here.
 3. Restart the server for your changes to take effect.
@@ -100,7 +110,7 @@ Now when you view the Floorplan, the new person should appear in the list to the
     * The number of columns for the office changer links is defined in `public/styles/ListPane.less`.
 * The Admin UI office chooser is defined in `views/admin.hbs`.
 
-I find that the easiest way to generate the SVG files is to
+### Aldaviva's SVG maintenance process
 
 1. Copy an existing SVG file
 1. Open the SVG in Adobe Illustrator to set the walls and seating positions visually. The seats can just be squares for now. Room areas can be any shapes you want.
@@ -130,8 +140,7 @@ I find that the easiest way to generate the SVG files is to
 
 ## Work-in-Progress
 
-* Finish transitioning to Express 4.0.
-* Validate updated MongoDB code.
-* Account for old JS libraries on the front-end.
-* Verify that an Imagemagick install can work in place of a Graphicsmagick one.
-* Actually make use of "companyName" on the front-end.
+* Finish cleanup of front-end code.
+* Finish getting photo upload & user creation working again.
+* Validate Aldaviva's SVG process, and see if also doable in LibreOffice / other SVG apps.
+* Verify use of Imagemagick vs Graphicsmagick.

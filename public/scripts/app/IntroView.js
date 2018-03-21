@@ -43,8 +43,8 @@ this.IntroView = (function () {
 
     render: function () {
       if (this.$el.is(':empty')) {
-        this.$el.addClass(floorplanParams.officeId)
-        var office = OFFICES[floorplanParams.officeId]
+        this.$el.addClass(floorplanParams.officeID)
+        var office = OFFICES[floorplanParams.officeID]
 
         this.$el.append($('<h2>', { text: 'Blue Jeans' }))
 

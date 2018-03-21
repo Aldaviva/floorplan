@@ -14,7 +14,7 @@
   function render () {
     listPane = new ListPane({ el: $('#listPane')[0], collection: data.people })
     detailsPane = new DetailsPane({ el: $('#detailsPane')[0] })
-    map = new Map({ el: $('.map')[0], collection: data.people, office: floorplanParams.officeId })
+    map = new Map({ el: $('.map')[0], collection: data.people, office: floorplanParams.officeID })
 
     listPane.render()
     detailsPane.render()
@@ -23,7 +23,7 @@
 
   function bindEvents () {
     mediator.subscribe('activatePerson', function (person, opts) {
-      if ((!person.get('office')) || (person.get('office') == floorplanParams.officeId)) {
+      if ((!person.get('office')) || (person.get('office') == floorplanParams.officeID)) {
         mediator.publish('activatePersonConfirmed', person, opts)
       } else {
         window.location.replace(getDeepLink(person))

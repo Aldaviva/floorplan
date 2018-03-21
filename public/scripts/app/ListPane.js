@@ -339,8 +339,8 @@ this.ListPane = (function () {
       if (typeof floorplanParams !== 'undefined') {
         this.$('a')
           .filter(function () {
-            return ($(this).attr('href') == floorplanParams.officeId) ||
-              (_.contains(['mv2', 'mv3'], floorplanParams.officeId) && $(this).attr('href') == 'mv')
+            return ($(this).attr('href') == floorplanParams.officeID) ||
+              (_.contains(['mv2', 'mv3'], floorplanParams.officeID) && $(this).attr('href') == 'mv')
           })
           .addClass('active')
       }
