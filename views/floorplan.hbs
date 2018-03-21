@@ -4,16 +4,15 @@
 <head>
 	<meta charset="utf-8" />
 	<title>{{companyName}} {{officeName}}</title>
-	<meta name="viewport" content="width=90%, user-scalable=no" />
-	<link href="styles/all.css" rel="stylesheet">
-	<script data-main="scripts/app" src="scripts/require.js" type="text/javascript"/>
-
+	<base href="{{baseURL}}"></base>
 	<!-- Internal variables -->
-	<script type="text/javascript">
+	<script>
 		var floorplanParams = {
 			officeID: '{{officeID}}'
 		};
 	</script>
+	<meta name="viewport" content="width=90%, user-scalable=no" />
+	<link href="styles/all.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,7 +23,7 @@
 	</div>
 	<div id="detailsPane" class="{{officeID}}"></div>
 	<!-- Piwik
-	
+
 	<script type="text/javascript">
 		var _paq = _paq || [];
 		_paq.push(['trackPageView']);
@@ -42,8 +41,8 @@
 			<img src="//skadi.bluejeansnet.com/piwik/piwik.php?idsite=1" style="border:0;" alt="" />
 		</p>
 	</noscript>
-	
+
 	End Piwik Code -->
 </body>
-
+<script data-main="scripts/app" src="scripts/require.js"></script>
 </html>

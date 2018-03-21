@@ -4,15 +4,15 @@
 <head>
     <meta charset="utf-8" />
     <title>Admin – {{companyName}} Floorplan</title>
-    <link href="../styles/admin.css" rel="stylesheet" type="text/css">
-    <script data-main="scripts/app" src="../scripts/require.js" type="text/javascript"/>
+    <base href="{{baseURL}}"></base>
+    <link href="styles/admin.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="vignette"></div>
 
     <div id="topbar">
-        <a href=".." class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
+        <a href="{{baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
     </div>
 
     <div id="listPane"></div>
@@ -99,5 +99,5 @@
     </div>
 
 </body>
-
+<script data-main="scripts/app" src="scripts/require.js"></script>
 </html>
