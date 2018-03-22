@@ -2,17 +2,18 @@ Non-exhaustive list of references for refactoring the software...
 Winter/Spring 2018
 
 ===== General =====
+* "Learning NodeJS Development" by Andrew Mead; 2018 edition
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
+* https://www.w3schools.com/
 * https://github.com/lorenwest/node-config/
 * https://github.com/winstonjs/winston/tree/2.4.0
 * http://exploringjs.com/es6/ch_promises.html
 * https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
+* https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 * https://lodash.com/docs
-* https://www.w3schools.com/
-* "Learning NodeJS Development" by Andrew Mead; 2018 edition
 
 ===== Express & Feathers =====
-* https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs
 * https://expressjs.com/en/guide/migrating-4.html
 * http://expressjs.com/en/guide/writing-middleware.html
 * https://docs.feathersjs.com/api/express.html

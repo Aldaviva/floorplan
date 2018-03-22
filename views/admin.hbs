@@ -6,7 +6,9 @@
     <title>Admin – {{companyName}} Floorplan</title>
     <base href="{{baseURL}}">
     <link href="styles/admin.css" rel="stylesheet">
-    <script data-main="scripts/main" src="scripts/require.js" async></script>
+	<!-- <script>var TarpConfig = { require: { paths: ['scripts,scripts/lib,scripts/app'] } };</script> -->
+    <script src="scripts/tarp.require.min.js"></script>
+    <script>Tarp.require("./scripts/admin")</script>
 </head>
 
 <body>

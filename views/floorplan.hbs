@@ -11,9 +11,11 @@
 			officeID: '{{officeID}}'
 		};
 	</script>
-	<script data-main="scripts/main" src="scripts/require.js" async></script>
 	<meta name="viewport" content="width=90%, user-scalable=no" />
 	<link href="styles/all.css" rel="stylesheet">
+	<!-- <script>var TarpConfig = { require: { paths: ['scripts,scripts/lib,scripts/app'] } };</script> -->
+    <script src="scripts/tarp.require.min.js"></script>
+    <script>Tarp.require("./scripts/floorplan")</script>
 </head>
 
 <body>
