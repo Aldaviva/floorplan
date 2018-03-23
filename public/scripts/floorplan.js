@@ -1,16 +1,13 @@
-// Imports
-var BackboneViews = require('./app/BackboneViews')
-var Models = require('./app/Models')
-var Mediator = require('./lib/mediator').Mediator
-
 // Declarations
-var bv = new BackboneViews()
-var models = new Models()
-var mediator = new Mediator()
-var data = models.data
-var listPane = bv.listPane({ el: $('#listPane')[0], collection: data.people })
-var detailsPane = bv.detailsPane({ el: $('#detailsPane')[0] })
-var map = bv.map({ el: $('.map')[0], collection: data.people, office: floorplanParams.officeID })
+var $ = require('./lib/jquery')
+var mediator = require('./lib/mediator').Mediator
+var data = require('./data')
+var BackboneViews = require('./BackboneViews')
+
+// Instantation
+var listPane = BackboneViews.listPane({ el: $('#listPane')[0], collection: data.people })
+var detailsPane = BackboneViews.detailsPane({ el: $('#detailsPane')[0] })
+var map = BackboneViews.map({ el: $('.map')[0], collection: data.people, office: window.floorplanParams.officeID })
 
 render()
 bindEvents()
@@ -26,18 +23,19 @@ function render () {
 
 function bindEvents () {
   mediator.subscribe('activatePerson', function (person, opts) {
-    if ((!person.get('office')) || (person.get('office') == floorplanParams.officeID)) {
+    if ((!person.get('office')) || (person.get('office') === window.floorplanParams.officeID)) {
       mediator.publish('activatePersonConfirmed', person, opts)
     } else {
       window.location.replace(getDeepLink(person))
     }
   })
 
+  /* Piwik event
   mediator.subscribe('activatePersonConfirmed', function (person, opts) {
     if (_paq) {
       _paq.push(['trackEvent', 'person', 'view', person.get('fullname')])
     }
-  })
+  }) */
 
   mediator.subscribe('map:clickPerson', function (person, opts) {
     mediator.publish('activatePerson', person, opts)

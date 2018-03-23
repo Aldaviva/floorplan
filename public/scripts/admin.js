@@ -1,16 +1,13 @@
-// Imports
-var BackboneViews = require('./app/BackboneViews')
-var Models = require('./app/Models')
-var Mediator = require('./lib/mediator').Mediator
-var urljoin = require('./lib/url-join.js')
-
 // Declarations
-var bv = new BackboneViews()
-var models = new Models()
-var mediator = new Mediator()
-var data = models.data
-var listPane = bv.listPane({ el: $('#listPane')[0], collection: data.people })
-var editor = bv.editor({ el: $('#editor')[0], collection: data.people })
+var $ = require('./lib/jquery')
+var urljoin = require('./lib/url-join')
+var mediator = require('./lib/mediator').Mediator
+var data = require('./data')
+var BackboneViews = require('./BackboneViews')
+
+// Instantation
+var listPane = BackboneViews.listPane({ el: $('#listPane')[0], collection: data.people })
+var editor = BackboneViews.editor({ el: $('#editor')[0], collection: data.people })
 
 listPane.render()
 editor.render()
@@ -44,7 +41,7 @@ window.addEventListener('popstate', function (event) {
 data.people.fetch({
   reset: true,
   success: function () {
-    var pathnameParts = location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
+    var pathnameParts = window.location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
     var personToActivate
 
     if (pathnameParts.length >= 3) {
