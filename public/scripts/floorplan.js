@@ -1,19 +1,20 @@
 // Declarations
-var $ = require('./lib/jquery')
-var mediator = require('./lib/mediator').Mediator
-var data = require('./data')
-var BackboneViews = require('./BackboneViews')
+import * as $ from './lib/jquery-min.js'
+import * as Mediator from './lib/mediator.js'
+import * as BackboneModels from './BackboneModels.js'
+import * as BackboneViews from './BackboneViews.js'
 
 // Instantation
-var listPane = BackboneViews.listPane({ el: $('#listPane')[0], collection: data.people })
-var detailsPane = BackboneViews.detailsPane({ el: $('#detailsPane')[0] })
-var map = BackboneViews.map({ el: $('.map')[0], collection: data.people, office: window.floorplanParams.officeID })
+let mediator = new Mediator()
+var people = BackboneModels.People.fetch({ reset: true, success: initDeepLinking })
+var endpoints = BackboneModels.Endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
+var listPane = BackboneViews.ListPane({ el: $('#listPane')[0], collection: people })
+var detailsPane = BackboneViews.DetailsPane({ el: $('#detailsPane')[0] })
+// var map = BackboneViews.Map({ el: $('.map')[0], collection: data.people, office: window.floorplanParams.officeID })
+var map = BackboneViews.Map({ el: $('.map')[0], collection: people })
 
 render()
 bindEvents()
-
-data.people.fetch({ reset: true, success: initDeepLinking })
-data.endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
 
 function render () {
   listPane.render()
@@ -43,7 +44,7 @@ function bindEvents () {
 
   mediator.subscribe('map:clickRoom', function (endpointId, opts) {
     if (endpointId) {
-      var endpoint = data.endpoints.get(endpointId)
+      var endpoint = endpoints.get(endpointId)
       if (endpoint) {
         endpoint.set({ seatingCapacity: opts.seatingCapacity })
         mediator.publish('activateRoom', endpoint, opts)
@@ -67,7 +68,7 @@ function initDeepLinking () {
        * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
        */
     if (event.state) {
-      var person = data.people.get(event.state.personId)
+      var person = people.get(event.state.personId)
       mediator.publish('activatePerson', person, { skipHistory: true })
     }
   }, false)
@@ -77,7 +78,7 @@ function initDeepLinking () {
 
   if (hashParts[0]) {
     var personId = hashParts[0]
-    var person = data.people.get(personId)
+    var person = people.get(personId)
     if (person) {
       personToActivate = person
     }
@@ -101,7 +102,7 @@ function initEndpointStatusPoll () {
     //    endpoint.trigger('status', endpoint, status);
     //  });
     // });
-    data.endpoints.fetchStatuses()
+    endpoints.fetchStatuses()
   }
   setInterval(pollEndpointStatus, 10 * 1000)
   pollEndpointStatus()

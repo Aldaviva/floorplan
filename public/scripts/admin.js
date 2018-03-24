@@ -1,13 +1,15 @@
 // Declarations
-var $ = require('./lib/jquery')
-var urljoin = require('./lib/url-join')
-var mediator = require('./lib/mediator').Mediator
-var data = require('./data')
-var BackboneViews = require('./BackboneViews')
+import * as $ from './lib/jquery-min.js'
+import * as Mediator from './lib/mediator.js'
+import * as urljoin from './lib/url-join.js'
+import * as BackboneModels from './BackboneModels.js'
+import * as BackboneViews from './BackboneViews.js'
 
 // Instantation
-var listPane = BackboneViews.listPane({ el: $('#listPane')[0], collection: data.people })
-var editor = BackboneViews.editor({ el: $('#editor')[0], collection: data.people })
+var mediator = new Mediator()
+var people = BackboneModels.People.fetch()
+var listPane = new BackboneViews.ListPane({ el: $('#listPane')[0], collection: people })
+var editor = new BackboneViews.Editor({ el: $('#editor')[0], collection: people })
 
 listPane.render()
 editor.render()
@@ -19,9 +21,10 @@ listPane.$('.people')
 
 mediator.subscribe('activatePersonConfirmed', function (person, opts) {
   if (!opts.skipHistory) {
-    var path = urljoin(global.baseURL, (person.isNew()
+    var path = Array.join(global.baseURL, (person.isNew()
+    // var path = urljoin(global.baseURL, (person.isNew()
       ? '/admin/'
-      : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_')))
+      : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)
   }
 })
@@ -33,12 +36,12 @@ window.addEventListener('popstate', function (event) {
      * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
      */
   if (event.state) {
-    var person = data.people.get(event.state.personId)
-    mediator.publish('activatePerson', person, { skipHistory: true })
+    var person = people.get(event.state.personId)
+    this.mediator.publish('activatePerson', person, { skipHistory: true })
   }
 }, false)
 
-data.people.fetch({
+people.fetch({
   reset: true,
   success: function () {
     var pathnameParts = window.location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
@@ -46,13 +49,13 @@ data.people.fetch({
 
     if (pathnameParts.length >= 3) {
       var personId = pathnameParts[2]
-      var person = data.people.get(personId)
+      var person = people.get(personId)
       if (person) {
         personToActivate = person
       }
     }
 
-    personToActivate = personToActivate || new data.Person()
+    personToActivate = personToActivate || new BackboneModels.Person()
 
     mediator.publish('activatePersonConfirmed', personToActivate)
     editor.$el.show()

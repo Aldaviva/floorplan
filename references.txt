@@ -4,6 +4,7 @@ Winter/Spring 2018
 ===== General =====
 * "Learning NodeJS Development" by Andrew Mead; 2018 edition
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript
+* https://babeljs.io/learn-es2015/
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
 * https://www.w3schools.com/
 * https://github.com/lorenwest/node-config/
@@ -12,6 +13,9 @@ Winter/Spring 2018
 * https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
 * https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 * https://lodash.com/docs
+* https://benmccormick.org/2015/07/06/backbone-and-es6-classes-revisited/
+* https://jakearchibald.com/2017/es-modules-in-browsers/
+* https://medium.com/@timoxley/named-exports-as-the-default-export-api-670b1b554f65
 
 ===== Express & Feathers =====
 * https://expressjs.com/en/guide/migrating-4.html

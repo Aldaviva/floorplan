@@ -1,7 +1,7 @@
-var OAuth = require('./lib/oauth')
-var $ = require('./lib/jquery')
+import * as OAuth from './lib/oauth.js'
+import * as $ from './lib/jquery-min.js'
 
-exports = class Yelp {
+export default class Yelp {
   constructor () {
     this.ACCESS_PARAMS = {
       consumerKey: 'wq6N1ApR2G6CvL1d5IhKFQ',
