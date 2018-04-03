@@ -1,0 +1,44 @@
+// main: ../exports/floorplan.less, main: ../exports/admin.less
+// Split helpers.less, to be worked on as able. "dragons" appears to invoke a jQuery function.
+/**
+ * DOES NOT WORK WITH LESSCSS 1.3.0 (works on 1.2.1)
+ * Named mixin parameters were added, which has the side effect of varargs mixin definitions with no explicit arguments (like the one below) never matching the mixin invocations.
+ *
+ * arguments are of the form
+ * <property>, <duration> [, <property>, <duration> ...]
+ */
+
+.transition() {
+    @dragons: `(function(argv) {
+        return argv.slice(1, -1).split(', ').reduce(function(prev, curr, i) {
+            return prev + (i%2 ? ' ': ', ') + curr;
+        }
+        );
+    }
+    )("@{arguments}")`;
+    -o-transition: @dragons;
+    -moz-transition: @dragons;
+    -webkit-transition: @dragons;
+    /*.transitionQuint();*/
+    .transitionLinear();
+}
+
+.transitionCurve(@curve) {
+    -o-transition-timing-function: @curve;
+    -moz-transition-timing-function: @curve;
+    -webkit-transition-timing-function: @curve;
+}
+
+.transitionQuint() {
+    .transitionCurve(cubic-bezier(0, 0.9, 0.32, 0.78));
+}
+
+.transitionLinear() {
+    .transitionCurve(linear);
+}
+
+.transitionDuration(@duration) {
+    -o-transition-duration: @duration;
+    -moz-transition-duration: @duration;
+    -webkit-transition-duration: @duration;
+}

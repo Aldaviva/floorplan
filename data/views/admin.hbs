@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="admin">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Admin – {{companyName}} Floorplan</title>
+    <base href="{{baseURL}}">
+    <link href="styles/jquery-ui.all.css" rel="stylesheet">
+    <link href="styles/admin.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="vignette"></div>
+
+    <div id="topbar">
+        <a href="{{baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
+    </div>
+
+    <div id="listPane"></div>
+
+    <form id="editor" style="display: none">
+        <div class="basics">
+            <div class="photo">
+                <img />
+                <div>
+                    <span class="fileChooserLink">
+                        <a href="#" class="helper_link">select photo</a>
+                        <input type="file" name="photo" accept="image/*" />
+                    </span>
+                </div>
+            </div>
+            <div class="fullname_sizer">
+                <input name="fullname" type="text" placeholder="full name" required data-validation-failed-message="The person's full name is required."
+                    autocomplete="off" />
+            </div>
+            <div class="title_sizer">
+                <input name="title" type="text" placeholder="title" />
+            </div>
+            <a href="#" class="helper_link remove">remove person</a>
+        </div>
+
+        <div class="formControls">
+            <button type="submit">save</button>
+            <span class="validationMessage"></span>
+        </div>
+
+        <section class="contact">
+            <h1>contact</h1>
+            <label>
+                <span>Email</span>
+                <input name="email" type="email" placeholder="" data-validation-failed-message="Invalid email address." autocomplete="off"
+                />
+            </label>
+
+            <label>
+                <span>LinkedIn</span>
+                <a href="#" class="view_profile helper_link" target="linkedin">view profile</a>
+                <a href="#" class="search helper_link" target="linkedin">search for profile</a>
+                <input name="linkedInId" type="text" placeholder="paste profile URL" pattern=".*linkedin\.com/(?:profile/view\?id=|in/)[A-Za-z0-9]+.*"
+                    data-validation-failed-message="LinkedIn URL should look like linkedin.com/profile/view?id=123 or linkedin.com/in/alice"
+                />
+            </label>
+
+            <label>
+                <span>Mobile phone</span>
+                <input name="mobilePhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
+                    data-validation-failed-message="Mobile phone must be of the form 123-456-7890 or +91 1234567890." />
+            </label>
+
+            <label>
+                <span>Work phone</span>
+                <input name="workPhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
+                    data-validation-failed-message="Work phone must be of the form 123-456-7890 or +91 1234567890." />
+            </label>
+        </section>
+
+        <section class="office">
+            <h1>office</h1>
+            {{{officeInputLabels}}}
+            <div class="seatChooser small">
+                {{{svgAdminMaps}}}
+                <a href="#" class="desk helper_link">assign desk</a>
+            </div>
+        </section>
+
+        <section class="tags">
+            <h1>Departments and Teams</h1>
+            <div class="columns">
+                {{{depTeamInputLabels}}}
+            </div>
+        </section>
+    </form>
+
+    <div class="seatChooser large" style="display: none">
+        <div class="hint">Click on the blue square where this person sits
+            <span class="unassign">, or
+                <a href="#">unassign their current desk</a>
+            </span>.</div>
+        <a href="#" class="helper_link cancel" title="Cancel desk change">&times;</a>
+    </div>
+
+</body>
+
+</html>

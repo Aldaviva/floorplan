@@ -1,0 +1,41 @@
+// main: ../exports/floorplan.less
+body {
+    background: #416bff url('../images/blueprint_3.png');
+    color: white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.vignette {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* http://www.colorzilla.com/gradient-editor/#000000+0,000000+100&0+25,0.75+100;Custom */
+    @dark_opacity: 0.75;
+    @transparent_stop: 25%;
+    background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) @transparent_stop, rgba(0, 0, 0, @dark_opacity) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(@transparent_stop, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, @dark_opacity)));
+    /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) @transparent_stop, rgba(0, 0, 0, @dark_opacity) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) @transparent_stop, rgba(0, 0, 0, @dark_opacity) 100%);
+    /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) @transparent_stop, rgba(0, 0, 0, @dark_opacity) 100%);
+    /* IE10+ */
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) @transparent_stop, rgba(0, 0, 0, @dark_opacity) 100%);
+    /* W3C */
+}
+
+#listPane {
+    @listpane_background: rgba(0,
+    0,
+    0,
+    0.33);
+    .ListPane();
+}

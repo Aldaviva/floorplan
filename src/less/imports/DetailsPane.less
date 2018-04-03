@@ -1,0 +1,133 @@
+// main: ../exports/floorplan.less
+#detailsPane {
+    .box-sizing(border-box);
+    background: rgba(0, 0, 0, 0.33);
+    bottom: 0;
+    padding: 3 * @grid_size;
+    padding-right: 3 * @grid_size - 1;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: @pane_width;
+    .fullWidthLink() {
+        background-color: transparent;
+        font: 15px "Knockout 32";
+        line-height: 0.86 * 5 * @grid_size;
+        height: 5 * @grid_size;
+        padding: 0 (3 * @grid_size);
+        text-transform: uppercase;
+        &:hover {
+            background-color: @hover_background_color;
+        }
+    }
+    .photo {
+        .box-sizing(border-box);
+        border: 1px solid @light_line_color;
+        display: block;
+        width: 100%;
+    }
+    h2 {
+        font-family: "Knockout 47";
+        font-size: 90px;
+        line-height: 80px;
+        margin-left: -3px;
+        margin-top: 17px;
+        text-transform: uppercase;
+    }
+    h3 {
+        font-family: "Architect's Daughter";
+        font-size: 23px;
+        line-height: 3 * @grid_size;
+        margin-top: 20px;
+        padding-bottom: @grid_size;
+    }
+    dl {
+        margin-top: 3px + 2 * @grid_size;
+        dt,
+        dd {
+            line-height: 30px;
+        }
+        dt {
+            float: left;
+            font-family: "Knockout 52";
+            font-size: 14px;
+            padding-right: 3 * @grid_size;
+            text-align: right;
+            text-transform: uppercase;
+            width: 9 * @grid_size + 1px;
+        }
+        dd {
+            border-left: 1px solid @light_line_color;
+            font-family: "Architect's Daughter";
+            font-size: 17px;
+            margin-left: 11 * @grid_size;
+            padding-bottom: 1 * @grid_size;
+            padding-left: 1.9 * @grid_size;
+        }
+        a:hover {
+            color: @light_line_color;
+        }
+    }
+    .detailsView {
+        bottom: 5 * @grid_size;
+        display: none;
+        left: 0;
+        overflow: auto;
+        padding: 3 * @grid_size;
+        padding-right: 3 * @grid_size - 1;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .roomDetailsView {
+        .statusBadge {
+            background-color: @available_green;
+            display: inline-block;
+            height: 11px;
+            margin-right: 9px;
+            width: 11px;
+            &.in-a-call,
+            &.reserved {
+                background-color: @unavailable_red;
+            }
+            &.offline {
+                background-color: @offline_orange;
+            }
+        }
+    }
+    .intro {
+        h3 {
+            white-space: pre;
+            a:hover {
+                color: @light_line_color;
+            }
+        }
+        .rating {
+            background: url('../images/yelp_stars_blue.png') no-repeat -2px 999px;
+            cursor: pointer;
+            height: 15px;
+            margin-top: 11px;
+            width: 84px;
+        }
+    }
+    .corrections {
+        .fullWidthLink();
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        &::before {
+            content: '›';
+            font-size: 26px;
+            margin-right: @grid_size;
+        }
+    }
+    &.mv,
+    &.mv2,
+    &.mv3 {
+        .intro {
+            background: url('../images/building.png') no-repeat 50% 2px;
+            padding-top: 192px;
+        }
+    }
+}

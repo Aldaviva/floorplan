@@ -12,6 +12,7 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 ## Buzzwords
 
 * Backbone
+* Babel
 * Express
 * Feathers
 * Handlebars
@@ -52,9 +53,9 @@ make install-deps
     * **`dbName`** is the name of the MongoDB database that will be used to store people added to Floorplan. Useful if you want to run multiple different Floorplan instances on the same MongoDB server. With the default value of `"floorplan"`, people documents will be stored in the `people` collection of the `floorplan` database in your MongoDB server.
     * **`dbPort`** is the TCP port on which the MongoDB server listens. Useful if you have a non-default MongoDB configuration. With the default value of `27017`, Floorplan will connect to a MongoDB server with a default configuration.
     * **`dirData `** is the directory you keep photos and such in. It defaults to `"/opt/floorplan/data"`.
+    * **`dirMaps `** is the directory you keep map / layout files in. It defaults to `"/opt/floorplan/data/maps/default"`.
     * **`dirPublic`** is the directory you keep styles and front-end files in. It defaults to `"/opt/floorplan/public"`.
     * **`dirRoot`** is the directory you're going to be running Floorplan in. It defaults to `"/opt/floorplan"`.
-    * **`"dirViews"`** is the directory for keeping the HBS and SVG files. It defaults to `"/opt/floorplan/views"`.
     * **`logFile`** is the location of the logfile for the server. It defaults to `"/var/log/floorplan.log"`.
     * **`logLevel`** is set per https://github.com/winstonjs/winston/tree/2.4.0#logging-levels
     * **`wwwPort`** is the TCP port you wish to run the NodeJS instance on. It defaults to `"3001"`.
@@ -64,7 +65,7 @@ make install-deps
 
 1. Set permissions so the server can write to the directories where CSS stylesheets and people's photos are saved. Adjust this per your configuration needs.
 
-    chmod +rwx public/styles data/photos
+    chmod +rwx data/photos
 
 1. If you want to connect to the database yourself, you can run
         mongo floorplan
@@ -72,7 +73,9 @@ make install-deps
 
 ## Run
 
-    node node_modules/nodemon/bin/nodemon.js index.js
+[`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes. The Node instance will auto-restart when changes are detected; therefore, you only need to run Node, and it will handle the rest!
+
+    node index.js
 
 Use `Ctrl+C` to stop.
 
@@ -92,7 +95,7 @@ Now when you view the Floorplan, the new person should appear in the list to the
 
 ### Adding offices
 
-1. Go to the `views/maps` directory.
+1. Go to the directory you specified for `dirMaps`.
 2. Copy or edit the SVG files here.
 3. Restart the server for your changes to take effect.
 
@@ -141,7 +144,7 @@ Now when you view the Floorplan, the new person should appear in the list to the
 
 ## Work-in-Progress
 
-* Finish cleanup of front-end code.
-* Finish getting photo upload & user creation working again.
+* Finish converting frontend JS to use [Babel transpilation](https://babeljs.io/), and make everything work.
 * Validate Aldaviva's SVG process, and see if also doable in LibreOffice / other SVG apps.
 * Verify use of Imagemagick vs Graphicsmagick.
+* Make it easier to add seats to the SVG files (maybe separate out into another Mongo table?).
