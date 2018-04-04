@@ -13,6 +13,11 @@
 	<meta name="viewport" content="width=90%, user-scalable=no" />
 	<link href="styles/jquery-ui.all.css" rel="stylesheet">
 	<link href="styles/floorplan.css" rel="stylesheet">
+    <script src="scripts/lib/require.min.js"></script>
+    <script>
+        var TarpConfig = { require: { paths: ['{{baseURL}}scripts'] } }
+        Tarp.require('{{baseURL}}scripts/floorplan.js', true)
+    </script>
 </head>
 
 <body>

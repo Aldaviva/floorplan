@@ -39,6 +39,8 @@ git clone https://github.com/unquietwiki/floorplan.git (This fork)
 cd floorplan
 npm install -g node-make
 make install-deps
+npm run buildcss
+npm run buildjs
 ```
 
 1. Copy the example configuration file to your own version for modification.
@@ -75,7 +77,7 @@ make install-deps
 
 [`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes. The Node instance will auto-restart when changes are detected; therefore, you only need to run Node, and it will handle the rest!
 
-    node index.js
+    npm start
 
 Use `Ctrl+C` to stop.
 

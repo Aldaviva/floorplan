@@ -33,12 +33,20 @@
     "winston": "~2.4.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
+    "less": "^3.0.1",
+    "lessc-each": "^1.1.0",
     "standard": "^11.0.1"
   },
   "scripts": {
-    "build": "make install-deps"
+    "buildcss": "npx --cache node_modules lessc-each src/less/exports public/styles",
+    "buildjs": "npx --cache node_modules babel src/scripts --out-dir public/scripts",
+    "preinstall": "make install-deps",
+    "start": "node index.js"
   }
 }
