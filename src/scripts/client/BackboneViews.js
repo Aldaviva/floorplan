@@ -1,10 +1,22 @@
-import {$, jQuery} from './lib/jquery.js'
-import * as Backbone from './lib/backbone.js'
-import * as _ from './lib/underscore.js'
-import * as Q from './lib/q.js'
-import * as Mediator from './lib/mediator.js'
-import * as urljoin from './lib/url-join.js'
-import { People, Person, Endpoints, Endpoint } from './BackboneModels.js'
+// Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib"
+
+/*
+import { $, jQuery } from '../lib/jquery.js'
+import { _, underscore } from '../lib/underscore.js'
+import { Backbone } from '../lib/backbone.js'
+import { urljoin } from '../lib/url-join.js'
+import { Mediator } from '../lib/mediator.js'
+import { Q } from '../lib/q.js'
+*/
+
+// Async calls per http://requirejs.org/docs/errors.html#notloaded
+// RequireJS + Babel isn't smart enough for imports (yet)
+const $ = require(['./lib/jquery'], () => {})
+const _ = require(['./lib/underscore'], () => {})
+const Backbone = require(['./lib/backbone'], () => {})
+const urljoin = require(['./lib/url-join'], () => {})
+const Mediator = require(['./lib/Mediator'], () => {})
+const Q = require(['./lib/Q'], () => {})
 
 // ============================
 // ======= SUPERCLASS =========
@@ -13,18 +25,18 @@ import { People, Person, Endpoints, Endpoint } from './BackboneModels.js'
 class BackboneViews extends Backbone.View {
   constructor (...args) {
     super(...args)
-    this.mediator = new Mediator()
-    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
     this.$el = args.$el
     this.collection = args.collection
+    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+    this.mediator = Mediator
   }
 }
 
 // ============================
-// ======= detailsPane ========
+// ======= DetailsPane ========
 // ============================
 
-class DetailsPane extends BackboneViews {
+class DetailsPane extends Backbone.View {
   initialize () {
     _.bindAll(this)
 
@@ -38,11 +50,9 @@ class DetailsPane extends BackboneViews {
       this.setRoomModel(endpoint)
     }, {}, this)
 
-    /*
     this.introView = new IntroView()
     this.personDetailsView = new PersonDetailsView()
     this.roomDetailsView = new RoomDetailsView()
-    */
   }
 
   render () {
@@ -98,16 +108,15 @@ class DetailsPane extends BackboneViews {
 
 class Editor extends BackboneViews {
   constructor (...args) {
-    super({
-      events: {
-        'click [type=submit]': 'save',
-        'change input': 'onDirtyChange',
-        'keyup input': function () { this.renderFormControls(true) },
-        'click .contact .view_profile': 'viewLinkedInProfile',
-        'click .basics .remove': 'removePerson',
-        'click .desk.helper_link': 'enlargeMap'
-      }
-    })
+    super(...args)
+    this.events = {
+      'click [type=submit]': 'save',
+      'change input': 'onDirtyChange',
+      'keyup input': function () { this.renderFormControls(true) },
+      'click .contact .view_profile': 'viewLinkedInProfile',
+      'click .basics .remove': 'removePerson',
+      'click .desk.helper_link': 'enlargeMap'
+    }
   }
 
   initialize () {
@@ -505,9 +514,8 @@ class Editor extends BackboneViews {
 
 class IntroView extends BackboneViews {
   constructor (...args) {
-    super({
-      className: 'intro'
-    })
+    super(...args)
+    this.className = 'intro'
   }
 
   initialize () {
@@ -684,10 +692,9 @@ class ListPane extends BackboneViews {
 
 class PersonRow extends BackboneViews {
   constructor (...args) {
-    super({
-      tagName: 'li',
-      className: 'person'
-    })
+    super(...args)
+    this.tagName = 'li'
+    this.className = 'person'
   }
 
   initialize () {
@@ -735,10 +742,9 @@ class PersonRow extends BackboneViews {
 
 class SearchBox extends BackboneViews {
   constructor (...args) {
-    super({
-      className: 'queryContainer',
-      events: {'keyup input.query': 'changeQuery'}
-    })
+    super(...args)
+    this.className = 'queryContainer'
+    this.events = {'keyup input.query': 'changeQuery'}
   }
 
   initialize () {
@@ -770,15 +776,13 @@ class SearchBox extends BackboneViews {
 
 class TagGrid extends BackboneViews {
   constructor (...args) {
-    super({
-      className: 'tags',
-      events: {'click .tag': 'onTagClick'}
-    })
+    super(...args)
+    this.className = 'tags'
+    this.events = {'click .tag': 'onTagClick'}
   }
 
   initialize () {
     _.bindAll(this)
-
     this.filterState = {}
     this.collection.on('reset', this.populate)
   }
@@ -873,9 +877,8 @@ class TagGrid extends BackboneViews {
 // ============================
 class OfficeGrid extends BackboneViews {
   constructor (...args) {
-    super({
-      tagName: 'nav'
-    })
+    super(...args)
+    this.tagName = 'nav'
   }
 
   initialize () {
@@ -921,14 +924,13 @@ class Map extends BackboneViews {
     * }
     */
   constructor (...args) {
-    super({
-      events: {
-        'click .photos image': 'onIconClick',
-        'click .seats rect': 'onSeatClick',
-        'click .roomNames .roomArea': 'onRoomClick',
-        'click .arrow': 'onArrowClick'
-      }
-    })
+    super(...args)
+    this.events = {
+      'click .photos image': 'onIconClick',
+      'click .seats rect': 'onSeatClick',
+      'click .roomNames .roomArea': 'onRoomClick',
+      'click .arrow': 'onArrowClick'
+    }
   }
 
   initialize () {
@@ -1258,9 +1260,8 @@ class PersonIcon extends Map {
 
 class RoomDetailsView extends BackboneViews {
   constructor (...args) {
-    super({
-      className: 'roomDetailsView detailsView'
-    })
+    super(...args)
+    this.className = 'roomDetailsView detailsView'
     this.CONTROL_PROTOCOL_TO_MANUFACTURER = {
       'TANDBERG_SSH': 'Cisco',
       'TANDBERG_HTTP': 'Cisco',
@@ -1392,9 +1393,8 @@ class RoomDetailsView extends BackboneViews {
 
 class PersonDetailsView extends BackboneViews {
   constructor (...args) {
-    super({
-      className: 'personDetailsView detailsView'
-    })
+    super(...args)
+    this.className = 'personDetailsView detailsView'
   }
 
   initialize () {
@@ -1471,4 +1471,6 @@ class PersonDetailsView extends BackboneViews {
   }
 }
 
-export default { DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, Map, PersonIcon, RoomDetailsView, PersonDetailsView }
+// RequireJS + Babel isn't smart enough for exports (yet)
+module.exports = [ DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, Map, PersonIcon, RoomDetailsView, PersonDetailsView ]
+// export default { DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, Map, PersonIcon, RoomDetailsView, PersonDetailsView }

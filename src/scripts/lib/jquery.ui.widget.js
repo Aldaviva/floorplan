@@ -13,7 +13,7 @@
   } else {
     // Browser globals
     // factory(jQuery)
-    factory(require('./jquery.js'))
+    factory(require('jquery'))
   }
 }(function ($) {
   $.ui = $.ui || {}

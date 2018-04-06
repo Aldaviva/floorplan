@@ -26,8 +26,8 @@
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
     factory(
-      require('./jquery.js'),
-      require('./jquery.ui.widget.js')
+      require('jquery'),
+      require('jquery.ui.widget')
     )
   } else {
     // Browser globals:

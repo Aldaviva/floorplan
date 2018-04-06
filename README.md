@@ -15,11 +15,13 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 * Babel
 * Express
 * Feathers
+* Gulp
 * Handlebars
 * jQuery
 * LESS
 * MongoDB
 * Node
+* RequireJS
 * StandardJS
 * SVG
 
@@ -38,9 +40,8 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 git clone https://github.com/unquietwiki/floorplan.git (This fork)
 cd floorplan
 npm install -g node-make
+npm install -g gulp
 make install-deps
-npm run buildcss
-npm run buildjs
 ```
 
 1. Copy the example configuration file to your own version for modification.
@@ -65,6 +66,8 @@ npm run buildjs
     * **`depTeams`** is an array of department / team `ID`s, with additional `name` parameters.
     * **`offices`** is an array of `officeID` locations, with additional parameters for `name`, `address`, `phone`, `fax`, and `email`.
 
+1. If you changed any directories, please update **`gulpfile.js`** with any path changes necessary. [`gulp`](https://gulpjs.com/) handles compilation of LESS and JS files, whenever Node is started fresh.
+
 1. Set permissions so the server can write to the directories where CSS stylesheets and people's photos are saved. Adjust this per your configuration needs.
 
     chmod +rwx data/photos
@@ -75,7 +78,7 @@ npm run buildjs
 
 ## Run
 
-[`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes. The Node instance will auto-restart when changes are detected; therefore, you only need to run Node, and it will handle the rest!
+[`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes, and auto-restarts Node when changes are detected. If any gulp-based recompilation is necessary, you'll need to fully stop & restart Node.
 
     npm start
 
@@ -146,7 +149,7 @@ Now when you view the Floorplan, the new person should appear in the list to the
 
 ## Work-in-Progress
 
-* Finish converting frontend JS to use [Babel transpilation](https://babeljs.io/), and make everything work.
+* Finish refactoring Backbone code on client-side, to survive ES6/Babel transpilation.
 * Validate Aldaviva's SVG process, and see if also doable in LibreOffice / other SVG apps.
 * Verify use of Imagemagick vs Graphicsmagick.
 * Make it easier to add seats to the SVG files (maybe separate out into another Mongo table?).

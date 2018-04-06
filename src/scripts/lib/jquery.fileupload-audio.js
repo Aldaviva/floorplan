@@ -27,9 +27,9 @@
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
     factory(
-      require('./jquery.js'),
-      require('./load-image-all.min.js'),
-      require('./jquery.fileupload-process.js')
+      require('jquery'),
+      require('load-image-all'),
+      require('jquery.fileupload-process')
     )
   } else {
     // Browser globals:

@@ -1,7 +1,18 @@
-import {$, jQuery} from './lib/jquery.js'
-import * as Backbone from './lib/backbone.js'
-import * as _ from './lib/underscore.js'
-import * as urljoin from './lib/url-join.js'
+// Before version 3.0, this was mainly "data.js"
+
+/*
+import { $, jQuery } from '../lib/jquery.js'
+import { _, underscore } from '../lib/underscore.js'
+import { Backbone } from '../lib/backbone.js'
+import { urljoin } from '../lib/url-join.js'
+*/
+
+// Async calls per http://requirejs.org/docs/errors.html#notloaded
+// RequireJS + Babel isn't smart enough for imports (yet)
+const $ = require(['./lib/jquery'], () => {})
+const _ = require(['./lib/underscore'], () => {})
+const Backbone = require(['./lib/backbone'], () => {})
+const urljoin = require(['./lib/url-join'], () => {})
 
 // ============================
 // ========== Person ==========
@@ -9,12 +20,11 @@ import * as urljoin from './lib/url-join.js'
 
 class Person extends Backbone.Model {
   constructor (...args) {
-    super({
-      idAttribute: '_id',
-      defaults: {
-        tags: []
-      }
-    })
+    super(...args)
+    this.idAttribute = '_id'
+    this.defaults = {
+      tags: []
+    }
   }
 
   getPhotoPath () {
@@ -26,31 +36,24 @@ class Person extends Backbone.Model {
   }
 
   getLinkedInProfileUrl () {
-    var profileId = this.get('linkedInId')
+    let profileId = this.get('linkedInId')
     return (profileId) ? this.Person.linkedInIdToUrl(profileId) : null
   }
 
   linkedInUrlToId (profileUrl) {
-    var profileId = null
-
-    var matches = profileUrl.match(/linkedin\.com\/(in\/[A-Za-z0-9\-_]+)/)
-    if (matches) {
-      profileId = matches[1]
-    } else {
+    let profileId = null
+    let matches = profileUrl.match(/linkedin\.com\/(in\/[A-Za-z0-9\-_]+)/)
+    if (matches) profileId = matches[1]
+    else {
       matches = profileUrl.match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/)
-      if (matches) {
-        profileId = matches[1]
-      }
+      if (matches) profileId = matches[1]
     }
-
     return profileId
   }
+
   linkedInIdToUrl (profileId) {
-    if (/^in\//.test(profileId)) {
-      return 'https://www.linkedin.com/' + profileId
-    } else {
-      return 'https://www.linkedin.com/profile/view?id=' + profileId
-    }
+    if (/^in\//.test(profileId)) return 'https://www.linkedin.com/' + profileId
+    else return 'https://www.linkedin.com/profile/view?id=' + profileId
   }
 }
 
@@ -60,11 +63,10 @@ class Person extends Backbone.Model {
 
 class People extends Backbone.Collection {
   constructor (...args) {
-    super({
-      model: args.person, // Person
-      url: urljoin(window.baseURL, '/people'),
-      comparator: 'fullname'
-    })
+    super(...args)
+    this.model = Person
+    this.url = urljoin(window.baseURL, '/people')
+    this.comparator = 'fullname'
   }
 }
 
@@ -96,14 +98,15 @@ class Endpoint extends Backbone.Model {
 
 class Endpoints extends Backbone.Collection {
   constructor (...args) {
-    super({
-      model: args.endpoint, // Endpoint
-      url: urljoin(window.baseURL, '/endpoints')
-    })
+    super(...args)
+    this.model = Endpoint
+    this.url = urljoin(window.baseURL, '/endpoints')
   }
+
   initialize () {
     _.bindAll(this)
   }
+
   fetchStatuses () {
     return $.getJSON(this.url + '/status')
       .done(_.bind(function (statuses) {
@@ -115,4 +118,6 @@ class Endpoints extends Backbone.Collection {
   }
 }
 
-export default { People, Person, Endpoints, Endpoint }
+// RequireJS + Babel isn't smart enough for exports (yet)
+module.exports = [ People, Person, Endpoints, Endpoint ]
+// export default { People, Person, Endpoints, Endpoint }

@@ -1,11 +1,11 @@
 *.sublime-*
 .vscode
 node_modules
+people.json
 config/config.json
 config/default.json
 data/maps/custom
 data/photos/*.jpg
-people.json
 public/images/photos/*.jpg
 public/scripts
 public/styles

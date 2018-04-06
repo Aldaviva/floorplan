@@ -25,8 +25,8 @@
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
     factory(
-      require('./jquery.js'),
-      require('./jquery.fileupload-process.js')
+      require('jquery'),
+      require('jquery.fileupload-process')
     )
   } else {
     // Browser globals:

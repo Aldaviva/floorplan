@@ -7,10 +7,11 @@
     <base href="{{baseURL}}">
     <link href="styles/jquery-ui.all.css" rel="stylesheet">
     <link href="styles/admin.css" rel="stylesheet">
-    <script src="scripts/lib/require.min.js"></script>
+    <script src="scripts/require.js"></script>
     <script>
-        var TarpConfig = { require: { paths: ['{{baseURL}}scripts'] } }
-        Tarp.require('{{baseURL}}scripts/admin.js', true)
+        requirejs(['./scripts/common'], function (common) {
+            requirejs(['./client/admin'])
+        })
     </script>
 </head>
 

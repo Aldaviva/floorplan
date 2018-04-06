@@ -24,7 +24,7 @@
     define(['jquery'], factory)
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
-    factory(require('./jquery.js'))
+    factory(require('jquery'))
   } else {
     // Browser globals:
     factory(window.jQuery)

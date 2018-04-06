@@ -3,15 +3,19 @@ Winter/Spring 2018
 
 ===== General =====
 * "Learning NodeJS Development" by Andrew Mead; 2018 edition
+* http://2ality.com/2015/12/babel-commonjs.html
 * https://css-tricks.com/using-svg/
 * https://exploringjs.com/es6/ch_promises.html
 * https://babeljs.io/learn-es2015/
 * https://benmccormick.org/2015/07/06/backbone-and-es6-classes-revisited/
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript
 * https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
+* https://en.wikibooks.org/wiki/JavaScript
 * https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 * https://medium.com/@timoxley/named-exports-as-the-default-export-api-670b1b554f65
+* http://requirejs.org/
 * https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
+* https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
 * https://www.sitepoint.com/preparing-ecmascript-6-let-const/
 * https://www.w3schools.com/
 
@@ -36,4 +40,5 @@ Winter/Spring 2018
 * https://github.com/lorenwest/node-config/
 * https://github.com/senchalabs/connect
 * https://github.com/winstonjs/winston/tree/2.4.0
+* https://gulpjs.com/
 * https://lodash.com/docs

@@ -26,15 +26,15 @@
       'load-image-scale',
       'load-image-exif',
       'canvas-to-blob',
-      './jquery.fileupload-process'
+      'jquery.fileupload-process'
     ], factory)
   } else if (typeof exports === 'object') {
     // Node/CommonJS:
     factory(
-      require('./jquery.js'),
-      require('./load-image-all.min.js'),
-      require('./canvas-to-blob.min.js'),
-      require('./jquery.fileupload-process.js')
+      require('jquery'),
+      require('load-image-all'),
+      require('canvas-to-blob'),
+      require('jquery.fileupload-process')
     )
   } else {
     // Browser globals:
