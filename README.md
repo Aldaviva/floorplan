@@ -9,12 +9,15 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 ### Administrative view
 ![Floorplan Admin](https://aldaviva.com/portfolio/artwork/floorplan-admin.jpg)
 
+<hr>
 <p align="center">
 <img src="https://forthebadge.com/images/badges/made-with-javascript.svg">
+<img src="https://forthebadge.com/images/badges/uses-css.svg">
 <img src="https://forthebadge.com/images/badges/contains-technical-debt.svg">
 <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
 <img src="https://forthebadge.com/images/badges/check-it-out.svg">
 </p>
+<hr>
 
 ## Prerequisites
 
