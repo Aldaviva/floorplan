@@ -1,25 +1,17 @@
-/*
-import { $, jQuery } from '../lib/jquery.js'
-import { urljoin } from '../lib/url-join.js'
-import { Mediator } from '../lib/mediator.js'
-import { People, Person } from './BackboneModels.js'
-import * as BackboneViews from './BackboneViews.js'
-*/
+// npm + Browserify dependencies
+import { $ } from 'jquery'
+import { urljoin } from 'url-join'
+import { Mediator } from 'mediator-js'
 
-// Async calls per http://requirejs.org/docs/errors.html#notloaded
-// RequireJS + Babel isn't smart enough for imports (yet)
-const $ = require(['./lib/jquery'], () => {})
-const urljoin = require(['./lib/url-join'], () => {})
-const Mediator = require(['./lib/Mediator'], () => {})
-const People = require(['./client/BackboneModels'], () => {}).People
-const Person = require(['./client/BackboneModels'], () => {}).Person
-const BackboneViews = require(['./client/BackboneViews'], () => {})
+// Other dependencies
+import { People, Person } from './BackboneModels'
+import { Editor, ListPane } from './BackboneViews'
 
 // Instantation
-const bvObj = new BackboneViews()
 const people = new People()
-const listPane = bvObj.ListPane({ el: $('#listPane')[0], collection: people })
-const editor = bvObj.Editor({ el: $('#editor')[0], collection: people })
+const mediator = new Mediator()
+const listPane = ListPane({ el: $('#listPane')[0], collection: people })
+const editor = Editor({ el: $('#editor')[0], collection: people })
 
 listPane.render()
 editor.render()
@@ -29,7 +21,7 @@ listPane.$('.people')
     .append($('<span>', { class: 'icon', text: '+' }))
     .append($('<div>', { class: 'name', text: 'add person' })))
 
-Mediator.subscribe('activatePersonConfirmed', function (person, opts) {
+mediator.subscribe('activatePersonConfirmed', function (person, opts) {
   if (!opts.skipHistory) {
     let path = urljoin(global.baseURL, (person.isNew()
       ? '/admin/'
@@ -49,9 +41,9 @@ window.addEventListener('popstate', function (event) {
 
 people.fetch({
   reset: true,
-  success: function () {
-    var pathnameParts = window.location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
-    var personToActivate
+  success: () => {
+    let pathnameParts = window.location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
+    let personToActivate
 
     if (pathnameParts.length >= 3) {
       var personId = pathnameParts[2]
@@ -63,7 +55,7 @@ people.fetch({
 
     personToActivate = personToActivate || new Person()
 
-    Mediator.publish('activatePersonConfirmed', personToActivate)
+    mediator.publish('activatePersonConfirmed', personToActivate)
     editor.$el.show()
   }
 })

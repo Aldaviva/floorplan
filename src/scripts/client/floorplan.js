@@ -1,28 +1,20 @@
-/*
-import { $, jQuery } from '../lib/jquery.js'
-import { Mediator } from '../lib/mediator.js'
-import { People, Person, Endpoints, Endpoint } from './BackboneModels.js'
-import * as BackboneViews from './BackboneViews.js'
-*/
+// npm + Browserify dependencies
+import { $ } from 'jquery'
+import { Mediator } from 'mediator-js'
 
-// Async calls per http://requirejs.org/docs/errors.html#notloaded
-// RequireJS + Babel isn't smart enough for imports (yet)
-const $ = require(['./lib/jquery'], () => {})
-const Mediator = require(['./lib/Mediator'], () => {})
-const People = require(['./client/BackboneModels'], () => {}).People
-const Person = require(['./client/BackboneModels'], () => {}).Person
-const Endpoints = require(['./client/BackboneModels'], () => {}).Endpoints
-const BackboneViews = require(['./client/BackboneViews'], () => {})
+// Other dependencies
+import { People, Person, Endpoints } from './BackboneModels'
+import { DetailsPane, ListPane, BVMap } from './BackboneViews'
+
+// !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
-const bvObj = new BackboneViews()
-const people = new People()
-people.fetch({ reset: true, success: initDeepLinking })
+const mediator = new Mediator()
+const people = People.fetch({ reset: true, success: initDeepLinking })
 const endpoints = Endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = bvObj.ListPane({ el: $('#listPane')[0], collection: people })
-const detailsPane = bvObj.DetailsPane({ el: $('#detailsPane')[0] })
-// var map = BackboneViews.Map({ el: $('.map')[0], collection: data.people, office: window.floorplanParams.officeID })
-const map = bvObj.Map({ el: $('.map')[0], collection: people })
+const listPane = ListPane({ el: $('#listPane')[0], collection: people })
+const detailsPane = DetailsPane({ el: $('#detailsPane')[0] })
+const map = BVMap({ el: $('.map')[0], collection: people, office: window.floorplanParams.officeID })
 
 render()
 bindEvents()
@@ -34,10 +26,10 @@ function render () {
 }
 
 function bindEvents () {
-  Mediator.subscribe('activatePerson', function (inPerson, opts) {
+  mediator.subscribe('activatePerson', function (inPerson, opts) {
     let person = new Person(inPerson)
     if ((!person.get('office')) || (person.get('office') === window.floorplanParams.officeID)) {
-      Mediator.publish('activatePersonConfirmed', person, opts)
+      mediator.publish('activatePersonConfirmed', person, opts)
     } else {
       window.location.replace(getDeepLink(person))
     }
@@ -50,23 +42,23 @@ function bindEvents () {
     }
   }) */
 
-  Mediator.subscribe('map:clickPerson', function (person, opts) {
-    Mediator.publish('activatePerson', person, opts)
+  mediator.subscribe('map:clickPerson', function (person, opts) {
+    mediator.publish('activatePerson', person, opts)
   })
 
-  Mediator.subscribe('map:clickRoom', function (endpointId, opts) {
+  mediator.subscribe('map:clickRoom', function (endpointId, opts) {
     if (endpointId) {
       let endpoint = endpoints.get(endpointId)
       if (endpoint) {
         endpoint.set({ seatingCapacity: opts.seatingCapacity })
-        Mediator.publish('activateRoom', endpoint, opts)
+        mediator.publish('activateRoom', endpoint, opts)
       }
     }
   })
 }
 
 function initDeepLinking () {
-  Mediator.subscribe('activatePersonConfirmed', function (person, opts) {
+  mediator.subscribe('activatePersonConfirmed', function (person, opts) {
     if (!opts.skipHistory) {
       let path = getDeepLink(person)
       window.history.pushState({ personId: person.id }, null, path)
@@ -81,7 +73,7 @@ function initDeepLinking () {
        */
     if (event.state) {
       let person = people.get(event.state.personId)
-      Mediator.publish('activatePerson', person, { skipHistory: true })
+      mediator.publish('activatePerson', person, { skipHistory: true })
     }
   }, false)
 
@@ -97,7 +89,7 @@ function initDeepLinking () {
   }
 
   if (personToActivate) {
-    Mediator.publish('activatePerson', personToActivate) // TODO should we skip history here?
+    mediator.publish('activatePerson', personToActivate) // TODO should we skip history here?
   } else {
     detailsPane.toggleIntro(true)
   }

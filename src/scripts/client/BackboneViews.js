@@ -1,22 +1,12 @@
-// Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib"
+// npm + Browserify dependencies
+import { $ } from 'jquery'
+import { _ } from 'underscore'
+import * as Backbone from 'backbone'
+import { urljoin } from 'url-join'
+import { Q } from 'q'
+import { Mediator } from 'mediator-js'
 
-/*
-import { $, jQuery } from '../lib/jquery.js'
-import { _, underscore } from '../lib/underscore.js'
-import { Backbone } from '../lib/backbone.js'
-import { urljoin } from '../lib/url-join.js'
-import { Mediator } from '../lib/mediator.js'
-import { Q } from '../lib/q.js'
-*/
-
-// Async calls per http://requirejs.org/docs/errors.html#notloaded
-// RequireJS + Babel isn't smart enough for imports (yet)
-const $ = require(['./lib/jquery'], () => {})
-const _ = require(['./lib/underscore'], () => {})
-const Backbone = require(['./lib/backbone'], () => {})
-const urljoin = require(['./lib/url-join'], () => {})
-const Mediator = require(['./lib/Mediator'], () => {})
-const Q = require(['./lib/Q'], () => {})
+// !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
 // ============================
 // ======= SUPERCLASS =========
@@ -28,7 +18,7 @@ class BackboneViews extends Backbone.View {
     this.$el = args.$el
     this.collection = args.collection
     this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
-    this.mediator = Mediator
+    this.mediator = new Mediator()
   }
 }
 
@@ -915,7 +905,7 @@ class OfficeGrid extends BackboneViews {
 // ============ map ===========
 // ============================
 
-class Map extends BackboneViews {
+class BVMap extends BackboneViews {
   /*
   * options: {
     *     office: 'mv',
@@ -1192,7 +1182,7 @@ class Map extends BackboneViews {
 // ======= PersonIcon =========
 // ============================
 
-class PersonIcon extends Map {
+class PersonIcon extends BVMap {
   initialize () {
     _.bindAll(this)
     this.setElement(document.createElementNS(this.SVG_NAMESPACE, 'image'))
@@ -1471,6 +1461,4 @@ class PersonDetailsView extends BackboneViews {
   }
 }
 
-// RequireJS + Babel isn't smart enough for exports (yet)
-module.exports = [ DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, Map, PersonIcon, RoomDetailsView, PersonDetailsView ]
-// export default { DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, Map, PersonIcon, RoomDetailsView, PersonDetailsView }
+export default { DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, BVMap, PersonIcon, RoomDetailsView, PersonDetailsView }

@@ -1,10 +1,12 @@
 // Modules
-const babel = require('gulp-babel')
+const browserify = require('browserify')
+const buffer = require('vinyl-buffer')
 const gulp = require('gulp')
 const less = require('gulp-less')
 const minifyCSS = require('gulp-csso')
-const minifyJS = require('gulp-minify')
+const source = require('vinyl-source-stream')
 const sourcemaps = require('gulp-sourcemaps')
+const uglify = require('gulp-uglify')
 
 // LESS -> Minified CSS
 gulp.task('css', () => {
@@ -14,36 +16,39 @@ gulp.task('css', () => {
     .pipe(gulp.dest('public/styles'))
 })
 
-// Provision backend libraries
-gulp.task('libjs', () => {
-  return gulp.src('src/scripts/lib/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(minifyJS({
-      ext: {min: '.js'},
-      ignoreFiles: ['.min.js']
-    }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/scripts/lib'))
+// Make Browserified admin.js
+gulp.task('makeAdmin', () => {
+  // set up the browserify instance on a task basis
+  browserify({
+    entries: 'src/scripts/client/admin.js',
+    debug: true
+  })
+    .transform('babelify', {presets: ['es2015-ie']})
+    .bundle()
+    .pipe(source('admin.min.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./public/scripts/'))
 })
 
-// Process client JS through Babel & publish
-gulp.task('clientjs', () =>
-  gulp.src('src/scripts/client/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: [['env', { 'targets': {
-        'browsers': ['last 2 versions', 'safari >= 7']
-      }}]]
-    }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('public/scripts/client'))
-)
-
-// Ensure RequireJS is in place
-gulp.task('requirejs', () => {
-  return gulp.src('src/scripts/*.js')
-    .pipe(gulp.dest('public/scripts'))
+// Make Browserified floorplan.js
+gulp.task('makeFloorplan', () => {
+  // set up the browserify instance on a task basis
+  browserify({
+    entries: 'src/scripts/client/floorplan.js',
+    debug: true
+  })
+    .transform('babelify', {presets: ['env']})
+    .bundle()
+    .pipe(source('floorplan.min.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./public/scripts/'))
 })
 
 // Do all the things!
-gulp.task('default', [ 'css', 'libjs', 'clientjs', 'requirejs' ])
+gulp.task('default', [ 'css', 'makeAdmin', 'makeFloorplan' ])
