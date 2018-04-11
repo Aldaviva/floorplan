@@ -1,8 +1,9 @@
 // npm + Browserify dependencies
-import { $ } from 'jquery'
-import { _ } from 'underscore'
-import * as Backbone from 'backbone'
-import { urljoin } from 'url-join'
+import $ from 'jquery'
+import _ from 'lodash'
+import Backbone from 'backbone'
+import urljoin from 'url-join'
+import data from './data'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
 
@@ -10,7 +11,7 @@ import { urljoin } from 'url-join'
 // ========== Person ==========
 // ============================
 
-class Person extends Backbone.Model {
+export class Person extends Backbone.Model {
   constructor (...args) {
     super({
       idAttribute: '_id',
@@ -19,8 +20,8 @@ class Person extends Backbone.Model {
   }
 
   getPhotoPath () {
-    if (this.id) return urljoin(this.baseURL, '/people', this.id + '/photo')
-    else return urljoin(this.baseURL, '/images/missing_photo.jpg')
+    if (this.id) return urljoin(data.baseURL, '/people', this.id + '/photo')
+    else return urljoin(data.baseURL, '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
@@ -49,11 +50,11 @@ class Person extends Backbone.Model {
 // ========== People ==========
 // ============================
 
-class People extends Backbone.Collection {
+export class People extends Backbone.Collection {
   constructor (...args) {
     super({
       model: Person,
-      url: urljoin(window.baseURL, '/people'),
+      url: urljoin(data.baseURL, '/people'),
       comparator: 'fullname'
     })
   }
@@ -63,7 +64,7 @@ class People extends Backbone.Collection {
 // ======== Endpoint ==========
 // ============================
 
-class Endpoint extends Backbone.Model {
+export class Endpoint extends Backbone.Model {
   /**
   * @return one of "offline", "in a call", "reserved", or "available"
   */
@@ -85,11 +86,11 @@ class Endpoint extends Backbone.Model {
 // ======== Endpoints =========
 // ============================
 
-class Endpoints extends Backbone.Collection {
+export class Endpoints extends Backbone.Collection {
   constructor (...args) {
     super({
       model: Endpoint,
-      url: urljoin(window.baseURL, '/endpoints')
+      url: urljoin(data.baseURL, '/endpoints')
     })
   }
 
@@ -100,12 +101,11 @@ class Endpoints extends Backbone.Collection {
   fetchStatuses () {
     return $.getJSON(this.url + '/status')
       .done(_.bind(function (statuses) {
-        _.forEach(statuses, function (status) {
+        // WAS LODASH / UNDERSCORE
+        statuses.forEach(function (status) {
           let endpoint = this.get(status.endpointId)
           endpoint.set({ status: _.omit(status, 'endpointId') })
         }, this)
       }, this))
   }
 }
-
-export default { People, Person, Endpoints, Endpoint }

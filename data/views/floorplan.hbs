@@ -1,15 +1,16 @@
 <!doctype html>
-<html class="floorplan {{officeID}}">
+<html class="floorplan {{stdContext.officeID}}">
 
 <head>
 	<meta charset="utf-8" />
-	<title>{{companyName}} {{officeName}}</title>
-	<base href="{{baseURL}}">
-	<script>
-		var floorplanParams = {
-			officeID: '{{officeID}}'
-		}
-	</script>
+	<title>{{stdContext.companyName}} {{stdContext.officeName}}</title>
+	<base href="{{stdContext.baseURL}}">
+    <script>
+		// Attempt to make "this" our global
+        var global = this
+        // Attempt to get the baseURL for JSON loading
+        global.baseURL = '{{stdContext.baseURL}}'
+    </script>
 	<meta name="viewport" content="width=90%, user-scalable=no" />
 	<link href="styles/jquery-ui.all.css" rel="stylesheet">
 	<link href="styles/floorplan.css" rel="stylesheet">
@@ -22,7 +23,7 @@
 	<div class="map">
 		{{{svg}}}
 	</div>
-	<div id="detailsPane" class="{{officeID}}"></div>
+	<div id="detailsPane" class="{{stdContext.officeID}}"></div>
 	<!-- Piwik
 
 	<script type="text/javascript">

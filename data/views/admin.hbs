@@ -3,8 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Admin – {{companyName}} Floorplan</title>
-    <base href="{{baseURL}}">
+    <title>Admin – {{stdContext.companyName}} Floorplan</title>
+    <base href="{{stdContext.baseURL}}">
+    <script>
+		// Attempt to make "this" our global
+        var global = this
+        // Attempt to get the baseURL for JSON loading
+        global.baseURL = '{{stdContext.baseURL}}'
+    </script>
     <link href="styles/jquery-ui.all.css" rel="stylesheet">
     <link href="styles/admin.css" rel="stylesheet">
     <script src="scripts/admin.min.js"></script>
@@ -14,7 +20,7 @@
     <div class="vignette"></div>
 
     <div id="topbar">
-        <a href="{{baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
+        <a href="{{stdContext.baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
     </div>
 
     <div id="listPane"></div>

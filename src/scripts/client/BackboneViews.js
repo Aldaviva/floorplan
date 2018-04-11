@@ -1,9 +1,9 @@
 // npm + Browserify dependencies
-import { $ } from 'jquery'
-import { _ } from 'underscore'
-import * as Backbone from 'backbone'
-import { urljoin } from 'url-join'
-import { Q } from 'q'
+import $ from 'jquery'
+import _ from 'lodash'
+import Backbone from 'backbone'
+import urljoin from 'url-join'
+import Q from 'q'
 import { Mediator } from 'mediator-js'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
@@ -12,7 +12,7 @@ import { Mediator } from 'mediator-js'
 // ======= SUPERCLASS =========
 // ============================
 
-class BackboneViews extends Backbone.View {
+export default class BackboneViews extends Backbone.View {
   constructor (...args) {
     super(...args)
     this.$el = args.$el
@@ -26,7 +26,7 @@ class BackboneViews extends Backbone.View {
 // ======= DetailsPane ========
 // ============================
 
-class DetailsPane extends Backbone.View {
+export class DetailsPane extends BackboneViews {
   initialize () {
     _.bindAll(this)
 
@@ -96,7 +96,7 @@ class DetailsPane extends Backbone.View {
 // ========== editor ==========
 // ============================
 
-class Editor extends BackboneViews {
+export class Editor extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.events = {
@@ -113,8 +113,9 @@ class Editor extends BackboneViews {
     _.bindAll(this)
 
     var officeIDs = this.$('.office input[type=radio]').map(function () { return $(this).attr('value') })
-    this.maps = _.zipObject(officeIDs, _.map(officeIDs, function (officeID) {
-      return new Map({
+    // WAS LODASH / UNDERSCORE
+    this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, function (officeID) {
+      return new BVMap({
         el: $('.map.' + officeID)[0],
         collection: this.data.people,
         office: officeID,
@@ -143,7 +144,7 @@ class Editor extends BackboneViews {
     } else if (arguments.length === 1) {
       var attributeValue
       if (target.is(':checkbox')) {
-        attributeValue = _.map(target.filter(':checked'), function (item) {
+        attributeValue = Array.prototype.map(target.filter(':checked'), function (item) {
           return $(item).val()
         })
       } else if (target.is(':radio')) {
@@ -157,7 +158,8 @@ class Editor extends BackboneViews {
 
   render () {
     if (this.model) {
-      _(['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office']).forEach(function (fieldName) {
+      // WAS LODASH / UNDERSCORE
+      ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach(function (fieldName) {
         var target = this.$('input[name=' + fieldName + ']')
         var value = this.model.get(fieldName)
 
@@ -187,13 +189,14 @@ class Editor extends BackboneViews {
 
       this.renderPhoto()
 
-      _.each(this.maps, function (mapView) {
+      // WAS LODASH / UNDERSCORE
+      this.maps.forEach(function (mapView) {
         var isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
         mapView.$el.toggle(isMapOfPersonsOffice)
         if (isMapOfPersonsOffice) {
           this.map = mapView
         }
-      }, this)
+      })
 
       this.renderFormControls()
 
@@ -202,7 +205,7 @@ class Editor extends BackboneViews {
     }
 
     this.$el.toggle(!!this.model)
-    _.each(this.maps, function (mapView) {
+    this.maps.forEach(function (mapView) {
       mapView.render()
     })
   }
@@ -322,7 +325,8 @@ class Editor extends BackboneViews {
       } else if (attributeName === 'email') {
         attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
       } else if (currentTarget.is(':checkbox')) {
-        attributeValue = _.map(this.$('input[name=' + attributeName + ']:checked'), function (item) { return $(item).val() })
+        // WAS LODASH / UNDERSCORE
+        attributeValue = this.$('input[name=' + attributeName + ']:checked').map(function (item) { return $(item).val() })
       } else if (currentTarget.is(':radio')) {
         attributeValue = this.$('input[name=' + attributeName + ']:checked').val()
       } else {
@@ -406,8 +410,8 @@ class Editor extends BackboneViews {
   }
 
   onPhotoUploadFailure (event, data) {
-    console.error(this.data.errorThrown)
-    console.error(this.data.jqXHR.responseText)
+    this.console.error(this.data.errorThrown)
+    this.console.error(this.data.jqXHR.responseText)
     window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.data.jqXHR.responseText)
   }
 
@@ -502,7 +506,7 @@ class Editor extends BackboneViews {
 // ========= introView ========
 // ============================
 
-class IntroView extends BackboneViews {
+export class IntroView extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.className = 'intro'
@@ -543,7 +547,7 @@ class IntroView extends BackboneViews {
 // ========= listPane =========
 // ============================
 
-class ListPane extends BackboneViews {
+export class ListPane extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.events = {
@@ -622,7 +626,8 @@ class ListPane extends BackboneViews {
         return person.get('fullname').toLowerCase().indexOf(query) === -1
       })
 
-      _.each(peopleToHide, function (personToHide) {
+      // WAS LODASH/UNDERSCORE
+      peopleToHide.forEach(peopleToHide, function (personToHide) {
         var view = personToHide.views.listPaneRow
         view.$el.addClass('filtered_name')
       })
@@ -640,7 +645,8 @@ class ListPane extends BackboneViews {
       : []
 
     this.ol.children().removeClass('filtered_tag')
-    _.each(peopleToHide, function (personToHide) {
+    // WAS LODASH/UNDERSCORE
+    peopleToHide.forEach(function (personToHide) {
       var view = personToHide.views.listPaneRow
       view.$el.addClass('filtered_tag')
     })
@@ -680,7 +686,7 @@ class ListPane extends BackboneViews {
 // ======= PersonRow ==========
 // ============================
 
-class PersonRow extends BackboneViews {
+export class PersonRow extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.tagName = 'li'
@@ -730,7 +736,7 @@ class PersonRow extends BackboneViews {
 // ======= SearchBox ==========
 // ============================
 
-class SearchBox extends BackboneViews {
+export class SearchBox extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.className = 'queryContainer'
@@ -764,7 +770,7 @@ class SearchBox extends BackboneViews {
 // ======== TagGrid ===========
 // ============================
 
-class TagGrid extends BackboneViews {
+export class TagGrid extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.className = 'tags'
@@ -778,11 +784,12 @@ class TagGrid extends BackboneViews {
   }
 
   render () {
-    _(this.filterState)
+    // WAS LODASH/UNDERSCORE
+    this.filterState
       .filter(function (tagFilterState) {
         return !tagFilterState.tagGridEl
       })
-      .each(function (tagFilterState) {
+      .forEach(function (tagFilterState) {
         var tagEl = $('<a>')
           .attr({
             href: '#',
@@ -795,7 +802,8 @@ class TagGrid extends BackboneViews {
         this.$el.append(tagEl)
       }, this)
 
-    _.each(this.filterState, function (tagFilterState) {
+    // WAS LODASH/UNDERSCORE
+    this.filterState.forEach(function (tagFilterState) {
       tagFilterState.tagGridEl && tagFilterState.tagGridEl.toggleClass('filtered', tagFilterState.isFiltered)
     }, this)
 
@@ -803,7 +811,8 @@ class TagGrid extends BackboneViews {
   }
 
   populate (coll) {
-    var tagNames = _(coll.pluck('tags')).flatten().compact().unique().sortBy().value()
+    // WAS LODASH/UNDERSCORE
+    var tagNames = coll.map('tags').flatten().compact().unique().sortBy().value()
     _.extend(this.filterState, _.zipObject(tagNames.map(function (tagName) {
       return [tagName, {
         tagName: tagName,
@@ -821,7 +830,8 @@ class TagGrid extends BackboneViews {
     * If we were showing all people, then clicking will first hide all people, so the following common logic can show only one tag
     */
     if (!this._isAnyTagFiltered()) { // case c
-      _.each(this.filterState, function (tagFilterState) {
+      // WAS LODASH/UNDERSCORE
+      this.filterState.forEach(function (tagFilterState) {
         tagFilterState.isFiltered = true
       })
     }
@@ -833,7 +843,8 @@ class TagGrid extends BackboneViews {
     * If no people would be shown, then show everybody
     */
     if (this._isEveryTagFiltered()) { // case b
-      _.each(this.filterState, function (tagFilterState) {
+      // WAS LODASH/UNDERSCORE
+      this.filterState.forEach(function (tagFilterState) {
         tagFilterState.isFiltered = false
       })
     }
@@ -843,29 +854,32 @@ class TagGrid extends BackboneViews {
     /*
     * For this event, tagsToShow = null means show everybody, and tagsToShow = [] means show nobody
     */
+    // WAS LODASH/UNDERSCORE
     this.mediator.publish('filterByTag', {
       tagsToShow: (this._isAnyTagFiltered())
-        ? _(this.filterState)
+        ? this.filterState
           .where({ isFiltered: false })
-          .pluck('tagName')
+          .map('tagName')
           .value()
         : null
     })
   }
 
   _isAnyTagFiltered () {
-    return _.any(this.filterState, 'isFiltered')
+    // WAS LODASH/UNDERSCORE
+    return this.filterState.any('isFiltered')
   }
 
   _isEveryTagFiltered () {
-    return _.all(this.filterState, 'isFiltered')
+    // WAS LODASH/UNDERSCORE
+    return this.filterState.all('isFiltered')
   }
 }
 
 // ============================
 // ======== OfficeGrid ========
 // ============================
-class OfficeGrid extends BackboneViews {
+export class OfficeGrid extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.tagName = 'nav'
@@ -875,6 +889,7 @@ class OfficeGrid extends BackboneViews {
     _.bindAll(this)
   }
 
+  // TODO: make dependent on client config
   render () {
     if (this.$el.is(':empty')) {
       this.$el.append(
@@ -892,7 +907,8 @@ class OfficeGrid extends BackboneViews {
       this.$('a')
         .filter(function () {
           return ($(this).attr('href') === window.floorplanParams.officeID) ||
-        (_.contains(['mv2', 'mv3'], window.floorplanParams.officeID) && $(this).attr('href') === 'mv')
+          // WAS LODASH/UNDERSCORE; specific to BlueJeans
+        (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && $(this).attr('href') === 'mv')
         })
         .addClass('active')
     }
@@ -905,7 +921,7 @@ class OfficeGrid extends BackboneViews {
 // ============ map ===========
 // ============================
 
-class BVMap extends BackboneViews {
+export class BVMap extends BackboneViews {
   /*
   * options: {
     *     office: 'mv',
@@ -1047,7 +1063,8 @@ class BVMap extends BackboneViews {
       this.svgRemoveClass(photoEl, 'filtered_tag')
     })
 
-    _.each(peopleToHide, function (personToHide) {
+    // WAS LODASH/UNDERSCORE
+    peopleToHide.forEach(peopleToHide, function (personToHide) {
       var view = personToHide.views.mapIcon
       view && this.svgAddClass(view.el, 'filtered_tag')
     })
@@ -1064,7 +1081,8 @@ class BVMap extends BackboneViews {
       this.svgRemoveClass(photoEl, 'filtered_name')
     })
 
-    _.each(peopleToHide, function (personToHide) {
+    // WAS LODASH/UNDERSCORE
+    peopleToHide.forEach(function (personToHide) {
       var view = personToHide.views.mapIcon
       view && this.svgAddClass(view.el, 'filtered_name')
     })
@@ -1096,7 +1114,7 @@ class BVMap extends BackboneViews {
     var badgeEl = this.$(".roomNames .room[endpoint\\:id='" + endpoint.id + "'] .statusBadge").get(0)
     if (badgeEl) {
       var titleText = endpoint.getAvailability()
-      var isAvailable = (titleText === 'available')
+      // var isAvailable = (titleText === 'available')
 
       this.setTitle(badgeEl, titleText)
       this.svgAddClass(badgeEl, 'loaded')
@@ -1112,10 +1130,11 @@ class BVMap extends BackboneViews {
   }
 
   renderClock () {
+    /*
     var hourHand = this.$('.clockHand.hours')
     var minuteHand = this.$('.clockHand.minutes')
 
-    /* $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
+    $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
       .done(function (londonTime) {
         var hourDegrees = ((londonTime.hours % 12 / 12) + (londonTime.minutes / 60 / 60)) * 360
         var minuteDegrees = ((londonTime.minutes / 60) + (londonTime.seconds / 60 / 60)) * 360
@@ -1147,7 +1166,10 @@ class BVMap extends BackboneViews {
     */
   svgAddClass (el, classStr) {
     var oldClassList = el.className.baseVal.split(/\s/)
-    var newClassList = _.compact(_.unique(oldClassList.concat(classStr.split(/\/s/))))
+    // WAS LODASH/UNDERSCORE
+    // var newClassList = _.compact(_.unique(oldClassList.concat(classStr.split(/\/s/))))
+    // TODO: CHECK THIS!!!!
+    var newClassList = [...new Set(oldClassList.concat(classStr.split(/\/s/)))].filter()
     el.className.baseVal = newClassList.join(' ')
   }
 
@@ -1165,7 +1187,8 @@ class BVMap extends BackboneViews {
 
   svgHasClass (el, classStr) {
     var classList = el.className.baseVal.split(/\s/)
-    return _.contains(classList, classStr)
+    // WAS LODASH/UNDERSCORE
+    return classList.includes(classStr)
   }
 
   setTitle (el, titleText) {
@@ -1182,7 +1205,7 @@ class BVMap extends BackboneViews {
 // ======= PersonIcon =========
 // ============================
 
-class PersonIcon extends BVMap {
+export class PersonIcon extends BVMap {
   initialize () {
     _.bindAll(this)
     this.setElement(document.createElementNS(this.SVG_NAMESPACE, 'image'))
@@ -1220,7 +1243,7 @@ class PersonIcon extends BVMap {
           'data-desk': desk
         })
       } else {
-        console.warn('office ' + this.model.get('office') + ' has no desk at index ' + desk)
+        this.console.warn('office ' + this.model.get('office') + ' has no desk at index ' + desk)
       }
     }
 
@@ -1248,7 +1271,7 @@ class PersonIcon extends BVMap {
 // ===== roomDetailsView ======
 // ============================
 
-class RoomDetailsView extends BackboneViews {
+export class RoomDetailsView extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.className = 'roomDetailsView detailsView'
@@ -1381,7 +1404,7 @@ class RoomDetailsView extends BackboneViews {
 // ===== personDetailsView ====
 // ============================
 
-class PersonDetailsView extends BackboneViews {
+export class PersonDetailsView extends BackboneViews {
   constructor (...args) {
     super(...args)
     this.className = 'personDetailsView detailsView'
@@ -1393,7 +1416,8 @@ class PersonDetailsView extends BackboneViews {
   }
 
   formatPhoneNumber (phoneNumber) {
-    if (phoneNumber) return phoneNumber.replace(/[\(\)]/g, '').replace(/[\.]/g, '-')
+    // NO USELESS ESCAPE
+    if (phoneNumber) return phoneNumber.replace(/[()]/g, '').replace(/[.]/g, '-')
     else return phoneNumber
   }
 
@@ -1460,5 +1484,3 @@ class PersonDetailsView extends BackboneViews {
     return this.el
   }
 }
-
-export default { DetailsPane, Editor, IntroView, ListPane, PersonRow, SearchBox, TagGrid, OfficeGrid, BVMap, PersonIcon, RoomDetailsView, PersonDetailsView }

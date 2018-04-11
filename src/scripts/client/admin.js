@@ -1,6 +1,6 @@
 // npm + Browserify dependencies
-import { $ } from 'jquery'
-import { urljoin } from 'url-join'
+import $ from 'jquery'
+import urljoin from 'url-join'
 import { Mediator } from 'mediator-js'
 
 // Other dependencies
@@ -8,7 +8,7 @@ import { People, Person } from './BackboneModels'
 import { Editor, ListPane } from './BackboneViews'
 
 // Instantation
-const people = new People()
+const people = new People() // var export from Node
 const mediator = new Mediator()
 const listPane = ListPane({ el: $('#listPane')[0], collection: people })
 const editor = Editor({ el: $('#editor')[0], collection: people })
@@ -23,7 +23,7 @@ listPane.$('.people')
 
 mediator.subscribe('activatePersonConfirmed', function (person, opts) {
   if (!opts.skipHistory) {
-    let path = urljoin(global.baseURL, (person.isNew()
+    let path = urljoin(global.data.baseURL, (person.isNew()
       ? '/admin/'
       : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)

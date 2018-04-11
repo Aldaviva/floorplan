@@ -23,7 +23,7 @@ gulp.task('makeAdmin', () => {
     entries: 'src/scripts/client/admin.js',
     debug: true
   })
-    .transform('babelify', {presets: ['es2015-ie']})
+    .transform('babelify', {plugins: ['lodash'], presets: ['es2015-ie']})
     .bundle()
     .pipe(source('admin.min.js'))
     .pipe(buffer())
@@ -40,7 +40,7 @@ gulp.task('makeFloorplan', () => {
     entries: 'src/scripts/client/floorplan.js',
     debug: true
   })
-    .transform('babelify', {presets: ['env']})
+    .transform('babelify', {plugins: ['lodash'], presets: ['es2015-ie']})
     .bundle()
     .pipe(source('floorplan.min.js'))
     .pipe(buffer())

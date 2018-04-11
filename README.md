@@ -11,8 +11,8 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 
 <hr>
 <p align="center">
-<img src="https://forthebadge.com/images/badges/made-with-javascript.svg">
-<img src="https://forthebadge.com/images/badges/uses-css.svg">
+<a href="https://standardjs.com/" target="_blank"><img src="https://cdn.rawgit.com/standard/standard/master/badge.svg"></a>
+<a href="http://lesscss.org/" target="_blank"><img src="https://forthebadge.com/images/badges/uses-css.svg"></a>
 <img src="https://forthebadge.com/images/badges/contains-technical-debt.svg">
 <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
 <img src="https://forthebadge.com/images/badges/check-it-out.svg">
@@ -143,7 +143,7 @@ Now when you view the Floorplan, the new person should appear in the list to the
 
 ## Work-in-Progress
 
-* Finish refactoring Backbone code on client-side, to survive ES6/Babel transpilation.
+* Finish client & server code refactoring.
 * Validate Aldaviva's SVG process, and see if also doable in LibreOffice / other SVG apps.
 * Verify use of Imagemagick vs Graphicsmagick.
 * Make it easier to add seats to the SVG files (maybe separate out into another Mongo table?).

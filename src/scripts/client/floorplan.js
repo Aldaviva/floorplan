@@ -1,5 +1,5 @@
 // npm + Browserify dependencies
-import { $ } from 'jquery'
+import $ from 'jquery'
 import { Mediator } from 'mediator-js'
 
 // Other dependencies
@@ -10,8 +10,9 @@ import { DetailsPane, ListPane, BVMap } from './BackboneViews'
 
 // Instantation
 const mediator = new Mediator()
-const people = People.fetch({ reset: true, success: initDeepLinking })
-const endpoints = Endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
+const people = new People() // var export from Node
+people.fetch({ reset: true, success: initDeepLinking })
+const endpoints = Endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
 const listPane = ListPane({ el: $('#listPane')[0], collection: people })
 const detailsPane = DetailsPane({ el: $('#detailsPane')[0] })
 const map = BVMap({ el: $('.map')[0], collection: people, office: window.floorplanParams.officeID })
