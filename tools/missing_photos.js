@@ -5,7 +5,7 @@ var path = require('path')
 
 console.log('People with no photo:')
 
-_(people).pluck('fullname').sortBy().forEach(function (fullname) {
+_(people).pluck('fullname').sortBy().forEach((fullname) => {
   var photoExists = doesPhotoExist(fullname)
   if (!photoExists) {
     console.log(fullname)

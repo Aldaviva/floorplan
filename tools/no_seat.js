@@ -4,7 +4,7 @@ var people = require('../people')
 
 console.log('People with no seat:')
 
-_(people).sortBy('fullname').forEach(function (person) {
+_(people).sortBy('fullname').forEach((person) => {
   if (person.desk == null) {
     console.log(person.fullname)
   }

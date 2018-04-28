@@ -21,7 +21,7 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
   if (err) throw err
 
   db.collection('people', function (err, coll) {
-    people.forEach(function (person) {
+    people.forEach((person) => {
       var updateDoc = _.omit(person, 'fullname', '_id')
       coll.update({ fullname: person.fullname }, { $set: updateDoc }, function (err, docsChanged) {
         if (err) {
@@ -45,7 +45,7 @@ function disconnectIfDone (db) {
   if (!peopleRemaining) {
     if (missingPeople.length) {
       console.log(missingPeople.length + ' people from the input JSON file were not found in the database:')
-      missingPeople.forEach(function (name) {
+      missingPeople.forEach((name) => {
         console.log('  ' + name)
       })
       console.log('Their entries were not updated. Make sure their names are the same across both JSON and database.')

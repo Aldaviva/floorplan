@@ -12,7 +12,7 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
   if (err) global.logger.log('error', err)
   db.collection('people', function (err, coll) {
     if (err)global.logger.log('error', 'Problem with insertPeopleMissing')
-    people.forEach(function (person) {
+    people.forEach((person) => {
       coll.findOne({ fullname: person.fullname }, function (err, doc) {
         if (err)global.logger.log('error', 'Problem with findOne in insertPeopleMissing')
         if (!doc) {

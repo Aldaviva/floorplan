@@ -159,7 +159,7 @@ export class Editor extends BackboneViews {
   render () {
     if (this.model) {
       // WAS LODASH / UNDERSCORE
-      ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach(function (fieldName) {
+      ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach((fieldName) => {
         var target = this.$('input[name=' + fieldName + ']')
         var value = this.model.get(fieldName)
 
@@ -190,7 +190,7 @@ export class Editor extends BackboneViews {
       this.renderPhoto()
 
       // WAS LODASH / UNDERSCORE
-      this.maps.forEach(function (mapView) {
+      this.maps.forEach((mapView) => {
         var isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
         mapView.$el.toggle(isMapOfPersonsOffice)
         if (isMapOfPersonsOffice) {
@@ -205,7 +205,7 @@ export class Editor extends BackboneViews {
     }
 
     this.$el.toggle(!!this.model)
-    this.maps.forEach(function (mapView) {
+    this.maps.forEach((mapView) => {
       mapView.render()
     })
   }
@@ -627,7 +627,7 @@ export class ListPane extends BackboneViews {
       })
 
       // WAS LODASH/UNDERSCORE
-      peopleToHide.forEach(peopleToHide, function (personToHide) {
+      peopleToHide.forEach(peopleToHide, (personToHide) => {
         var view = personToHide.views.listPaneRow
         view.$el.addClass('filtered_name')
       })
@@ -646,7 +646,7 @@ export class ListPane extends BackboneViews {
 
     this.ol.children().removeClass('filtered_tag')
     // WAS LODASH/UNDERSCORE
-    peopleToHide.forEach(function (personToHide) {
+    peopleToHide.forEach((personToHide) => {
       var view = personToHide.views.listPaneRow
       view.$el.addClass('filtered_tag')
     })
@@ -789,7 +789,7 @@ export class TagGrid extends BackboneViews {
       .filter(function (tagFilterState) {
         return !tagFilterState.tagGridEl
       })
-      .forEach(function (tagFilterState) {
+      .forEach((tagFilterState) => {
         var tagEl = $('<a>')
           .attr({
             href: '#',
@@ -803,7 +803,7 @@ export class TagGrid extends BackboneViews {
       }, this)
 
     // WAS LODASH/UNDERSCORE
-    this.filterState.forEach(function (tagFilterState) {
+    this.filterState.forEach((tagFilterState) => {
       tagFilterState.tagGridEl && tagFilterState.tagGridEl.toggleClass('filtered', tagFilterState.isFiltered)
     }, this)
 
@@ -831,7 +831,7 @@ export class TagGrid extends BackboneViews {
     */
     if (!this._isAnyTagFiltered()) { // case c
       // WAS LODASH/UNDERSCORE
-      this.filterState.forEach(function (tagFilterState) {
+      this.filterState.forEach((tagFilterState) => {
         tagFilterState.isFiltered = true
       })
     }
@@ -844,7 +844,7 @@ export class TagGrid extends BackboneViews {
     */
     if (this._isEveryTagFiltered()) { // case b
       // WAS LODASH/UNDERSCORE
-      this.filterState.forEach(function (tagFilterState) {
+      this.filterState.forEach((tagFilterState) => {
         tagFilterState.isFiltered = false
       })
     }
@@ -1064,7 +1064,7 @@ export class BVMap extends BackboneViews {
     })
 
     // WAS LODASH/UNDERSCORE
-    peopleToHide.forEach(peopleToHide, function (personToHide) {
+    peopleToHide.forEach(peopleToHide, (personToHide) => {
       var view = personToHide.views.mapIcon
       view && this.svgAddClass(view.el, 'filtered_tag')
     })
@@ -1082,7 +1082,7 @@ export class BVMap extends BackboneViews {
     })
 
     // WAS LODASH/UNDERSCORE
-    peopleToHide.forEach(function (personToHide) {
+    peopleToHide.forEach((personToHide) => {
       var view = personToHide.views.mapIcon
       view && this.svgAddClass(view.el, 'filtered_name')
     })

@@ -4,7 +4,7 @@ var _ = require('lodash')
 _(people)
   .sortBy('fullname')
   .map(function (person) {
-    person.nickname = person.fullname.split(/\s/).map(function (name) {
+    person.nickname = person.fullname.split(/\s/).map((name) => {
       var firstInitial = name.charAt(0).toLowerCase()
       return (firstInitial == '(')
         ? ''

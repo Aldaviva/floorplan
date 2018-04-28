@@ -8,6 +8,6 @@ _(people).filter(function (person) {
 })
   .pluck('fullname')
   .sortBy()
-  .forEach(function (name) {
+  .forEach((name) => {
     console.log(name)
   })

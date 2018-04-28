@@ -1,4 +1,4 @@
-var http = require('http')
+var http = require('https')
 var fs = require('fs')
 // var xpath = require('xpath')
 // var DomParser = require('xmldom').DOMParser
@@ -89,7 +89,7 @@ function logPerson (person) {
 }
 
 function main () {
-  names.forEach(function (fullname) {
+  names.forEach((fullname) => {
     var resultsUrl = getResultsPath(fullname)
     getSource(resultsUrl, function (resultsSource) {
       var person = {}

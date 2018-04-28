@@ -102,7 +102,7 @@ export class Endpoints extends Backbone.Collection {
     return $.getJSON(this.url + '/status')
       .done(_.bind(function (statuses) {
         // WAS LODASH / UNDERSCORE
-        statuses.forEach(function (status) {
+        statuses.forEach((status) => {
           let endpoint = this.get(status.endpointId)
           endpoint.set({ status: _.omit(status, 'endpointId') })
         }, this)

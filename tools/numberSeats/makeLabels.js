@@ -119,7 +119,7 @@ var currSeatNumber = 0
 
 var pairs = []
 
-boxes.forEach(function (boxStr) {
+boxes.forEach((boxStr) => {
   var x = parseFloat(boxStr.match(/x="([0-9\.]+)"/)[1])
   var y = parseFloat(boxStr.match(/y="([0-9\.]+)"/)[1])
 

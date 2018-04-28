@@ -44,17 +44,10 @@ people.fetch({
   success: () => {
     let pathnameParts = window.location.pathname.replace(new RegExp('^' + global.baseURL), '').split('/')
     let personToActivate
+    let person
 
-    if (pathnameParts.length >= 3) {
-      var personId = pathnameParts[2]
-      var person = people.get(personId)
-      if (person) {
-        personToActivate = person
-      }
-    }
-
-    personToActivate = personToActivate || new Person()
-
+    if (pathnameParts.length >= 3) person = people.get(pathnameParts[2])
+    personToActivate = person || new Person()
     mediator.publish('activatePersonConfirmed', personToActivate)
     editor.$el.show()
   }

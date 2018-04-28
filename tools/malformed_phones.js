@@ -10,7 +10,7 @@ function isValidPhoneNumber (phoneNumber) {
 console.log('Malformed phone numbers:')
 
 _(people)
-  .forEach(function (person) {
+  .forEach((person) => {
     var mobilePhone = person.mobilePhone
     var workPhone = person.workPhone
 

@@ -2,7 +2,7 @@ var names = require('./names')
 
 var nameParts = []
 
-names.forEach(function (name) {
+names.forEach((name) => {
   nameParts = nameParts.concat(name.split(/\s+/g))
 })
 
