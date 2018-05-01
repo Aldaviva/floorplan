@@ -5,10 +5,12 @@ import { Mediator } from 'mediator-js'
 // Other dependencies
 import { People, Person, Endpoints } from './BackboneModels'
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
+import { Data } from './data'
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
+const nodeData = Data.nodeData()
 const mediator = new Mediator()
 const people = new People() // var export from Node
 people.fetch({ reset: true, success: initDeepLinking })
@@ -66,7 +68,7 @@ function initDeepLinking () {
     }
   })
 
-  window.addEventListener('popstate', function (event) {
+  window.addEventListener('popstate', (event) => {
     /*
        * Chrome fires popstate on fresh page load as well as intra-page navigation,
        * so we ignore popstate if the state is empty.
@@ -97,18 +99,22 @@ function initDeepLinking () {
 }
 
 function getDeepLink (person) {
-  return global.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
+  return nodeData.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
 }
 
 function initEndpointStatusPoll () {
+  // TODO: Fix or eliminate this
+  /*
   function pollEndpointStatus () {
-    // data.endpoints.each(function(endpoint){
-    //  endpoint.fetchStatus().done(function(status){
-    //    endpoint.trigger('status', endpoint, status);
-    //  });
-    // });
+    data.endpoints.each(function(endpoint){
+    endpoint.fetchStatus().done(function(status){
+       endpoint.trigger('status', endpoint, status);
+     });
+    });
     endpoints.fetchStatuses()
   }
   setInterval(pollEndpointStatus, 10 * 1000)
   pollEndpointStatus()
+  */
+  return true
 }

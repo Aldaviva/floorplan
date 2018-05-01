@@ -3,7 +3,7 @@ import $ from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
 import urljoin from 'url-join'
-import data from './data'
+import { Data } from './data'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
 
@@ -17,11 +17,12 @@ export class Person extends Backbone.Model {
       idAttribute: '_id',
       defaults: { tags: [] }
     })
+    this.nodeData = Data.nodeData()
   }
 
   getPhotoPath () {
-    if (this.id) return urljoin(data.baseURL, '/people', this.id + '/photo')
-    else return urljoin(data.baseURL, '/images/missing_photo.jpg')
+    if (this.id) return urljoin(this.nodeData.baseURL, '/people', this.id + '/photo')
+    else return urljoin(this.nodeData.baseURL, '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
@@ -54,7 +55,7 @@ export class People extends Backbone.Collection {
   constructor (...args) {
     super({
       model: Person,
-      url: urljoin(data.baseURL, '/people'),
+      url: urljoin(Data.nodeData.baseURL, '/people'),
       comparator: 'fullname'
     })
   }
@@ -90,7 +91,7 @@ export class Endpoints extends Backbone.Collection {
   constructor (...args) {
     super({
       model: Endpoint,
-      url: urljoin(data.baseURL, '/endpoints')
+      url: urljoin(Data.nodeData.baseURL, '/endpoints')
     })
   }
 
@@ -100,12 +101,12 @@ export class Endpoints extends Backbone.Collection {
 
   fetchStatuses () {
     return $.getJSON(this.url + '/status')
-      .done(_.bind(function (statuses) {
+      .done(_.bind((statuses) => {
         // WAS LODASH / UNDERSCORE
         statuses.forEach((status) => {
-          let endpoint = this.get(status.endpointId)
+          let endpoint = window.get(status.endpointId)
           endpoint.set({ status: _.omit(status, 'endpointId') })
-        }, this)
+        }, window)
       }, this))
   }
 }
