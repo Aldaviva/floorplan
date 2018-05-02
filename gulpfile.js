@@ -6,12 +6,11 @@ const less = require('gulp-less')
 const minifyCSS = require('gulp-csso')
 const source = require('vinyl-source-stream')
 const sourcemaps = require('gulp-sourcemaps')
-const uglify = require('gulp-uglify')
 
 // LESS -> Minified CSS
 gulp.task('css', () => {
   return gulp.src('src/less/exports/*.less')
-    .on('error', (err) => { console.log('LESS / CSS error: ', err) } )
+    .on('error', (err) => { console.log('LESS / CSS error: ', err) })
     .pipe(less())
     .pipe(minifyCSS())
     .pipe(gulp.dest('public/styles'))
@@ -24,13 +23,12 @@ gulp.task('makeAdmin', () => {
     entries: 'src/scripts/client/admin.js',
     debug: true
   })
-    .on('error', (err) => { console.log('makeAdminJS: ', err) } )
+    .on('error', (err) => { console.log('makeAdminJS: ', err) })
     .transform('babelify', {plugins: ['lodash'], presets: ['es2015-ie']})
     .bundle()
     .pipe(source('admin.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./public/scripts/'))
 })
@@ -42,17 +40,16 @@ gulp.task('makeFloorplan', () => {
     entries: 'src/scripts/client/floorplan.js',
     debug: true
   })
-    .on('error', (err) => { console.log('makeFloorplanJS: ', err) } )
+    .on('error', (err) => { console.log('makeFloorplanJS: ', err) })
     .transform('babelify', {plugins: ['lodash'], presets: ['es2015-ie']})
     .bundle()
     .pipe(source('floorplan.min.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./public/scripts/'))
 })
 
 // Do all the things!
 gulp.task('default', [ 'css', 'makeAdmin', 'makeFloorplan' ])
-  .on('error', (err) => { console.log('Default task error: ', err) } )
+  .on('error', (err) => { console.log('Default task error: ', err) })

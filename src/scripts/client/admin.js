@@ -1,19 +1,17 @@
 // npm + Browserify dependencies
 import $ from 'jquery'
-import urljoin from 'url-join'
 import { Mediator } from 'mediator-js'
 
 // Other dependencies
 import { People, Person } from './BackboneModels'
 import { Editor, ListPane } from './BackboneViews'
-import { Data } from './data'
+import Data from './Data'
 
 // Instantation
-const nodeData = Data.nodeData()
-const people = new People() // var export from Node
+const people = new People()
 const mediator = new Mediator()
-const listPane = ListPane({ el: $('#listPane')[0], collection: people })
-const editor = Editor({ el: $('#editor')[0], collection: people })
+const listPane = new ListPane({ el: $('#listPane')[0], collection: people })
+const editor = new Editor({ el: $('#editor')[0], collection: people })
 
 listPane.render()
 editor.render()
@@ -25,7 +23,7 @@ listPane.$('.people')
 
 mediator.subscribe('activatePersonConfirmed', function (person, opts) {
   if (!opts.skipHistory) {
-    let path = urljoin(nodeData.baseURL, (person.isNew()
+    let path = Data.newURL(Data.nodeData.baseURL, (person.isNew()
       ? '/admin/'
       : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)
@@ -44,13 +42,10 @@ window.addEventListener('popstate', (event) => {
 people.fetch({
   reset: true,
   success: () => {
-    let pathnameParts = window.location.pathname.replace(new RegExp('^' + nodeData.baseURL), '').split('/')
-    let personToActivate
     let person
-
+    let pathnameParts = window.location.pathname.replace(new RegExp('^' + Data.nodeData.baseURL), '').split('/')
     if (pathnameParts.length >= 3) person = people.get(pathnameParts[2])
-    personToActivate = person || new Person()
-    mediator.publish('activatePersonConfirmed', personToActivate)
+    mediator.publish('activatePersonConfirmed', person || new Person())
     editor.$el.show()
   }
 })

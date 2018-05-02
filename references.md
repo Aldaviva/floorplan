@@ -49,24 +49,24 @@ Non-exhaustive list of references for refactoring Floorplan
 
 ### Other Dependencies
 
-- https://babeljs.io/
-- http://backbonejs.org/
-- http://browserify.org/
-- https://github.com/standard/eslint-config-standard
+- http://backbonejs.org/ (front-end events)
+- http://browserify.org/ (front-end packaging)
+- http://svgjs.com/ (not really used ATM)
+- https://babeljs.io/ (converts ES2015+ code to ES5 / browser-friendly)
+- https://documentup.com/kriskowal/q/ (older Promises library)
+- https://github.com/ajacksified/Mediator.js (async events)
 - https://github.com/blueimp (multiple deps)
-- https://github.com/senchalabs/connect
-- https://gulpjs.com/
-- https://github.com/terinjokes/gulp-uglify
-- https://jquery.com/ & https://jqueryui.com/
-- https://lodash.com/
-- https://github.com/ajacksified/Mediator.js
-- https://github.com/lorenwest/node-config/
-- https://github.com/gusnips/node-load-json
+- https://github.com/jfromaniello/url-join (supposed to fix URLs)
+- https://github.com/lorenwest/node-config/ (NodeJS configuration)
 - https://github.com/marcuswestin/store.js/ (was used before)
-- https://documentup.com/kriskowal/q/
-- http://requirejs.org/
-- http://svgjs.com/ (not really used)
-- https://github.com/jfromaniello/url-join
-- http://underscorejs.org/
-- https://github.com/winstonjs/winston/tree/2.4.0
-- https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
+- https://github.com/mcollina/msgpack5 (serialization)
+- https://github.com/rvagg/bl (needed by msgpack5)
+- https://github.com/senchalabs/connect (NodeJS middleware)
+- https://github.com/sindresorhus/got (HTTP request)
+- https://github.com/standard/eslint-config-standard (linter)
+- https://github.com/winstonjs/winston/tree/2.4.0 (NodeJS logger)
+- https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore (used to reduce use of said libraries)
+- https://github.com/yuzujs/setImmediate (needed by got)
+- https://gulpjs.com/ (build process)
+- https://jquery.com/ & https://jqueryui.com/ (front-end visuals)
+- https://lodash.com/ (used by several libraries, and Floorplan)

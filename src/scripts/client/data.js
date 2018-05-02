@@ -1,23 +1,23 @@
-import $ from 'jquery'
-import urljoin from 'url-join'
+import msgpack from 'msgpack5'
+import BufferList from 'bl'
+import got from 'got'
+import setImmediate from 'setimmediate' // needed by "got"
 
-export class StdContext {
-  constructor (...args) {
-    this.baseURL = args.baseURL
-    this.companyName = args.companyName
-    this.depTeams = args.depTeams
-    this.offices = args.offices
-    this.supportContact = args.supportContact
-  }
-}
-export class Data {
-  static selfBaseURL () {
-    let result = urljoin(window.location.host, window.location.port)
-    window.console.log(result)
-    return result
+export default class Data {
+  // Use this to provide combined URLs
+  static newURL (...args) {
+    let argArray = [...args]
+    let arrayStr = argArray.toString()
+    const newStr = arrayStr.replace(',', '').replace('//', '/')
+    return newStr
   }
 
+  // Use this to provide data from the NodeJS instance
   static nodeData () {
-    return $.parseJSON($.getJSON(urljoin(this.selfBaseURL, 'dataJSON').toString))
+    return got.get(window.location.protocol + '/dataMP', {'Content-Type': 'application/msgpack'})
+      .then(BufferList(function (err, data) {
+        if (err) window.console.log(err.stack)
+        return msgpack().decode(data) // returned format is stdContext in lib/services.js
+      }))
   }
 }

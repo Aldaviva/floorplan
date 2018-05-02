@@ -2,9 +2,9 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
-import urljoin from 'url-join'
 import Q from 'q'
 import { Mediator } from 'mediator-js'
+import Data from './Data'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
@@ -113,7 +113,6 @@ export class Editor extends BackboneViews {
     _.bindAll(this)
 
     let officeIDs = this.$('.office input[type=radio]').map(() => $(this).attr('value'))
-    // WAS LODASH / UNDERSCORE
     this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
       el: $('.map.' + officeID)[0],
       collection: this.data.people,
@@ -154,7 +153,6 @@ export class Editor extends BackboneViews {
 
   render () {
     if (this.model) {
-      // WAS LODASH / UNDERSCORE
       ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach((fieldName) => {
         let target = this.$('input[name=' + fieldName + ']')
         let value = this.model.get(fieldName)
@@ -185,7 +183,6 @@ export class Editor extends BackboneViews {
 
       this.renderPhoto()
 
-      // WAS LODASH / UNDERSCORE
       this.maps.forEach((mapView) => {
         let isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
         mapView.$el.toggle(isMapOfPersonsOffice)
@@ -319,7 +316,6 @@ export class Editor extends BackboneViews {
       } else if (attributeName === 'email') {
         attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
       } else if (currentTarget.is(':checkbox')) {
-        // WAS LODASH / UNDERSCORE
         attributeValue = this.$('input[name=' + attributeName + ']:checked').map((item) => $(item).val())
       } else if (currentTarget.is(':radio')) {
         attributeValue = this.$('input[name=' + attributeName + ']:checked').val()
@@ -616,7 +612,6 @@ export class ListPane extends BackboneViews {
 
     if (query.length) {
       let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().indexOf(query) === -1)
-      // WAS LODASH/UNDERSCORE
       peopleToHide.forEach(peopleToHide, (personToHide) => {
         let view = personToHide.views.listPaneRow
         view.$el.addClass('filtered_name')
@@ -635,7 +630,6 @@ export class ListPane extends BackboneViews {
       : []
 
     this.ol.children().removeClass('filtered_tag')
-    // WAS LODASH/UNDERSCORE
     peopleToHide.forEach((personToHide) => {
       let view = personToHide.views.listPaneRow
       view.$el.addClass('filtered_tag')
@@ -774,7 +768,6 @@ export class TagGrid extends BackboneViews {
   }
 
   render () {
-    // WAS LODASH/UNDERSCORE
     this.filterState
       .filter((tagFilterState) => !tagFilterState.tagGridEl)
       .forEach((tagFilterState) => {
@@ -790,7 +783,6 @@ export class TagGrid extends BackboneViews {
         this.$el.append(tagEl)
       }, this)
 
-    // WAS LODASH/UNDERSCORE
     this.filterState.forEach((tagFilterState) => {
       tagFilterState.tagGridEl && tagFilterState.tagGridEl.toggleClass('filtered', tagFilterState.isFiltered)
     }, this)
@@ -799,7 +791,6 @@ export class TagGrid extends BackboneViews {
   }
 
   populate (coll) {
-    // WAS LODASH/UNDERSCORE
     let tagNames = coll.map('tags').flatten().compact().unique().sortBy().value()
     _.extend(this.filterState, _.zipObject(tagNames.map((tagName) => [tagName, {
       tagName: tagName,
@@ -816,7 +807,6 @@ export class TagGrid extends BackboneViews {
     * If we were showing all people, then clicking will first hide all people, so the following common logic can show only one tag
     */
     if (!this._isAnyTagFiltered()) { // case c
-      // WAS LODASH/UNDERSCORE
       this.filterState.forEach((tagFilterState) => {
         tagFilterState.isFiltered = true
       })
@@ -829,7 +819,6 @@ export class TagGrid extends BackboneViews {
     * If no people would be shown, then show everybody
     */
     if (this._isEveryTagFiltered()) { // case b
-      // WAS LODASH/UNDERSCORE
       this.filterState.forEach((tagFilterState) => {
         tagFilterState.isFiltered = false
       })
@@ -840,7 +829,6 @@ export class TagGrid extends BackboneViews {
     /*
     * For this event, tagsToShow = null means show everybody, and tagsToShow = [] means show nobody
     */
-    // WAS LODASH/UNDERSCORE
     this.mediator.publish('filterByTag', {
       tagsToShow: (this._isAnyTagFiltered())
         ? this.filterState
@@ -852,12 +840,10 @@ export class TagGrid extends BackboneViews {
   }
 
   _isAnyTagFiltered () {
-    // WAS LODASH/UNDERSCORE
     return this.filterState.any('isFiltered')
   }
 
   _isEveryTagFiltered () {
-    // WAS LODASH/UNDERSCORE
     return this.filterState.all('isFiltered')
   }
 }
@@ -892,7 +878,7 @@ export class OfficeGrid extends BackboneViews {
     if (typeof floorplanParams !== 'undefined') {
       this.$('a')
         .filter(() => ($(this).attr('href') === window.floorplanParams.officeID) ||
-          // WAS LODASH/UNDERSCORE; specific to BlueJeans
+          // Specific to BlueJeans
         (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && $(this).attr('href') === 'mv'))
         .addClass('active')
     }
@@ -1047,7 +1033,6 @@ export class BVMap extends BackboneViews {
       this.svgRemoveClass(photoEl, 'filtered_tag')
     })
 
-    // WAS LODASH/UNDERSCORE
     peopleToHide.forEach(peopleToHide, (personToHide) => {
       let view = personToHide.views.mapIcon
       view && this.svgAddClass(view.$el, 'filtered_tag')
@@ -1061,7 +1046,6 @@ export class BVMap extends BackboneViews {
       this.svgRemoveClass(photoEl, 'filtered_name')
     })
 
-    // WAS LODASH/UNDERSCORE
     peopleToHide.forEach((personToHide) => {
       let view = personToHide.views.mapIcon
       view && this.svgAddClass(view.$el, 'filtered_name')
@@ -1146,9 +1130,8 @@ export class BVMap extends BackboneViews {
     */
   svgAddClass (el, classStr) {
     let oldClassList = el.className.baseVal.split(/\s/)
-    // WAS LODASH/UNDERSCORE
+    // TODO: CHECK THIS!!!! WAS LODASH/UNDERSCORE
     // let newClassList = _.compact(_.unique(oldClassList.concat(classStr.split(/\/s/))))
-    // TODO: CHECK THIS!!!!
     let newClassList = [...new Set(oldClassList.concat(classStr.split(/\/s/)))].filter()
     el.className.baseVal = newClassList.join(' ')
   }
@@ -1167,7 +1150,6 @@ export class BVMap extends BackboneViews {
 
   svgHasClass (el, classStr) {
     let classList = el.className.baseVal.split(/\s/)
-    // WAS LODASH/UNDERSCORE
     return classList.includes(classStr)
   }
 
@@ -1313,7 +1295,7 @@ export class RoomDetailsView extends BackboneViews {
     }
 
     if (this.model) {
-      this.$els.photo.attr('src', urljoin(this.baseURL, '/endpoints/', this.model.id, '/photo')) // causes flickering in Opera
+      this.$els.photo.attr('src', Data.urlJoin(window.location.protocol, '/endpoints/', this.model.id, '/photo')) // causes flickering in Opera
 
       this.$els.name.text(this.model.get('name'))
 

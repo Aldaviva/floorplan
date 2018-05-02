@@ -2,8 +2,7 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
-import urljoin from 'url-join'
-import { Data } from './data'
+import Data from './Data'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
 
@@ -13,16 +12,13 @@ import { Data } from './data'
 
 export class Person extends Backbone.Model {
   constructor (...args) {
-    super({
-      idAttribute: '_id',
-      defaults: { tags: [] }
-    })
-    this.nodeData = Data.nodeData()
+    super(...args)
+    this.idAttribute = '_id'
+    this.defaults = { tags: [] }
   }
 
   getPhotoPath () {
-    if (this.id) return urljoin(this.nodeData.baseURL, '/people', this.id + '/photo')
-    else return urljoin(this.nodeData.baseURL, '/images/missing_photo.jpg')
+    return Data.newURL(window.location.protocol, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
@@ -53,11 +49,10 @@ export class Person extends Backbone.Model {
 
 export class People extends Backbone.Collection {
   constructor (...args) {
-    super({
-      model: Person,
-      url: urljoin(Data.nodeData.baseURL, '/people'),
-      comparator: 'fullname'
-    })
+    super(...args)
+    this.model = Person
+    this.url = Data.newURL(window.location.protocol, '/people')
+    this.comparator = 'fullname'
   }
 }
 
@@ -89,10 +84,9 @@ export class Endpoint extends Backbone.Model {
 
 export class Endpoints extends Backbone.Collection {
   constructor (...args) {
-    super({
-      model: Endpoint,
-      url: urljoin(Data.nodeData.baseURL, '/endpoints')
-    })
+    super(...args)
+    this.model = Endpoint
+    this.url = Data.newURL(window.location.protocol, '/endpoints')
   }
 
   initialize () {
@@ -102,7 +96,6 @@ export class Endpoints extends Backbone.Collection {
   fetchStatuses () {
     return $.getJSON(this.url + '/status')
       .done(_.bind((statuses) => {
-        // WAS LODASH / UNDERSCORE
         statuses.forEach((status) => {
           let endpoint = window.get(status.endpointId)
           endpoint.set({ status: _.omit(status, 'endpointId') })

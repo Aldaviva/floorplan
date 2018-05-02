@@ -5,19 +5,19 @@ import { Mediator } from 'mediator-js'
 // Other dependencies
 import { People, Person, Endpoints } from './BackboneModels'
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
-import { Data } from './data'
+import Data from './Data'
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
-const nodeData = Data.nodeData()
 const mediator = new Mediator()
 const people = new People() // var export from Node
 people.fetch({ reset: true, success: initDeepLinking })
-const endpoints = Endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
-const listPane = ListPane({ el: $('#listPane')[0], collection: people })
-const detailsPane = DetailsPane({ el: $('#detailsPane')[0] })
-const map = BVMap({ el: $('.map')[0], collection: people, office: window.floorplanParams.officeID })
+const endpoints = new Endpoints()
+endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
+const listPane = new ListPane({ el: $('#listPane')[0], collection: people })
+const detailsPane = new DetailsPane({ el: $('#detailsPane')[0] })
+const map = new BVMap({ el: $('.map')[0], collection: people, office: window.floorplanParams.officeID })
 
 render()
 bindEvents()
@@ -99,7 +99,7 @@ function initDeepLinking () {
 }
 
 function getDeepLink (person) {
-  return nodeData.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
+  return Data.nodeData.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
 }
 
 function initEndpointStatusPoll () {
