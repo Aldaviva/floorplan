@@ -5,8 +5,8 @@ require('nodemon')({
   script: 'lib/app.js',
   ext: 'js json hbs svg css',
   on: [
-    'start', function () { console.log('Started Floorplan') },
-    'quit', function () { process.exit() },
-    'restart', function (files) { console.log('App restarted due to: ', files) }
+    'start', () => { console.log('Started Floorplan') },
+    'quit', () => { process.exit() },
+    'restart', (files) => { console.log('App restarted due to: ', files) }
   ]
 })

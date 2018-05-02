@@ -11,13 +11,13 @@ import Data from './Data'
 
 // Instantation
 const mediator = new Mediator()
-const people = new People() // var export from Node
-people.fetch({ reset: true, success: initDeepLinking })
+const collection = new People()
+collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints()
 endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({ el: $('#listPane')[0], collection: people })
-const detailsPane = new DetailsPane({ el: $('#detailsPane')[0] })
-const map = new BVMap({ el: $('.map')[0], collection: people, office: window.floorplanParams.officeID })
+const listPane = new ListPane({el: $('#listPane')[0]})
+const detailsPane = new DetailsPane({el: $('#detailsPane')[0]})
+const map = new BVMap({el: $('.map')[0], office: window.floorplanParams.officeID})
 
 render()
 bindEvents()
@@ -75,7 +75,7 @@ function initDeepLinking () {
        * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
        */
     if (event.state) {
-      let person = people.get(event.state.personId)
+      let person = collection.get(event.state.personId)
       mediator.publish('activatePerson', person, { skipHistory: true })
     }
   }, false)
@@ -85,7 +85,7 @@ function initDeepLinking () {
 
   if (hashParts[0]) {
     let personId = hashParts[0]
-    let person = people.get(personId)
+    let person = collection.get(personId)
     if (person) {
       personToActivate = person
     }

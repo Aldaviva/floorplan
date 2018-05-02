@@ -11,8 +11,7 @@ import Data from './Data'
 // ============================
 
 export class Person extends Backbone.Model {
-  constructor (...args) {
-    super(...args)
+  initialize () {
     this.idAttribute = '_id'
     this.defaults = { tags: [] }
   }
@@ -48,8 +47,7 @@ export class Person extends Backbone.Model {
 // ============================
 
 export class People extends Backbone.Collection {
-  constructor (...args) {
-    super(...args)
+  initialize () {
     this.model = Person
     this.url = Data.newURL(window.location.protocol, '/people')
     this.comparator = 'fullname'
@@ -83,14 +81,9 @@ export class Endpoint extends Backbone.Model {
 // ============================
 
 export class Endpoints extends Backbone.Collection {
-  constructor (...args) {
-    super(...args)
+  initialize () {
     this.model = Endpoint
     this.url = Data.newURL(window.location.protocol, '/endpoints')
-  }
-
-  initialize () {
-    _.bindAll(this)
   }
 
   fetchStatuses () {

@@ -8,10 +8,10 @@ import { Editor, ListPane } from './BackboneViews'
 import Data from './Data'
 
 // Instantation
-const people = new People()
+const collection = new People()
 const mediator = new Mediator()
-const listPane = new ListPane({ el: $('#listPane')[0], collection: people })
-const editor = new Editor({ el: $('#editor')[0], collection: people })
+const listPane = new ListPane({el: $('#listPane')[0]})
+const editor = new Editor({el: $('#editor')[0]})
 
 listPane.render()
 editor.render()
@@ -36,15 +36,15 @@ window.addEventListener('popstate', (event) => {
      * so we ignore popstate if the state is empty.
      * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
      */
-  if (event.state) window.mediator.publish('activatePerson', people.get(event.state.personId), { skipHistory: true })
+  if (event.state) window.mediator.publish('activatePerson', collection.get(event.state.personId), { skipHistory: true })
 }, false)
 
-people.fetch({
+collection.fetch({
   reset: true,
   success: () => {
     let person
     let pathnameParts = window.location.pathname.replace(new RegExp('^' + Data.nodeData.baseURL), '').split('/')
-    if (pathnameParts.length >= 3) person = people.get(pathnameParts[2])
+    if (pathnameParts.length >= 3) person = collection.get(pathnameParts[2])
     mediator.publish('activatePersonConfirmed', person || new Person())
     editor.$el.show()
   }
