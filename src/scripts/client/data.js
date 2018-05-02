@@ -4,14 +4,6 @@ import got from 'got'
 import setImmediate from 'setimmediate' // needed by "got"
 
 export default class Data {
-  // Use this to provide combined URLs
-  static newURL (...args) {
-    let argArray = [...args]
-    let arrayStr = argArray.toString()
-    const newStr = arrayStr.replace(',', '').replace('//', '/')
-    return newStr
-  }
-
   // Use this to provide data from the NodeJS instance
   static nodeData () {
     return got.get(window.location.protocol + '/dataMP', {'Content-Type': 'application/msgpack'})

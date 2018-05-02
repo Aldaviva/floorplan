@@ -1,8 +1,8 @@
 // npm + Browserify dependencies
-import $ from 'jquery'
+import jQuery from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
-import Data from './Data'
+import urlJoin from 'proper-url-join'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
 
@@ -17,7 +17,7 @@ export class Person extends Backbone.Model {
   }
 
   getPhotoPath () {
-    return Data.newURL(window.location.protocol, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
+    return urlJoin(window.location.protocol, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
@@ -49,7 +49,7 @@ export class Person extends Backbone.Model {
 export class People extends Backbone.Collection {
   initialize () {
     this.model = Person
-    this.url = Data.newURL(window.location.protocol, '/people')
+    this.url = urlJoin(window.location.protocol, '/people')
     this.comparator = 'fullname'
   }
 }
@@ -83,11 +83,11 @@ export class Endpoint extends Backbone.Model {
 export class Endpoints extends Backbone.Collection {
   initialize () {
     this.model = Endpoint
-    this.url = Data.newURL(window.location.protocol, '/endpoints')
+    this.url = urlJoin(window.location.protocol, '/endpoints')
   }
 
   fetchStatuses () {
-    return $.getJSON(this.url + '/status')
+    return jQuery.getJSON(this.url + '/status')
       .done(_.bind((statuses) => {
         statuses.forEach((status) => {
           let endpoint = window.get(status.endpointId)

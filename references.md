@@ -21,6 +21,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 - https://esdiscuss.org/topic/moduleimport
 - https://exploringjs.com/es6/ch_promises.html
+- https://hacks.mozilla.org/2015/08/es6-in-depth-subclassing/
 - https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 - https://medium.com/@timoxley/named-exports-as-the-default-export-api-670b1b554f65
 - https://medium.com/making-internets/why-using-chain-is-a-mistake-9bc1f80d51ba
@@ -43,6 +44,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://www.terlici.com/2014/09/29/express-router.html
 
 ### MongoDB
+
 - http://mongodb.github.io/node-mongodb-native/3.0/quick-start/quick-start/
 - https://stackoverflow.com/questions/47662220/db-collection-is-not-a-function-when-using-mongoclient-v3-0?rq=1
 - https://www.terlici.com/2015/04/03/mongodb-node-express.html
@@ -56,10 +58,11 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://documentup.com/kriskowal/q/ (older Promises library)
 - https://github.com/ajacksified/Mediator.js (async events)
 - https://github.com/blueimp (multiple deps)
-- https://github.com/jfromaniello/url-join (supposed to fix URLs)
+- https://github.com/DylanPiercey/join-url (url fixing)
 - https://github.com/lorenwest/node-config/ (NodeJS configuration)
 - https://github.com/marcuswestin/store.js/ (was used before)
 - https://github.com/mcollina/msgpack5 (serialization)
+- https://github.com/moxystudio/js-proper-url-join (supposed to fix URLs)
 - https://github.com/rvagg/bl (needed by msgpack5)
 - https://github.com/senchalabs/connect (NodeJS middleware)
 - https://github.com/sindresorhus/got (HTTP request)

@@ -1,11 +1,11 @@
 // npm + Browserify dependencies
-import $ from 'jquery'
+import jQuery from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
 import Q from 'q'
-import Data from './Data'
 import { People, Endpoints } from './BackboneModels'
 import { Mediator } from 'mediator-js'
+import urlJoin from 'proper-url-join'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
@@ -18,12 +18,12 @@ export default class BackboneViews extends Backbone.View {
   // Any old constructor code was merged into "initialize" methods.
   constructor (...args) {
     super(...args)
-    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
-    this.$el = args.$el
+    super.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+    super.$el = args.$el
     // These are normally defined in "admin" and "floorplan" (browser)
-    this.collection = window.collection || new People()
-    this.mediator = window.mediator || new Mediator()
-    this.endpoints = window.endpoints || new Endpoints()
+    super.collection = window.collection || new People()
+    super.mediator = window.mediator || new Mediator()
+    super.endpoints = window.endpoints || new Endpoints()
   }
 }
 
@@ -48,7 +48,7 @@ export class DetailsPane extends BackboneViews {
 
   render () {
     if (this.$el.is(':empty')) {
-      let correctionsLink = $('<a>', {
+      let correctionsLink = jQuery('<a>', {
         class: 'corrections',
         href: 'mailto:' + this.supportContact,
         text: 'Suggest a correction'
@@ -97,9 +97,10 @@ export class Editor extends BackboneViews {
       'click .basics .remove': 'removePerson',
       'click .desk.helper_link': 'enlargeMap'
     }
-    let officeIDs = this.$('.office input[type=radio]').map(() => $(this).attr('value'))
+    // TODO: FIXME; I map office ids!!!
+    let officeIDs = jQuery('.office input[type=radio]').map(() => jQuery(this).attr('value'))
     this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
-      el: $('.map.' + officeID)[0],
+      $el: ('.map.' + officeID)[0],
       collection: this.data.people,
       office: officeID,
       skipFilters: true,
@@ -113,7 +114,7 @@ export class Editor extends BackboneViews {
   }
 
   fieldVal (name, value) {
-    let target = this.$('input[name=' + name + ']')
+    let target = jQuery('input[name=' + name + ']')
     if (arguments.length === 2) {
       if (target.is(':radio')) {
         target.val([value])
@@ -123,7 +124,7 @@ export class Editor extends BackboneViews {
     } else if (arguments.length === 1) {
       let attributeValue
       if (target.is(':checkbox')) {
-        attributeValue = Array.prototype.map(target.filter(':checked'), (item) => $(item).val())
+        attributeValue = Array.prototype.map(target.filter(':checked'), (item) => jQuery(item).val())
       } else if (target.is(':radio')) {
         attributeValue = target.filter(':checked').val()
       } else {
@@ -136,7 +137,7 @@ export class Editor extends BackboneViews {
   render () {
     if (this.model) {
       ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach((fieldName) => {
-        let target = this.$('input[name=' + fieldName + ']')
+        let target = jQuery('input[name=' + fieldName + ']')
         let value = this.model.get(fieldName)
         if (target.is(':radio')) {
           target.val([value])
@@ -147,17 +148,17 @@ export class Editor extends BackboneViews {
       let linkedInId = this.model.get('linkedInId')
       let linkedInComplete = this.model.getLinkedInProfileUrl()
       this.fieldVal('linkedInId', (linkedInId) ? linkedInComplete.replace(/^https?:\/\/(?:www\.)?/, '') : '')
-      this.$('.contact .view_profile')
+      jQuery('.contact .view_profile')
         .attr('href', (linkedInId) ? linkedInComplete : '#')
         .toggle(!!linkedInId)
-      this.$('.contact .search')
+      jQuery('.contact .search')
         .attr('href', 'https://www.linkedin.com/vsearch/p?keywords=' + encodeURIComponent(this.model.get('fullname')) + '&openAdvancedForm=true')
         .toggle(!linkedInId && !!this.model.get('fullname'))
       let emailLocalPart = this.model.get('email')
       let emailComplete = emailLocalPart + ((emailLocalPart || '').indexOf('@') === -1 ? '@bluejeans.com' : '')
       this.fieldVal('email', (emailLocalPart) ? emailComplete : '')
-      this.$('.basics .remove').toggle(!this.model.isNew())
-      this.$('.seatChooser').toggle(!!this.model.get('office'))
+      jQuery('.basics .remove').toggle(!this.model.isNew())
+      jQuery('.seatChooser').toggle(!!this.model.get('office'))
       this.renderPhoto()
       this.maps.forEach((mapView) => {
         let isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
@@ -168,7 +169,7 @@ export class Editor extends BackboneViews {
       })
       this.renderFormControls()
       let office = this.model.get('office') || ''
-      $('.goToFloorplan').attr('href', '../' + office)
+      jQuery('.goToFloorplan').attr('href', '../' + office)
     }
     this.$el.toggle(!!this.model)
     this.maps.forEach((mapView) => {
@@ -184,7 +185,7 @@ export class Editor extends BackboneViews {
     if (!canvas && !this.photoData) {
       let imgEl = this.photoUploadControl.find('img')
       if (!imgEl.length) {
-        imgEl = $('<img>')
+        imgEl = jQuery('<img>')
         this.photoUploadControl.find('canvas').remove()
         this.photoUploadControl.prepend(imgEl)
       }
@@ -197,7 +198,7 @@ export class Editor extends BackboneViews {
 
   onActivatePerson (newModel, opts) {
     // a hack, but i don't want to save more state
-    if (this.$('.formControls [type=submit]').attr('disabled')) {
+    if (jQuery('.formControls [type=submit]').attr('disabled')) {
       // model and photo are saved, nothing to do here
       this.mediator.publish('activatePersonConfirmed', newModel, opts)
     } else if (window.confirm('You have unsaved changes. Are you sure you want to discard these changes?')) {
@@ -217,8 +218,8 @@ export class Editor extends BackboneViews {
     let renderPerson = _.bind(() => {
       model.changed = {} // model is now synced with server, there are no changes.
       this.render()
-      this.$('.validationMessage').hide()
-      this.$('.invalid').removeClass('invalid')
+      jQuery('.validationMessage').hide()
+      jQuery('.invalid').removeClass('invalid')
       window.scrollTo(0, 0)
     }, this)
     if (!model.isNew()) {
@@ -265,7 +266,7 @@ export class Editor extends BackboneViews {
 
   onDirtyChange (event) {
     let changeSet = {}
-    let currentTarget = $(event.currentTarget)
+    let currentTarget = jQuery(event.currentTarget)
     let attributeName = currentTarget.attr('name')
     let attributeValue
     if (attributeName === 'email' && currentTarget.val().trim() !== '' && currentTarget.val().indexOf('@') === -1) {
@@ -273,15 +274,15 @@ export class Editor extends BackboneViews {
     }
     let validity = currentTarget[0].validity
     if (validity.valid) {
-      this.$('.validationMessage').hide()
+      jQuery('.validationMessage').hide()
       if (attributeName === 'linkedInId') {
         attributeValue = this.data.Person.linkedInUrlToId(currentTarget.val())
       } else if (attributeName === 'email') {
         attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
       } else if (currentTarget.is(':checkbox')) {
-        attributeValue = this.$('input[name=' + attributeName + ']:checked').map((item) => $(item).val())
+        attributeValue = jQuery('input[name=' + attributeName + ']:checked').map((item) => jQuery(item).val())
       } else if (currentTarget.is(':radio')) {
-        attributeValue = this.$('input[name=' + attributeName + ']:checked').val()
+        attributeValue = jQuery('input[name=' + attributeName + ']:checked').val()
       } else {
         attributeValue = currentTarget.val()
         if (attributeValue === '') {
@@ -295,7 +296,7 @@ export class Editor extends BackboneViews {
       this.model.set(changeSet)
       this.render() // update coerced values. side effect: blows away invalid values
     } else {
-      this.$('.validationMessage').text(currentTarget.data('validation-failed-message')).show()
+      jQuery('.validationMessage').text(currentTarget.data('validation-failed-message')).show()
       this.renderFormControls()
     }
     currentTarget.closest('label').addBack().toggleClass('invalid', !validity.valid)
@@ -306,25 +307,25 @@ export class Editor extends BackboneViews {
     let isEnabled = isValid && (_.isBoolean(isForceEnabled))
       ? isForceEnabled
       : (this.model.hasChanged() || (this.photoData && this.photoData.state() !== 'pending'))
-    let saveButton = this.$('.formControls [type=submit]')
+    let saveButton = jQuery('.formControls [type=submit]')
     if (isEnabled) {
-      saveButton.removeAttr('disabled')
-      /* if(_.isBoolean(isForceEnabled) && isForceEnabled){
-        console.log('save button enabled because it was forced on');
-      } else if(this.model.hasChanged()){
-        console.log('save button enabled because the model has changed', this.model.changedAttributes());
-      } else if(this.photoData && this.photoData.state() != 'pending'){
-        console.log('save button enabled because a photo was chosen but has yet to start uploading');
+      saveButton.prop('selected', true)
+      if (_.isBoolean(isForceEnabled) && isForceEnabled) {
+        window.log('save button enabled because it was forced on')
+      } else if (this.model.hasChanged()) {
+        window.log('save button enabled because the model has changed', this.model.changedAttributes())
+      } else if (this.photoData && this.photoData.state() !== 'pending') {
+        window.log('save button enabled because a photo was chosen but has yet to start uploading')
       } else {
-        console.log('no idea why the save button is enabled');
-      } */
+        window.log('no idea why the save button is enabled')
+      }
     } else {
       saveButton.attr('disabled', 'disabled')
     }
   }
 
   initPhotoUploadControl () {
-    this.photoUploadControl = this.$('.photo')
+    this.photoUploadControl = jQuery('.photo')
     let photoPreviewSize = this.photoUploadControl.find('img').width()
 
     this.photoUploadControl
@@ -365,7 +366,7 @@ export class Editor extends BackboneViews {
     this.clearPendingUploads()
     this.renderFormControls()
     let photoPath = this.model.getPhotoPath()
-    $.get(photoPath)
+    jQuery.get(photoPath)
       .done(_.bind(() => {
         this.renderPhoto()
         this.model.trigger('change:photo', this.model, photoPath, {})
@@ -399,8 +400,8 @@ export class Editor extends BackboneViews {
 
   enlargeMap (event) {
     event.preventDefault()
-    let seatChooserLarge = $('.seatChooser.large')
-    let mapEl = this.$('.map:visible')
+    let seatChooserLarge = jQuery('.seatChooser.large')
+    let mapEl = jQuery('.map:visible')
     mapEl.prependTo(seatChooserLarge)
       .removeClass('small')
       .addClass('large')
@@ -416,7 +417,7 @@ export class Editor extends BackboneViews {
       }, this))
 
     seatChooserLarge.show()
-    $(document.body).css('overflow', 'hidden')
+    jQuery(document.body).css('overflow', 'hidden')
     seatChooserLarge.find('.cancel')
       .off('click')
       .on('click', this.shrinkMap)
@@ -424,12 +425,12 @@ export class Editor extends BackboneViews {
 
   shrinkMap (event) {
     event && event.preventDefault()
-    $('.map.large')
-      .prependTo(this.$('.seatChooser.small'))
+    jQuery('.map.large')
+      .prependTo(jQuery('.seatChooser.small'))
       .removeClass('large')
       .addClass('small')
-    $('.seatChooser.large').hide()
-    $(document.body).css('overflow', '')
+    jQuery('.seatChooser.large').hide()
+    jQuery(document.body).css('overflow', '')
   }
 
   onClickDesk (deskId) {
@@ -452,11 +453,11 @@ export class IntroView extends BackboneViews {
     if (this.$el.is(':empty')) {
       this.$el.addClass(window.floorplanParams.officeID)
       let office = this.offices[window.floorplanParams.officeID]
-      this.$el.append($('<h2>', { text: 'Blue Jeans' }))
+      this.$el.append(jQuery('<h2>', { text: 'Blue Jeans' }))
       if (office.address) {
-        let addressEl = $('<h3>', { class: 'address' })
+        let addressEl = jQuery('<h3>', { class: 'address' })
         if (office.mapsUrl) {
-          addressEl.append($('<a>', {
+          addressEl.append(jQuery('<a>', {
             text: office.address,
             title: 'View in Google Maps',
             href: office.mapsUrl,
@@ -497,7 +498,7 @@ export class ListPane extends BackboneViews {
     if (this.$el.is(':empty')) {
       this.$el.append(this.officeGrid.render())
       this.$el.append(this.searchBox.render())
-      this.ol = $('<ol>', { class: 'people' })
+      this.ol = jQuery('<ol>', { class: 'people' })
       this.$el.append(this.ol)
       this.$el.append(this.tagGrid.render())
     }
@@ -518,12 +519,12 @@ export class ListPane extends BackboneViews {
     let indexToInsertAt = this.collection.sortedIndex(person)
     if (this.collection.length === 1) {
       // insert as only element
-      $(personView).appendTo(this.ol)
+      jQuery(personView).appendTo(this.ol)
     } else if (indexToInsertAt === 0) {
       // insert before element 1
-      $(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el)
+      jQuery(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el)
     } else {
-      $(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el)
+      jQuery(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el)
       // insert after element n-1
     }
   }
@@ -560,7 +561,7 @@ export class ListPane extends BackboneViews {
   }
 
   onRowClic (event) {
-    let model = $(event.currentTarget).data('model')
+    let model = jQuery(event.currentTarget).data('model')
     if (!model) {
       model = new this.collection.Model()
       // model.views = {};
@@ -590,23 +591,23 @@ export class PersonRow extends BackboneViews {
     this.nameEl = null
     this.model.views = this.model.views || {}
     this.model.views.listPaneRow = this
-    this.model.on('change:fullname', this.render)
-    this.model.on('change:photo', this.renderPhoto)
+    this.listenTo(this.model, 'change:fullname', this.render)
+    this.listenTo(this.model, 'change:photo', this.renderPhoto)
     this.$el.data('model', this.model)
   }
 
   render () {
     let fullname = this.model.get('fullname')
     if (this.$el.is(':empty')) {
-      this.photoImg = $('<img>')
+      this.photoImg = jQuery('<img>')
       this.renderPhoto(this.model, this.model.getPhotoPath())
       this.$el.append(this.photoImg)
-      this.nameEl = $('<div>', {
+      this.nameEl = jQuery('<div>', {
         class: 'name'
       })
       this.$el.append(this.nameEl)
     }
-    this.$('img').attr('alt', fullname)
+    jQuery('img').attr('alt', fullname)
     this.nameEl.text(fullname)
     return this.$el
   }
@@ -629,7 +630,7 @@ export class SearchBox extends BackboneViews {
 
   render () {
     if (this.$el.is(':empty')) {
-      this.textField = $('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'off', value: '' })
+      this.textField = jQuery('<input>', { type: 'text', placeholder: 'Search', class: 'query', autocomplete: 'off', value: '' })
       this.$el.append(this.textField)
     }
     return this.$el
@@ -661,7 +662,7 @@ export class TagGrid extends BackboneViews {
     this.filterState
       .filter((tagFilterState) => !tagFilterState.tagGridEl)
       .forEach((tagFilterState) => {
-        let tagEl = $('<a>')
+        let tagEl = jQuery('<a>')
           .attr({
             href: '#',
             title: 'show/hide ' + this.depTeams[tagFilterState.tagName] || tagFilterState.tagName
@@ -696,7 +697,7 @@ export class TagGrid extends BackboneViews {
         tagFilterState.isFiltered = true
       })
     }
-    let tagFilterState = this.filterState[$(event.currentTarget).data('tagName')]
+    let tagFilterState = this.filterState[jQuery(event.currentTarget).data('tagName')]
     tagFilterState.isFiltered = !tagFilterState.isFiltered
     // If no people would be shown, then show everybody
     if (this._isEveryTagFiltered()) { // case b
@@ -737,20 +738,20 @@ export class OfficeGrid extends BackboneViews {
   render () {
     if (this.$el.is(':empty')) {
       this.$el.append(
-        $('<a>', { href: 'mv', title: 'view the Mountain View office', text: 'mv' }),
-        $('<a>', { href: 'oc', title: 'view the Orange County office', text: 'oc' }),
-        $('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' }),
-        $('<a>', { href: 'ln', title: 'view the London office', text: 'ln' }),
-        $('<a>', { href: 'blr', title: 'view the Bangalore office', text: 'blr' }),
-        $('<a>', { href: 'aus', title: 'view Australia', text: 'aus' }),
-        $('<a>', { href: 'remote', title: 'view remote workers', text: 'rm' })
+        jQuery('<a>', { href: 'mv', title: 'view the Mountain View office', text: 'mv' }),
+        jQuery('<a>', { href: 'oc', title: 'view the Orange County office', text: 'oc' }),
+        jQuery('<a>', { href: 'sf', title: 'view the San Francisco office', text: 'sf' }),
+        jQuery('<a>', { href: 'ln', title: 'view the London office', text: 'ln' }),
+        jQuery('<a>', { href: 'blr', title: 'view the Bangalore office', text: 'blr' }),
+        jQuery('<a>', { href: 'aus', title: 'view Australia', text: 'aus' }),
+        jQuery('<a>', { href: 'remote', title: 'view remote workers', text: 'rm' })
       )
     }
     if (typeof floorplanParams !== 'undefined') {
-      this.$('a')
-        .filter(() => ($(this).attr('href') === window.floorplanParams.officeID) ||
+      jQuery('a')
+        .filter(() => (jQuery(this).attr('href') === window.floorplanParams.officeID) ||
           // Specific to BlueJeans
-        (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && $(this).attr('href') === 'mv'))
+        (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
         .addClass('active')
     }
     return this.$el
@@ -763,13 +764,11 @@ export class OfficeGrid extends BackboneViews {
 
 export class BVMap extends BackboneViews {
   initialize () {
-  /*
-  * options: {
-    *     office: 'mv',
-    *     skipFilters: false,
-    *     skipEndpoints: false
-    * }
-    */
+    this.options = {
+      office: 'mv',
+      skipFilters: false,
+      skipEndpoints: false
+    }
     this.events = {
       'click .photos image': 'onIconClick',
       'click .seats rect': 'onSeatClick',
@@ -779,8 +778,8 @@ export class BVMap extends BackboneViews {
     this.collection.on('reset', this.addMany)
     this.collection.on('add', this.addOne)
     this.collection.on('change:office', this.addOne)
-    this.photosGroup = this.$('.photos')
-    this.seatsGroup = this.$('.seats')
+    this.photosGroup = jQuery('.photos')
+    this.seatsGroup = jQuery('.seats')
     this.activeRectangle = null
     this.clockUpdateInterval = null
     this.mediator.subscribe('activatePersonConfirmed', this.activatePersonConfirmed)
@@ -803,7 +802,7 @@ export class BVMap extends BackboneViews {
       for (let seatIdx = 0; seatIdx < numSeats; seatIdx++) {
         let deskEl = document.createElementNS(this.SVG_NAMESPACE, 'rect')
         let coords = seatPositions[seatIdx]
-        $(deskEl).attr({
+        jQuery(deskEl).attr({
           width: iconSize,
           height: iconSize,
           x: coords[0],
@@ -813,7 +812,7 @@ export class BVMap extends BackboneViews {
         seatsFragment.appendChild(deskEl)
       }
       this.seatsGroup.append(seatsFragment)
-      if (this.$('.clockHand').length > 0) {
+      if (jQuery('.clockHand').length > 0) {
         this.initClockUpdate()
       }
     }
@@ -843,19 +842,19 @@ export class BVMap extends BackboneViews {
   }
 
   onIconClick (event) {
-    let model = $(event.currentTarget).data('model')
+    let model = jQuery(event.currentTarget).data('model')
     this.mediator.publish('map:clickPerson', model)
   }
 
   onSeatClick (event) {
-    let deskId = $(event.currentTarget).data('desk')
+    let deskId = jQuery(event.currentTarget).data('desk')
     this.renderActiveSeat(deskId)
     this.mediator.publish('map:clickDesk', deskId)
   }
 
   onRoomClick (event) {
     if (!this.options.skipEndpoints) {
-      let roomEl = $(event.currentTarget).closest('.room')
+      let roomEl = jQuery(event.currentTarget).closest('.room')
       let endpointId = roomEl.attr('endpoint:id')
       this.mediator.publish('map:clickRoom', endpointId, { seatingCapacity: roomEl.attr('endpoint:seatingCapacity') })
     }
@@ -864,7 +863,7 @@ export class BVMap extends BackboneViews {
   onArrowClick (event) {
     switch (this.options.office) {
       case 'mv':
-        window.location = (this.svgHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
+        window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
         break
       case 'mv2':
       case 'mv3':
@@ -884,11 +883,11 @@ export class BVMap extends BackboneViews {
       })
       : []
     this.photosGroup.children().each(function (index, photoEl) {
-      this.svgRemoveClass(photoEl, 'filtered_tag')
+      this.SVGRemoveClass(photoEl, 'filtered_tag')
     })
     peopleToHide.forEach(peopleToHide, (personToHide) => {
       let view = personToHide.views.mapIcon
-      view && this.svgAddClass(view.$el, 'filtered_tag')
+      view && this.SVGAddClass(view.$el, 'filtered_tag')
     })
   }
 
@@ -896,41 +895,41 @@ export class BVMap extends BackboneViews {
     query = query.toLowerCase().trim()
     let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().indexOf(query) === -1)
     this.photosGroup.children().each(function (index, photoEl) {
-      this.svgRemoveClass(photoEl, 'filtered_name')
+      this.SVGRemoveClass(photoEl, 'filtered_name')
     })
     peopleToHide.forEach((personToHide) => {
       let view = personToHide.views.mapIcon
-      view && this.svgAddClass(view.$el, 'filtered_name')
+      view && this.SVGAddClass(view.$el, 'filtered_name')
     })
   }
 
   activatePersonConfirmed (model) {
     if (model.get('office') === this.options.office) {
       this.photosGroup.children().each(function (index, photoEl) {
-        this.svgRemoveClass(photoEl, 'active')
+        this.SVGRemoveClass(photoEl, 'active')
       })
-      this.svgAddClass(model.views.mapIcon.$el, 'active')
+      this.SVGAddClass(model.views.mapIcon.$el, 'active')
       this.renderActiveSeat(model.get('desk'))
     }
   }
 
   renderActiveSeat (desk) {
     let activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) // LOL chrome SVG attribute selectors
-    activeSeatEl && this.svgRemoveClass(activeSeatEl, 'active')
+    activeSeatEl && this.SVGRemoveClass(activeSeatEl, 'active')
     if (_.isNumber(desk)) {
-      this.svgAddClass(this.seatsGroup.find('[data-desk=' + desk + ']')[0], 'active')
+      this.SVGAddClass(this.seatsGroup.find('[data-desk=' + desk + ']')[0], 'active')
     }
   }
 
   renderEndpointBadge (endpoint, status) {
-    let badgeEl = this.$(".roomNames .room[endpoint\\:id='" + endpoint.id + "'] .statusBadge").get(0)
+    let badgeEl = jQuery(".roomNames .room[endpoint\\:id='" + endpoint.id + "'] .statusBadge").get(0)
     if (badgeEl) {
       let titleText = endpoint.getAvailability()
       // let isAvailable = (titleText === 'available')
       this.setTitle(badgeEl, titleText)
-      this.svgAddClass(badgeEl, 'loaded')
-      this.svgRemoveClass(badgeEl, 'offline in-a-call reserved available')
-      this.svgAddClass(badgeEl, endpoint.getAvailability().replace(/\s/g, '-'))
+      this.SVGAddClass(badgeEl, 'loaded')
+      this.SVGRemoveClass(badgeEl, 'offline in-a-call reserved available')
+      this.SVGAddClass(badgeEl, endpoint.getAvailability().replace(/\s/g, '-'))
     }
   }
 
@@ -942,8 +941,8 @@ export class BVMap extends BackboneViews {
 
   renderClock () {
     /*
-    let hourHand = this.$('.clockHand.hours')
-    let minuteHand = this.$('.clockHand.minutes')
+    let hourHand = jQuery('.clockHand.hours')
+    let minuteHand = jQuery('.clockHand.minutes')
 
     $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
       .done(function (londonTime) {
@@ -1001,12 +1000,12 @@ export class BVMap extends BackboneViews {
   }
 
   setTitle (el, titleText) {
-    let titleEl = $(el).children('title')
+    let titleEl = jQuery(el).children('title')
     if (!titleEl.length) {
       titleEl = document.createElementNS(this.SVG_NAMESPACE, 'title')
-      $(el).append(titleEl)
+      jQuery(el).append(titleEl)
     }
-    $(titleEl).text(titleText)
+    jQuery(titleEl).text(titleText)
   }
 }
 
@@ -1020,9 +1019,9 @@ export class PersonIcon extends BVMap {
     this.model.views = this.model.views || {}
     this.model.views.mapIcon = this
     this.$el.data('model', this.model)
-    this.model.on('change:office', this.onChangeOffice)
-    this.model.on('change:desk', this.onChangeDesk)
-    this.model.on('change:photo', this.renderPhoto)
+    this.listenTo(this.model, 'change:office', this.onChangeOffice)
+    this.listenTo(this.model, 'change:desk', this.onChangeDesk)
+    this.listenTo(this.model, 'change:photo', this.renderPhoto)
     this.iconSize = this.SEATS[this.model.get('office')].iconSize
   }
 
@@ -1093,36 +1092,36 @@ export class RoomDetailsView extends BackboneViews {
 
   render () {
     if (this.$el.is(':empty')) {
-      this.$els.photo = $('<img>', { class: 'photo' }).on({
+      this.$els.photo = jQuery('<img>', { class: 'photo' }).on({
         load: this.onImageLoadSuccess,
         error: this.onImageLoadFailure
       })
-      this.$els.name = $('<h2>', { class: 'name' })
+      this.$els.name = jQuery('<h2>', { class: 'name' })
       this.$el.append(this.$els.photo)
       this.$el.append(this.$els.name)
-      this.$els.endpointManufacturer = $('<dd>')
-      this.$els.endpointIpAddress = $('<dd>')
-      this.$els.seatingCapacity = $('<dd>')
-      this.$els.availabilityStatus = $('<dd>').append([
-        $('<span>', { 'class': 'statusBadge' }),
-        $('<span>', { 'class': 'statusLabel' })
+      this.$els.endpointManufacturer = jQuery('<dd>')
+      this.$els.endpointIpAddress = jQuery('<dd>')
+      this.$els.seatingCapacity = jQuery('<dd>')
+      this.$els.availabilityStatus = jQuery('<dd>').append([
+        jQuery('<span>', { 'class': 'statusBadge' }),
+        jQuery('<span>', { 'class': 'statusLabel' })
       ])
-      let dl = $('<dl>')
-      dl.append($('<dt>', { text: 'Status' }))
+      let dl = jQuery('<dl>')
+      dl.append(jQuery('<dt>', { text: 'Status' }))
       dl.append(this.$els.availabilityStatus)
-      dl.append($('<dt>', { text: 'Capacity' }))
+      dl.append(jQuery('<dt>', { text: 'Capacity' }))
       dl.append(this.$els.seatingCapacity)
-      dl.append($('<dt>', { text: 'Endpoint' }))
+      dl.append(jQuery('<dt>', { text: 'Endpoint' }))
       dl.append(this.$els.endpointManufacturer)
-      dl.append($('<dt>', { text: 'IP Address' }))
+      dl.append(jQuery('<dt>', { text: 'IP Address' }))
       dl.append(this.$els.endpointIpAddress)
       this.$el.append(dl)
     }
     if (this.model) {
-      this.$els.photo.attr('src', Data.urlJoin(window.location.protocol, '/endpoints/', this.model.id, '/photo')) // causes flickering in Opera
+      this.$els.photo.attr('src', urlJoin(window.location.protocol, '/endpoints/', this.model.id, '/photo')) // causes flickering in Opera
       this.$els.name.text(this.model.get('name'))
       this.$els.endpointManufacturer.text(this.getManufacturerLabel(this.model.get('controlProtocol')))
-      this.$els.endpointIpAddress.empty().append($('<a>', {
+      this.$els.endpointIpAddress.empty().append(jQuery('<a>', {
         text: this.model.get('ipAddress'),
         href: 'http://' + this.model.get('ipAddress'),
         target: '_blank'
@@ -1193,24 +1192,24 @@ export class PersonDetailsView extends BackboneViews {
 
   render () {
     if (this.$el.is(':empty')) {
-      this.$els.photo = $('<img>', { class: 'photo' })
-      this.$els.name = $('<h2>', { class: 'name' })
-      this.$els.title = $('<h3>', { class: 'title' })
+      this.$els.photo = jQuery('<img>', { class: 'photo' })
+      this.$els.name = jQuery('<h2>', { class: 'name' })
+      this.$els.title = jQuery('<h3>', { class: 'title' })
       this.$el.append(this.$els.photo)
       this.$el.append(this.$els.name)
       this.$el.append(this.$els.title)
-      this.$els.email = $('<a>')
-      this.$els.linkedInProfile = $('<a>', { text: 'view profile', target: '_blank' })
-      this.$els.workPhone = $('<dd>')
-      this.$els.mobilePhone = $('<dd>')
-      let dl = $('<dl>')
-      dl.append($('<dt>', { text: 'Email' }))
-      dl.append($('<dd>').append(this.$els.email))
-      dl.append($('<dt>', { text: 'LinkedIn' }))
-      dl.append($('<dd>').append(this.$els.linkedInProfile))
-      dl.append($('<dt>', { text: 'Mobile' }))
+      this.$els.email = jQuery('<a>')
+      this.$els.linkedInProfile = jQuery('<a>', { text: 'view profile', target: '_blank' })
+      this.$els.workPhone = jQuery('<dd>')
+      this.$els.mobilePhone = jQuery('<dd>')
+      let dl = jQuery('<dl>')
+      dl.append(jQuery('<dt>', { text: 'Email' }))
+      dl.append(jQuery('<dd>').append(this.$els.email))
+      dl.append(jQuery('<dt>', { text: 'LinkedIn' }))
+      dl.append(jQuery('<dd>').append(this.$els.linkedInProfile))
+      dl.append(jQuery('<dt>', { text: 'Mobile' }))
       dl.append(this.$els.mobilePhone)
-      dl.append($('<dt>', { text: 'Work' }))
+      dl.append(jQuery('<dt>', { text: 'Work' }))
       dl.append(this.$els.workPhone)
       this.$el.append(dl)
     }
@@ -1221,6 +1220,7 @@ export class PersonDetailsView extends BackboneViews {
       let email = this.model.get('email')
       this.$els.email
         .attr('href', 'mailto:' + email + ((email || '').indexOf('@') === -1 ? '@bluejeans.com' : ''))
+        .attr('target', '_blank')
         .text(email)
         .closest('dd').prev('dt').addBack().toggle(!!email)
       this.$els.linkedInProfile

@@ -1,6 +1,6 @@
 // npm + Browserify dependencies
-import $ from 'jquery'
 import { Mediator } from 'mediator-js'
+import urlJoin from 'proper-url-join'
 
 // Other dependencies
 import { People, Person, Endpoints } from './BackboneModels'
@@ -15,9 +15,10 @@ const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints()
 endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({el: $('#listPane')[0]})
-const detailsPane = new DetailsPane({el: $('#detailsPane')[0]})
-const map = new BVMap({el: $('.map')[0], office: window.floorplanParams.officeID})
+const listPane = new ListPane({$el: ('#listPane')[0]})
+const detailsPane = new DetailsPane({$el: ('#detailsPane')[0]})
+// const map = new BVMap({$el: ('.map')[0], office: window.floorplanParams.officeID})
+const map = new BVMap({$el: ('.map')[0], office: 'mv'})
 
 render()
 bindEvents()
@@ -99,7 +100,7 @@ function initDeepLinking () {
 }
 
 function getDeepLink (person) {
-  return Data.nodeData.baseURL + '/' + (person.get('office') || '') + '#' + person.id + '/' + person.get('fullname').replace(/\s/g, '_')
+  return urlJoin(window.location.protocol, '/', (person.get('office') || ''), '#', person.id, '/', person.get('fullname').replace(/\s/g, '_'))
 }
 
 function initEndpointStatusPoll () {

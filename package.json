@@ -35,6 +35,7 @@
     "msgpack5": "^4.0.2",
     "nodemon": "~1.17.2",
     "path": "~0.12.7",
+    "proper-url-join": "^1.2.0",
     "q": "~1.5.1",
     "setimmediate": "^1.0.5",
     "svg.js": "^2.6.4",

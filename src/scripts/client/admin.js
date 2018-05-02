@@ -1,6 +1,7 @@
 // npm + Browserify dependencies
-import $ from 'jquery'
+import jQuery from 'jquery'
 import { Mediator } from 'mediator-js'
+import urlJoin from 'proper-url-join'
 
 // Other dependencies
 import { People, Person } from './BackboneModels'
@@ -10,20 +11,20 @@ import Data from './Data'
 // Instantation
 const collection = new People()
 const mediator = new Mediator()
-const listPane = new ListPane({el: $('#listPane')[0]})
-const editor = new Editor({el: $('#editor')[0]})
+const listPane = new ListPane({$el: ('#listPane')[0]})
+const editor = new Editor({$el: ('#editor')[0]})
 
 listPane.render()
 editor.render()
 
 listPane.$('.people')
-  .prepend($('<li>', { class: 'person add active' })
-    .append($('<span>', { class: 'icon', text: '+' }))
-    .append($('<div>', { class: 'name', text: 'add person' })))
+  .prepend(jQuery('<li>', { class: 'person add active' })
+    .append(jQuery('<span>', { class: 'icon', text: '+' }))
+    .append(jQuery('<div>', { class: 'name', text: 'add person' })))
 
 mediator.subscribe('activatePersonConfirmed', function (person, opts) {
   if (!opts.skipHistory) {
-    let path = Data.newURL(Data.nodeData.baseURL, (person.isNew()
+    let path = urlJoin(window.location.protocol, (person.isNew()
       ? '/admin/'
       : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)
