@@ -1,36 +1,36 @@
 // npm + Browserify dependencies
+import jQuery from 'jquery'
 import { Mediator } from 'mediator-js'
 import urlJoin from 'proper-url-join'
 
 // Other dependencies
 import { People, Person, Endpoints } from './BackboneModels'
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
-import Data from './Data'
+// import { NodeData } from './DataClasses'
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
 const mediator = new Mediator()
-const collection = new People()
+const collection = new People({ window: window })
 collection.fetch({ reset: true, success: initDeepLinking })
-const endpoints = new Endpoints()
-endpoints.fetch({ window: window, reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({$el: ('#listPane')[0]})
-const detailsPane = new DetailsPane({$el: ('#detailsPane')[0]})
+const endpoints = new Endpoints({ window: window })
+endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
+const listPane = new ListPane({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#listPane').get(0) })
+const detailsPane = new DetailsPane({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#detailsPane').get(0) })
 // const map = new BVMap({$el: ('.map')[0], office: window.floorplanParams.officeID})
-const map = new BVMap({$el: ('.map')[0], office: 'mv'})
+const map = new BVMap({ window: window, collection: collection, mediator: mediator, jQel: jQuery('.map').get(0), office: 'mv' })
 
-render()
+// Do stuff
+listPane.render()
+detailsPane.render()
+map.render()
 bindEvents()
 
-function render () {
-  listPane.render()
-  detailsPane.render()
-  map.render()
-}
+// ===== Other functions =====
 
 function bindEvents () {
-  mediator.subscribe('activatePerson', function (inPerson, opts) {
+  mediator.subscribe('activatePerson', (inPerson, opts) => {
     let person = new Person(inPerson)
     if ((!person.get('office')) || (person.get('office') === window.floorplanParams.officeID)) {
       mediator.publish('activatePersonConfirmed', person, opts)
@@ -46,11 +46,11 @@ function bindEvents () {
     }
   }) */
 
-  mediator.subscribe('map:clickPerson', function (person, opts) {
+  mediator.subscribe('map:clickPerson', (person, opts) => {
     mediator.publish('activatePerson', person, opts)
   })
 
-  mediator.subscribe('map:clickRoom', function (endpointId, opts) {
+  mediator.subscribe('map:clickRoom', (endpointId, opts) => {
     if (endpointId) {
       let endpoint = endpoints.get(endpointId)
       if (endpoint) {
@@ -62,7 +62,7 @@ function bindEvents () {
 }
 
 function initDeepLinking () {
-  mediator.subscribe('activatePersonConfirmed', function (person, opts) {
+  mediator.subscribe('activatePersonConfirmed', (person, opts) => {
     if (!opts.skipHistory) {
       let path = getDeepLink(person)
       window.history.pushState({ personId: person.id }, null, path)

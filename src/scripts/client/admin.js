@@ -6,23 +6,24 @@ import urlJoin from 'proper-url-join'
 // Other dependencies
 import { People, Person } from './BackboneModels'
 import { Editor, ListPane } from './BackboneViews'
-import Data from './Data'
+// import { NodeData } from './DataClasses'
 
 // Instantation
-const collection = new People()
 const mediator = new Mediator()
-const listPane = new ListPane({$el: ('#listPane')[0]})
-const editor = new Editor({$el: ('#editor')[0]})
+const collection = new People({ window: window })
+const listPane = new ListPane({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#listPane').get(0) })
+const editor = new Editor({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#editor').get(0) })
 
+// Do stuff
 listPane.render()
 editor.render()
 
-listPane.$('.people')
+listPane.jQuery('.people')
   .prepend(jQuery('<li>', { class: 'person add active' })
     .append(jQuery('<span>', { class: 'icon', text: '+' }))
     .append(jQuery('<div>', { class: 'name', text: 'add person' })))
 
-mediator.subscribe('activatePersonConfirmed', function (person, opts) {
+mediator.subscribe('activatePersonConfirmed', (person, opts) => {
   if (!opts.skipHistory) {
     let path = urlJoin(window.location.protocol, (person.isNew()
       ? '/admin/'
@@ -44,7 +45,7 @@ collection.fetch({
   reset: true,
   success: () => {
     let person
-    let pathnameParts = window.location.pathname.replace(new RegExp('^' + Data.nodeData.baseURL), '').split('/')
+    let pathnameParts = window.location.pathname.replace(new RegExp('^' + window.location.protocol), '').split('/')
     if (pathnameParts.length >= 3) person = collection.get(pathnameParts[2])
     mediator.publish('activatePersonConfirmed', person || new Person())
     editor.$el.show()

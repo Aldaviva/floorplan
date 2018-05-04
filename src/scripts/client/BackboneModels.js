@@ -3,6 +3,7 @@ import jQuery from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
 import urlJoin from 'proper-url-join'
+// import { NodeData } from './DataClasses'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
 
@@ -17,7 +18,7 @@ export class Person extends Backbone.Model {
   }
 
   getPhotoPath () {
-    return urlJoin(window.location.protocol, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
+    return urlJoin(this.url, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
@@ -47,9 +48,15 @@ export class Person extends Backbone.Model {
 // ============================
 
 export class People extends Backbone.Collection {
+  constructor (...args) {
+    super(...args)
+    const options = new Map(Array.from(...args))
+    if (options.has('window')) this.window = options.get('window')
+  }
+
   initialize () {
     this.model = Person
-    this.url = urlJoin(window.location.protocol, '/people')
+    this.url = '/people'
     this.comparator = 'fullname'
   }
 }
@@ -81,18 +88,24 @@ export class Endpoint extends Backbone.Model {
 // ============================
 
 export class Endpoints extends Backbone.Collection {
+  constructor (...args) {
+    super(...args)
+    this.argMap = new Map(Object.entries(args[0]))
+    this.window = this.argMap.get('window') || window
+  }
+
   initialize () {
     this.model = Endpoint
-    this.url = urlJoin(window.location.protocol, '/endpoints')
+    this.url = '/endpoints'
   }
 
   fetchStatuses () {
     return jQuery.getJSON(this.url + '/status')
       .done(_.bind((statuses) => {
         statuses.forEach((status) => {
-          let endpoint = window.get(status.endpointId)
+          let endpoint = this.window.get(status.endpointId)
           endpoint.set({ status: _.omit(status, 'endpointId') })
-        }, window)
+        }, this.window)
       }, this))
   }
 }

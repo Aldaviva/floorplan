@@ -3,9 +3,8 @@ import jQuery from 'jquery'
 import _ from 'lodash'
 import Backbone from 'backbone'
 import Q from 'q'
-import { People, Endpoints } from './BackboneModels'
-import { Mediator } from 'mediator-js'
 import urlJoin from 'proper-url-join'
+// import { NodeData } from './DataClasses'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
@@ -19,11 +18,15 @@ export default class BackboneViews extends Backbone.View {
   constructor (...args) {
     super(...args)
     super.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
-    super.$el = args.$el
-    // These are normally defined in "admin" and "floorplan" (browser)
-    super.collection = window.collection || new People()
-    super.mediator = window.mediator || new Mediator()
-    super.endpoints = window.endpoints || new Endpoints()
+    const options = new Map(Array.from(...args))
+    if (options.has('window')) super.window = options.get('window')
+    if (options.has('mediator')) super.mediator = options.get('mediator')
+    if (options.has('collection')) super.collection = options.get('collection')
+    if (options.has('model')) super.model = options.get('model')
+    if (options.has('jQel')) super.$el = options.get('jQel')
+    if (options.has('office')) super.office = options.get('office')
+    if (options.has('skipFilters')) super.skipFilters = options.get('skipFilters')
+    if (options.has('skipEndpoints')) super.skipEndpoints = options.get('skipEndpoints')
   }
 }
 
@@ -33,17 +36,18 @@ export default class BackboneViews extends Backbone.View {
 
 export class DetailsPane extends BackboneViews {
   initialize () {
-    this.mediator.subscribe('activatePersonConfirmed', function (person, opts) {
+    this.parameters = {window: this.window, mediator: this.mediator}
+    this.mediator.subscribe('activatePersonConfirmed', (person, opts) => {
       this.toggleIntro(false)
       this.setPersonModel(person)
     }, {}, this)
-    this.mediator.subscribe('activateRoom', function (endpoint, opts) {
+    this.mediator.subscribe('activateRoom', (endpoint, opts) => {
       this.toggleIntro(false)
       this.setRoomModel(endpoint)
     }, {}, this)
-    this.introView = new IntroView()
-    this.personDetailsView = new PersonDetailsView()
-    this.roomDetailsView = new RoomDetailsView()
+    this.introView = new IntroView(this.parameters)
+    this.personDetailsView = new PersonDetailsView(this.parameters)
+    this.roomDetailsView = new RoomDetailsView(this.parameters)
   }
 
   render () {
@@ -98,13 +102,14 @@ export class Editor extends BackboneViews {
       'click .desk.helper_link': 'enlargeMap'
     }
     // TODO: FIXME; I map office ids!!!
-    let officeIDs = jQuery('.office input[type=radio]').map(() => jQuery(this).attr('value'))
+    let officeIDs = jQuery('.office input[type=radio]').map((tempOfficeID) => jQuery(tempOfficeID).attr('value'))
     this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
       $el: ('.map.' + officeID)[0],
-      collection: this.data.people,
+      collection: this.people,
       office: officeID,
       skipFilters: true,
-      skipEndpoints: true
+      skipEndpoints: true,
+      mediator: this.mediator
     })))
     this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
     this.mediator.subscribe('activatePerson', this.onActivatePerson)
@@ -276,7 +281,7 @@ export class Editor extends BackboneViews {
     if (validity.valid) {
       jQuery('.validationMessage').hide()
       if (attributeName === 'linkedInId') {
-        attributeValue = this.data.Person.linkedInUrlToId(currentTarget.val())
+        attributeValue = this.Person.linkedInUrlToId(currentTarget.val())
       } else if (attributeName === 'email') {
         attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
       } else if (currentTarget.is(':checkbox')) {
@@ -357,9 +362,9 @@ export class Editor extends BackboneViews {
   }
 
   onPhotoUploadFailure (event, data) {
-    this.console.error(this.data.errorThrown)
-    this.console.error(this.data.jqXHR.responseText)
-    window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.data.jqXHR.responseText)
+    this.console.error(this.errorThrown)
+    this.console.error(this.jqXHR.responseText)
+    window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.jqXHR.responseText)
   }
 
   onPhotoUploadSuccess (event, data) {
@@ -374,7 +379,7 @@ export class Editor extends BackboneViews {
   }
 
   onPhotoPreviewReady (event, data) {
-    let file = this.data.files[this.data.index]
+    let file = this.files[this.index]
     if (file.preview) {
       this.renderPhoto(file.preview)
     }
@@ -479,13 +484,14 @@ export class IntroView extends BackboneViews {
 
 export class ListPane extends BackboneViews {
   initialize () {
+    this.parameters = {window: this.window, collection: this.collection, mediator: this.mediator}
     this.events = {
       'click .people li': 'onRowClick'
     }
     this.ol = null
-    this.searchBox = new SearchBox()
-    this.tagGrid = new TagGrid()
-    this.officeGrid = new OfficeGrid()
+    this.searchBox = new SearchBox(this.parameters)
+    this.tagGrid = new TagGrid(this.parameters)
+    this.officeGrid = new OfficeGrid(this.parameters)
     this.collection.on('reset', this.addMany)
     this.collection.on('add', this.addOne)
     this.collection.on('destroy', this.removePerson)
@@ -508,14 +514,14 @@ export class ListPane extends BackboneViews {
   addMany (coll) {
     let insertFragment = document.createDocumentFragment()
     coll.each((person) => {
-      let personView = new this.PersonRow({ model: person })
+      let personView = new this.PersonRow(this.parameters, { model: person })
       insertFragment.appendChild(personView.render())
     })
     this.ol.append(insertFragment)
   }
 
   addOne (person) {
-    let personView = new this.PersonRow({ model: person }).render()
+    let personView = new this.PersonRow(this.parameters, { model: person }).render()
     let indexToInsertAt = this.collection.sortedIndex(person)
     if (this.collection.length === 1) {
       // insert as only element
@@ -654,7 +660,7 @@ export class TagGrid extends BackboneViews {
   initialize () {
     this.className = 'tags'
     this.events = {'click .tag': 'onTagClick'}
-    this.filterState = {}
+    this.filterState = [] // was a collection
     this.collection.on('reset', this.populate)
   }
 
@@ -882,7 +888,7 @@ export class BVMap extends BackboneViews {
         return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
       })
       : []
-    this.photosGroup.children().each(function (index, photoEl) {
+    this.photosGroup.children().each((index, photoEl) => {
       this.SVGRemoveClass(photoEl, 'filtered_tag')
     })
     peopleToHide.forEach(peopleToHide, (personToHide) => {
@@ -894,7 +900,7 @@ export class BVMap extends BackboneViews {
   filterByName (query) {
     query = query.toLowerCase().trim()
     let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().indexOf(query) === -1)
-    this.photosGroup.children().each(function (index, photoEl) {
+    this.photosGroup.children().each((index, photoEl) => {
       this.SVGRemoveClass(photoEl, 'filtered_name')
     })
     peopleToHide.forEach((personToHide) => {
@@ -905,7 +911,7 @@ export class BVMap extends BackboneViews {
 
   activatePersonConfirmed (model) {
     if (model.get('office') === this.options.office) {
-      this.photosGroup.children().each(function (index, photoEl) {
+      this.photosGroup.children().each((index, photoEl) => {
         this.SVGRemoveClass(photoEl, 'active')
       })
       this.SVGAddClass(model.views.mapIcon.$el, 'active')
