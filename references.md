@@ -17,6 +17,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - http://blog.revathskumar.com/2016/02/browserify-with-gulp.html
 - http://rkulla.blogspot.com/2014/04/using-browserify-with-jquery-backbonejs.html
 - https://benmccormick.org/2015/07/06/backbone-and-es6-classes-revisited/
+- https://codeburst.io/es5-vs-es6-with-example-code-9901fa0136fc
 - https://css-tricks.com/using-svg/
 - https://dmitripavlutin.com/6-ways-to-declare-javascript-functions/
 - https://esdiscuss.org/topic/moduleimport
@@ -25,6 +26,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
 - https://medium.com/@timoxley/named-exports-as-the-default-export-api-670b1b554f65
 - https://medium.com/making-internets/why-using-chain-is-a-mistake-9bc1f80d51ba
+- https://medium.freecodecamp.org/here-are-examples-of-everything-new-in-ecmascript-2016-2017-and-2018-d52fa3b5a70e
 - https://stackoverflow.com/questions/9329446/for-each-over-an-array-in-javascript
 - https://stackoverflow.com/questions/16646526/what-is-the-difference-between-el-and-el-in-backbone-js-views?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 - https://stackoverflow.com/questions/30767928/accesing-handlebars-variable-via-javascript

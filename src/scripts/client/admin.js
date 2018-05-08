@@ -1,6 +1,6 @@
 // npm + Browserify dependencies
 import jQuery from 'jquery'
-import { Mediator } from 'mediator-js'
+import { Mediator } from '../lib_custom/mediator.min'
 import urlJoin from 'proper-url-join'
 
 // Other dependencies

@@ -1,7 +1,7 @@
 // npm + Browserify dependencies
 import jQuery from 'jquery'
 import _ from 'lodash'
-import Backbone from 'backbone'
+import Backbone from '../lib_custom/backbone-min'
 import Q from 'q'
 import urlJoin from 'proper-url-join'
 // import { NodeData } from './DataClasses'
@@ -160,7 +160,7 @@ export class Editor extends BackboneViews {
         .attr('href', 'https://www.linkedin.com/vsearch/p?keywords=' + encodeURIComponent(this.model.get('fullname')) + '&openAdvancedForm=true')
         .toggle(!linkedInId && !!this.model.get('fullname'))
       let emailLocalPart = this.model.get('email')
-      let emailComplete = emailLocalPart + ((emailLocalPart || '').indexOf('@') === -1 ? '@bluejeans.com' : '')
+      let emailComplete = emailLocalPart + ((emailLocalPart || '').includes('@') === false ? '@bluejeans.com' : '')
       this.fieldVal('email', (emailLocalPart) ? emailComplete : '')
       jQuery('.basics .remove').toggle(!this.model.isNew())
       jQuery('.seatChooser').toggle(!!this.model.get('office'))
@@ -274,7 +274,7 @@ export class Editor extends BackboneViews {
     let currentTarget = jQuery(event.currentTarget)
     let attributeName = currentTarget.attr('name')
     let attributeValue
-    if (attributeName === 'email' && currentTarget.val().trim() !== '' && currentTarget.val().indexOf('@') === -1) {
+    if (attributeName === 'email' && currentTarget.val().trim() !== '' && currentTarget.val().includes('@') === false) {
       currentTarget.val(currentTarget.val() + '@bluejeans.com')
     }
     let validity = currentTarget[0].validity
@@ -543,7 +543,7 @@ export class ListPane extends BackboneViews {
     query = query.toLowerCase().trim()
     this.ol.children().removeClass('filtered_name')
     if (query.length) {
-      let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().indexOf(query) === -1)
+      let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
       peopleToHide.forEach(peopleToHide, (personToHide) => {
         let view = personToHide.views.listPaneRow
         view.$el.addClass('filtered_name')
@@ -756,8 +756,8 @@ export class OfficeGrid extends BackboneViews {
     if (typeof floorplanParams !== 'undefined') {
       jQuery('a')
         .filter(() => (jQuery(this).attr('href') === window.floorplanParams.officeID) ||
-          // Specific to BlueJeans
-        (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
+      // Specific to BlueJeans
+      (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
         .addClass('active')
     }
     return this.$el
@@ -866,17 +866,17 @@ export class BVMap extends BackboneViews {
     }
   }
 
+  // TODO: this is BlueJeans-specific code
   onArrowClick (event) {
     switch (this.options.office) {
       case 'mv':
-        window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
-        break
-      case 'mv2':
-      case 'mv3':
-        window.location = 'mv'
-        break
+      window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
+      break
+      case 'mv2' || 'mv3':
+      window.location = 'mv'
+      break
       default:
-        break
+      break
     }
   }
 
@@ -899,7 +899,7 @@ export class BVMap extends BackboneViews {
 
   filterByName (query) {
     query = query.toLowerCase().trim()
-    let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().indexOf(query) === -1)
+    let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
     this.photosGroup.children().each((index, photoEl) => {
       this.SVGRemoveClass(photoEl, 'filtered_name')
     })
@@ -928,7 +928,7 @@ export class BVMap extends BackboneViews {
   }
 
   renderEndpointBadge (endpoint, status) {
-    let badgeEl = jQuery(".roomNames .room[endpoint\\:id='" + endpoint.id + "'] .statusBadge").get(0)
+    let badgeEl = jQuery('.roomNames .room[endpoint\\:id=\'' + endpoint.id + '\'] .statusBadge').get(0)
     if (badgeEl) {
       let titleText = endpoint.getAvailability()
       // let isAvailable = (titleText === 'available')
@@ -951,35 +951,35 @@ export class BVMap extends BackboneViews {
     let minuteHand = jQuery('.clockHand.minutes')
 
     $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
-      .done(function (londonTime) {
-        let hourDegrees = ((londonTime.hours % 12 / 12) + (londonTime.minutes / 60 / 60)) * 360
-        let minuteDegrees = ((londonTime.minutes / 60) + (londonTime.seconds / 60 / 60)) * 360
+    .done(function (londonTime) {
+      let hourDegrees = ((londonTime.hours % 12 / 12) + (londonTime.minutes / 60 / 60)) * 360
+      let minuteDegrees = ((londonTime.minutes / 60) + (londonTime.seconds / 60 / 60)) * 360
 
-        let center = [hourHand.attr('x1'), hourHand.attr('y1')]
-        hourHand
-        .attr('transform', 'rotate(' + hourDegrees + ' ' + center[0] + ' ' + center[1] + ')')
-        .css('visibility', 'visible')
-        minuteHand
-        .attr('transform', 'rotate(' + minuteDegrees + ' ' + center[0] + ' ' + center[1] + ')')
-        .css('visibility', 'visible')
-      })
-      .fail(function (jqXHR, textStatus, errorThrown) {
-        console.warn('failed to fetch current london time: ' + textStatus)
-        console.warn(errorThrown)
+      let center = [hourHand.attr('x1'), hourHand.attr('y1')]
+      hourHand
+      .attr('transform', 'rotate(' + hourDegrees + ' ' + center[0] + ' ' + center[1] + ')')
+      .css('visibility', 'visible')
+      minuteHand
+      .attr('transform', 'rotate(' + minuteDegrees + ' ' + center[0] + ' ' + center[1] + ')')
+      .css('visibility', 'visible')
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.warn('failed to fetch current london time: ' + textStatus)
+      console.warn(errorThrown)
 
-        hourHand.css('visibility', 'hidden')
-        minuteHand.css('visibility', 'hidden')
-      }) */
+      hourHand.css('visibility', 'hidden')
+      minuteHand.css('visibility', 'hidden')
+    }) */
   }
 
   /**
-    * Would love to use jQuery here, but jQuery's *Class() methods expect el.className to be a String.
-    * In SVG land, it's an SVGAnimatedString object, with baseVal and animVal children.
-    * Modern browsers expose el.classList with add() and remove(), but IE 10 does not, so we must reimplement.
-    *
-    * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: <image> element)
-    * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
-    */
+  * Would love to use jQuery here, but jQuery's *Class() methods expect el.className to be a String.
+  * In SVG land, it's an SVGAnimatedString object, with baseVal and animVal children.
+  * Modern browsers expose el.classList with add() and remove(), but IE 10 does not, so we must reimplement.
+  *
+  * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: <image> element)
+  * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
+  */
   svgAddClass (el, classStr) {
     let oldClassList = el.className.baseVal.split(/\s/)
     // TODO: CHECK THIS!!!! WAS LODASH/UNDERSCORE
@@ -989,11 +989,11 @@ export class BVMap extends BackboneViews {
   }
 
   /**
-    * Similar to svgAddClass, we cannot use jQuery or el.classList.
-    *
-    * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: some <image> element)
-    * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
-    */
+  * Similar to svgAddClass, we cannot use jQuery or el.classList.
+  *
+  * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: some <image> element)
+  * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
+  */
   svgRemoveClass (el, classStr) {
     let oldClassList = el.className.baseVal.split(/\s/)
     let newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)))
@@ -1225,7 +1225,7 @@ export class PersonDetailsView extends BackboneViews {
       this.$els.title.text(this.model.get('title') || '')
       let email = this.model.get('email')
       this.$els.email
-        .attr('href', 'mailto:' + email + ((email || '').indexOf('@') === -1 ? '@bluejeans.com' : ''))
+        .attr('href', 'mailto:' + email + ((email || '').includes('@') === false ? '@bluejeans.com' : ''))
         .attr('target', '_blank')
         .text(email)
         .closest('dd').prev('dt').addBack().toggle(!!email)

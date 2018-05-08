@@ -1,7 +1,7 @@
 // npm + Browserify dependencies
 import jQuery from 'jquery'
 import _ from 'lodash'
-import Backbone from 'backbone'
+import Backbone from '../lib_custom/backbone-min'
 import urlJoin from 'proper-url-join'
 // import { NodeData } from './DataClasses'
 
@@ -23,7 +23,7 @@ export class Person extends Backbone.Model {
 
   getLinkedInProfileUrl () {
     let profileId = this.get('linkedInId')
-    return (profileId) ? this.linkedInIdToUrl(profileId) : null
+    return profileId ? this.linkedInIdToUrl(profileId) : null
   }
 
   linkedInUrlToId (profileUrl) {
