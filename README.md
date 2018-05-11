@@ -13,6 +13,8 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 <p align="center">
 <a href="https://standardjs.com/" target="_blank"><img src="https://cdn.rawgit.com/standard/standard/master/badge.svg"></a>
 <a href="http://lesscss.org/" target="_blank"><img src="https://forthebadge.com/images/badges/uses-css.svg"></a>
+<a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"></a>
+<br>
 <img src="https://forthebadge.com/images/badges/contains-technical-debt.svg">
 <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
 <img src="https://forthebadge.com/images/badges/check-it-out.svg">
