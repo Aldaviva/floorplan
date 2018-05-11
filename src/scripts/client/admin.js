@@ -1,5 +1,5 @@
 import jQuery from 'jquery'
-import { Mediator } from '../lib_custom/mediator.min'
+import { Mediator } from '../../../shared/mediator.min'
 import urlJoin from 'proper-url-join'
 import { People, Person } from './BackboneModels'
 import { Editor, ListPane } from './BackboneViews'
@@ -7,9 +7,9 @@ import './DataClasses'
 
 // Instantation
 const mediator = new Mediator()
-const collection = new People({ window: window })
-const listPane = new ListPane({ window: window }, { collection: collection }, { mediator: mediator }, { jQ$: jQuery('#listPane').get(0) })
-const editor = new Editor({ window: window }, { collection: collection }, { mediator: mediator }, { jQ$: jQuery('#editor').get(0) })
+const collection = new People()
+const listPane = new ListPane({ window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
+const editor = new Editor({ window, collection, mediator, jQ$: jQuery('#editor').get(0) })
 
 // Do stuff
 listPane.render()

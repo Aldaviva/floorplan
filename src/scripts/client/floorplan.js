@@ -1,7 +1,7 @@
 // Primary dependencies
 import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-import { Mediator } from '../lib_custom/mediator.min'
+import { Mediator } from '../../../shared/mediator.min'
 
 // Other dependencies
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
@@ -12,14 +12,14 @@ import './DataClasses'
 
 // Instantation
 const mediator = new Mediator()
-const collection = new People({ window: window })
+const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
-const endpoints = new Endpoints({ window: window })
+const endpoints = new Endpoints({ window })
 endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({ window: window, collection: collection, jQel: jQuery('#listPane').get(0) })
-const detailsPane = new DetailsPane({ window: window, collection: collection, jQel: jQuery('#detailsPane').get(0) })
+const listPane = new ListPane({ window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
+const detailsPane = new DetailsPane({ window, collection, jQel: jQuery('#detailsPane').get(0) })
 // const map = new BVMap({$el: ('.map')[0], office: window.floorplanParams.officeID})
-const map = new BVMap({ window: window, collection: collection, mediator: mediator, jQel: jQuery('.map').get(0), office: 'mv' })
+const map = new BVMap({ window, collection, mediator, jQel: jQuery('.map').get(0), office: 'mv' })
 
 // Do stuff
 listPane.render()

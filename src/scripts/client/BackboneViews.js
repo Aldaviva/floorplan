@@ -1,10 +1,8 @@
 // Primary dependencies
-import _ from 'lodash'
+import _ from '../../../shared/underscore-min'
 import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-import Backbone from '../lib_custom/backbone-min'
-import { Mediator } from '../lib_custom/mediator.min'
-import Q from 'q'
+import Backbone from '../../../shared/backbone-min'
 
 // Secondary dependencies
 import './BackboneModels'
@@ -22,17 +20,17 @@ export default class BackboneViews extends Backbone.View {
   // Constructor will be inherited by all subclasses.
   // Any old constructor code was merged into "initialize" methods.
   constructor (...args) {
-    super(...args)
-    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
-    const options = new Map(Array.from(...args))
-    if (options.has('window')) this.window = options.get('window')
-    if (options.has('model')) this.model = options.get('model')
-    if (options.has('collection')) this.collection = options.get('mediator')
-    if (options.has('jQ$')) this.$el = options.get('jQ$')
-    if (options.has('mediator')) this.mediator = options.get('mediator')
-    if (options.has('office')) this.office = options.get('office')
-    if (options.has('skipEndpoints')) this.skipEndpoints = options.get('skipEndpoints')
-    if (options.has('skipFilters')) this.skipFilters = options.get('skipFilters')
+    super({
+      SVG_NAMESPACE: 'http://www.w3.org/2000/svg',
+      window: args[0].window || window,
+      model: args[0].model || null,
+      collection: args[0].collection || null,
+      $el: args[0].jQ$ || null,
+      mediator: args[0].mediator || null,
+      office: args[0].office || null,
+      skipEndpoints: args[0].skipEndpoints || null,
+      skipFilters: args[0].skipFilters || null
+    })
   }
 }
 
@@ -261,18 +259,10 @@ export class Editor extends BackboneViews {
 
   onSave (result) {
     this.model.changed = {} // model is now synced with server, there are no changes.
-    let deferred = Q.defer()
-    this.updatePhotoUploadUrl()
-    if (this.photoData) {
-      this.photoData.submit()
-        .complete(_.bind(() => {
-          this.render()
-          deferred.resolve()
-        }, this))
-    } else {
-      deferred.resolve()
-    }
-    return deferred.promise
+    return Promise.resolve(this.updatePhotoUploadUrl())
+      .then(Promise.resolve(this.photoData))
+      .then(Promise.resolve(this.photoData.submit()))
+      .then(Promise(this.render()))
   }
 
   onDirtyChange (event) {
@@ -874,16 +864,8 @@ export class BVMap extends BackboneViews {
 
   // TODO: this is BlueJeans-specific code
   onArrowClick (event) {
-    switch (this.options.office) {
-    case 'mv':
-      window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
-      break
-    case 'mv2' || 'mv3':
-      window.location = 'mv'
-      break
-    default:
-      break
-    }
+    if (this.options.office === 'mv') window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
+    if (this.options.office === ('mv2' || 'mv3')) window.location = 'mv'
   }
 
   filterByTag (params) {

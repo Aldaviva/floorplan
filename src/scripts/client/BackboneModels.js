@@ -1,9 +1,8 @@
 // Primary dependencies
-import _ from 'lodash'
+import _ from '../../../shared/underscore-min'
 import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-import Backbone from '../lib_custom/backbone-min'
-import { Mediator } from '../lib_custom/mediator.min'
+import Backbone from '../../../shared/backbone-min'
 
 // Secondary dependencies
 import './DataClasses'
@@ -17,12 +16,6 @@ import './DataClasses'
 // ============================
 
 export class Person extends Backbone.Model {
-  constructor (...args) {
-    super(...args)
-    const options = new Map(Array.from(...args))
-    if (options.has('window')) super.window = options.get('window')
-  }
-
   initialize () {
     this.idAttribute = '_id'
     this.defaults = { tags: [] }
@@ -59,12 +52,6 @@ export class Person extends Backbone.Model {
 // ============================
 
 export class People extends Backbone.Collection {
-  constructor (...args) {
-    super(...args)
-    const options = new Map(Array.from(...args))
-    if (options.has('window')) super.window = options.get('window')
-  }
-
   initialize () {
     this.model = Person
     this.url = '/people'
@@ -77,12 +64,6 @@ export class People extends Backbone.Collection {
 // ============================
 
 export class Endpoint extends Backbone.Model {
-  constructor (...args) {
-    super(...args)
-    const options = new Map(Array.from(...args))
-    if (options.has('window')) super.window = options.get('window')
-  }
-
   /**
   * @return one of "offline", "in a call", "reserved", or "available"
   */
@@ -105,12 +86,6 @@ export class Endpoint extends Backbone.Model {
 // ============================
 
 export class Endpoints extends Backbone.Collection {
-  constructor (...args) {
-    super(...args)
-    const options = new Map(Array.from(...args))
-    if (options.has('window')) super.window = options.get('window')
-  }
-
   initialize () {
     this.model = Endpoint
     this.url = '/endpoints'
