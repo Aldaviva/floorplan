@@ -1,12 +1,12 @@
-// npm + Browserify dependencies
+// Primary dependencies
 import jQuery from 'jquery'
-import { Mediator } from '../lib_custom/mediator.min'
 import urlJoin from 'proper-url-join'
+import { Mediator } from '../lib_custom/mediator.min'
 
 // Other dependencies
-import { People, Person, Endpoints } from './BackboneModels'
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
-// import { NodeData } from './DataClasses'
+import { People, Person, Endpoints } from './BackboneModels'
+import './DataClasses'
 
 // !!! Before version 3.0, this was "main.js" !!!
 
@@ -16,8 +16,8 @@ const collection = new People({ window: window })
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints({ window: window })
 endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#listPane').get(0) })
-const detailsPane = new DetailsPane({ window: window, collection: collection, mediator: mediator, jQel: jQuery('#detailsPane').get(0) })
+const listPane = new ListPane({ window: window, collection: collection, jQel: jQuery('#listPane').get(0) })
+const detailsPane = new DetailsPane({ window: window, collection: collection, jQel: jQuery('#detailsPane').get(0) })
 // const map = new BVMap({$el: ('.map')[0], office: window.floorplanParams.officeID})
 const map = new BVMap({ window: window, collection: collection, mediator: mediator, jQel: jQuery('.map').get(0), office: 'mv' })
 

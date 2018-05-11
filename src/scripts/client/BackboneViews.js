@@ -1,12 +1,18 @@
-// npm + Browserify dependencies
-import jQuery from 'jquery'
+// Primary dependencies
 import _ from 'lodash'
-import Backbone from '../lib_custom/backbone-min'
-import Q from 'q'
+import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-// import { NodeData } from './DataClasses'
+import Backbone from '../lib_custom/backbone-min'
+import { Mediator } from '../lib_custom/mediator.min'
+import Q from 'q'
+
+// Secondary dependencies
+import './BackboneModels'
+import './DataClasses'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
+
+// TODO: need to destructure-paramaterize per http://exploringjs.com/es6/ch_parameter-handling.html
 
 // ============================
 // ======= SUPERCLASS =========
@@ -17,16 +23,16 @@ export default class BackboneViews extends Backbone.View {
   // Any old constructor code was merged into "initialize" methods.
   constructor (...args) {
     super(...args)
-    super.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
     const options = new Map(Array.from(...args))
-    if (options.has('window')) super.window = options.get('window')
-    if (options.has('mediator')) super.mediator = options.get('mediator')
-    if (options.has('collection')) super.collection = options.get('collection')
-    if (options.has('model')) super.model = options.get('model')
-    if (options.has('jQel')) super.$el = options.get('jQel')
-    if (options.has('office')) super.office = options.get('office')
-    if (options.has('skipFilters')) super.skipFilters = options.get('skipFilters')
-    if (options.has('skipEndpoints')) super.skipEndpoints = options.get('skipEndpoints')
+    if (options.has('window')) this.window = options.get('window')
+    if (options.has('model')) this.model = options.get('model')
+    if (options.has('collection')) this.collection = options.get('mediator')
+    if (options.has('jQ$')) this.$el = options.get('jQ$')
+    if (options.has('mediator')) this.mediator = options.get('mediator')
+    if (options.has('office')) this.office = options.get('office')
+    if (options.has('skipEndpoints')) this.skipEndpoints = options.get('skipEndpoints')
+    if (options.has('skipFilters')) this.skipFilters = options.get('skipFilters')
   }
 }
 
@@ -484,7 +490,7 @@ export class IntroView extends BackboneViews {
 
 export class ListPane extends BackboneViews {
   initialize () {
-    this.parameters = {window: this.window, collection: this.collection, mediator: this.mediator}
+    this.parameters = [{window: this.window}, {collection: this.collection}, {mediator: this.mediator}]
     this.events = {
       'click .people li': 'onRowClick'
     }
@@ -869,13 +875,13 @@ export class BVMap extends BackboneViews {
   // TODO: this is BlueJeans-specific code
   onArrowClick (event) {
     switch (this.options.office) {
-      case 'mv':
+    case 'mv':
       window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
       break
-      case 'mv2' || 'mv3':
+    case 'mv2' || 'mv3':
       window.location = 'mv'
       break
-      default:
+    default:
       break
     }
   }

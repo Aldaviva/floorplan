@@ -1,17 +1,28 @@
-// npm + Browserify dependencies
-import jQuery from 'jquery'
+// Primary dependencies
 import _ from 'lodash'
-import Backbone from '../lib_custom/backbone-min'
+import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-// import { NodeData } from './DataClasses'
+import Backbone from '../lib_custom/backbone-min'
+import { Mediator } from '../lib_custom/mediator.min'
+
+// Secondary dependencies
+import './DataClasses'
 
 // !!! Before version 3.0, this was mainly "data.js" !!!
+
+// TODO: need to destructure-paramaterize per http://exploringjs.com/es6/ch_parameter-handling.html
 
 // ============================
 // ========== Person ==========
 // ============================
 
 export class Person extends Backbone.Model {
+  constructor (...args) {
+    super(...args)
+    const options = new Map(Array.from(...args))
+    if (options.has('window')) super.window = options.get('window')
+  }
+
   initialize () {
     this.idAttribute = '_id'
     this.defaults = { tags: [] }
@@ -51,7 +62,7 @@ export class People extends Backbone.Collection {
   constructor (...args) {
     super(...args)
     const options = new Map(Array.from(...args))
-    if (options.has('window')) this.window = options.get('window')
+    if (options.has('window')) super.window = options.get('window')
   }
 
   initialize () {
@@ -66,6 +77,12 @@ export class People extends Backbone.Collection {
 // ============================
 
 export class Endpoint extends Backbone.Model {
+  constructor (...args) {
+    super(...args)
+    const options = new Map(Array.from(...args))
+    if (options.has('window')) super.window = options.get('window')
+  }
+
   /**
   * @return one of "offline", "in a call", "reserved", or "available"
   */
@@ -90,8 +107,8 @@ export class Endpoint extends Backbone.Model {
 export class Endpoints extends Backbone.Collection {
   constructor (...args) {
     super(...args)
-    this.argMap = new Map(Object.entries(args[0]))
-    this.window = this.argMap.get('window') || window
+    const options = new Map(Array.from(...args))
+    if (options.has('window')) super.window = options.get('window')
   }
 
   initialize () {
