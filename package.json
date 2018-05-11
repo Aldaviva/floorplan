@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "author": "Ben Hutchison <ben@bluejeans.com>",
   "homepage": "https://github.com/Aldaviva/floorplan",
-  "license": "MIT License (in discussion)",
+  "license": "apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aldaviva/floorplan.git"
