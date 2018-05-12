@@ -7,18 +7,15 @@ import Backbone from '../../../shared/backbone-min'
 // Secondary dependencies
 import './DataClasses'
 
-// !!! Before version 3.0, this was mainly "data.js" !!!
-
-// TODO: need to destructure-paramaterize per http://exploringjs.com/es6/ch_parameter-handling.html
-
 // ============================
 // ========== Person ==========
 // ============================
 
 export class Person extends Backbone.Model {
-  initialize () {
+  constructor (...args) {
+    super(...args)
     this.idAttribute = '_id'
-    this.defaults = { tags: [] }
+    this.tags = []
   }
 
   getPhotoPath () {
@@ -33,17 +30,21 @@ export class Person extends Backbone.Model {
   linkedInUrlToId (profileUrl) {
     let profileId = null
     let matches = profileUrl.match(/linkedin\.com\/(in\/[A-Za-z0-9\-_]+)/)
-    if (matches) profileId = matches[1]
-    else {
+    if (matches) {
+      profileId = matches[1]
+    } else {
       matches = profileUrl.match(/linkedin\.com\/profile\/view\?id=([A-Za-z0-9\-_]+)/)
-      if (matches) profileId = matches[1]
+      if (matches) {
+        profileId = matches[1]
+      }
     }
     return profileId
   }
 
   linkedInIdToUrl (profileId) {
-    if (/^in\//.test(profileId)) return 'https://www.linkedin.com/' + profileId
-    else return 'https://www.linkedin.com/profile/view?id=' + profileId
+    if (/^in\//.test(profileId)) {
+      return 'https://www.linkedin.com/' + profileId
+    } else { return 'https://www.linkedin.com/profile/view?id=' + profileId }
   }
 }
 
@@ -52,7 +53,8 @@ export class Person extends Backbone.Model {
 // ============================
 
 export class People extends Backbone.Collection {
-  initialize () {
+  constructor (...args) {
+    super(...args)
     this.model = Person
     this.url = '/people'
     this.comparator = 'fullname'
@@ -68,7 +70,7 @@ export class Endpoint extends Backbone.Model {
   * @return one of "offline", "in a call", "reserved", or "available"
   */
   getAvailability () {
-    let status = this.get('status')
+    let status = super.get('status')
     if ((new Date() - (5 * 60 * 1000)) > status.timestamp) {
       return 'offline'
     } else if (status.callActive) {
@@ -86,7 +88,8 @@ export class Endpoint extends Backbone.Model {
 // ============================
 
 export class Endpoints extends Backbone.Collection {
-  initialize () {
+  constructor (...args) {
+    super(...args)
     this.model = Endpoint
     this.url = '/endpoints'
   }
@@ -95,9 +98,8 @@ export class Endpoints extends Backbone.Collection {
     return jQuery.getJSON(this.url + '/status')
       .done(_.bind((statuses) => {
         statuses.forEach((status) => {
-          let endpoint = this.window.get(status.endpointId)
-          endpoint.set({ status: _.omit(status, 'endpointId') })
-        }, this.window)
+          this.get(status.endpointId).set({ status: _.omit(status, 'endpointId') })
+        }, this)
       }, this))
   }
 }

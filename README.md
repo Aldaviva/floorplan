@@ -35,9 +35,7 @@ Where do people sit in what offices? What's that person's name, whose face I rem
 // git clone https://github.com/Aldaviva/floorplan.git (Original)
 git clone https://github.com/unquietwiki/floorplan.git (This fork)
 cd floorplan
-npm install -g node-make
-npm install -g gulp
-make install-deps
+npm install
 ```
 
 1. Copy the example configuration file to your own version for modification.

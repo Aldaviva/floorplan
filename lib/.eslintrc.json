@@ -3,7 +3,7 @@
         "es6": true,
         "node": true
     },
-    "extends": ["plugin:you-dont-need-lodash-underscore/compatible", "eslint:recommended", "standard"],
+    "extends": ["plugin:you-dont-need-lodash-underscore/compatible", "eslint:recommended", "eslint-config-problems", "standard"],
     "rules": {
         "indent": [
             "error",

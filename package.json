@@ -49,11 +49,13 @@
     "babel-preset-es2015-ie": "^6.7.0",
     "babelify": "^8.0.0",
     "browserify": "^16.2.2",
+    "eslint": "^4.19.1",
+    "eslint-config-problems": "^0.1.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.8.1",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-you-dont-need-lodash-underscore": "^6.3.1",
     "gulp": "^3.9.1",
@@ -66,7 +68,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
-    "preinstall": "npm install -g standardjs eslint caminte-cli",
+    "preinstall": "npm install -g standardjs eslint eslint-config-problems caminte-cli gulp",
     "prestart": "gulp",
     "start": "node index.js"
   }

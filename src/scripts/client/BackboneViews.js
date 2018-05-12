@@ -10,27 +10,21 @@ import './DataClasses'
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
-// TODO: need to destructure-paramaterize per http://exploringjs.com/es6/ch_parameter-handling.html
-
 // ============================
 // ======= SUPERCLASS =========
 // ============================
 
 export default class BackboneViews extends Backbone.View {
-  // Constructor will be inherited by all subclasses.
-  // Any old constructor code was merged into "initialize" methods.
   constructor (...args) {
-    super({
-      SVG_NAMESPACE: 'http://www.w3.org/2000/svg',
-      window: args[0].window || window,
-      model: args[0].model || null,
-      collection: args[0].collection || null,
-      $el: args[0].jQ$ || null,
-      mediator: args[0].mediator || null,
-      office: args[0].office || null,
-      skipEndpoints: args[0].skipEndpoints || null,
-      skipFilters: args[0].skipFilters || null
-    })
+    super(...args)
+    // Permanent values
+    this.SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+    // Check for updated parameters, else retain current ones
+    const argMap = new Map(args)
+    this.window = (argMap.has('window')) ? argMap.get('window') : this.window
+    this.collection = (argMap.has('collection')) ? argMap.get('collection') : this.collection
+    this.mediator = (argMap.has('mediator')) ? argMap.get('mediator') : this.mediator
+    this.$el = (argMap.has('jQ$')) ? argMap.get('jQ$') : this.$el
   }
 }
 
@@ -40,7 +34,6 @@ export default class BackboneViews extends Backbone.View {
 
 export class DetailsPane extends BackboneViews {
   initialize () {
-    this.parameters = {window: this.window, mediator: this.mediator}
     this.mediator.subscribe('activatePersonConfirmed', (person, opts) => {
       this.toggleIntro(false)
       this.setPersonModel(person)
@@ -49,9 +42,9 @@ export class DetailsPane extends BackboneViews {
       this.toggleIntro(false)
       this.setRoomModel(endpoint)
     }, {}, this)
-    this.introView = new IntroView(this.parameters)
-    this.personDetailsView = new PersonDetailsView(this.parameters)
-    this.roomDetailsView = new RoomDetailsView(this.parameters)
+    this.introView = new IntroView()
+    this.personDetailsView = new PersonDetailsView()
+    this.roomDetailsView = new RoomDetailsView()
   }
 
   render () {
@@ -96,24 +89,27 @@ export class DetailsPane extends BackboneViews {
 // ============================
 
 export class Editor extends BackboneViews {
+  constructor (...args) {
+    super({
+      events: {
+        'click [type=submit]': 'save',
+        'change input': 'onDirtyChange',
+        'keyup input': () => this.renderFormControls(true),
+        'click .contact .view_profile': 'viewLinkedInProfile',
+        'click .basics .remove': 'removePerson',
+        'click .desk.helper_link': 'enlargeMap'
+      }
+    }, ...args)
+  }
+
   initialize () {
-    this.events = {
-      'click [type=submit]': 'save',
-      'change input': 'onDirtyChange',
-      'keyup input': () => this.renderFormControls(true),
-      'click .contact .view_profile': 'viewLinkedInProfile',
-      'click .basics .remove': 'removePerson',
-      'click .desk.helper_link': 'enlargeMap'
-    }
-    // TODO: FIXME; I map office ids!!!
+    // TODO: FIXME; this maps office ids!!!
     let officeIDs = jQuery('.office input[type=radio]').map((tempOfficeID) => jQuery(tempOfficeID).attr('value'))
     this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
-      $el: ('.map.' + officeID)[0],
-      collection: this.people,
+      jQ$: ('.map.' + officeID)[0],
       office: officeID,
       skipFilters: true,
-      skipEndpoints: true,
-      mediator: this.mediator
+      skipEndpoints: true
     })))
     this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
     this.mediator.subscribe('activatePerson', this.onActivatePerson)
@@ -229,7 +225,7 @@ export class Editor extends BackboneViews {
       this.render()
       jQuery('.validationMessage').hide()
       jQuery('.invalid').removeClass('invalid')
-      window.scrollTo(0, 0)
+      this.window.scrollTo(0, 0)
     }, this)
     if (!model.isNew()) {
       model.fetch({
@@ -312,13 +308,13 @@ export class Editor extends BackboneViews {
     if (isEnabled) {
       saveButton.prop('selected', true)
       if (_.isBoolean(isForceEnabled) && isForceEnabled) {
-        window.log('save button enabled because it was forced on')
+        this.window.log('save button enabled because it was forced on')
       } else if (this.model.hasChanged()) {
-        window.log('save button enabled because the model has changed', this.model.changedAttributes())
+        this.window.log('save button enabled because the model has changed', this.model.changedAttributes())
       } else if (this.photoData && this.photoData.state() !== 'pending') {
-        window.log('save button enabled because a photo was chosen but has yet to start uploading')
+        this.window.log('save button enabled because a photo was chosen but has yet to start uploading')
       } else {
-        window.log('no idea why the save button is enabled')
+        this.window.log('no idea why the save button is enabled')
       }
     } else {
       saveButton.attr('disabled', 'disabled')
@@ -360,7 +356,7 @@ export class Editor extends BackboneViews {
   onPhotoUploadFailure (event, data) {
     this.console.error(this.errorThrown)
     this.console.error(this.jqXHR.responseText)
-    window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.jqXHR.responseText)
+    this.window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.jqXHR.responseText)
   }
 
   onPhotoUploadSuccess (event, data) {
@@ -446,8 +442,10 @@ export class Editor extends BackboneViews {
 // ============================
 
 export class IntroView extends BackboneViews {
-  initialize () {
-    this.className = 'intro'
+  constructor (...args) {
+    super({
+      className: 'intro'
+    }, ...args)
   }
 
   render () {
@@ -479,15 +477,17 @@ export class IntroView extends BackboneViews {
 // ============================
 
 export class ListPane extends BackboneViews {
+  constructor (...args) {
+    super({
+      events: { 'click .people li': 'onRowClick' }
+    }, ...args)
+  }
+
   initialize () {
-    this.parameters = [{window: this.window}, {collection: this.collection}, {mediator: this.mediator}]
-    this.events = {
-      'click .people li': 'onRowClick'
-    }
     this.ol = null
-    this.searchBox = new SearchBox(this.parameters)
-    this.tagGrid = new TagGrid(this.parameters)
-    this.officeGrid = new OfficeGrid(this.parameters)
+    this.searchBox = new SearchBox()
+    this.tagGrid = new TagGrid()
+    this.officeGrid = new OfficeGrid()
     this.collection.on('reset', this.addMany)
     this.collection.on('add', this.addOne)
     this.collection.on('destroy', this.removePerson)
@@ -510,14 +510,14 @@ export class ListPane extends BackboneViews {
   addMany (coll) {
     let insertFragment = document.createDocumentFragment()
     coll.each((person) => {
-      let personView = new this.PersonRow(this.parameters, { model: person })
+      let personView = new PersonRow({ model: person })
       insertFragment.appendChild(personView.render())
     })
     this.ol.append(insertFragment)
   }
 
   addOne (person) {
-    let personView = new this.PersonRow(this.parameters, { model: person }).render()
+    let personView = new PersonRow({ model: person }).render()
     let indexToInsertAt = this.collection.sortedIndex(person)
     if (this.collection.length === 1) {
       // insert as only element
@@ -587,9 +587,14 @@ export class ListPane extends BackboneViews {
 // ============================
 
 export class PersonRow extends BackboneViews {
+  constructor (...args) {
+    super({
+      tagName: 'li',
+      className: 'person'
+    }, ...args)
+  }
+
   initialize () {
-    this.tagName = 'li'
-    this.className = 'person'
     this.nameEl = null
     this.model.views = this.model.views || {}
     this.model.views.listPaneRow = this
@@ -624,9 +629,14 @@ export class PersonRow extends BackboneViews {
 // ============================
 
 export class SearchBox extends BackboneViews {
+  constructor (...args) {
+    super({
+      className: 'queryContainer',
+      events: {'keyup input.query': 'changeQuery'}
+    }, ...args)
+  }
+
   initialize () {
-    this.className = 'queryContainer'
-    this.events = {'keyup input.query': 'changeQuery'}
     this.textField = null
   }
 
@@ -638,11 +648,6 @@ export class SearchBox extends BackboneViews {
     return this.$el
   }
 
-  /*
-  changeQuery: _.throttle(function (event) {
-    this.mediator.publish('change:query', event.target.value)
-  }, 50) */
-
   changeQuery (event) {
     this.mediator.publish('change:query', event.target.value)
   }
@@ -653,10 +658,15 @@ export class SearchBox extends BackboneViews {
 // ============================
 
 export class TagGrid extends BackboneViews {
+  constructor (...args) {
+    super({
+      className: 'tags',
+      events: {'click .tag': 'onTagClick'}
+    }, ...args)
+  }
+
   initialize () {
-    this.className = 'tags'
-    this.events = {'click .tag': 'onTagClick'}
-    this.filterState = [] // was a collection
+    this.filterState = {}
     this.collection.on('reset', this.populate)
   }
 
@@ -732,8 +742,10 @@ export class TagGrid extends BackboneViews {
 // ======== OfficeGrid ========
 // ============================
 export class OfficeGrid extends BackboneViews {
-  initialize () {
-    this.tagName = 'nav'
+  constructor (...args) {
+    super({
+      tagName: 'nav'
+    }, ...args)
   }
 
   // TODO: make dependent on client config
@@ -751,7 +763,7 @@ export class OfficeGrid extends BackboneViews {
     }
     if (typeof floorplanParams !== 'undefined') {
       jQuery('a')
-        .filter(() => (jQuery(this).attr('href') === window.floorplanParams.officeID) ||
+        .filter(() => (jQuery(this).attr('href') === this.window.floorplanParams.officeID) ||
       // Specific to BlueJeans
       (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
         .addClass('active')
@@ -765,18 +777,22 @@ export class OfficeGrid extends BackboneViews {
 // ============================
 
 export class BVMap extends BackboneViews {
+  constructor (...args) {
+    super({
+      events: {
+        'click .photos image': 'onIconClick',
+        'click .seats rect': 'onSeatClick',
+        'click .roomNames .roomArea': 'onRoomClick',
+        'click .arrow': 'onArrowClick'
+      }
+    }, ...args)
+    const argMap = new Map(args)
+    this.options.officeID = (argMap.has('officeID')) ? argMap.get('officeID') : 'mv' // demo Blue Jeans default
+    this.options.skipFilters = (argMap.has('')) ? argMap.get('skipFilters') : false
+    this.options.skipEndpoints = (argMap.has('skipEndpoints')) ? argMap.get('skipEndPoints') : false
+  }
+
   initialize () {
-    this.options = {
-      office: 'mv',
-      skipFilters: false,
-      skipEndpoints: false
-    }
-    this.events = {
-      'click .photos image': 'onIconClick',
-      'click .seats rect': 'onSeatClick',
-      'click .roomNames .roomArea': 'onRoomClick',
-      'click .arrow': 'onArrowClick'
-    }
     this.collection.on('reset', this.addMany)
     this.collection.on('add', this.addOne)
     this.collection.on('change:office', this.addOne)
@@ -796,7 +812,7 @@ export class BVMap extends BackboneViews {
 
   render () {
     if (this.seatsGroup.is(':empty')) {
-      let seatData = this.SEATS[this.options.office]
+      let seatData = this.SEATS[this.options.officeID]
       let seatPositions = seatData.seatPositions
       let numSeats = seatPositions.length
       let iconSize = seatData.iconSize
@@ -824,7 +840,7 @@ export class BVMap extends BackboneViews {
   addMany (coll) {
     let iconsFragment = document.createDocumentFragment()
     coll.each((model) => {
-      if (model.get('office') === this.options.office) {
+      if (model.get('office') === this.options.officeID) {
         iconsFragment.appendChild(this.createAndRenderPersonIcon(model))
       }
     }, this)
@@ -832,7 +848,7 @@ export class BVMap extends BackboneViews {
   }
 
   addOne (person) {
-    if (person.get('office') === this.options.office) {
+    if (person.get('office') === this.options.officeID) {
       this.photosGroup.append(this.createAndRenderPersonIcon(person))
     }
     this.renderActiveSeat(null) // remove blue active seat marker when leaving an office
@@ -864,8 +880,8 @@ export class BVMap extends BackboneViews {
 
   // TODO: this is BlueJeans-specific code
   onArrowClick (event) {
-    if (this.options.office === 'mv') window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
-    if (this.options.office === ('mv2' || 'mv3')) window.location = 'mv'
+    if (this.options.officeID === 'mv') this.window.location = (this.SVGHasClass(event.currentTarget, 'right')) ? 'mv2' : 'mv3'
+    if (this.options.officeID === ('mv2' || 'mv3')) this.window.location = 'mv'
   }
 
   filterByTag (params) {
@@ -898,7 +914,7 @@ export class BVMap extends BackboneViews {
   }
 
   activatePersonConfirmed (model) {
-    if (model.get('office') === this.options.office) {
+    if (model.get('office') === this.options.officeID) {
       this.photosGroup.children().each((index, photoEl) => {
         this.SVGRemoveClass(photoEl, 'active')
       })
@@ -928,8 +944,8 @@ export class BVMap extends BackboneViews {
   }
 
   initClockUpdate () {
-    this.clockUpdateInterval && window.clearInterval(this.clockUpdateInterval)
-    this.clockUpdateInterval = window.setInterval(this.renderClock, 60 * 1000)
+    this.clockUpdateInterval && this.window.clearInterval(this.clockUpdateInterval)
+    this.clockUpdateInterval = this.window.setInterval(this.renderClock, 60 * 1000)
     this.renderClock()
   }
 
@@ -1066,8 +1082,10 @@ export class PersonIcon extends BVMap {
 // ============================
 
 export class RoomDetailsView extends BackboneViews {
-  initialize () {
-    this.className = 'roomDetailsView detailsView'
+  constructor (...args) {
+    super({
+      className: 'roomDetailsView detailsView'
+    }, ...args)
     this.CONTROL_PROTOCOL_TO_MANUFACTURER = {
       'TANDBERG_SSH': 'Cisco',
       'TANDBERG_HTTP': 'Cisco',
@@ -1080,6 +1098,9 @@ export class RoomDetailsView extends BackboneViews {
       'STARLEAF_HTTP': 'StarLeaf',
       'TELY_HTTP': 'Tely'
     }
+  }
+
+  initialize () {
     this.$els = {}
     this.endpoints.on('status', this.onStatusUpdate)
   }
@@ -1175,8 +1196,13 @@ export class RoomDetailsView extends BackboneViews {
 // ============================
 
 export class PersonDetailsView extends BackboneViews {
+  constructor (...args) {
+    super({
+      className: 'personDetailsView detailsView'
+    }, ...args)
+  }
+
   initialize () {
-    this.className = 'personDetailsView detailsView'
     this.$els = {}
   }
 

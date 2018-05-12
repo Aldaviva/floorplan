@@ -7,9 +7,11 @@ Non-exhaustive list of references for refactoring Floorplan
 
 - "Learning NodeJS Development" by Andrew Mead; 2018 edition
 - http://2ality.com/index.html
+- http://eloquentjavascript.net/
 - http://exploringjs.com/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript
 - https://en.wikibooks.org/wiki/JavaScript/
+- https://github.com/AlbertoMontalesi/JavaScript-es6-and-beyond-ebook
 - https://www.javascriptmancy.com/
 - https://www.w3schools.com/
 
@@ -31,6 +33,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://stackoverflow.com/questions/16646526/what-is-the-difference-between-el-and-el-in-backbone-js-views?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 - https://stackoverflow.com/questions/30767928/accesing-handlebars-variable-via-javascript
 - https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
+- https://stackoverflow.com/questions/42637630/does-jshint-support-async-await
 - https://www.codeproject.com/Articles/1237571/Build-a-Prototype-Web-Based-Diagramming-App-with-S
 - https://www.sitepoint.com/preparing-ecmascript-6-let-const/
 - https://zendev.com/2018/05/09/understanding-spread-operator-in-javascript.html
@@ -51,8 +54,9 @@ Non-exhaustive list of references for refactoring Floorplan
 
 - http://backbonejs.org/ (front-end events)
 - http://browserify.org/ (front-end packaging)
-- http://www.camintejs.com/ (database ORM)
+- http://jshint.com/ (used to catch stuff StandardJS doesn't address)
 - http://svgjs.com/ (not really used ATM)
+- http://www.camintejs.com/ (database ORM)
 - https://babeljs.io/ (converts ES2015+ code to ES5 / browser-friendly)
 - https://documentup.com/kriskowal/q/ (pre-ES2015 Promises)
 - https://github.com/ajacksified/Mediator.js (async events)

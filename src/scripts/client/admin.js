@@ -15,16 +15,14 @@ const editor = new Editor({ window, collection, mediator, jQ$: jQuery('#editor')
 listPane.render()
 editor.render()
 
-listPane.jQuery('.people')
+// listPane.jQuery('.people')
   .prepend(jQuery('<li>', { class: 'person add active' })
     .append(jQuery('<span>', { class: 'icon', text: '+' }))
     .append(jQuery('<div>', { class: 'name', text: 'add person' })))
 
 mediator.subscribe('activatePersonConfirmed', (person, opts) => {
   if (!opts.skipHistory) {
-    let path = urlJoin(window.location.protocol, (person.isNew()
-      ? '/admin/'
-      : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
+    let path = urlJoin(window.location.protocol, (person.isNew() ? '/admin/' : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)
   }
 })
@@ -35,7 +33,7 @@ window.addEventListener('popstate', (event) => {
      * so we ignore popstate if the state is empty.
      * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
      */
-  if (event.state) window.mediator.publish('activatePerson', collection.get(event.state.personId), { skipHistory: true })
+  if (event.state) { window.mediator.publish('activatePerson', collection.get(event.state.personId), { skipHistory: true }) }
 }, false)
 
 collection.fetch({
@@ -43,7 +41,7 @@ collection.fetch({
   success: () => {
     let person
     let pathnameParts = window.location.pathname.replace(new RegExp('^' + window.location.protocol), '').split('/')
-    if (pathnameParts.length >= 3) person = collection.get(pathnameParts[2])
+    if (pathnameParts.length >= 3) { person = collection.get(pathnameParts[2]) }
     mediator.publish('activatePersonConfirmed', person || new Person())
     editor.$el.show()
   }
