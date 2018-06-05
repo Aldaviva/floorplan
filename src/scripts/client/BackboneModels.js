@@ -2,7 +2,7 @@
 import _ from '../../../shared/underscore-min'
 import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-import Backbone from '../../../shared/backbone-min'
+import { Backbone } from 'backbone_es6'
 
 // Secondary dependencies
 import './DataClasses'
@@ -19,11 +19,11 @@ export class Person extends Backbone.Model {
   }
 
   getPhotoPath () {
-    return urlJoin(this.url, this.id ? ('/people' + this.id + '/photo') : '/images/missing_photo.jpg')
+    return urlJoin(this.url, this.id ? (`/people:${this.id}/photo`) : '/images/missing_photo.jpg')
   }
 
   getLinkedInProfileUrl () {
-    let profileId = this.get('linkedInId')
+    const profileId = this.get('linkedInId')
     return profileId ? this.linkedInIdToUrl(profileId) : null
   }
 
@@ -43,8 +43,9 @@ export class Person extends Backbone.Model {
 
   linkedInIdToUrl (profileId) {
     if (/^in\//.test(profileId)) {
-      return 'https://www.linkedin.com/' + profileId
-    } else { return 'https://www.linkedin.com/profile/view?id=' + profileId }
+      return `https://www.linkedin.com/${profileId}`
+    }
+    return `https://www.linkedin.com/profile/view?id=${profileId}`
   }
 }
 
@@ -70,16 +71,15 @@ export class Endpoint extends Backbone.Model {
   * @return one of "offline", "in a call", "reserved", or "available"
   */
   getAvailability () {
-    let status = super.get('status')
+    const status = super.get('status')
     if ((new Date() - (5 * 60 * 1000)) > status.timestamp) {
       return 'offline'
     } else if (status.callActive) {
       return 'in a call'
     } else if (status.reserved) {
       return 'reserved'
-    } else {
-      return 'available'
     }
+    return 'available'
   }
 }
 
@@ -95,7 +95,7 @@ export class Endpoints extends Backbone.Collection {
   }
 
   fetchStatuses () {
-    return jQuery.getJSON(this.url + '/status')
+    return jQuery.getJSON(`${this.url}/status`)
       .done(_.bind((statuses) => {
         statuses.forEach((status) => {
           this.get(status.endpointId).set({ status: _.omit(status, 'endpointId') })

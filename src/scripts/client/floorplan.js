@@ -16,9 +16,9 @@ const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints({ window })
 endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({ window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
-const detailsPane = new DetailsPane({ window, collection, jQel: jQuery('#detailsPane').get(0) })
-const map = new BVMap({ window, collection, mediator, jQel: jQuery('.map').get(0), office: window.floorplanParams.officeID })
+const listPane = new ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
+const detailsPane = new DetailsPane({ document, window, collection, jQel: jQuery('#detailsPane').get(0) })
+const map = new BVMap({ document, window, collection, mediator, jQel: jQuery('.map').get(0), office: window.floorplanParams.officeID })
 
 // Do stuff
 listPane.render()
@@ -30,7 +30,7 @@ bindEvents()
 
 function bindEvents () {
   mediator.subscribe('activatePerson', (inPerson, opts) => {
-    let person = new Person(inPerson)
+    const person = new Person(inPerson)
     if ((!person.get('office')) || (person.get('office') === window.floorplanParams.officeID)) {
       mediator.publish('activatePersonConfirmed', person, opts)
     } else {
@@ -51,7 +51,7 @@ function bindEvents () {
 
   mediator.subscribe('map:clickRoom', (endpointId, opts) => {
     if (endpointId) {
-      let endpoint = endpoints.get(endpointId)
+      const endpoint = endpoints.get(endpointId)
       if (endpoint) {
         endpoint.set({ seatingCapacity: opts.seatingCapacity })
         mediator.publish('activateRoom', endpoint, opts)
@@ -63,7 +63,7 @@ function bindEvents () {
 function initDeepLinking () {
   mediator.subscribe('activatePersonConfirmed', (person, opts) => {
     if (!opts.skipHistory) {
-      let path = getDeepLink(person)
+      const path = getDeepLink(person)
       window.history.pushState({ personId: person.id }, null, path)
     }
   })
@@ -75,17 +75,17 @@ function initDeepLinking () {
        * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
        */
     if (event.state) {
-      let person = collection.get(event.state.personId)
+      const person = collection.get(event.state.personId)
       mediator.publish('activatePerson', person, { skipHistory: true })
     }
   }, false)
 
-  let hashParts = window.location.hash.replace(/^#/, '').split('/')
+  const hashParts = window.location.hash.replace(/^#/, '').split('/')
   let personToActivate
 
   if (hashParts[0]) {
-    let personId = hashParts[0]
-    let person = collection.get(personId)
+    const personId = hashParts[0]
+    const person = collection.get(personId)
     if (person) {
       personToActivate = person
     }

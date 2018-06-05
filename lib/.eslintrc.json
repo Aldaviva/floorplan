@@ -3,19 +3,24 @@
         "es6": true,
         "node": true
     },
-    "extends": ["plugin:you-dont-need-lodash-underscore/compatible", "eslint:recommended", "eslint-config-problems", "standard"],
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "plugins": [
+        "promise"
+    ],
+    "extends": [
+        "plugin:you-dont-need-lodash-underscore/compatible",
+        "standard",
+        "eslint:recommended",
+        "eslint-config-problems",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
     "rules": {
         "indent": [
             "error",
             2
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
-        "quotes": [
-            "error",
-            "single"
         ],
         "semi": [
             "error",

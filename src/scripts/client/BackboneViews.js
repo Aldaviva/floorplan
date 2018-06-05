@@ -2,7 +2,7 @@
 import _ from '../../../shared/underscore-min'
 import jQuery from 'jquery'
 import urlJoin from 'proper-url-join'
-import Backbone from '../../../shared/backbone-min'
+import { Backbone } from 'backbone_es6'
 
 // Secondary dependencies
 import './BackboneModels'
@@ -22,418 +22,10 @@ export default class BackboneViews extends Backbone.View {
     // Check for updated parameters, else retain current ones
     const argMap = new Map(args)
     this.window = (argMap.has('window')) ? argMap.get('window') : this.window
+    this.document = (argMap.has('document')) ? argMap.get('document') : this.document
     this.collection = (argMap.has('collection')) ? argMap.get('collection') : this.collection
     this.mediator = (argMap.has('mediator')) ? argMap.get('mediator') : this.mediator
     this.$el = (argMap.has('jQ$')) ? argMap.get('jQ$') : this.$el
-  }
-}
-
-// ============================
-// ======= DetailsPane ========
-// ============================
-
-export class DetailsPane extends BackboneViews {
-  initialize () {
-    this.mediator.subscribe('activatePersonConfirmed', (person, opts) => {
-      this.toggleIntro(false)
-      this.setPersonModel(person)
-    }, {}, this)
-    this.mediator.subscribe('activateRoom', (endpoint, opts) => {
-      this.toggleIntro(false)
-      this.setRoomModel(endpoint)
-    }, {}, this)
-    this.introView = new IntroView()
-    this.personDetailsView = new PersonDetailsView()
-    this.roomDetailsView = new RoomDetailsView()
-  }
-
-  render () {
-    if (this.$el.is(':empty')) {
-      let correctionsLink = jQuery('<a>', {
-        class: 'corrections',
-        href: 'mailto:' + this.supportContact,
-        text: 'Suggest a correction'
-      })
-      this.introView.$el.hide().appendTo(this.$el)
-      this.personDetailsView.$el.appendTo(this.$el)
-      this.roomDetailsView.$el.appendTo(this.$el)
-      this.$el.append(correctionsLink)
-    }
-    this.introView.render()
-    this.personDetailsView.render()
-    this.roomDetailsView.render()
-    return this.$el
-  }
-
-  setPersonModel (model) {
-    this.personDetailsView.model = model
-    this.roomDetailsView.model = null
-    this.render()
-  }
-
-  setRoomModel (model) {
-    this.personDetailsView.model = null
-    this.roomDetailsView.model = model
-    this.render()
-  }
-
-  toggleIntro (shouldShow) {
-    this.introView.$el.toggle(!!shouldShow)
-    this.personDetailsView.$el.toggle(!shouldShow)
-    this.roomDetailsView.$el.toggle(!shouldShow)
-  }
-}
-
-// ============================
-// ========== editor ==========
-// ============================
-
-export class Editor extends BackboneViews {
-  constructor (...args) {
-    super({
-      events: {
-        'click [type=submit]': 'save',
-        'change input': 'onDirtyChange',
-        'keyup input': () => this.renderFormControls(true),
-        'click .contact .view_profile': 'viewLinkedInProfile',
-        'click .basics .remove': 'removePerson',
-        'click .desk.helper_link': 'enlargeMap'
-      }
-    }, ...args)
-  }
-
-  initialize () {
-    // TODO: FIXME; this maps office ids!!!
-    let officeIDs = jQuery('.office input[type=radio]').map((tempOfficeID) => jQuery(tempOfficeID).attr('value'))
-    this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
-      jQ$: ('.map.' + officeID)[0],
-      office: officeID,
-      skipFilters: true,
-      skipEndpoints: true
-    })))
-    this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
-    this.mediator.subscribe('activatePerson', this.onActivatePerson)
-    this.mediator.subscribe('map:clickDesk', this.onClickDesk)
-    this.photoData = null
-    this.initPhotoUploadControl()
-  }
-
-  fieldVal (name, value) {
-    let target = jQuery('input[name=' + name + ']')
-    if (arguments.length === 2) {
-      if (target.is(':radio')) {
-        target.val([value])
-      } else {
-        target.val(value)
-      }
-    } else if (arguments.length === 1) {
-      let attributeValue
-      if (target.is(':checkbox')) {
-        attributeValue = Array.prototype.map(target.filter(':checked'), (item) => jQuery(item).val())
-      } else if (target.is(':radio')) {
-        attributeValue = target.filter(':checked').val()
-      } else {
-        attributeValue = target.val()
-      }
-      return attributeValue
-    }
-  }
-
-  render () {
-    if (this.model) {
-      ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach((fieldName) => {
-        let target = jQuery('input[name=' + fieldName + ']')
-        let value = this.model.get(fieldName)
-        if (target.is(':radio')) {
-          target.val([value])
-        } else {
-          target.val(value)
-        }
-      }, this)
-      let linkedInId = this.model.get('linkedInId')
-      let linkedInComplete = this.model.getLinkedInProfileUrl()
-      this.fieldVal('linkedInId', (linkedInId) ? linkedInComplete.replace(/^https?:\/\/(?:www\.)?/, '') : '')
-      jQuery('.contact .view_profile')
-        .attr('href', (linkedInId) ? linkedInComplete : '#')
-        .toggle(!!linkedInId)
-      jQuery('.contact .search')
-        .attr('href', 'https://www.linkedin.com/vsearch/p?keywords=' + encodeURIComponent(this.model.get('fullname')) + '&openAdvancedForm=true')
-        .toggle(!linkedInId && !!this.model.get('fullname'))
-      let emailLocalPart = this.model.get('email')
-      let emailComplete = emailLocalPart + ((emailLocalPart || '').includes('@') === false ? '@bluejeans.com' : '')
-      this.fieldVal('email', (emailLocalPart) ? emailComplete : '')
-      jQuery('.basics .remove').toggle(!this.model.isNew())
-      jQuery('.seatChooser').toggle(!!this.model.get('office'))
-      this.renderPhoto()
-      this.maps.forEach((mapView) => {
-        let isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
-        mapView.$el.toggle(isMapOfPersonsOffice)
-        if (isMapOfPersonsOffice) {
-          this.map = mapView
-        }
-      })
-      this.renderFormControls()
-      let office = this.model.get('office') || ''
-      jQuery('.goToFloorplan').attr('href', '../' + office)
-    }
-    this.$el.toggle(!!this.model)
-    this.maps.forEach((mapView) => {
-      mapView.render()
-    })
-  }
-
-  /**
-  * @param canvas optional HTMLCanvasElement to be rendered instead of the official JPEG
-  */
-  renderPhoto (canvas) {
-    // only use the server JPEG if we get no arguments and there is no pending photo upload
-    if (!canvas && !this.photoData) {
-      let imgEl = this.photoUploadControl.find('img')
-      if (!imgEl.length) {
-        imgEl = jQuery('<img>')
-        this.photoUploadControl.find('canvas').remove()
-        this.photoUploadControl.prepend(imgEl)
-      }
-      imgEl.attr('src', this.model.getPhotoPath())
-    } else if (_.isElement(canvas) && canvas.nodeName === 'CANVAS') {
-      this.photoUploadControl.find('canvas, img').remove()
-      this.photoUploadControl.prepend(canvas)
-    }
-  }
-
-  onActivatePerson (newModel, opts) {
-    // a hack, but i don't want to save more state
-    if (jQuery('.formControls [type=submit]').attr('disabled')) {
-      // model and photo are saved, nothing to do here
-      this.mediator.publish('activatePersonConfirmed', newModel, opts)
-    } else if (window.confirm('You have unsaved changes. Are you sure you want to discard these changes?')) {
-      if (!this.model.isNew()) {
-        this.model.fetch({ success: (model) => {
-          model.changed = {} // model is now synced with server, there are no changes.
-        }})
-      }
-      this.mediator.publish('activatePersonConfirmed', newModel, opts)
-    }
-  }
-
-  onActivatePersonConfirmed (model) {
-    this.clearPendingUploads()
-    this.model = model
-    this.updatePhotoUploadUrl()
-    let renderPerson = _.bind(() => {
-      model.changed = {} // model is now synced with server, there are no changes.
-      this.render()
-      jQuery('.validationMessage').hide()
-      jQuery('.invalid').removeClass('invalid')
-      this.window.scrollTo(0, 0)
-    }, this)
-    if (!model.isNew()) {
-      model.fetch({
-        success: () => {
-          renderPerson()
-        }
-      })
-    } else {
-      renderPerson()
-    }
-  }
-
-  save (event) {
-    event.preventDefault()
-    this.renderFormControls(false)
-    if (this.model.isNew()) {
-      this.collection.create(this.model, { success: _.bind((result) => {
-        this.onSave()
-          .then(_.bind(() => {
-            this.mediator.publish('activatePersonConfirmed', this.model)
-          }, this))
-      }, this)})
-    } else {
-      this.model.save({}, { success: this.onSave })
-    }
-  }
-
-  onSave (result) {
-    this.model.changed = {} // model is now synced with server, there are no changes.
-    return Promise.resolve(this.updatePhotoUploadUrl())
-      .then(Promise.resolve(this.photoData))
-      .then(Promise.resolve(this.photoData.submit()))
-      .then(Promise(this.render()))
-  }
-
-  onDirtyChange (event) {
-    let changeSet = {}
-    let currentTarget = jQuery(event.currentTarget)
-    let attributeName = currentTarget.attr('name')
-    let attributeValue
-    if (attributeName === 'email' && currentTarget.val().trim() !== '' && currentTarget.val().includes('@') === false) {
-      currentTarget.val(currentTarget.val() + '@bluejeans.com')
-    }
-    let validity = currentTarget[0].validity
-    if (validity.valid) {
-      jQuery('.validationMessage').hide()
-      if (attributeName === 'linkedInId') {
-        attributeValue = this.Person.linkedInUrlToId(currentTarget.val())
-      } else if (attributeName === 'email') {
-        attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
-      } else if (currentTarget.is(':checkbox')) {
-        attributeValue = jQuery('input[name=' + attributeName + ']:checked').map((item) => jQuery(item).val())
-      } else if (currentTarget.is(':radio')) {
-        attributeValue = jQuery('input[name=' + attributeName + ']:checked').val()
-      } else {
-        attributeValue = currentTarget.val()
-        if (attributeValue === '') {
-          attributeValue = null
-        }
-      }
-      if (attributeName === 'office') {
-        changeSet['desk'] = null
-      }
-      changeSet[attributeName] = attributeValue
-      this.model.set(changeSet)
-      this.render() // update coerced values. side effect: blows away invalid values
-    } else {
-      jQuery('.validationMessage').text(currentTarget.data('validation-failed-message')).show()
-      this.renderFormControls()
-    }
-    currentTarget.closest('label').addBack().toggleClass('invalid', !validity.valid)
-  }
-
-  renderFormControls (isForceEnabled) {
-    let isValid = this.$el.checkValidity()
-    let isEnabled = isValid && (_.isBoolean(isForceEnabled))
-      ? isForceEnabled
-      : (this.model.hasChanged() || (this.photoData && this.photoData.state() !== 'pending'))
-    let saveButton = jQuery('.formControls [type=submit]')
-    if (isEnabled) {
-      saveButton.prop('selected', true)
-      if (_.isBoolean(isForceEnabled) && isForceEnabled) {
-        this.window.log('save button enabled because it was forced on')
-      } else if (this.model.hasChanged()) {
-        this.window.log('save button enabled because the model has changed', this.model.changedAttributes())
-      } else if (this.photoData && this.photoData.state() !== 'pending') {
-        this.window.log('save button enabled because a photo was chosen but has yet to start uploading')
-      } else {
-        this.window.log('no idea why the save button is enabled')
-      }
-    } else {
-      saveButton.attr('disabled', 'disabled')
-    }
-  }
-
-  initPhotoUploadControl () {
-    this.photoUploadControl = jQuery('.photo')
-    let photoPreviewSize = this.photoUploadControl.find('img').width()
-
-    this.photoUploadControl
-      .fileupload({
-        dataType: 'json',
-        autoUpload: false,
-        paramName: 'photo',
-        previewMaxWidth: photoPreviewSize,
-        previewMaxHeight: photoPreviewSize,
-        previewCrop: true
-      })
-      .on({
-        fileuploadadd: this.onPhotoAdded,
-        fileuploadfail: this.onPhotoUploadFailure,
-        fileuploaddone: this.onPhotoUploadSuccess,
-        fileuploadprocessdone: this.onPhotoPreviewReady
-      })
-  }
-
-  clearPendingUploads () {
-    this.photoData && this.photoData.abort()
-    this.photoData = null
-  }
-
-  onPhotoAdded (event, data) {
-    this.clearPendingUploads()
-    this.photoData = data
-    this.renderFormControls()
-  }
-
-  onPhotoUploadFailure (event, data) {
-    this.console.error(this.errorThrown)
-    this.console.error(this.jqXHR.responseText)
-    this.window.alert('Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n' + this.jqXHR.responseText)
-  }
-
-  onPhotoUploadSuccess (event, data) {
-    this.clearPendingUploads()
-    this.renderFormControls()
-    let photoPath = this.model.getPhotoPath()
-    jQuery.get(photoPath)
-      .done(_.bind(() => {
-        this.renderPhoto()
-        this.model.trigger('change:photo', this.model, photoPath, {})
-      }, this))
-  }
-
-  onPhotoPreviewReady (event, data) {
-    let file = this.files[this.index]
-    if (file.preview) {
-      this.renderPhoto(file.preview)
-    }
-  }
-
-  updatePhotoUploadUrl () {
-    try {
-      let photoUploadUrl = this.model.url() + '/photo'
-      this.photoUploadControl.fileupload('option', 'url', photoUploadUrl)
-      // console.log("photoUploadUrl = ", photoUploadUrl);
-    } catch (err) {
-      // we have loaded a new person with no id
-      // ignore this error, because before we upload their photo, the model will have been saved to the server, it will have an id, and this method will have been run again to get the real value
-    }
-  }
-
-  removePerson (event) {
-    if (window.confirm('Are you sure you want to permanently delete ' + this.model.get('fullname') + '?')) {
-      this.model.destroy()
-      this.mediator.publish('activatePersonConfirmed', new (this.collection.Model)())
-    }
-  }
-
-  enlargeMap (event) {
-    event.preventDefault()
-    let seatChooserLarge = jQuery('.seatChooser.large')
-    let mapEl = jQuery('.map:visible')
-    mapEl.prependTo(seatChooserLarge)
-      .removeClass('small')
-      .addClass('large')
-
-    seatChooserLarge.find('.unassign')
-      .toggle(this.model.get('desk') !== null)
-      .find('a')
-      .off('click')
-      .on('click', _.bind((event) => {
-        event.preventDefault()
-        this.map.renderActiveSeat(null)
-        this.onClickDesk(null)
-      }, this))
-
-    seatChooserLarge.show()
-    jQuery(document.body).css('overflow', 'hidden')
-    seatChooserLarge.find('.cancel')
-      .off('click')
-      .on('click', this.shrinkMap)
-  }
-
-  shrinkMap (event) {
-    event && event.preventDefault()
-    jQuery('.map.large')
-      .prependTo(jQuery('.seatChooser.small'))
-      .removeClass('large')
-      .addClass('small')
-    jQuery('.seatChooser.large').hide()
-    jQuery(document.body).css('overflow', '')
-  }
-
-  onClickDesk (deskId) {
-    this.model.set({ desk: deskId })
-    this.renderFormControls()
-    this.shrinkMap()
   }
 }
 
@@ -451,10 +43,10 @@ export class IntroView extends BackboneViews {
   render () {
     if (this.$el.is(':empty')) {
       this.$el.addClass(window.floorplanParams.officeID)
-      let office = this.offices[window.floorplanParams.officeID]
+      const office = this.offices[window.floorplanParams.officeID]
       this.$el.append(jQuery('<h2>', { text: 'Blue Jeans' }))
       if (office.address) {
-        let addressEl = jQuery('<h3>', { class: 'address' })
+        const addressEl = jQuery('<h3>', { class: 'address' })
         if (office.mapsUrl) {
           addressEl.append(jQuery('<a>', {
             text: office.address,
@@ -469,116 +61,6 @@ export class IntroView extends BackboneViews {
       }
     }
     return this.$el
-  }
-}
-
-// ============================
-// ========= listPane =========
-// ============================
-
-export class ListPane extends BackboneViews {
-  constructor (...args) {
-    super({
-      events: { 'click .people li': 'onRowClick' }
-    }, ...args)
-  }
-
-  initialize () {
-    this.ol = null
-    this.searchBox = new SearchBox()
-    this.tagGrid = new TagGrid()
-    this.officeGrid = new OfficeGrid()
-    this.collection.on('reset', this.addMany)
-    this.collection.on('add', this.addOne)
-    this.collection.on('destroy', this.removePerson)
-    this.mediator.subscribe('change:query', this.filterByName)
-    this.mediator.subscribe('filterByTag', this.filterByTag)
-    this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
-  }
-
-  render () {
-    if (this.$el.is(':empty')) {
-      this.$el.append(this.officeGrid.render())
-      this.$el.append(this.searchBox.render())
-      this.ol = jQuery('<ol>', { class: 'people' })
-      this.$el.append(this.ol)
-      this.$el.append(this.tagGrid.render())
-    }
-    return this.$el
-  }
-
-  addMany (coll) {
-    let insertFragment = document.createDocumentFragment()
-    coll.each((person) => {
-      let personView = new PersonRow({ model: person })
-      insertFragment.appendChild(personView.render())
-    })
-    this.ol.append(insertFragment)
-  }
-
-  addOne (person) {
-    let personView = new PersonRow({ model: person }).render()
-    let indexToInsertAt = this.collection.sortedIndex(person)
-    if (this.collection.length === 1) {
-      // insert as only element
-      jQuery(personView).appendTo(this.ol)
-    } else if (indexToInsertAt === 0) {
-      // insert before element 1
-      jQuery(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el)
-    } else {
-      jQuery(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el)
-      // insert after element n-1
-    }
-  }
-
-  removePerson (person) {
-    person.views.listPaneRow.remove()
-  }
-
-  filterByName (query) {
-    query = query.toLowerCase().trim()
-    this.ol.children().removeClass('filtered_name')
-    if (query.length) {
-      let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
-      peopleToHide.forEach(peopleToHide, (personToHide) => {
-        let view = personToHide.views.listPaneRow
-        view.$el.addClass('filtered_name')
-      })
-    }
-  }
-
-  filterByTag (params) {
-    let tagsToShow = params.tagsToShow
-    let peopleToHide = (tagsToShow != null)
-      ? this.collection.filter((person) => {
-        let personTags = person.get('tags')
-        return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
-      })
-      : []
-    this.ol.children().removeClass('filtered_tag')
-    peopleToHide.forEach((personToHide) => {
-      let view = personToHide.views.listPaneRow
-      view.$el.addClass('filtered_tag')
-    })
-  }
-
-  onRowClic (event) {
-    let model = jQuery(event.currentTarget).data('model')
-    if (!model) {
-      model = new this.collection.Model()
-      // model.views = {};
-      // model.views.listPaneRow =
-    }
-    this.mediator.publish('activatePerson', model, { skipListScroll: true })
-  }
-
-  onActivatePersonConfirmed (person, opts) {
-    let rowViewEl = person.views ? person.views.listPaneRow.$el : this.ol.children().first()
-    rowViewEl.addClass('active').siblings().removeClass('active')
-    if (!opts.skipListScroll) {
-      let twoPeopleUpEl = rowViewEl.prev().prev().add(rowViewEl).get(0)
-      twoPeopleUpEl && twoPeopleUpEl.scrollIntoView()
-    }
   }
 }
 
@@ -604,7 +86,7 @@ export class PersonRow extends BackboneViews {
   }
 
   render () {
-    let fullname = this.model.get('fullname')
+    const fullname = this.model.get('fullname')
     if (this.$el.is(':empty')) {
       this.photoImg = jQuery('<img>')
       this.renderPhoto(this.model, this.model.getPhotoPath())
@@ -674,10 +156,10 @@ export class TagGrid extends BackboneViews {
     this.filterState
       .filter((tagFilterState) => !tagFilterState.tagGridEl)
       .forEach((tagFilterState) => {
-        let tagEl = jQuery('<a>')
+        const tagEl = jQuery('<a>')
           .attr({
             href: '#',
-            title: 'show/hide ' + this.depTeams[tagFilterState.tagName] || tagFilterState.tagName
+            title: `show/hide ${this.depTeams[tagFilterState.tagName]}` || tagFilterState.tagName
           })
           .addClass('tag')
           .data('tagName', tagFilterState.tagName)
@@ -692,9 +174,9 @@ export class TagGrid extends BackboneViews {
   }
 
   populate (coll) {
-    let tagNames = coll.map('tags').flatten().compact().unique().sortBy().value()
+    const tagNames = coll.map('tags').flatten().compact().unique().sortBy().value()
     _.extend(this.filterState, _.zipObject(tagNames.map((tagName) => [tagName, {
-      tagName: tagName,
+      tagName,
       tagGridEl: null,
       isFiltered: false
     }])))
@@ -709,7 +191,7 @@ export class TagGrid extends BackboneViews {
         tagFilterState.isFiltered = true
       })
     }
-    let tagFilterState = this.filterState[jQuery(event.currentTarget).data('tagName')]
+    const tagFilterState = this.filterState[jQuery(event.currentTarget).data('tagName')]
     tagFilterState.isFiltered = !tagFilterState.isFiltered
     // If no people would be shown, then show everybody
     if (this._isEveryTagFiltered()) { // case b
@@ -764,7 +246,7 @@ export class OfficeGrid extends BackboneViews {
     if (typeof floorplanParams !== 'undefined') {
       jQuery('a')
         .filter(() => (jQuery(this).attr('href') === this.window.floorplanParams.officeID) ||
-      // Specific to BlueJeans
+      // TODO: remove / re-purpose this code, as Blue Jeans might need it
       (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
         .addClass('active')
     }
@@ -805,21 +287,19 @@ export class BVMap extends BackboneViews {
       this.mediator.subscribe('filterByTag', this.filterByTag)
       this.mediator.subscribe('change:query', this.filterByName)
     }
-    if (!this.options.skipEndpoints) {
-      this.endpoints.on('change:status', this.renderEndpointBadge)
-    }
+    if (!this.options.skipEndpoints) { this.endpoints.on('change:status', this.renderEndpointBadge) }
   }
 
   render () {
     if (this.seatsGroup.is(':empty')) {
-      let seatData = this.SEATS[this.options.officeID]
-      let seatPositions = seatData.seatPositions
-      let numSeats = seatPositions.length
-      let iconSize = seatData.iconSize
-      let seatsFragment = document.createDocumentFragment()
+      const seatData = this.SEATS[this.options.officeID]
+      const seatPositions = seatData.seatPositions
+      const numSeats = seatPositions.length
+      const iconSize = seatData.iconSize
+      const seatsFragment = this.document.createDocumentFragment()
       for (let seatIdx = 0; seatIdx < numSeats; seatIdx++) {
-        let deskEl = document.createElementNS(this.SVG_NAMESPACE, 'rect')
-        let coords = seatPositions[seatIdx]
+        const deskEl = this.document.createElementNS(this.SVG_NAMESPACE, 'rect')
+        const coords = seatPositions[seatIdx]
         jQuery(deskEl).attr({
           width: iconSize,
           height: iconSize,
@@ -830,15 +310,13 @@ export class BVMap extends BackboneViews {
         seatsFragment.appendChild(deskEl)
       }
       this.seatsGroup.append(seatsFragment)
-      if (jQuery('.clockHand').length > 0) {
-        this.initClockUpdate()
-      }
+      if (jQuery('.clockHand').length > 0) { this.initClockUpdate() }
     }
     return this.$el
   }
 
   addMany (coll) {
-    let iconsFragment = document.createDocumentFragment()
+    const iconsFragment = this.document.createDocumentFragment()
     coll.each((model) => {
       if (model.get('office') === this.options.officeID) {
         iconsFragment.appendChild(this.createAndRenderPersonIcon(model))
@@ -848,32 +326,30 @@ export class BVMap extends BackboneViews {
   }
 
   addOne (person) {
-    if (person.get('office') === this.options.officeID) {
-      this.photosGroup.append(this.createAndRenderPersonIcon(person))
-    }
+    if (person.get('office') === this.options.officeID) { this.photosGroup.append(this.createAndRenderPersonIcon(person)) }
     this.renderActiveSeat(null) // remove blue active seat marker when leaving an office
   }
 
   createAndRenderPersonIcon (person) {
-    let personIcon = new this.PersonIcon({ model: person })
+    const personIcon = new this.PersonIcon({ model: person })
     return personIcon.render()
   }
 
   onIconClick (event) {
-    let model = jQuery(event.currentTarget).data('model')
+    const model = jQuery(event.currentTarget).data('model')
     this.mediator.publish('map:clickPerson', model)
   }
 
   onSeatClick (event) {
-    let deskId = jQuery(event.currentTarget).data('desk')
+    const deskId = jQuery(event.currentTarget).data('desk')
     this.renderActiveSeat(deskId)
     this.mediator.publish('map:clickDesk', deskId)
   }
 
   onRoomClick (event) {
     if (!this.options.skipEndpoints) {
-      let roomEl = jQuery(event.currentTarget).closest('.room')
-      let endpointId = roomEl.attr('endpoint:id')
+      const roomEl = jQuery(event.currentTarget).closest('.room')
+      const endpointId = roomEl.attr('endpoint:id')
       this.mediator.publish('map:clickRoom', endpointId, { seatingCapacity: roomEl.attr('endpoint:seatingCapacity') })
     }
   }
@@ -885,10 +361,10 @@ export class BVMap extends BackboneViews {
   }
 
   filterByTag (params) {
-    let tagsToShow = params.tagsToShow
-    let peopleToHide = (tagsToShow != null)
+    const tagsToShow = params.tagsToShow
+    const peopleToHide = (tagsToShow != null)
       ? this.collection.filter((person) => {
-        let personTags = person.get('tags')
+        const personTags = person.get('tags')
         return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
       })
       : []
@@ -896,19 +372,19 @@ export class BVMap extends BackboneViews {
       this.SVGRemoveClass(photoEl, 'filtered_tag')
     })
     peopleToHide.forEach(peopleToHide, (personToHide) => {
-      let view = personToHide.views.mapIcon
+      const view = personToHide.views.mapIcon
       view && this.SVGAddClass(view.$el, 'filtered_tag')
     })
   }
 
   filterByName (query) {
     query = query.toLowerCase().trim()
-    let peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
+    const peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
     this.photosGroup.children().each((index, photoEl) => {
       this.SVGRemoveClass(photoEl, 'filtered_name')
     })
     peopleToHide.forEach((personToHide) => {
-      let view = personToHide.views.mapIcon
+      const view = personToHide.views.mapIcon
       view && this.SVGAddClass(view.$el, 'filtered_name')
     })
   }
@@ -924,17 +400,15 @@ export class BVMap extends BackboneViews {
   }
 
   renderActiveSeat (desk) {
-    let activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) // LOL chrome SVG attribute selectors
+    const activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) // LOL chrome SVG attribute selectors
     activeSeatEl && this.SVGRemoveClass(activeSeatEl, 'active')
-    if (_.isNumber(desk)) {
-      this.SVGAddClass(this.seatsGroup.find('[data-desk=' + desk + ']')[0], 'active')
-    }
+    if (_.isNumber(desk)) { this.SVGAddClass(this.seatsGroup.find(`[data-desk=${desk}]`)[0], 'active') }
   }
 
   renderEndpointBadge (endpoint, status) {
-    let badgeEl = jQuery('.roomNames .room[endpoint\\:id=\'' + endpoint.id + '\'] .statusBadge').get(0)
+    const badgeEl = jQuery(`.roomNames .room[endpoint\\:id='${endpoint.id}'].statusBadge`).get(0)
     if (badgeEl) {
-      let titleText = endpoint.getAvailability()
+      const titleText = endpoint.getAvailability()
       // let isAvailable = (titleText === 'available')
       this.setTitle(badgeEl, titleText)
       this.SVGAddClass(badgeEl, 'loaded')
@@ -966,14 +440,14 @@ export class BVMap extends BackboneViews {
       minuteHand
       .attr('transform', 'rotate(' + minuteDegrees + ' ' + center[0] + ' ' + center[1] + ')')
       .css('visibility', 'visible')
-    })
+  })
     .fail(function (jqXHR, textStatus, errorThrown) {
       console.warn('failed to fetch current london time: ' + textStatus)
       console.warn(errorThrown)
 
       hourHand.css('visibility', 'hidden')
       minuteHand.css('visibility', 'hidden')
-    }) */
+  }) */
   }
 
   /**
@@ -985,10 +459,10 @@ export class BVMap extends BackboneViews {
   * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
   */
   svgAddClass (el, classStr) {
-    let oldClassList = el.className.baseVal.split(/\s/)
+    const oldClassList = el.className.baseVal.split(/\s/)
     // TODO: CHECK THIS!!!! WAS LODASH/UNDERSCORE
     // let newClassList = _.compact(_.unique(oldClassList.concat(classStr.split(/\/s/))))
-    let newClassList = [...new Set(oldClassList.concat(classStr.split(/\/s/)))].filter()
+    const newClassList = [...new Set(oldClassList.concat(classStr.split(/\/s/)))].filter()
     el.className.baseVal = newClassList.join(' ')
   }
 
@@ -999,20 +473,20 @@ export class BVMap extends BackboneViews {
   * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
   */
   svgRemoveClass (el, classStr) {
-    let oldClassList = el.className.baseVal.split(/\s/)
-    let newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)))
+    const oldClassList = el.className.baseVal.split(/\s/)
+    const newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)))
     el.className.baseVal = newClassList.join(' ')
   }
 
   svgHasClass (el, classStr) {
-    let classList = el.className.baseVal.split(/\s/)
+    const classList = el.className.baseVal.split(/\s/)
     return classList.includes(classStr)
   }
 
   setTitle (el, titleText) {
     let titleEl = jQuery(el).children('title')
     if (!titleEl.length) {
-      titleEl = document.createElementNS(this.SVG_NAMESPACE, 'title')
+      titleEl = this.document.createElementNS(this.SVG_NAMESPACE, 'title')
       jQuery(el).append(titleEl)
     }
     jQuery(titleEl).text(titleText)
@@ -1025,7 +499,7 @@ export class BVMap extends BackboneViews {
 
 export class PersonIcon extends BVMap {
   initialize () {
-    this.setElement(document.createElementNS(this.SVG_NAMESPACE, 'image'))
+    this.setElement(this.document.createElementNS(this.SVG_NAMESPACE, 'image'))
     this.model.views = this.model.views || {}
     this.model.views.mapIcon = this
     this.$el.data('model', this.model)
@@ -1040,11 +514,11 @@ export class PersonIcon extends BVMap {
       this.setTitle(this.$el, this.model.get('fullname'))
       this.renderPhoto(this.model, this.model.getPhotoPath())
     }
-    let desk = this.model.get('desk')
-    let hasDesk = _.isNumber(desk)
+    const desk = this.model.get('desk')
+    const hasDesk = _.isNumber(desk)
     this.$el.toggle(hasDesk)
     if (hasDesk) {
-      let coords = this.getSeatPosition(desk)
+      const coords = this.getSeatPosition(desk)
       if (coords) {
         this.$el.attr({
           width: this.iconSize,
@@ -1054,7 +528,7 @@ export class PersonIcon extends BVMap {
           'data-desk': desk
         })
       } else {
-        this.console.warn('office ' + this.model.get('office') + ' has no desk at index ' + desk)
+        this.console.warn(`office ${this.model.get('office')} has no desk at index ${desk}`)
       }
     }
     return this.$el
@@ -1121,7 +595,7 @@ export class RoomDetailsView extends BackboneViews {
         jQuery('<span>', { 'class': 'statusBadge' }),
         jQuery('<span>', { 'class': 'statusLabel' })
       ])
-      let dl = jQuery('<dl>')
+      const dl = jQuery('<dl>')
       dl.append(jQuery('<dt>', { text: 'Status' }))
       dl.append(this.$els.availabilityStatus)
       dl.append(jQuery('<dt>', { text: 'Capacity' }))
@@ -1138,10 +612,10 @@ export class RoomDetailsView extends BackboneViews {
       this.$els.endpointManufacturer.text(this.getManufacturerLabel(this.model.get('controlProtocol')))
       this.$els.endpointIpAddress.empty().append(jQuery('<a>', {
         text: this.model.get('ipAddress'),
-        href: 'http://' + this.model.get('ipAddress'),
+        href: `http://${this.model.get('ipAddress')}`,
         target: '_blank'
       }))
-      let seatingCapacity = this.model.get('seatingCapacity')
+      const seatingCapacity = this.model.get('seatingCapacity')
       this.$els.seatingCapacity.text(seatingCapacity)
       this.$els.seatingCapacity.prev().addBack().toggle(!!seatingCapacity)
       this.renderStatus()
@@ -1153,7 +627,7 @@ export class RoomDetailsView extends BackboneViews {
   }
 
   renderStatus () {
-    let statusBadgeEl = this.$els.availabilityStatus.find('.statusBadge')
+    const statusBadgeEl = this.$els.availabilityStatus.find('.statusBadge')
     if (this.model.get('status')) {
       this.$els.availabilityStatus.find('.statusLabel').text(this.getStatusLabel())
       statusBadgeEl.removeClass('offline in-a-call reserved available')
@@ -1222,7 +696,7 @@ export class PersonDetailsView extends BackboneViews {
       this.$els.linkedInProfile = jQuery('<a>', { text: 'view profile', target: '_blank' })
       this.$els.workPhone = jQuery('<dd>')
       this.$els.mobilePhone = jQuery('<dd>')
-      let dl = jQuery('<dl>')
+      const dl = jQuery('<dl>')
       dl.append(jQuery('<dt>', { text: 'Email' }))
       dl.append(jQuery('<dd>').append(this.$els.email))
       dl.append(jQuery('<dt>', { text: 'LinkedIn' }))
@@ -1237,9 +711,10 @@ export class PersonDetailsView extends BackboneViews {
       this.$els.photo.attr('src', this.model.getPhotoPath())
       this.$els.name.text(this.model.get('fullname'))
       this.$els.title.text(this.model.get('title') || '')
-      let email = this.model.get('email')
+      const email = this.model.get('email')
+      // TODO: remove BlueJeans-specific reference
       this.$els.email
-        .attr('href', 'mailto:' + email + ((email || '').includes('@') === false ? '@bluejeans.com' : ''))
+        .attr('href', `mailto:${email}${(email || '').includes('@') === false ? '@bluejeans.com' : ''}`)
         .attr('target', '_blank')
         .text(email)
         .closest('dd').prev('dt').addBack().toggle(!!email)
@@ -1257,5 +732,500 @@ export class PersonDetailsView extends BackboneViews {
       this.$el.hide()
     }
     return this.$el
+  }
+}
+
+// ============================
+// ======= DetailsPane ========
+// ============================
+
+export class DetailsPane extends BackboneViews {
+  initialize () {
+    this.mediator.subscribe('activatePersonConfirmed', (person, opts) => {
+      this.toggleIntro(false)
+      this.setPersonModel(person)
+    }, {}, this)
+    this.mediator.subscribe('activateRoom', (endpoint, opts) => {
+      this.toggleIntro(false)
+      this.setRoomModel(endpoint)
+    }, {}, this)
+    this.introView = new IntroView()
+    this.personDetailsView = new PersonDetailsView()
+    this.roomDetailsView = new RoomDetailsView()
+  }
+
+  render () {
+    if (this.$el.is(':empty')) {
+      const correctionsLink = jQuery('<a>', {
+        class: 'corrections',
+        href: `mailto:' ${this.supportContact}`,
+        text: 'Suggest a correction'
+      })
+      this.introView.$el.hide().appendTo(this.$el)
+      this.personDetailsView.$el.appendTo(this.$el)
+      this.roomDetailsView.$el.appendTo(this.$el)
+      this.$el.append(correctionsLink)
+    }
+    this.introView.render()
+    this.personDetailsView.render()
+    this.roomDetailsView.render()
+    return this.$el
+  }
+
+  setPersonModel (model) {
+    this.personDetailsView.model = model
+    this.roomDetailsView.model = null
+    this.render()
+  }
+
+  setRoomModel (model) {
+    this.personDetailsView.model = null
+    this.roomDetailsView.model = model
+    this.render()
+  }
+
+  toggleIntro (shouldShow) {
+    this.introView.$el.toggle(!!shouldShow)
+    this.personDetailsView.$el.toggle(!shouldShow)
+    this.roomDetailsView.$el.toggle(!shouldShow)
+  }
+}
+
+// ============================
+// ========== editor ==========
+// ============================
+
+export class Editor extends BackboneViews {
+  constructor (...args) {
+    super({
+      events: {
+        'click [type=submit]': 'save',
+        'change input': 'onDirtyChange',
+        'keyup input': () => this.renderFormControls(true),
+        'click .contact .view_profile': 'viewLinkedInProfile',
+        'click .basics .remove': 'removePerson',
+        'click .desk.helper_link': 'enlargeMap'
+      }
+    }, ...args)
+  }
+
+  initialize () {
+    // TODO: FIXME; this maps office ids!!!
+    const officeIDs = jQuery('.office input[type=radio]').map((tempOfficeID) => jQuery(tempOfficeID).attr('value'))
+    this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
+      jQ$: (`.map.${officeID}`)[0],
+      office: officeID,
+      skipFilters: true,
+      skipEndpoints: true
+    })))
+    this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
+    this.mediator.subscribe('activatePerson', this.onActivatePerson)
+    this.mediator.subscribe('map:clickDesk', this.onClickDesk)
+    this.photoData = null
+    this.initPhotoUploadControl()
+  }
+
+  fieldVal (name, value) {
+    const target = jQuery(`input[name='${name}']`)
+    if (arguments.length === 2) {
+      target.is(':radio') ? target.val([value]) : target.val(value)
+    } else if (arguments.length === 1) {
+      let attributeValue
+      if (target.is(':checkbox')) {
+        attributeValue = Array.prototype.map(target.filter(':checked'), (item) => jQuery(item).val())
+      } else if (target.is(':radio')) {
+        attributeValue = target.filter(':checked').val()
+      } else {
+        attributeValue = target.val()
+      }
+      return attributeValue
+    }
+  }
+
+  render () {
+    if (this.model) {
+      ['fullname', 'title', 'desk', 'mobilePhone', 'workPhone', 'tags', 'office'].forEach((fieldName) => {
+        const target = jQuery(`input[name='${fieldName}']`)
+        const value = this.model.get(fieldName)
+        target.is(':radio') ? target.val([value]) : target.val(value)
+      }, this)
+      const linkedInId = this.model.get('linkedInId')
+      const linkedInComplete = this.model.getLinkedInProfileUrl()
+      this.fieldVal('linkedInId', (linkedInId) ? linkedInComplete.replace(/^https?:\/\/(?:www\.)?/, '') : '')
+      jQuery('.contact .view_profile')
+        .attr('href', (linkedInId) ? linkedInComplete : '#')
+        .toggle(!!linkedInId)
+      jQuery('.contact .search')
+        .attr('href', `https://www.linkedin.com/vsearch/p?keywords='${encodeURIComponent(this.model.get('fullname'))}'&openAdvancedForm=true`)
+        .toggle(!linkedInId && !!this.model.get('fullname'))
+      const emailLocalPart = this.model.get('email')
+      // TODO: remove BlueJeans-specific reference
+      const emailComplete = emailLocalPart + ((emailLocalPart || '').includes('@') === false ? '@bluejeans.com' : '')
+      this.fieldVal('email', (emailLocalPart) ? emailComplete : '')
+      jQuery('.basics .remove').toggle(!this.model.isNew())
+      jQuery('.seatChooser').toggle(!!this.model.get('office'))
+      this.renderPhoto()
+      this.maps.forEach((mapView) => {
+        const isMapOfPersonsOffice = (mapView.options.office === this.model.get('office'))
+        mapView.$el.toggle(isMapOfPersonsOffice)
+        if (isMapOfPersonsOffice) { this.map = mapView }
+      })
+      this.renderFormControls()
+      const office = this.model.get('office') || ''
+      jQuery('.goToFloorplan').attr('href', `../${office}`)
+    }
+    this.$el.toggle(!!this.model)
+    this.maps.forEach((mapView) => {
+      mapView.render()
+    })
+  }
+
+  /**
+  * @param canvas optional HTMLCanvasElement to be rendered instead of the official JPEG
+  */
+  renderPhoto (canvas) {
+    // only use the server JPEG if we get no arguments and there is no pending photo upload
+    if (!canvas && !this.photoData) {
+      let imgEl = this.photoUploadControl.find('img')
+      if (!imgEl.length) {
+        imgEl = jQuery('<img>')
+        this.photoUploadControl.find('canvas').remove()
+        this.photoUploadControl.prepend(imgEl)
+      }
+      imgEl.attr('src', this.model.getPhotoPath())
+    } else if (_.isElement(canvas) && canvas.nodeName === 'CANVAS') {
+      this.photoUploadControl.find('canvas, img').remove()
+      this.photoUploadControl.prepend(canvas)
+    }
+  }
+
+  onActivatePerson (newModel, opts) {
+    // a hack, but i don't want to save more state
+    if (jQuery('.formControls [type=submit]').attr('disabled')) {
+      // model and photo are saved, nothing to do here
+      this.mediator.publish('activatePersonConfirmed', newModel, opts)
+    } else if (this.window.confirm('You have unsaved changes. Are you sure you want to discard these changes?')) {
+      // model is now synced with server, there are no changes.
+      if (!this.model.isNew()) { this.model.fetch({ success: (model) => { model.changed = {} } }) }
+      this.mediator.publish('activatePersonConfirmed', newModel, opts)
+    }
+  }
+
+  onActivatePersonConfirmed (model) {
+    this.clearPendingUploads()
+    this.model = model
+    this.updatePhotoUploadUrl()
+    const renderPerson = _.bind(() => {
+      model.changed = {} // model is now synced with server, there are no changes.
+      this.render()
+      jQuery('.validationMessage').hide()
+      jQuery('.invalid').removeClass('invalid')
+      this.window.scrollTo(0, 0)
+    }, this)
+    !model.isNew() ? model.fetch({ success: () => renderPerson() }) : renderPerson()
+  }
+
+  save (event) {
+    event.preventDefault()
+    this.renderFormControls(false)
+    if (this.model.isNew()) {
+      this.collection.create(this.model, { success: _.bind((result) => {
+        this.onSave()
+          .then(_.bind(() => {
+            this.mediator.publish('activatePersonConfirmed', this.model)
+          }, this))
+      }, this)})
+    } else {
+      this.model.save({}, { success: this.onSave })
+    }
+  }
+
+  onSave (result) {
+    this.model.changed = {} // model is now synced with server, there are no changes.
+    return Promise.resolve(this.updatePhotoUploadUrl())
+      .then(Promise.resolve(this.photoData))
+      .then(Promise.resolve(this.photoData.submit()))
+      .then(Promise(this.render()))
+  }
+
+  onDirtyChange (event) {
+    const changeSet = {}
+    const currentTarget = jQuery(event.currentTarget)
+    const attributeName = currentTarget.attr('name')
+    let attributeValue
+    // TODO: remove BlueJeans-specific reference
+    if (attributeName === 'email' && currentTarget.val().trim() !== '' && currentTarget.val().includes('@') === false) {
+      currentTarget.val(`${currentTarget.val()}@bluejeans.com`)
+    }
+    const validity = currentTarget[0].validity
+    if (validity.valid) {
+      jQuery('.validationMessage').hide()
+      if (attributeName === 'linkedInId') {
+        attributeValue = this.Person.linkedInUrlToId(currentTarget.val())
+      } else if (attributeName === 'email') {
+        attributeValue = currentTarget.val().replace(/@((bluejeansnet\.com)|(bjn\.vc)|(bluejeans\.((com)|(vc)|(net))))$/, '')
+      } else if (currentTarget.is(':checkbox')) {
+        attributeValue = jQuery(`input[name=${attributeName}]:checked`).map((item) => jQuery(item).val())
+      } else if (currentTarget.is(':radio')) {
+        attributeValue = jQuery(`input[name=${attributeName}]:checked`).val()
+      } else {
+        attributeValue = currentTarget.val()
+        if (attributeValue === '') { attributeValue = null }
+      }
+      if (attributeName === 'office') { changeSet.desk = null }
+      changeSet[attributeName] = attributeValue
+      this.model.set(changeSet)
+      this.render() // update coerced values. side effect: blows away invalid values
+    } else {
+      jQuery('.validationMessage').text(currentTarget.data('validation-failed-message')).show()
+      this.renderFormControls()
+    }
+    currentTarget.closest('label').addBack().toggleClass('invalid', !validity.valid)
+  }
+
+  renderFormControls (isForceEnabled) {
+    const isValid = this.$el.checkValidity()
+    const isEnabled = isValid && (_.isBoolean(isForceEnabled))
+      ? isForceEnabled
+      : (this.model.hasChanged() || (this.photoData && this.photoData.state() !== 'pending'))
+    const saveButton = jQuery('.formControls [type=submit]')
+    if (isEnabled) {
+      saveButton.prop('selected', true)
+      if (_.isBoolean(isForceEnabled) && isForceEnabled) {
+        this.window.log('save button enabled because it was forced on')
+      } else if (this.model.hasChanged()) {
+        this.window.log('save button enabled because the model has changed', this.model.changedAttributes())
+      } else if (this.photoData && this.photoData.state() !== 'pending') {
+        this.window.log('save button enabled because a photo was chosen but has yet to start uploading')
+      } else {
+        this.window.log('no idea why the save button is enabled')
+      }
+    } else {
+      saveButton.attr('disabled', 'disabled')
+    }
+  }
+
+  initPhotoUploadControl () {
+    this.photoUploadControl = jQuery('.photo')
+    const photoPreviewSize = this.photoUploadControl.find('img').width()
+
+    this.photoUploadControl
+      .fileupload({
+        dataType: 'json',
+        autoUpload: false,
+        paramName: 'photo',
+        previewMaxWidth: photoPreviewSize,
+        previewMaxHeight: photoPreviewSize,
+        previewCrop: true
+      })
+      .on({
+        fileuploadadd: this.onPhotoAdded,
+        fileuploadfail: this.onPhotoUploadFailure,
+        fileuploaddone: this.onPhotoUploadSuccess,
+        fileuploadprocessdone: this.onPhotoPreviewReady
+      })
+  }
+
+  clearPendingUploads () {
+    this.photoData && this.photoData.abort()
+    this.photoData = null
+  }
+
+  onPhotoAdded (event, data) {
+    this.clearPendingUploads()
+    this.photoData = data
+    this.renderFormControls()
+  }
+
+  onPhotoUploadFailure (event, data) {
+    this.console.error(this.errorThrown)
+    this.console.error(this.jqXHR.responseText)
+    this.window.alert(`Failed to upload photo.\nPlease yell at Ben.\n\nDetails:\n\n${this.jqXHR.responseText}`)
+  }
+
+  onPhotoUploadSuccess (event, data) {
+    this.clearPendingUploads()
+    this.renderFormControls()
+    const photoPath = this.model.getPhotoPath()
+    jQuery.get(photoPath)
+      .done(_.bind(() => {
+        this.renderPhoto()
+        this.model.trigger('change:photo', this.model, photoPath, {})
+      }, this))
+  }
+
+  onPhotoPreviewReady (event, data) {
+    const file = this.files[this.index]
+    if (file.preview) { this.renderPhoto(file.preview) }
+  }
+
+  updatePhotoUploadUrl () {
+    try {
+      const photoUploadUrl = `${this.model.url()}/photo`
+      this.photoUploadControl.fileupload('option', 'url', photoUploadUrl)
+      // console.log("photoUploadUrl = ", photoUploadUrl);
+    } catch (err) {
+      // we have loaded a new person with no id
+      // ignore this error, because before we upload their photo, the model will have been saved to the server, it will have an id, and this method will have been run again to get the real value
+    }
+  }
+
+  removePerson (event) {
+    if (this.window.confirm(`Are you sure you want to permanently delete ${this.model.get('fullname')}?`)) {
+      this.model.destroy()
+      this.mediator.publish('activatePersonConfirmed', new (this.collection.Model)())
+    }
+  }
+
+  enlargeMap (event) {
+    event.preventDefault()
+    const seatChooserLarge = jQuery('.seatChooser.large')
+    const mapEl = jQuery('.map:visible')
+    mapEl.prependTo(seatChooserLarge)
+      .removeClass('small')
+      .addClass('large')
+
+    seatChooserLarge.find('.unassign')
+      .toggle(this.model.get('desk') !== null)
+      .find('a')
+      .off('click')
+      .on('click', _.bind((event) => {
+        event.preventDefault()
+        this.map.renderActiveSeat(null)
+        this.onClickDesk(null)
+      }, this))
+
+    seatChooserLarge.show()
+    jQuery(this.document.body).css('overflow', 'hidden')
+    seatChooserLarge.find('.cancel')
+      .off('click')
+      .on('click', this.shrinkMap)
+  }
+
+  shrinkMap (event) {
+    event && event.preventDefault()
+    jQuery('.map.large')
+      .prependTo(jQuery('.seatChooser.small'))
+      .removeClass('large')
+      .addClass('small')
+    jQuery('.seatChooser.large').hide()
+    jQuery(this.document.body).css('overflow', '')
+  }
+
+  onClickDesk (deskId) {
+    this.model.set({ desk: deskId })
+    this.renderFormControls()
+    this.shrinkMap()
+  }
+}
+
+// ============================
+// ========= listPane =========
+// ============================
+
+export class ListPane extends BackboneViews {
+  constructor (...args) {
+    super({
+      events: { 'click .people li': 'onRowClick' }
+    }, ...args)
+  }
+
+  initialize () {
+    this.ol = null
+    this.searchBox = new SearchBox()
+    this.tagGrid = new TagGrid()
+    this.officeGrid = new OfficeGrid()
+    this.collection.on('reset', this.addMany)
+    this.collection.on('add', this.addOne)
+    this.collection.on('destroy', this.removePerson)
+    this.mediator.subscribe('change:query', this.filterByName)
+    this.mediator.subscribe('filterByTag', this.filterByTag)
+    this.mediator.subscribe('activatePersonConfirmed', this.onActivatePersonConfirmed)
+  }
+
+  render () {
+    if (this.$el.is(':empty')) {
+      this.$el.append(this.officeGrid.render())
+      this.$el.append(this.searchBox.render())
+      this.ol = jQuery('<ol>', { class: 'people' })
+      this.$el.append(this.ol)
+      this.$el.append(this.tagGrid.render())
+    }
+    return this.$el
+  }
+
+  addMany (coll) {
+    const insertFragment = this.document.createDocumentFragment()
+    coll.each((person) => {
+      const personView = new PersonRow({ model: person })
+      insertFragment.appendChild(personView.render())
+    })
+    this.ol.append(insertFragment)
+  }
+
+  addOne (person) {
+    const personView = new PersonRow({ model: person }).render()
+    const indexToInsertAt = this.collection.sortedIndex(person)
+    if (this.collection.length === 1) {
+      // insert as only element
+      jQuery(personView).appendTo(this.ol)
+    } else if (indexToInsertAt === 0) {
+      // insert before element 1
+      jQuery(personView).insertBefore(this.collection.at(1).views.listPaneRow.$el)
+    } else {
+      jQuery(personView).insertAfter(this.collection.at(indexToInsertAt - 1).views.listPaneRow.$el)
+      // insert after element n-1
+    }
+  }
+
+  removePerson (person) {
+    person.views.listPaneRow.remove()
+  }
+
+  filterByName (query) {
+    query = query.toLowerCase().trim()
+    this.ol.children().removeClass('filtered_name')
+    if (query.length) {
+      const peopleToHide = this.collection.filter((person) => person.get('fullname').toLowerCase().includes(query) === false)
+      peopleToHide.forEach(peopleToHide, (personToHide) => {
+        const view = personToHide.views.listPaneRow
+        view.$el.addClass('filtered_name')
+      })
+    }
+  }
+
+  filterByTag (params) {
+    const tagsToShow = params.tagsToShow
+    const peopleToHide = (tagsToShow != null)
+      ? this.collection.filter((person) => {
+        const personTags = person.get('tags')
+        return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
+      })
+      : []
+    this.ol.children().removeClass('filtered_tag')
+    peopleToHide.forEach((personToHide) => {
+      const view = personToHide.views.listPaneRow
+      view.$el.addClass('filtered_tag')
+    })
+  }
+
+  onRowClic (event) {
+    // TODO: check with Ben on this code
+    let model = jQuery(event.currentTarget).data('model')
+    if (!model) {
+      model = new this.collection.Model()
+      // model.views = {};
+      // model.views.listPaneRow =
+    }
+    this.mediator.publish('activatePerson', model, { skipListScroll: true })
+  }
+
+  onActivatePersonConfirmed (person, opts) {
+    const rowViewEl = person.views ? person.views.listPaneRow.$el : this.ol.children().first()
+    rowViewEl.addClass('active').siblings().removeClass('active')
+    if (!opts.skipListScroll) {
+      const twoPeopleUpEl = rowViewEl.prev().prev().add(rowViewEl).get(0)
+      twoPeopleUpEl && twoPeopleUpEl.scrollIntoView()
+    }
   }
 }

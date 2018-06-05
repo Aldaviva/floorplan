@@ -8,8 +8,8 @@ import './DataClasses'
 // Instantation
 const mediator = new Mediator()
 const collection = new People()
-const listPane = new ListPane({ window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
-const editor = new Editor({ window, collection, mediator, jQ$: jQuery('#editor').get(0) })
+const listPane = new ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
+const editor = new Editor({ document, window, collection, mediator, jQ$: jQuery('#editor').get(0) })
 
 // Do stuff
 listPane.render()
@@ -22,7 +22,7 @@ editor.render()
 
 mediator.subscribe('activatePersonConfirmed', (person, opts) => {
   if (!opts.skipHistory) {
-    let path = urlJoin(window.location.protocol, (person.isNew() ? '/admin/' : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
+    const path = urlJoin(window.location.protocol, (person.isNew() ? '/admin/' : '/admin/', person.id, '#', person.get('fullname').replace(/\s/g, '_'))).toString()
     window.history.pushState({ personId: person.id }, null, path)
   }
 })
@@ -40,7 +40,7 @@ collection.fetch({
   reset: true,
   success: () => {
     let person
-    let pathnameParts = window.location.pathname.replace(new RegExp('^' + window.location.protocol), '').split('/')
+    const pathnameParts = window.location.pathname.replace(new RegExp(`^${window.location.protocol}`), '').split('/')
     if (pathnameParts.length >= 3) { person = collection.get(pathnameParts[2]) }
     mediator.publish('activatePersonConfirmed', person || new Person())
     editor.$el.show()
