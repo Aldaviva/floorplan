@@ -80,7 +80,7 @@ this.data = (function(){
 				.done(_.bind(function(statuses){
 					_.forEach(statuses, function(status){
 						var endpoint = this.get(status.endpointId);
-						endpoint.set({ status: _.omit(status, "endpointId") });
+						endpoint && endpoint.set({ status: _.omit(status, "endpointId") });
 					}, this);
 				}, this));
 		}
