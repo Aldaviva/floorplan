@@ -16,6 +16,7 @@ var OFFICE_NAMES = {
 	ln: "London",
 	chi: "Chicago",
 	aus: "Australia",
+	nz: "New Zealand",
 	remote: "remote workers"
 };
 OFFICE_NAMES.mv2 = OFFICE_NAMES.mv;

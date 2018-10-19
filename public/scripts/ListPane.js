@@ -333,6 +333,7 @@ this.ListPane = (function(){
 					$('<a>', { href: 'ln', title: 'view the London office', text: 'ln' }),
 					$('<a>', { href: 'blr', title: 'view the Bangalore office', text: 'blr' }),
 					$('<a>', { href: 'aus', title: 'view Australia', text: 'aus' }),
+					$('<a>', { href: 'nz', title: 'view the New Zealand office', text: 'nz' }),
 					$('<a>', { href: 'remote', title: 'view remote workers', text: 'rm' })
 				);
 			}

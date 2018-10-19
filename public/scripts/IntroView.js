@@ -23,8 +23,12 @@ this.IntroView = (function(){
 			mapsUrl: 'https://www.google.com/maps/place/Capital+House,+25+Chapel+St,+Marylebone,+London+NW1+5DT,+UK/@51.5197109,-0.1685118,13z/data=!4m2!3m1!1s0x48761ab422d7edfd:0x3c6ea06442d1f88c'
 		},
 		aus: {
-			address: 'Level 21, Tower 2\nDarling Park\n201 Sussex Street\nSydney, NSW 2000\nAustralia',
+			address: 'Level 21, Tower 2\nDarling Park\n201 Sussex Street\nSydney, NSW 2000',
 			mapsUrl: 'https://www.google.com/maps/place/Darling+Park,+201+Sussex+St,+Sydney+NSW+2000,+Australia/@-33.8722552,151.1684283,13z/data=!4m5!3m4!1s0x6b12ae3941cd3af3:0xfa03a95a382386a5!8m2!3d-33.8722597!4d151.2034472'
+		},
+		nz: {
+			address: '286 Princes Street\nDunedin\n9016',
+			mapsUrl: 'https://www.google.com/maps/place/286+Princes+St,+Dunedin,+9016,+New+Zealand/@-45.8783378,170.4659429,13z/data=!4m5!3m4!1s0xa82eac0e55a92ded:0x9a6973ce800b4aaa!8m2!3d-45.8783628!4d170.5009604'
 		},
 		remote: {
 			address: "Remote workers",
