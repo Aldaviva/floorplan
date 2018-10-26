@@ -41,6 +41,12 @@
 		<polyline class="st1" points="30.534,134.994 20.771,140.517 33.416,152.19 33.416,607.418 795.211,607.418 795.211,291.288 712.368,291.288 712.368,127.224 674.351,89.208 667.531,89.208"/>
 		<polyline class="st1" points="635.388,89.208 628.229,89.208 628.229,42.112 370.298,42.112 256.005,7.418 57.338,119.827"/>
 	</g>
+	<g class="roomNames">
+		<text x="115" y="522" text-anchor="middle">Rua</text>
+		<text x="281" y="522" text-anchor="middle">Tahi</text>
+		<text x="86" y="59" text-anchor="middle">Kitchen</text>
+		<text x="252" y="100" text-anchor="middle">Servers</text>
+	</g>
 	<g class="seats"></g>
 	<g class="photos"></g>
 </svg>
