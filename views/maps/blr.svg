@@ -419,8 +419,8 @@
 			<tspan x="0" y="18">Pub</tspan>
 		</text>
 		<text transform="matrix(1 0 0 1 597 446)" text-anchor="middle">
-			<tspan x="0" y="0">Field of</tspan>
-			<tspan x="0" y="18">Dreams</tspan>
+			<tspan x="0" y="0">Jam</tspan>
+			<tspan x="0" y="18">Space</tspan>
 		</text>
 		<text transform="matrix(1 0 0 1 -324 494)" text-anchor="middle">
 			<tspan x="0" y="0">Crazy</tspan>
@@ -438,9 +438,9 @@
 			<tspan x="0" y="0">War</tspan>
 			<tspan x="0" y="18">Field</tspan>
 		</text>
-		<text transform="matrix(1 0 0 1 597 502)" text-anchor="middle" class="small">
-			<tspan x="0" y="0">Interrogation</tspan>
-			<tspan x="0" y="14">Room</tspan>
+		<text transform="matrix(1 0 0 1 597 502)" text-anchor="middle">
+			<tspan x="0" y="0">Hunting</tspan>
+			<tspan x="0" y="18">Lodge</tspan>
 		</text>
 		<text x="688" y="556" text-anchor="middle">Cafeteria</text>
 		<text x="678" y="330" text-anchor="middle">Servers</text>
