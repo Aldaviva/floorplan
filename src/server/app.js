@@ -10,11 +10,12 @@ const feathers = require('@feathersjs/feathers')
 const express = require('@feathersjs/express')
 const path = require('path')
 const hbs = require('express-hbs')
+const expressWinston = require('express-winston')
 
 // Create Feathers-Express app
 const app = express(feathers())
 app.configure(express.rest())
-  .use(require('express-winston').logger({ winstonInstance: global.logger })) // tie to logger
+  .use(expressWinston.logger({ winstonInstance: global.logger })) // tie to logger
   .use(express.urlencoded({ extended: true }))
   .use(express.json())
   .set('view engine', 'hbs')
@@ -23,7 +24,7 @@ app.configure(express.rest())
   }))
   .set('views', global.dirViews)
   .use(express.static('public'))
-  .use(require('connect-favicons')(path.join(global.dirPublic, 'icons')))
+  .use(require('connect-favicons')(path.join(global.dirPublic, '')))
   .use(require('connect-slashes')(false))
   .get('/endpoints', (req, res) => { res.json({ message: 'true' }) }) // this used to be some Storm thing
   .get('/endpoints/status', (req, res) => { res.json({ message: 'true' }) }) // this used to be some Storm thing
@@ -42,5 +43,5 @@ const server = app.listen(global.wwwPort)
 server.on('listening', () => {
   const goneLive = `Feathers/Express app active on port ${global.wwwPort}`
   console.log(goneLive)
-  global.logger.log(goneLive)
+  // global.logger.log(goneLive)
 })

@@ -1,12 +1,14 @@
-// Primary dependencies
-import _ from '../../../shared/underscore-min'
-import jQuery from 'jquery'
-import urlJoin from 'proper-url-join'
+import { bind, intersection, isBoolean, zipObject, isNumber, without, isElement } from 'lodash-es'
 import { Backbone } from 'backbone_es6'
-
-// Secondary dependencies
 import './BackboneModels'
 import './DataClasses'
+
+// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
+import { $, jQuery } from 'jquery'
+window.$ = $
+window.jQuery = jQuery
+
+const urlJoin = require('proper-url-join')
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 
@@ -114,7 +116,7 @@ export class SearchBox extends BackboneViews {
   constructor (...args) {
     super({
       className: 'queryContainer',
-      events: {'keyup input.query': 'changeQuery'}
+      events: { 'keyup input.query': 'changeQuery' }
     }, ...args)
   }
 
@@ -143,7 +145,7 @@ export class TagGrid extends BackboneViews {
   constructor (...args) {
     super({
       className: 'tags',
-      events: {'click .tag': 'onTagClick'}
+      events: { 'click .tag': 'onTagClick' }
     }, ...args)
   }
 
@@ -175,7 +177,7 @@ export class TagGrid extends BackboneViews {
 
   populate (coll) {
     const tagNames = coll.map('tags').flatten().compact().unique().sortBy().value()
-    _.extend(this.filterState, _.zipObject(tagNames.map((tagName) => [tagName, {
+    Object.extend(this.filterState, zipObject(tagNames.map((tagName) => [tagName, {
       tagName,
       tagGridEl: null,
       isFiltered: false
@@ -246,8 +248,8 @@ export class OfficeGrid extends BackboneViews {
     if (typeof floorplanParams !== 'undefined') {
       jQuery('a')
         .filter(() => (jQuery(this).attr('href') === this.window.floorplanParams.officeID) ||
-      // TODO: remove / re-purpose this code, as Blue Jeans might need it
-      (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
+        // TODO: remove / re-purpose this code, as Blue Jeans might need it
+        (['mv2', 'mv3'].includes(window.floorplanParams.officeID) && jQuery(this).attr('href') === 'mv'))
         .addClass('active')
     }
     return this.$el
@@ -365,7 +367,7 @@ export class BVMap extends BackboneViews {
     const peopleToHide = (tagsToShow != null)
       ? this.collection.filter((person) => {
         const personTags = person.get('tags')
-        return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
+        return !personTags || !personTags.length || intersection(personTags, tagsToShow).length === 0
       })
       : []
     this.photosGroup.children().each((index, photoEl) => {
@@ -402,7 +404,7 @@ export class BVMap extends BackboneViews {
   renderActiveSeat (desk) {
     const activeSeatEl = this.seatsGroup.find('[class~=active]').get(0) // LOL chrome SVG attribute selectors
     activeSeatEl && this.SVGRemoveClass(activeSeatEl, 'active')
-    if (_.isNumber(desk)) { this.SVGAddClass(this.seatsGroup.find(`[data-desk=${desk}]`)[0], 'active') }
+    if (isNumber(desk)) { this.SVGAddClass(this.seatsGroup.find(`[data-desk=${desk}]`)[0], 'active') }
   }
 
   renderEndpointBadge (endpoint, status) {
@@ -425,39 +427,39 @@ export class BVMap extends BackboneViews {
 
   renderClock () {
     /*
-    let hourHand = jQuery('.clockHand.hours')
-    let minuteHand = jQuery('.clockHand.minutes')
+      let hourHand = jQuery('.clockHand.hours')
+      let minuteHand = jQuery('.clockHand.minutes')
 
-    $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
-    .done(function (londonTime) {
-      let hourDegrees = ((londonTime.hours % 12 / 12) + (londonTime.minutes / 60 / 60)) * 360
-      let minuteDegrees = ((londonTime.minutes / 60) + (londonTime.seconds / 60 / 60)) * 360
+      $.getJSON('http://floorplan.bluejeansnet.com:8080/taas/now?timezone=Europe/London')
+      .done(function (londonTime) {
+        let hourDegrees = ((londonTime.hours % 12 / 12) + (londonTime.minutes / 60 / 60)) * 360
+        let minuteDegrees = ((londonTime.minutes / 60) + (londonTime.seconds / 60 / 60)) * 360
 
-      let center = [hourHand.attr('x1'), hourHand.attr('y1')]
-      hourHand
-      .attr('transform', 'rotate(' + hourDegrees + ' ' + center[0] + ' ' + center[1] + ')')
-      .css('visibility', 'visible')
-      minuteHand
-      .attr('transform', 'rotate(' + minuteDegrees + ' ' + center[0] + ' ' + center[1] + ')')
-      .css('visibility', 'visible')
-  })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      console.warn('failed to fetch current london time: ' + textStatus)
-      console.warn(errorThrown)
+        let center = [hourHand.attr('x1'), hourHand.attr('y1')]
+        hourHand
+        .attr('transform', 'rotate(' + hourDegrees + ' ' + center[0] + ' ' + center[1] + ')')
+        .css('visibility', 'visible')
+        minuteHand
+        .attr('transform', 'rotate(' + minuteDegrees + ' ' + center[0] + ' ' + center[1] + ')')
+        .css('visibility', 'visible')
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.warn('failed to fetch current london time: ' + textStatus)
+        console.warn(errorThrown)
 
-      hourHand.css('visibility', 'hidden')
-      minuteHand.css('visibility', 'hidden')
-  }) */
+        hourHand.css('visibility', 'hidden')
+        minuteHand.css('visibility', 'hidden')
+      }) */
   }
 
   /**
-  * Would love to use jQuery here, but jQuery's *Class() methods expect el.className to be a String.
-  * In SVG land, it's an SVGAnimatedString object, with baseVal and animVal children.
-  * Modern browsers expose el.classList with add() and remove(), but IE 10 does not, so we must reimplement.
-  *
-  * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: <image> element)
-  * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
-  */
+    * Would love to use jQuery here, but jQuery's *Class() methods expect el.className to be a String.
+    * In SVG land, it's an SVGAnimatedString object, with baseVal and animVal children.
+    * Modern browsers expose el.classList with add() and remove(), but IE 10 does not, so we must reimplement.
+    *
+    * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: <image> element)
+    * @param String classStr - the class to add; separate multiple classes with whitespace (ex: "active hover")
+    */
   svgAddClass (el, classStr) {
     const oldClassList = el.className.baseVal.split(/\s/)
     // TODO: CHECK THIS!!!! WAS LODASH/UNDERSCORE
@@ -467,14 +469,14 @@ export class BVMap extends BackboneViews {
   }
 
   /**
-  * Similar to svgAddClass, we cannot use jQuery or el.classList.
-  *
-  * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: some <image> element)
-  * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
-  */
+    * Similar to svgAddClass, we cannot use jQuery or el.classList.
+    *
+    * @param SVGElement el - element with the class attribute to modify; not jQuery-wrapped (ex: some <image> element)
+    * @param String classStr - the class to remove; separate multiple classes with whitespace (ex: "active hover")
+    */
   svgRemoveClass (el, classStr) {
     const oldClassList = el.className.baseVal.split(/\s/)
-    const newClassList = _.without.apply(null, [oldClassList].concat(classStr.split(/\s/)))
+    const newClassList = without.apply(null, [oldClassList].concat(classStr.split(/\s/)))
     el.className.baseVal = newClassList.join(' ')
   }
 
@@ -515,7 +517,7 @@ export class PersonIcon extends BVMap {
       this.renderPhoto(this.model, this.model.getPhotoPath())
     }
     const desk = this.model.get('desk')
-    const hasDesk = _.isNumber(desk)
+    const hasDesk = isNumber(desk)
     this.$el.toggle(hasDesk)
     if (hasDesk) {
       const coords = this.getSeatPosition(desk)
@@ -561,16 +563,16 @@ export class RoomDetailsView extends BackboneViews {
       className: 'roomDetailsView detailsView'
     }, ...args)
     this.CONTROL_PROTOCOL_TO_MANUFACTURER = {
-      'TANDBERG_SSH': 'Cisco',
-      'TANDBERG_HTTP': 'Cisco',
-      'CISCO_IX_SSH_SOAP': 'Cisco',
-      'POLYCOM_TELNET': 'Polycom',
-      'POLYCOM_HTTP_HDX': 'Polycom',
-      'POLYCOM_HTTP_REALPRESENCE': 'Polycom',
-      'LIFESIZE_SSH': 'Lifesize',
-      'LIFESIZE_HTTP_ICON': 'Lifesize',
-      'STARLEAF_HTTP': 'StarLeaf',
-      'TELY_HTTP': 'Tely'
+      TANDBERG_SSH: 'Cisco',
+      TANDBERG_HTTP: 'Cisco',
+      CISCO_IX_SSH_SOAP: 'Cisco',
+      POLYCOM_TELNET: 'Polycom',
+      POLYCOM_HTTP_HDX: 'Polycom',
+      POLYCOM_HTTP_REALPRESENCE: 'Polycom',
+      LIFESIZE_SSH: 'Lifesize',
+      LIFESIZE_HTTP_ICON: 'Lifesize',
+      STARLEAF_HTTP: 'StarLeaf',
+      TELY_HTTP: 'Tely'
     }
   }
 
@@ -592,8 +594,8 @@ export class RoomDetailsView extends BackboneViews {
       this.$els.endpointIpAddress = jQuery('<dd>')
       this.$els.seatingCapacity = jQuery('<dd>')
       this.$els.availabilityStatus = jQuery('<dd>').append([
-        jQuery('<span>', { 'class': 'statusBadge' }),
-        jQuery('<span>', { 'class': 'statusLabel' })
+        jQuery('<span>', { class: 'statusBadge' }),
+        jQuery('<span>', { class: 'statusLabel' })
       ])
       const dl = jQuery('<dl>')
       dl.append(jQuery('<dt>', { text: 'Status' }))
@@ -812,7 +814,7 @@ export class Editor extends BackboneViews {
   initialize () {
     // TODO: FIXME; this maps office ids!!!
     const officeIDs = jQuery('.office input[type=radio]').map((tempOfficeID) => jQuery(tempOfficeID).attr('value'))
-    this.maps = _.zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
+    this.maps = zipObject(officeIDs, Array.prototype.map(officeIDs, (officeID) => new BVMap({
       jQ$: (`.map.${officeID}`)[0],
       office: officeID,
       skipFilters: true,
@@ -881,8 +883,8 @@ export class Editor extends BackboneViews {
   }
 
   /**
-  * @param canvas optional HTMLCanvasElement to be rendered instead of the official JPEG
-  */
+    * @param canvas optional HTMLCanvasElement to be rendered instead of the official JPEG
+    */
   renderPhoto (canvas) {
     // only use the server JPEG if we get no arguments and there is no pending photo upload
     if (!canvas && !this.photoData) {
@@ -893,7 +895,7 @@ export class Editor extends BackboneViews {
         this.photoUploadControl.prepend(imgEl)
       }
       imgEl.attr('src', this.model.getPhotoPath())
-    } else if (_.isElement(canvas) && canvas.nodeName === 'CANVAS') {
+    } else if (isElement(canvas) && canvas.nodeName === 'CANVAS') {
       this.photoUploadControl.find('canvas, img').remove()
       this.photoUploadControl.prepend(canvas)
     }
@@ -915,7 +917,7 @@ export class Editor extends BackboneViews {
     this.clearPendingUploads()
     this.model = model
     this.updatePhotoUploadUrl()
-    const renderPerson = _.bind(() => {
+    const renderPerson = bind(() => {
       model.changed = {} // model is now synced with server, there are no changes.
       this.render()
       jQuery('.validationMessage').hide()
@@ -929,12 +931,14 @@ export class Editor extends BackboneViews {
     event.preventDefault()
     this.renderFormControls(false)
     if (this.model.isNew()) {
-      this.collection.create(this.model, { success: _.bind((result) => {
-        this.onSave()
-          .then(_.bind(() => {
-            this.mediator.publish('activatePersonConfirmed', this.model)
-          }, this))
-      }, this)})
+      this.collection.create(this.model, {
+        success: bind((result) => {
+          this.onSave()
+            .then(bind(() => {
+              this.mediator.publish('activatePersonConfirmed', this.model)
+            }, this))
+        }, this)
+      })
     } else {
       this.model.save({}, { success: this.onSave })
     }
@@ -985,13 +989,13 @@ export class Editor extends BackboneViews {
 
   renderFormControls (isForceEnabled) {
     const isValid = this.$el.checkValidity()
-    const isEnabled = isValid && (_.isBoolean(isForceEnabled))
+    const isEnabled = isValid && (isBoolean(isForceEnabled))
       ? isForceEnabled
       : (this.model.hasChanged() || (this.photoData && this.photoData.state() !== 'pending'))
     const saveButton = jQuery('.formControls [type=submit]')
     if (isEnabled) {
       saveButton.prop('selected', true)
-      if (_.isBoolean(isForceEnabled) && isForceEnabled) {
+      if (isBoolean(isForceEnabled) && isForceEnabled) {
         this.window.log('save button enabled because it was forced on')
       } else if (this.model.hasChanged()) {
         this.window.log('save button enabled because the model has changed', this.model.changedAttributes())
@@ -1048,7 +1052,7 @@ export class Editor extends BackboneViews {
     this.renderFormControls()
     const photoPath = this.model.getPhotoPath()
     jQuery.get(photoPath)
-      .done(_.bind(() => {
+      .done(bind(() => {
         this.renderPhoto()
         this.model.trigger('change:photo', this.model, photoPath, {})
       }, this))
@@ -1089,7 +1093,7 @@ export class Editor extends BackboneViews {
       .toggle(this.model.get('desk') !== null)
       .find('a')
       .off('click')
-      .on('click', _.bind((event) => {
+      .on('click', bind((event) => {
         event.preventDefault()
         this.map.renderActiveSeat(null)
         this.onClickDesk(null)
@@ -1199,7 +1203,7 @@ export class ListPane extends BackboneViews {
     const peopleToHide = (tagsToShow != null)
       ? this.collection.filter((person) => {
         const personTags = person.get('tags')
-        return !personTags || !personTags.length || _.intersection(personTags, tagsToShow).length === 0
+        return !personTags || !personTags.length || intersection(personTags, tagsToShow).length === 0
       })
       : []
     this.ol.children().removeClass('filtered_tag')

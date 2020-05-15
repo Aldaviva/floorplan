@@ -1,11 +1,13 @@
-// Primary dependencies
-import _ from '../../../shared/underscore-min'
-import jQuery from 'jquery'
-import urlJoin from 'proper-url-join'
+import { bind, omit } from 'lodash-es'
 import { Backbone } from 'backbone_es6'
-
-// Secondary dependencies
 import './DataClasses'
+
+// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
+import { $, jQuery } from 'jquery'
+window.$ = $
+window.jQuery = jQuery
+
+const urlJoin = require('proper-url-join')
 
 // ============================
 // ========== Person ==========
@@ -96,9 +98,9 @@ export class Endpoints extends Backbone.Collection {
 
   fetchStatuses () {
     return jQuery.getJSON(`${this.url}/status`)
-      .done(_.bind((statuses) => {
+      .done(bind((statuses) => {
         statuses.forEach((status) => {
-          this.get(status.endpointId).set({ status: _.omit(status, 'endpointId') })
+          this.get(status.endpointId).set({ status: omit(status, 'endpointId') })
         }, this)
       }, this))
   }

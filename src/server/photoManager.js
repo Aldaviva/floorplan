@@ -1,5 +1,3 @@
-/* Loading: lib/server.js <- lib/routes.js <- this file */
-
 const _ = require('lodash')
 const fs = require('fs')
 const gm = require('gm')
@@ -29,24 +27,24 @@ function importPhoto (originPath, destinationFilename) {
 }
 
 /**
- * @see Identify format: http://www.graphicsmagick.org/1.1/www/GraphicsMagick.html#details-format
- *
- * Sometimes the Orientation field is present multiple times in the image EXIF, such as
+* @see Identify format: http://www.graphicsmagick.org/1.1/www/GraphicsMagick.html#details-format
+*
+* Sometimes the Orientation field is present multiple times in the image EXIF, such as
 Orientation=1
 Orientation=1
- * This results in JSON of the form
+* This results in JSON of the form
 { orientation: "1
 1" }
- * (that line break between 1 and 1 is the problem)
- *
- * This causes the JSON parser to fail because you can't just stick a line break in the middle
- * of a string without escaping it.
- *
- * To solve this problem, request the orientation value separately from any JSON processing, and
- * just pass it straight to parseInt, which handles the line breaks gracefully and returns the
- * first number it sees. Once that's done, combine the parsed orientation value with the other
- * JSON metadata.
- */
+* (that line break between 1 and 1 is the problem)
+*
+* This causes the JSON parser to fail because you can't just stick a line break in the middle
+* of a string without escaping it.
+*
+* To solve this problem, request the orientation value separately from any JSON processing, and
+* just pass it straight to parseInt, which handles the line breaks gracefully and returns the
+* first number it sees. Once that's done, combine the parsed orientation value with the other
+* JSON metadata.
+*/
 function getImageInfo (originPath) {
   const image = gm(originPath)
   return Promise.all([
@@ -84,8 +82,8 @@ function isJpeg (imageInfo) {
 }
 
 /**
- * @see EXIF orientation codes: http://sylvana.net/jpegcrop/exif_orientation.html
- */
+* @see EXIF orientation codes: http://sylvana.net/jpegcrop/exif_orientation.html
+*/
 function isStandardOrientation (imageInfo) {
   return !(imageInfo.orientation > 1) // standard := TopRight (1) or undefined
 }

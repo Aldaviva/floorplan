@@ -2,49 +2,48 @@
 <html class="floorplan {{stdContext.officeID}}">
 
 <head>
-	<meta charset="utf-8" />
-	<title>{{stdContext.companyName}} {{stdContext.officeName}}</title>
-	<base href="{{stdContext.baseURL}}">
+    <meta charset="utf-8" />
+    <title>{{stdContext.companyName}} {{stdContext.officeName}}</title>
+    <base href="{{stdContext.baseURL}}">
     <script>
-		// Attempt to make "this" our global
+        // Attempt to make "this" our global
         var global = this
         // Attempt to get the baseURL for JSON loading
         global.baseURL = '{{stdContext.baseURL}}'
     </script>
-	<meta name="viewport" content="width=90%, user-scalable=no" />
-	<link href="styles/jquery-ui.all.css" rel="stylesheet">
-	<link href="styles/floorplan.css" rel="stylesheet">
-	<script src="scripts/floorplan.min.js"></script>
+    <meta name="viewport" content="width=90%, user-scalable=no" />
+    <link href="{{stdContext.baseURL}}:{{stdContext.wwwPort}}/floorplan.css" rel="stylesheet">
+    <script src="{{stdContext.baseURL}}:{{stdContext.wwwPort}}/floorplan.js"></script>
 </head>
 
 <body>
-	<div class="vignette"></div>
-	<div id="listPane"></div>
-	<div class="map">
-		{{{svg}}}
-	</div>
-	<div id="detailsPane" class="{{stdContext.officeID}}"></div>
-	<!-- Piwik
+    <div class="vignette"></div>
+    <div id="listPane"></div>
+    <div class="map">
+        {{{svg}}}
+    </div>
+    <div id="detailsPane" class="{{stdContext.officeID}}"></div>
+    <!-- Piwik
 
-	<script type="text/javascript">
-		var _paq = _paq || [];
-		_paq.push(['trackPageView']);
-		_paq.push(['enableLinkTracking']);
-		(function () {
-			var u = "//skadi.bluejeansnet.com/piwik/";
-			_paq.push(['setTrackerUrl', u + 'piwik.php']);
-			_paq.push(['setSiteId', 1]);
-			var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-			g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
-		})();
-	</script>
-	<noscript>
-		<p>
-			<img src="//skadi.bluejeansnet.com/piwik/piwik.php?idsite=1" style="border:0;" alt="" />
-		</p>
-	</noscript>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "//skadi.bluejeansnet.com/piwik/";
+            _paq.push(['setTrackerUrl', u + 'piwik.php']);
+            _paq.push(['setSiteId', 1]);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'piwik.js'; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
+    <noscript>
+        <p>
+            <img src="//skadi.bluejeansnet.com/piwik/piwik.php?idsite=1" style="border:0;" alt="" />
+        </p>
+    </noscript>
 
-	End Piwik Code -->
+    End Piwik Code -->
 </body>
 
 </html>

@@ -1,6 +1,5 @@
 /*
-  === lib/app.js calls this file ===
-  Reimplimented the old "routes" folder as Feathers "services"
+Reimplimented the old "routes" folder as Feathers "services"
 */
 
 // Load other app modules
@@ -17,6 +16,7 @@ const url = require('url')
 // Standard context of data to pump into browser
 const stdContext = {
   baseURL: global.baseURL,
+  wwwPort: global.wwwPort,
   companyName: global.companyName,
   depTeams: global.depTeams,
   offices: global.offices,
@@ -42,7 +42,7 @@ function renderFloorplan (req, res) {
   const index = global.offices.findIndex(offId => req.params.office === offId)
   const office = global.offices[index] || global.offices[0] // default to 1st office
   global.logger.log('debug', `Rendering floorplan for ${office.officeID}`)
-  res.render('floorplan', {stdContext, svg: helpers.getSVG(office.officeID)})
+  res.render('floorplan', { stdContext, svg: helpers.getSVG(office.officeID) })
 }
 
 // Photo upload
@@ -60,12 +60,14 @@ function uploadPhoto (req, res, next) {
         pathname: (`${global.baseURL.trim}/people:${personId}/photo`).replace('//', '/')
       })
 
-      const payload = { files: [{
-        name: basename,
-        url: imageUrl,
-        thumbnailUrl: imageUrl,
-        size: imgInfo.size
-      }]}
+      const payload = {
+        files: [{
+          name: basename,
+          url: imageUrl,
+          thumbnailUrl: imageUrl,
+          size: imgInfo.size
+        }]
+      }
 
       /**
     * Browsers that upload using iframes require text/html or text/plain,
@@ -103,4 +105,4 @@ const people = {
   setup (app, path) {}
 }
 
-module.exports = {exportNodeData, renderAdmin, renderFloorplan, uploadPhoto, people}
+module.exports = { exportNodeData, renderAdmin, renderFloorplan, uploadPhoto, people }

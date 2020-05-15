@@ -54,13 +54,11 @@ npm install
     * **`dirPublic`** is the directory you keep styles and front-end files in. It defaults to `"/opt/floorplan/public"`.
     * **`dirRoot`** is the directory you're going to be running Floorplan in. It defaults to `"/opt/floorplan"`.
     * **`logFile`** is the location of the logfile for the server. It defaults to `"/var/log/floorplan.log"`.
-    * **`logLevel`** is set per https://github.com/winstonjs/winston/tree/2.4.0#logging-levels
+    * **`logLevel`** is set per https://github.com/winstonjs/winston/tree/3.0.0#logging-levels
     * **`wwwPort`** is the TCP port you wish to run the NodeJS instance on. It defaults to `"3001"`.
     * **`supportContact`** is an email/phone number of someone you'd like to respond to problems with the application / map content.
     * **`depTeams`** is an array of department / team `ID`s, with additional `name` parameters.
     * **`offices`** is an array of `officeID` locations, with additional parameters for `name`, `address`, `phone`, `fax`, and `email`.
-
-1. If you changed any directories, please update **`gulpfile.js`** with any path changes necessary. [`gulp`](https://gulpjs.com/) handles compilation of LESS and JS files, whenever Node is started fresh.
 
 1. Set permissions so the server can write to the directories where CSS stylesheets and people's photos are saved. Adjust this per your configuration needs.
 

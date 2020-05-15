@@ -1,8 +1,7 @@
 // Starting directory should match root directory in config file
-process.chdir(__dirname)
 
 require('nodemon')({
-  script: 'lib/app.js',
+  script: 'src/server/app.js',
   ext: 'js json hbs svg css',
   on: [
     'start', () => { console.log('Started Floorplan') },

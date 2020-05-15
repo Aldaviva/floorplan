@@ -52,7 +52,7 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
   if (err) global.logger.log('error', err)
   db.collection('people', function (err, coll) {
     if (err) global.logger.log('error', err)
-    coll.find({ office: 'blr', linkedInId: { $exists: true }}, function (err, cursor) {
+    coll.find({ office: 'blr', linkedInId: { $exists: true } }, function (err, cursor) {
       if (err) global.logger.log('error', err)
       cursor.each(function (err, person) {
         if (err) global.logger.log('error', err)

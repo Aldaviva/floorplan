@@ -6,9 +6,10 @@ config/config.json
 config/default.json
 data/maps/custom
 data/photos/*.jpg
-public/images/photos/*.jpg
-public/scripts
-public/styles
 tools/*.json
 tools/buildonwrite.json
 tools/node_modules
+**/dist/*
+.cache
+package-lock.json
+public/*

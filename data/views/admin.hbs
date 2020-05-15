@@ -6,21 +6,21 @@
     <title>Admin – {{stdContext.companyName}} Floorplan</title>
     <base href="{{stdContext.baseURL}}">
     <script>
-		// Attempt to make "this" our global
+        // Attempt to make "this" our global
         var global = this
         // Attempt to get the baseURL for JSON loading
         global.baseURL = '{{stdContext.baseURL}}'
     </script>
-    <link href="styles/jquery-ui.all.css" rel="stylesheet">
-    <link href="styles/admin.css" rel="stylesheet">
-    <script src="scripts/admin.min.js"></script>
+    <link href="{{stdContext.baseURL}}:{{stdContext.wwwPort}}/admin.css" rel="stylesheet">
+    <script src="{{stdContext.baseURL}}:{{stdContext.wwwPort}}/admin.js"></script>
 </head>
 
 <body>
     <div class="vignette"></div>
 
     <div id="topbar">
-        <a href="{{stdContext.baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor plan</a>
+        <a href="{{stdContext.baseURL}}" class="goToFloorplan" target="_blank" title="Go to the Floorplan">floor
+            plan</a>
     </div>
 
     <div id="listPane"></div>
@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div class="fullname_sizer">
-                <input name="fullname" type="text" placeholder="full name" required data-validation-failed-message="The person's full name is required."
-                    autocomplete="off" />
+                <input name="fullname" type="text" placeholder="full name" required
+                    data-validation-failed-message="The person's full name is required." autocomplete="off" />
             </div>
             <div class="title_sizer">
                 <input name="title" type="text" placeholder="title" />
@@ -55,28 +55,30 @@
             <h1>contact</h1>
             <label>
                 <span>Email</span>
-                <input name="email" type="email" placeholder="" data-validation-failed-message="Invalid email address." autocomplete="off"
-                />
+                <input name="email" type="email" placeholder="" data-validation-failed-message="Invalid email address."
+                    autocomplete="off" />
             </label>
 
             <label>
                 <span>LinkedIn</span>
                 <a href="#" class="view_profile helper_link" target="linkedin">view profile</a>
                 <a href="#" class="search helper_link" target="linkedin">search for profile</a>
-                <input name="linkedInId" type="text" placeholder="paste profile URL" pattern=".*linkedin\.com/(?:profile/view\?id=|in/)[A-Za-z0-9]+.*"
-                    data-validation-failed-message="LinkedIn URL should look like linkedin.com/profile/view?id=123 or linkedin.com/in/alice"
-                />
+                <input name="linkedInId" type="text" placeholder="paste profile URL"
+                    pattern=".*linkedin\.com/(?:profile/view\?id=|in/)[A-Za-z0-9]+.*"
+                    data-validation-failed-message="LinkedIn URL should look like linkedin.com/profile/view?id=123 or linkedin.com/in/alice" />
             </label>
 
             <label>
                 <span>Mobile phone</span>
-                <input name="mobilePhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
+                <input name="mobilePhone" type="tel" placeholder="" title="example: 408-555-5555"
+                    pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
                     data-validation-failed-message="Mobile phone must be of the form 123-456-7890 or +91 1234567890." />
             </label>
 
             <label>
                 <span>Work phone</span>
-                <input name="workPhone" type="tel" placeholder="" title="example: 408-555-5555" pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
+                <input name="workPhone" type="tel" placeholder="" title="example: 408-555-5555"
+                    pattern="(\d{3}-\d{3}-\d{4})|(\+\d{1,2} [\d ]+\d)"
                     data-validation-failed-message="Work phone must be of the form 123-456-7890 or +91 1234567890." />
             </label>
         </section>

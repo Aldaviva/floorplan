@@ -17,12 +17,12 @@ global.loglevel = config.get('logLevel') || 'info'
 global.wwwPort = config.get('wwwPort') || '3001'
 global.supportContact = config.get('supportContact') || 'admin@example.org'
 global.depTeams = config.get('depTeams') || [
-  {'ID': 'biz', 'name': 'Business', 'contact1': '', 'contact2': ''},
-  {'ID': 'it', 'name': 'Information Technology', 'contact1': '', 'contact2': ''}
+  { ID: 'biz', name: 'Business', contact1: '', contact2: '' },
+  { ID: 'it', name: 'Information Technology', contact1: '', contact2: '' }
 ]
 global.offices = config.get('offices') || [
-  {'officeID': 'mv', 'name': 'Mountain View', 'address': '', 'phone': '', 'fax': '', 'email': ''},
-  {'officeID': 'remote', 'name': 'remote workers', 'address': '', 'phone': '', 'fax': '', 'email': ''}
+  { officeID: 'mv', name: 'Mountain View', address: '', phone: '', fax: '', email: '' },
+  { officeID: 'remote', name: 'remote workers', address: '', phone: '', fax: '', email: '' }
 ]
 
 // Create additional variables

@@ -1,11 +1,10 @@
 /*
-  === lib/services.js calls this file ===
-  "personRepository" was merged into here, as part of new ORM usage.
+"personRepository" was merged into here, as part of new ORM usage.
 */
 
-const _ = require('../shared/underscore-min')
+const _ = require('lodash')
 const caminte = require('caminte')
-const schema = new caminte.Schema('mongodb', {host: global.dbHost, port: global.dbPort, database: global.dbName})
+const schema = new caminte.Schema('mongodb', { host: global.dbHost, port: global.dbPort, database: global.dbName })
 
 // People DB class
 schema.define('People', {
@@ -41,7 +40,7 @@ function findPeople () {
 // Find someone by OID (MongoDB ID)
 function findByOID (OID) {
   try {
-    return people.find({where: { _id: OID }})
+    return people.find({ where: { _id: OID } })
   } catch (ex) {
     global.logger.log('error', 'DATABASE: cannot find any users!')
   }
@@ -50,7 +49,7 @@ function findByOID (OID) {
 // Find one person
 function findPerson (fullname) {
   try {
-    return people.find({where: { fullname }})
+    return people.find({ where: { fullname } })
   } catch (ex) {
     global.logger.log('warning', ('DATABASE: cannot find %s', fullname))
   }

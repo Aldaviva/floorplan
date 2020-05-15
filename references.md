@@ -1,7 +1,7 @@
 Non-exhaustive list of references for refactoring Floorplan
 =========
 
-*Michael Adams, unquietwiki@gmail.com; Winter/Spring 2018*
+*Michael Adams, unquietwiki.com; Winter/Spring 2018 (Updated May 2020)*
 
 ### Books & References
 
@@ -52,13 +52,11 @@ Non-exhaustive list of references for refactoring Floorplan
 
 ### Other Dependencies
 
+- https://standardjs.com/ (JavaScript Standard Style)
 - http://backbonejs.org/ (front-end events)
-- http://browserify.org/ (front-end packaging)
-- http://jshint.com/ (used to catch stuff StandardJS doesn't address)
+- https://parceljs.org/ (front-end packaging)
 - http://svgjs.com/ (not really used ATM)
 - http://www.camintejs.com/ (database ORM)
-- https://babeljs.io/ (converts ES2015+ code to ES5 / browser-friendly)
-- https://documentup.com/kriskowal/q/ (pre-ES2015 Promises)
 - https://github.com/ajacksified/Mediator.js (async events)
 - https://github.com/benmosher/eslint-plugin-import (linter)
 - https://github.com/blueimp (multiple deps)
@@ -66,14 +64,7 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://github.com/lorenwest/node-config/ (NodeJS configuration)
 - https://github.com/marcuswestin/store.js/ (was used before)
 - https://github.com/moxystudio/js-proper-url-join (supposed to fix URLs)
-- https://github.com/ryanzim/eslint-config-problems (linter)
 - https://github.com/senchalabs/connect (NodeJS middleware)
 - https://github.com/sindresorhus/got (HTTP request)
-- https://github.com/standard/eslint-config-standard (linter)
-- https://github.com/winstonjs/winston/tree/2.4.0 (NodeJS logger)
-- https://github.com/xjamundx/eslint-plugin-promise (linter)
-- https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore (used to reduce use of said libraries)
-- https://github.com/yuzujs/setImmediate (needed by got)
-- https://gulpjs.com/ (build process)
+- https://github.com/winstonjs/winston/ (NodeJS logger)
 - https://jquery.com/ & https://jqueryui.com/ (front-end visuals)
-- https://lodash.com/ (used by several libraries, and Floorplan)

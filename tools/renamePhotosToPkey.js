@@ -8,7 +8,7 @@ mongo.MongoClient.connect('mongodb://localhost:27017/floorplan', function (err, 
 
   db.collection('people', function (err, people) {
     if (err) global.logger.log('error', err)
-    people.find({}, { fields: { fullname: 1 }}, function (err, cursor) {
+    people.find({}, { fields: { fullname: 1 } }, function (err, cursor) {
       if (err) global.logger.log('error', err)
       cursor.each(function (err, person) {
         if (err) {

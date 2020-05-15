@@ -1,12 +1,18 @@
-import jQuery from 'jquery'
-import { Mediator } from '../../../shared/mediator.min'
-import urlJoin from 'proper-url-join'
 import { People, Person } from './BackboneModels'
 import { Editor, ListPane } from './BackboneViews'
 import './DataClasses'
+import '../less/exports/admin.less'
+
+// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
+import { $, jQuery } from 'jquery'
+window.$ = $
+window.jQuery = jQuery
+
+const urlJoin = require('proper-url-join')
+const MediatorJS = require('mediator-js')
 
 // Instantation
-const mediator = new Mediator()
+const mediator = new MediatorJS()
 const collection = new People()
 const listPane = new ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
 const editor = new Editor({ document, window, collection, mediator, jQ$: jQuery('#editor').get(0) })
@@ -15,7 +21,7 @@ const editor = new Editor({ document, window, collection, mediator, jQ$: jQuery(
 listPane.render()
 editor.render()
 
-// listPane.jQuery('.people')
+listPane.jQuery('.people')
   .prepend(jQuery('<li>', { class: 'person add active' })
     .append(jQuery('<span>', { class: 'icon', text: '+' }))
     .append(jQuery('<div>', { class: 'name', text: 'add person' })))
@@ -29,10 +35,10 @@ mediator.subscribe('activatePersonConfirmed', (person, opts) => {
 
 window.addEventListener('popstate', (event) => {
   /*
-     * Chrome fires popstate on fresh page load as well as intra-page navigation,
-     * so we ignore popstate if the state is empty.
-     * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
-     */
+  * Chrome fires popstate on fresh page load as well as intra-page navigation,
+  * so we ignore popstate if the state is empty.
+  * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
+  */
   if (event.state) { window.mediator.publish('activatePerson', collection.get(event.state.personId), { skipHistory: true }) }
 }, false)
 

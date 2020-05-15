@@ -1,9 +1,8 @@
 /*
-  === lib/app.js calls this file ===
-  Helpers for HandlebarsJS, and other functions
+Helpers for HandlebarsJS, and other functions
 */
 
-const _ = require('../shared/underscore-min')
+const _ = require('lodash')
 const fs = require('fs')
 const path = require('path')
 
@@ -51,4 +50,4 @@ function svgAdminMaps () {
   return _.flatten(SVGContent).toString()
 }
 
-module.exports = {officeInputLabels, depTeamInputLabels, getSVG, svgAdminMaps}
+module.exports = { officeInputLabels, depTeamInputLabels, getSVG, svgAdminMaps }

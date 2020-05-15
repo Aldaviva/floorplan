@@ -13,18 +13,24 @@ _(people)
   .forEach(function (count, areaCode) {
     var resBodyRaw = ''
 
-    http.get('http://www.allareacodes.com/api/1.0/api.json?tracking_email=ben@bluejeans.com&tracking_url=http://bluejeans.com&npa=' + areaCode, function (res) {
-      res.on('data', function (chunk) {
-        resBodyRaw += chunk
-      })
+    http.get(
+      'http://www.allareacodes.com/api/1.0/api.json?tracking_email=ben@bluejeans.com&tracking_url=http://bluejeans.com&npa=' +
+        areaCode,
+      function (res) {
+        res.on('data', function (chunk) {
+          resBodyRaw += chunk
+        })
 
-      res.on('end', function () {
-        var resBody = JSON.parse(resBodyRaw)
-        if (resBody.status === 'success') {
-          console.log([areaCode, count, resBody.area_codes[0].state].join(','))
-        } else {
-          console.log(resBodyRaw)
-        }
-      })
-    })
+        res.on('end', function () {
+          var resBody = JSON.parse(resBodyRaw)
+          if (resBody.status === 'success') {
+            console.log(
+              [areaCode, count, resBody.area_codes[0].state].join(',')
+            )
+          } else {
+            console.log(resBodyRaw)
+          }
+        })
+      }
+    )
   })

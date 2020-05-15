@@ -1,17 +1,20 @@
-// Primary dependencies
-import jQuery from 'jquery'
-import urlJoin from 'proper-url-join'
-import { Mediator } from '../../../shared/mediator.min'
-
-// Other dependencies
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
 import { People, Person, Endpoints } from './BackboneModels'
 import './DataClasses'
+import '../less/exports/floorplan.less'
+
+// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
+import { $, jQuery } from 'jquery'
+window.$ = $
+window.jQuery = jQuery
+
+const urlJoin = require('proper-url-join')
+const MediatorJS = require('mediator-js')
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
-const mediator = new Mediator()
+const mediator = new MediatorJS()
 const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints({ window })
@@ -70,10 +73,10 @@ function initDeepLinking () {
 
   window.addEventListener('popstate', (event) => {
     /*
-       * Chrome fires popstate on fresh page load as well as intra-page navigation,
-       * so we ignore popstate if the state is empty.
-       * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
-       */
+    * Chrome fires popstate on fresh page load as well as intra-page navigation,
+    * so we ignore popstate if the state is empty.
+    * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
+    */
     if (event.state) {
       const person = collection.get(event.state.personId)
       mediator.publish('activatePerson', person, { skipHistory: true })
@@ -107,9 +110,9 @@ function initEndpointStatusPoll () {
   /*
   function pollEndpointStatus () {
     data.endpoints.each(function(endpoint){
-    endpoint.fetchStatus().done(function(status){
-       endpoint.trigger('status', endpoint, status);
-     });
+      endpoint.fetchStatus().done(function(status){
+        endpoint.trigger('status', endpoint, status);
+      });
     });
     endpoints.fetchStatuses()
   }
