@@ -3,6 +3,8 @@ Non-exhaustive list of references for refactoring Floorplan
 
 *Michael Adams, unquietwiki.com; Winter/Spring 2018 (Updated May 2020)*
 
+## Materials
+
 ### Books & References
 
 - "Learning NodeJS Development" by Andrew Mead; 2018 edition
@@ -68,3 +70,41 @@ Non-exhaustive list of references for refactoring Floorplan
 - https://github.com/sindresorhus/got (HTTP request)
 - https://github.com/winstonjs/winston/ (NodeJS logger)
 - https://jquery.com/ & https://jqueryui.com/ (front-end visuals)
+
+## Database
+
+### Database format from Ben Hutchinson
+
+From May 2018...
+
+"desk is a non-negative integer (it's the index into the SEATS subarray found at the top of each SVG file in views/maps)
+tags is an array of strings which indicates which departments the person belongs to (see enumeration of possible values in TAG_NAMES in public/scripts/ListPane.js)"
+
+{
+   "_id":ObjectId("5201db41f5f4be9ae57e37a9"),
+   "fullname":"Ben Hutchison",
+   "desk":71,
+   "office":"mv3",
+   "email":"ben",
+   "title":"Senior Software Engineer",
+   "tags":[
+      "eng"
+   ],
+   "linkedInId":"in/aldaviva",
+   "mobilePhone":"REDACTED",
+   "workPhone":"REDACTED"
+}
+
+### Proposed Caminite Schema (needs work)
+
+const people = schema.define('People', {
+  fullname: { type: schema.String, limit: 255 },
+  desk: { type: schema.String, limit: 255 },
+  office: { type: schema.String, limit: 255 },
+  email: { type: schema.String, limit: 255 },
+  title: { type: schema.String, limit: 255 },
+  tags: { type: schema.String, limit: 255 },
+  linkedInId: { type: schema.String, limit: 255 },
+  mobilePhone: { type: schema.String, limit: 255 },
+  workPhone: { type: schema.String, limit: 255 }
+})

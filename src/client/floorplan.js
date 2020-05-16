@@ -1,20 +1,22 @@
+import '../less/exports/floorplan.less'
 import { DetailsPane, ListPane, BVMap } from './BackboneViews'
 import { People, Person, Endpoints } from './BackboneModels'
+import urlJoin from 'proper-url-join'
 import './DataClasses'
-import '../less/exports/floorplan.less'
 
-// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
-import { $, jQuery } from 'jquery'
-window.$ = $
+// jQuery
+const jQuery = require('jquery')
 window.jQuery = jQuery
+window.$ = jQuery.jQ$
+window.jQ$ = jQuery.jQ$
 
-const urlJoin = require('proper-url-join')
-const MediatorJS = require('mediator-js')
+// Mediator
+const Mediator = require('mediator-js').Mediator
+const mediator = new Mediator()
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
-const mediator = new MediatorJS()
 const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new Endpoints({ window })

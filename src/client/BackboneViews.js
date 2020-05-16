@@ -1,14 +1,14 @@
 import { bind, intersection, isBoolean, zipObject, isNumber, without, isElement } from 'lodash-es'
-import { Backbone } from 'backbone_es6'
+import Backbone from 'backbone_es6'
+import urlJoin from 'proper-url-join'
 import './BackboneModels'
 import './DataClasses'
 
-// https://stackoverflow.com/questions/34338411/how-to-import-jquery-using-es6-syntax
-import { $, jQuery } from 'jquery'
-window.$ = $
+// jQuery
+const jQuery = require('jquery')
 window.jQuery = jQuery
-
-const urlJoin = require('proper-url-join')
+window.$ = jQuery.jQ$
+window.jQ$ = jQuery.jQ$
 
 // !!! Before version 3.0, this was mostly the other JS files, not in "data.js" or "lib" !!!
 

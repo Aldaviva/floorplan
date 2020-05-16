@@ -14,6 +14,7 @@
     "Halil Karakose <> (https://github.com/hkarakose)"
   ],
   "dependencies": {
+    "@babel/polyfill": "^7.8.7",
     "@feathersjs/express": "~4.5.4",
     "@feathersjs/feathers": "~4.5.3",
     "backbone_es6": "~1.0.1",
@@ -35,7 +36,7 @@
     "jquery-ui": "~1.12.1",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
-    "mediator-js": "~0.11.0",
+    "mediator-js": "^0.11.0",
     "mongodb": "~3.5.7",
     "node-fetch": "^2.6.0",
     "nodemon": "~2.0.4",
@@ -43,20 +44,33 @@
     "proper-url-join": "~2.1.1",
     "store": "~2.0.12",
     "svg.js": "~2.7.1",
+    "underscore": "^1.10.2",
     "verror": "~1.10.0",
     "winston": "~3.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "@types/jquery": "~3.3.38",
     "babel-cli": "~6.26.0",
     "cssnano": "^4.1.10",
     "less": "~3.11.1",
+    "snowpack": "^2.0.0-beta.21",
     "standard": "~14.3.4"
   },
   "scripts": {
     "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
-    "build": "parcel build src/client/admin.js src/client/floorplan.js --out-dir public --target node",
+    "build": "parcel build src/client/admin.js src/client/floorplan.js --out-dir public --target browser",
     "prestart": "npm run build && copyfiles -f src/icons/favicon.ico public",
     "start": "node src/index.js"
-  }
+  },
+  "engines": {
+    "node": ">= 12.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "browserslist": [
+    "> 1%, not dead"
+  ],
+  "main": "./src/server/index.js"
 }

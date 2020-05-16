@@ -70,7 +70,7 @@ npm install
 
 ## Run
 
-[`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes, and auto-restarts Node when changes are detected. If any gulp-based recompilation is necessary, you'll need to fully stop & restart Node.
+[`nodemon`](https://nodemon.io/) is used to check for changes in certain filetypes, and auto-restarts Node when changes are detected. If any of the JS files are changed, you'll need to stop and restart Parcel / Node (at least until [the Parcel API](https://parceljs.org/api.html) middleware is made use-of).
 
     npm start
 
