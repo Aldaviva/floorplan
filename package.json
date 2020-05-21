@@ -55,9 +55,15 @@
     "@types/jquery": "~3.3.38",
     "babel-cli": "~6.26.0",
     "cssnano": "^4.1.10",
+    "eslint": "^7.0.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "less": "~3.11.1",
-    "snowpack": "^2.0.0-beta.21",
-    "standard": "~14.3.4"
+    "parcel": "^2.0.0-alpha.3.2",
+    "standard": "^14.3.4"
   },
   "scripts": {
     "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
