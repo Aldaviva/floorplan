@@ -49,7 +49,6 @@
     "@babel/preset-env": "^7.9.6",
     "@types/jquery": "~3.3.38",
     "babel-cli": "~6.26.0",
-    "cssnano": "^4.1.10",
     "eslint": "^7.0.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
@@ -73,10 +72,26 @@
     "url": "https://github.com/Aldaviva/floorplan.git"
   },
   "scripts": {
-    "build": "parcel build src/client/admin.js src/client/floorplan.js --out-dir public --target browser",
+    "build": "parcel build",
     "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
     "prestart": "npm run build && copyfiles -f src/icons/favicon.ico public",
     "start": "node src/index.js"
+  },
+  "targets": {
+      "floorplan": "src/client/floorplan.js",
+      "admin": "src/client/admin.js",
+      "server": "src/index.js",
+      "targets": {
+        "floorplan": {
+          "context": "browser"
+        },
+        "admin": {
+          "context": "browser"
+        },
+        "server": {
+          "context": "node"
+        }
+      }
   },
   "version": "3.0.0"
 }

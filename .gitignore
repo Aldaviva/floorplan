@@ -13,3 +13,4 @@ tools/node_modules
 .cache
 package-lock.json
 public/*
+.parcel-cache/*

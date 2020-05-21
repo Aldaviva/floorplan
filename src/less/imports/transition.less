@@ -10,11 +10,13 @@
 
 .transition() {
     @dragons: `(function(argv) {
-        return argv.slice(1, -1).split(', ').reduce(function(prev, curr, i) {
-            return prev + (i%2 ? ' ': ', ') + curr;
+            return argv.slice(1, -1).split(', ').reduce(function(prev, curr, i) {
+                    return prev + (i%2 ? ' ': ', ') + curr;
+                }
+
+            );
         }
-        );
-    }
+
     )("@{arguments}")`;
     -o-transition: @dragons;
     -moz-transition: @dragons;
