@@ -1,6 +1,6 @@
-var _ = require('lodash')
+const _ = require('lodash')
 // var fs = require('fs')
-var people = require('../people')
+const people = require('../people')
 
 console.log('People with no seat:')
 

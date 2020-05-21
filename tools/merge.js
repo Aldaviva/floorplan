@@ -1,20 +1,20 @@
-var _ = require('lodash')
+const _ = require('lodash')
 
-var mergeKey = process.argv[2]
+// const mergeKey = process.argv[2]
 
-var filenames = process.argv.slice(2)
-var files = filenames.map(function (filename) {
+const filenames = process.argv.slice(2)
+const files = filenames.map(function (filename) {
   return require('./' + filename)
 })
 
-var inputDocs = []
+let inputDocs = []
 _.each(files, function (docs) {
   inputDocs = inputDocs.concat(docs)
 })
 
-var grouped = _.groupBy(inputDocs, 'fullname')
+const grouped = _.groupBy(inputDocs, 'fullname')
 
-var merged = _.map(grouped, function (groupedPerson) {
+const merged = _.map(grouped, function (groupedPerson) {
   return _.reduce(groupedPerson, function (prev, curr) {
     return _.extend({}, prev, curr)
   }, {})

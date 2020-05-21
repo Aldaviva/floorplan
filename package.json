@@ -1,13 +1,8 @@
 {
-  "name": "floorplan",
-  "version": "3.0.0",
   "author": "Ben Hutchison <ben@bluejeans.com>",
-  "homepage": "https://github.com/Aldaviva/floorplan",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Aldaviva/floorplan.git"
-  },
+  "browserslist": [
+    "> 1%, not dead"
+  ],
   "bugs": "https://github.com/Aldaviva/floorplan/issues",
   "contributors": [
     "Michael Adams <unquietwiki@gmail.com> (https://github.com/unquietwiki)",
@@ -65,18 +60,23 @@
     "parcel": "^2.0.0-alpha.3.2",
     "standard": "^14.3.4"
   },
-  "scripts": {
-    "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
-    "build": "parcel build src/client/admin.js src/client/floorplan.js --out-dir public --target browser",
-    "prestart": "npm run build && copyfiles -f src/icons/favicon.ico public",
-    "start": "node src/index.js"
-  },
   "engines": {
     "node": ">= 12.0.0",
     "npm": ">= 6.0.0"
   },
-  "browserslist": [
-    "> 1%, not dead"
-  ],
-  "main": "./src/server/index.js"
+  "homepage": "https://github.com/Aldaviva/floorplan",
+  "license": "Apache-2.0",
+  "main": "./src/server/index.js",
+  "name": "floorplan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aldaviva/floorplan.git"
+  },
+  "scripts": {
+    "build": "parcel build src/client/admin.js src/client/floorplan.js --out-dir public --target browser",
+    "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
+    "prestart": "npm run build && copyfiles -f src/icons/favicon.ico public",
+    "start": "node src/index.js"
+  },
+  "version": "3.0.0"
 }

@@ -1,12 +1,12 @@
-var names = require('./names')
+const names = require('./names')
 
-var nameParts = []
+let nameParts = []
 
 names.forEach((name) => {
   nameParts = nameParts.concat(name.split(/\s+/g))
 })
 
-var longestName = nameParts.reduce(function (prev, curr) {
+const longestName = nameParts.reduce(function (prev, curr) {
   return (prev.length > curr.length) ? prev : curr
 }, '')
 

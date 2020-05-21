@@ -1,4 +1,4 @@
-var boxes = [
+const boxes = [
   '<rect x="235.598" y="161.071" width="22.32" height="22.32"/>',
   '<rect x="150.3" y="56.688" width="22.32" height="22.32"/>',
   '<rect x="150.3" y="83.688" width="22.32" height="22.32"/>',
@@ -115,15 +115,15 @@ var boxes = [
   '<rect x="263.981" y="211.076" width="22.32" height="22.32"/>'
 ]
 
-var currSeatNumber = 0
+let currSeatNumber = 0
 
-var pairs = []
+const pairs = []
 
 boxes.forEach((boxStr) => {
-  var x = parseFloat(boxStr.match(/x="([0-9\.]+)"/)[1])
-  var y = parseFloat(boxStr.match(/y="([0-9\.]+)"/)[1])
+  var x = parseFloat(boxStr.match(/x="([0-9.]+)"/)[1])
+  var y = parseFloat(boxStr.match(/y="([0-9.]+)"/)[1])
 
-  // pairs.push([x, y]);
+  pairs.push([x, y])
 
   var seatName = (currSeatNumber++).toString()
 

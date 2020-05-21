@@ -6,7 +6,7 @@ _(people)
   .map(function (person) {
     person.nickname = person.fullname.split(/\s/).map((name) => {
       var firstInitial = name.charAt(0).toLowerCase()
-      return (firstInitial == '(')
+      return (firstInitial === '(')
         ? ''
         : firstInitial
     }).join('')

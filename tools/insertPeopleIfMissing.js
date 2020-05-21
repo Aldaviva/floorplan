@@ -1,8 +1,7 @@
-// var fs = require('fs')
-var mongo = require('mongodb')
-
-var people = require('./blr')
-var peopleRemaining = people.length
+// const fs = require('fs')
+const mongo = require('mongodb')
+const people = require('./blr')
+let peopleRemaining = people.length
 
 global.logger.log('info', 'found ' + peopleRemaining + ' people to insert')
 

@@ -1,5 +1,5 @@
-var fs = require('fs')
-var mongo = require('mongodb')
+const fs = require('fs')
+const mongo = require('mongodb')
 
 process.chdir(__dirname)
 

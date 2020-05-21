@@ -1,5 +1,5 @@
-var people = require('../people')
-var _ = require('lodash')
+const people = require('../people')
+const _ = require('lodash')
 
 console.log('People whose work phone number is the same as their mobile phone number:')
 

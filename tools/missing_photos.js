@@ -1,7 +1,7 @@
-var people = require('../people')
-var _ = require('lodash')
-var fs = require('fs')
-var path = require('path')
+const people = require('../people')
+const _ = require('lodash')
+const fs = require('fs')
+const path = require('path')
 
 console.log('People with no photo:')
 

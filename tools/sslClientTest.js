@@ -1,4 +1,4 @@
-var https = require('https')
+const https = require('https')
 
 console.log('sending request...')
 
