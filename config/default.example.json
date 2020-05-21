@@ -4,40 +4,148 @@
   "dbHost": "localhost",
   "dbName": "floorplan",
   "dbPort": 27017,
+  "depTeams": [
+    {
+      "ID": "biz",
+      "name": "Business"
+    },
+    {
+      "ID": "des",
+      "name": "Design"
+    },
+    {
+      "ID": "eng",
+      "name": "Engineering"
+    },
+    {
+      "ID": "exe",
+      "name": "Executive"
+    },
+    {
+      "ID": "fin",
+      "name": "Finance"
+    },
+    {
+      "ID": "g&a",
+      "name": "G&A"
+    },
+    {
+      "ID": "hr",
+      "name": "HR"
+    },
+    {
+      "ID": "it",
+      "name": "IT"
+    },
+    {
+      "ID": "mkt",
+      "name": "Marketing"
+    },
+    {
+      "ID": "ops",
+      "name": "Ops"
+    },
+    {
+      "ID": "pm",
+      "name": "PM"
+    },
+    {
+      "ID": "qa",
+      "name": "QA"
+    },
+    {
+      "ID": "sale",
+      "name": "Sales"
+    },
+    {
+      "ID": "succ",
+      "name": "Success"
+    },
+    {
+      "ID": "supp",
+      "name": "Support"
+    }
+  ],
   "dirData": "/opt/floorplan/data",
   "dirMaps": "/opt/floorplan/data/maps/default",
   "dirPublic": "/opt/floorplan/public",
   "dirRoot": "/opt/floorplan",
   "logFile": "/var/log/floorplan.log",
   "logLevel": "info",
-  "wwwPort": 3001,
-  "supportContact": "admin@example.org",
-  "depTeams": [
-    {"ID":"biz", "name":"Business"},
-    {"ID":"des", "name":"Design"},
-    {"ID":"eng", "name":"Engineering"},
-    {"ID":"exe", "name":"Executive"},
-    {"ID":"fin", "name":"Finance"},
-    {"ID":"g&a", "name":"G&A"},
-    {"ID":"hr", "name":"HR"},
-    {"ID":"it", "name":"IT"},
-    {"ID":"mkt", "name":"Marketing"},
-    {"ID":"ops", "name":"Ops"},
-    {"ID":"pm", "name":"PM"},
-    {"ID":"qa", "name":"QA"},
-    {"ID":"sale", "name":"Sales"},
-    {"ID":"succ", "name":"Success"},
-    {"ID":"supp", "name":"Support"}
+  "offices": [
+    {
+      "address": "516 Clyde Avenue\nMountain View, CA 94043",
+      "email": "",
+      "fax": "",
+      "name": "Mountain View",
+      "officeID": "mv",
+      "phone": ""
+    },
+    {
+      "address": "516 Clyde Avenue\nMountain View, CA 94043",
+      "email": "",
+      "fax": "",
+      "name": "Mountain View 2",
+      "officeID": "mv2",
+      "phone": ""
+    },
+    {
+      "address": "520 Clyde Avenue\nMountain View, CA 94043",
+      "email": "",
+      "fax": "",
+      "name": "Mountain View 3",
+      "officeID": "mv3",
+      "phone": ""
+    },
+    {
+      "address": "625 2nd Street\nSuite 104\nSan Francisco, CA 94107",
+      "email": "",
+      "fax": "",
+      "name": "San Francisco",
+      "officeID": "sf",
+      "phone": ""
+    },
+    {
+      "address": "3333 Michelson Drive\nSuite 700\nIrvine, CA 92612",
+      "email": "",
+      "fax": "",
+      "name": "Orange County",
+      "officeID": "oc",
+      "phone": ""
+    },
+    {
+      "address": "8th Floor, Vector\nPrestige Tech Park\nOuter Ring Road\nMarathahalli\nBangalore, Karnataka\n560037",
+      "email": "",
+      "fax": "",
+      "name": "Bangalore",
+      "officeID": "blr",
+      "phone": ""
+    },
+    {
+      "address": "Capital House, 16th Floor\n25 Chapel Street\nLondon, NW1 5DH",
+      "email": "",
+      "fax": "",
+      "name": "London",
+      "officeID": "ln",
+      "phone": ""
+    },
+    {
+      "address": "Level 21, Tower 2\nDarling Park\n201 Sussex Street\nSydney, NSW 2000\nAustralia",
+      "email": "",
+      "fax": "",
+      "name": "Australia",
+      "officeID": "aus",
+      "phone": ""
+    },
+    {
+      "address": "",
+      "email": "",
+      "fax": "",
+      "name": "remote workers",
+      "officeID": "remote",
+      "phone": ""
+    }
   ],
-	"offices": [
-		{"officeID":"mv", "name": "Mountain View", "address": "516 Clyde Avenue\nMountain View, CA 94043", "phone": "", "fax": "", "email": ""},
-		{"officeID":"mv2", "name": "Mountain View 2", "address": "516 Clyde Avenue\nMountain View, CA 94043", "phone": "", "fax": "", "email": ""},
-		{"officeID":"mv3", "name": "Mountain View 3", "address": "520 Clyde Avenue\nMountain View, CA 94043", "phone": "", "fax": "", "email": ""},
-		{"officeID":"sf", "name": "San Francisco", "address": "625 2nd Street\nSuite 104\nSan Francisco, CA 94107", "phone": "", "fax": "", "email": ""},
-		{"officeID":"oc", "name": "Orange County", "address": "3333 Michelson Drive\nSuite 700\nIrvine, CA 92612", "phone": "", "fax": "", "email": ""},
-		{"officeID":"blr", "name": "Bangalore", "address": "8th Floor, Vector\nPrestige Tech Park\nOuter Ring Road\nMarathahalli\nBangalore, Karnataka\n560037", "phone": "", "fax": "", "email": ""},
-		{"officeID":"ln", "name": "London", "address": "Capital House, 16th Floor\n25 Chapel Street\nLondon, NW1 5DH", "phone": "", "fax": "", "email": ""},
-		{"officeID":"aus", "name": "Australia", "address": "Level 21, Tower 2\nDarling Park\n201 Sussex Street\nSydney, NSW 2000\nAustralia", "phone": "", "fax": "", "email": ""},
-		{"officeID":"remote", "name": "remote workers", "address": "", "phone": "", "fax": "", "email": ""}
-	]
+  "supportContact": "admin@example.org",
+  "wwwPort": 3001
 }
