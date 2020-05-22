@@ -1,6 +1,8 @@
 Floorplan
 =========
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1c0bf95e2fdc495da0f117f6f0b33302)](https://app.codacy.com/manual/unquietwiki/floorplan?utm_source=github.com&utm_medium=referral&utm_content=unquietwiki/floorplan&utm_campaign=Badge_Grade_Dashboard)
+
 Where do people sit in what offices? What's that person's name, whose face I remember but never really met? I've heard of this person, but I don't know their face. Where are the different teams grouped? What is A2's email address? Originally designed for use at [Blue Jeans](https://www.bluejeans.com/), but modified by others as well.
 
 ### Floorplan view
