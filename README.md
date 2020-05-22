@@ -132,7 +132,7 @@ this.SEATS.mv = {
 
 ## Work-in-Progress
 
-* Finish implementing Caminite schema from [references.md](references.md).
+* Implmement MongoDB ORM database scheme from [references.md](references.md).
 * Validate Aldaviva's SVG process, and see if also doable in LibreOffice / other SVG apps.
 * Verify use of Imagemagick vs Graphicsmagick.
 * Make it easier to add seats to the SVG files (maybe separate out into another Mongo table?).

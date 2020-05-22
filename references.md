@@ -1,5 +1,4 @@
-Non-exhaustive list of references for refactoring Floorplan
-=========
+# Non-exhaustive list of references for refactoring Floorplan
 
 *Michael Adams, unquietwiki.com; Winter/Spring 2018 (Updated May 2020)*
 
@@ -58,13 +57,13 @@ Non-exhaustive list of references for refactoring Floorplan
 - http://backbonejs.org/ (front-end events)
 - https://parceljs.org/ (front-end packaging)
 - http://svgjs.com/ (not really used ATM)
-- http://www.camintejs.com/ (database ORM)
 - https://github.com/ajacksified/Mediator.js (async events)
 - https://github.com/benmosher/eslint-plugin-import (linter)
 - https://github.com/blueimp (multiple deps)
 - https://github.com/DylanPiercey/join-url (url fixing)
 - https://github.com/lorenwest/node-config/ (NodeJS configuration)
 - https://github.com/marcuswestin/store.js/ (was used before)
+- https://mongoosejs.com/ (ORM for database; Caminate may be EOL)
 - https://github.com/moxystudio/js-proper-url-join (supposed to fix URLs)
 - https://github.com/senchalabs/connect (NodeJS middleware)
 - https://github.com/sindresorhus/got (HTTP request)
@@ -75,6 +74,7 @@ Non-exhaustive list of references for refactoring Floorplan
 
 ### Database format from Ben Hutchinson
 
+```text
 From May 2018...
 
 "desk is a non-negative integer (it's the index into the SEATS subarray found at the top of each SVG file in views/maps)
@@ -94,9 +94,11 @@ tags is an array of strings which indicates which departments the person belongs
    "mobilePhone":"REDACTED",
    "workPhone":"REDACTED"
 }
+```
 
-### Proposed Caminite Schema (needs work)
+### Proposed database ORM schema
 
+```javascript
 const people = schema.define('People', {
   fullname: { type: schema.String, limit: 255 },
   desk: { type: schema.String, limit: 255 },
@@ -108,3 +110,4 @@ const people = schema.define('People', {
   mobilePhone: { type: schema.String, limit: 255 },
   workPhone: { type: schema.String, limit: 255 }
 })
+```
