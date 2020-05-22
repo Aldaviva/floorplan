@@ -47,6 +47,9 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
+    "@swc/cli": "^0.1.24",
+    "@swc/core": "^1.1.47",
+    "@swc/register": "^0.1.7",
     "@types/jquery": "~3.3.38",
     "babel-cli": "~6.26.0",
     "eslint": "^7.0.0",
@@ -56,7 +59,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "less": "~3.11.1",
-    "parcel": "^2.0.0-alpha.3.2",
+    "parcel-bundler": "^1.12.4",
     "standard": "^14.3.4"
   },
   "engines": {
@@ -65,33 +68,17 @@
   },
   "homepage": "https://github.com/Aldaviva/floorplan",
   "license": "Apache-2.0",
-  "main": "./src/server/index.js",
   "name": "floorplan",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aldaviva/floorplan.git"
   },
   "scripts": {
-    "build": "parcel build",
+    "build": "parcel build --target browser -d ./public ./src/client/floorplan.js ./src/client/admin.js",
     "preinstall": "npm install -g standard caminte-cli parcel-bundler copyfiles",
     "prestart": "npm run build && copyfiles -f src/icons/favicon.ico public",
     "start": "node src/index.js"
   },
-  "targets": {
-      "floorplan": "src/client/floorplan.js",
-      "admin": "src/client/admin.js",
-      "server": "src/index.js",
-      "targets": {
-        "floorplan": {
-          "context": "browser"
-        },
-        "admin": {
-          "context": "browser"
-        },
-        "server": {
-          "context": "node"
-        }
-      }
-  },
+  "source": "./src/server/index.js",
   "version": "3.0.0"
 }

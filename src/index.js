@@ -1,5 +1,7 @@
 // Starting directory should match root directory in config file
 
+require('@swc/register')
+
 require('nodemon')({
   script: 'src/server/app.js',
   ext: 'js json hbs svg css',
