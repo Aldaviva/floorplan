@@ -1,23 +1,7 @@
+/* eslint no-undef: "off" */
+
+import './shared'
 import '../less/exports/admin.less'
-import { People, Person } from './BackboneModels'
-import { Editor, ListPane } from './BackboneViews'
-import urlJoin from 'proper-url-join'
-import './DataClasses'
-
-// jQuery
-const jQuery = require('jquery')
-window.jQuery = jQuery
-window.$ = jQuery.jQ$
-window.jQ$ = jQuery.jQ$
-
-// Mediator
-const Mediator = require('mediator-js').Mediator
-const mediator = new Mediator()
-
-// Instantation
-const collection = new People()
-const listPane = new ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
-const editor = new Editor({ document, window, collection, mediator, jQ$: jQuery('#editor').get(0) })
 
 // Do stuff
 listPane.render()

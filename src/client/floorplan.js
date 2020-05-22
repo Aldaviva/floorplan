@@ -1,27 +1,15 @@
+/* eslint no-undef: "off" */
+
+import './shared'
 import '../less/exports/floorplan.less'
-import { DetailsPane, ListPane, BVMap } from './BackboneViews'
-import { People, Person, Endpoints } from './BackboneModels'
-import urlJoin from 'proper-url-join'
-import './DataClasses'
-
-// jQuery
-const jQuery = require('jquery')
-window.jQuery = jQuery
-window.$ = jQuery.jQ$
-window.jQ$ = jQuery.jQ$
-
-// Mediator
-const Mediator = require('mediator-js').Mediator
-const mediator = new Mediator()
 
 // !!! Before version 3.0, this was "main.js" !!!
 
 // Instantation
-const collection = new People()
 collection.fetch({ reset: true, success: initDeepLinking })
-const endpoints = new Endpoints({ window })
+const endpoints = new this.Endpoints({ window })
 endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = new ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
+const listPane = new this.ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
 const detailsPane = new DetailsPane({ document, window, collection, jQel: jQuery('#detailsPane').get(0) })
 const map = new BVMap({ document, window, collection, mediator, jQel: jQuery('.map').get(0), office: window.floorplanParams.officeID })
 
