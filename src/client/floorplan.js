@@ -9,9 +9,27 @@ import '../less/exports/floorplan.less'
 collection.fetch({ reset: true, success: initDeepLinking })
 const endpoints = new this.Endpoints({ window })
 endpoints.fetch({ reset: true, success: initEndpointStatusPoll })
-const listPane = new this.ListPane({ document, window, collection, mediator, jQ$: jQuery('#listPane').get(0) })
-const detailsPane = new DetailsPane({ document, window, collection, jQel: jQuery('#detailsPane').get(0) })
-const map = new BVMap({ document, window, collection, mediator, jQel: jQuery('.map').get(0), office: window.floorplanParams.officeID })
+const listPane = new this.ListPane({
+  document,
+  window,
+  collection,
+  mediator,
+  jQ$: jQuery('#listPane').get(0)
+})
+const detailsPane = new DetailsPane({
+  document,
+  window,
+  collection,
+  jQel: jQuery('#detailsPane').get(0)
+})
+const map = new BVMap({
+  document,
+  window,
+  collection,
+  mediator,
+  jQel: jQuery('.map').get(0),
+  office: window.floorplanParams.officeID
+})
 
 // Do stuff
 listPane.render()
@@ -24,7 +42,10 @@ bindEvents()
 function bindEvents () {
   mediator.subscribe('activatePerson', (inPerson, opts) => {
     const person = new Person(inPerson)
-    if ((!person.get('office')) || (person.get('office') === window.floorplanParams.officeID)) {
+    if (
+      !person.get('office') ||
+      person.get('office') === window.floorplanParams.officeID
+    ) {
       mediator.publish('activatePersonConfirmed', person, opts)
     } else {
       window.location.replace(getDeepLink(person))
@@ -61,17 +82,7 @@ function initDeepLinking () {
     }
   })
 
-  window.addEventListener('popstate', (event) => {
-    /*
-    * Chrome fires popstate on fresh page load as well as intra-page navigation,
-    * so we ignore popstate if the state is empty.
-    * Drawback: load, go to person, hit back button results in staying on the person, not the empty form.
-    */
-    if (event.state) {
-      const person = collection.get(event.state.personId)
-      mediator.publish('activatePerson', person, { skipHistory: true })
-    }
-  }, false)
+  // popstate used to be here; was considered duplicate code
 
   const hashParts = window.location.hash.replace(/^#/, '').split('/')
   let personToActivate
@@ -92,7 +103,15 @@ function initDeepLinking () {
 }
 
 function getDeepLink (person) {
-  return urlJoin(window.location.protocol, '/', (person.get('office') || ''), '#', person.id, '/', person.get('fullname').replace(/\s/g, '_'))
+  return urlJoin(
+    window.location.protocol,
+    '/',
+    person.get('office') || '',
+    '#',
+    person.id,
+    '/',
+    person.get('fullname').replace(/\s/g, '_')
+  )
 }
 
 function initEndpointStatusPoll () {
